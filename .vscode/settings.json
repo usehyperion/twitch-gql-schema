@@ -1,0 +1,8 @@
+{
+	"[graphql]": {
+		"editor.tabSize": 2,
+		"editor.insertSpaces": true,
+		"prettier.useTabs": false,
+		"prettier.tabWidth": 2
+	}
+}
