@@ -19478,16 +19478,17 @@ interface DashboardActivityFeedActivity {
   Status of the corresponding alert.
   """
   alertStatus: DashboardActivityFeedActivityAlertStatus
+    @deprecated(reason: "ingest start has been removed from activity feed")
 
   """
   Unique identifier for this activity.
   """
-  id: ID!
+  id: ID! @deprecated(reason: "ingest start has been removed from activity feed")
 
   """
   When this activity occurred.
   """
-  timestamp: Time!
+  timestamp: Time! @deprecated(reason: "ingest start has been removed from activity feed")
 }
 
 """
