@@ -31621,6 +31621,16 @@ type ModEdge {
   node: User!
 }
 
+type ModeratedChannelConnection {
+  edges: [ModeratedChannelEdge!]
+  pageInfo: PageInfo!
+}
+
+type ModeratedChannelEdge {
+  cursor: Cursor!
+  node: User!
+}
+
 """
 ModerationAction represents the recorded actions a channel moderator takes on a channel.
 """
@@ -41256,6 +41266,8 @@ type Query {
   Get a chat message by its id.
   """
   message(id: ID!): Message
+
+  moderatedChannels(first: Int = 10, after: Cursor): ModeratedChannelConnection
 
   """
   Get a list of the most recent Mod View Newsfeed items.
