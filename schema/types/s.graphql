@@ -1004,7 +1004,7 @@ type SetChannelFeedEnabledPayload {
   user: User!
 }
 
-type SetChannelShieldModePayload {
+type SetChannelShieldModeStatusPayload {
   isActive: boolean!
   lastDisabledAt: Time
   lastDisabledBy: User
