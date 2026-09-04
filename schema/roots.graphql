@@ -1176,6 +1176,8 @@ type Mutation {
   """
   orderPanels(input: OrderPanelsInput!): OrderPanelsPayload
 
+  pinChatMessage(input: PinChatMessageInput!): PinChatMessagePayload
+
   """
   Presign and return a secure S3 URL to download a CSV report for a GAME or EXTENSION.
   The generated CSV report contains rows for every day after 2018-01-31.
@@ -1537,6 +1539,10 @@ type Mutation {
   setChannelNotificationSetting(
     input: SetChannelNotificationSettingInput!
   ): SetChannelNotificationSettingPayload
+
+  setChannelShieldModeStatus(
+    input: SetChannelShieldModeStatusInput!
+  ): SetChannelShieldModeStatusPayload
 
   """
   Set a channel's trailer.
@@ -1940,6 +1946,8 @@ type Mutation {
   Remove moderator status from a user in a channel.
   """
   unmodUser(input: UnmodUserInput!): UnmodUserPayload
+
+  unpinChatMessage(input: UnpinChatMessageInput!): UnpinChatMessagePayload
 
   """
   unsetHypeTrainConfig allows a user to unset the channel's custom hype train configurations.

@@ -348,6 +348,10 @@ type UnmodUserPayload {
   target: User
 }
 
+type UnpinChatMessagePayload {
+  unpinnedChatMessage: PinnedChatMessage
+}
+
 """
 UnsetHypeTrainConfigPayload is the response that contains the Unsetd config.
 """

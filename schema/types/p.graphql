@@ -812,6 +812,10 @@ type PhotoOEmbed implements OEmbed {
   width: Int!
 }
 
+type PinChatMessagePayload {
+  pinnedChatMessage: PinnedChatMessage!
+}
+
 type PinnedChatMessage {
   id: ID!
   startsAt: Time!

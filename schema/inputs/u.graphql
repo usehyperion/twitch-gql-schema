@@ -217,6 +217,11 @@ input UnmodUserInput {
   targetLogin: String
 }
 
+input UnpinChatMessageInput {
+  id: ID!
+  reason: UnpinChatMessageReason!
+}
+
 """
 UnsetHypeTrainConfigInput takes series of optional config settings and unsets the custom value for the default..
 """

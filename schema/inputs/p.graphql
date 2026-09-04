@@ -108,6 +108,13 @@ input PersonalSectionInput {
   sectionInputs: [PersonalSectionType!]!
 }
 
+input PinChatMessageInput {
+  channelID: ID!
+  messageID: ID!
+  durationSeconds: Int
+  type: PinChatMessageType!
+}
+
 """
 Optional parameters to pass in when fetching a playback access token.
 """

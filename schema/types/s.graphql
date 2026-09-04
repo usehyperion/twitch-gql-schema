@@ -1004,6 +1004,14 @@ type SetChannelFeedEnabledPayload {
   user: User!
 }
 
+type SetChannelShieldModePayload {
+  isActive: boolean!
+  lastDisabledAt: Time
+  lastDisabledBy: User
+  lastEnabledAt: Time
+  lastEnabledBy: User
+}
+
 type SetChannelNotificationSettingPayload {
   settingState: String!
 }

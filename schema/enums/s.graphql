@@ -850,6 +850,11 @@ enum SetUnbanRequestsSettingsErrorCode {
   INVALID_VALUE
 }
 
+enum ShieldModeStatus {
+  DEFAULT
+  SHIELD
+}
+
 """
 The platform from which the short video feed is requested.
 """

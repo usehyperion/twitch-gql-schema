@@ -805,6 +805,11 @@ input SetChannelNotificationSettingInput {
   settingState: String!
 }
 
+input SetChannelShieldModeStatusInput {
+  channelID: ID!
+  shieldModeStatus: ShieldModeStatus!
+}
+
 """
 Inputs to the setChannelTrailer mutation.
 """

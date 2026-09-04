@@ -621,6 +621,10 @@ enum PhaseState {
   UNKNOWN
 }
 
+enum PinChatMessageType {
+  MOD
+}
+
 """
 Stream platform type.
 """
@@ -1278,4 +1282,8 @@ enum PurchaseProfileState {
   CANCELLED
   INACTIVE
   MIGRATED
+}
+
+enum UnpinChatMessageReason {
+  UNPIN
 }
