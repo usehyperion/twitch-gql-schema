@@ -1,0 +1,812 @@
+input AcceptFriendRequestInput {
+  """
+  The authenticated user will accept the friend request sent by the user with an ID equal to targetID.
+  """
+  targetID: ID!
+}
+
+"""
+Input to the AcceptOrganiztaionInvite mutation.
+"""
+input AcceptOrganizationInviteInput {
+  """
+  First name to the user accepting the invite.
+  """
+  firstName: String!
+
+  """
+  Last name of the user accepting the invite.
+  """
+  lastName: String!
+
+  """
+  ID of the invite to accept.
+  """
+  organizationInviteID: ID!
+
+  """
+  Job title the user has in the inviting organization.
+  """
+  title: String!
+}
+
+"""
+AcceptProgramAgreementInput is the input required when accepting a program agreement.
+"""
+input AcceptProgramAgreementInput {
+  """
+  TargetUserID is the ID of the user whose program agreement will be accepted.
+  """
+  targetUserID: ID!
+
+  """
+  Agreement type being accepted for payout onboarding.
+  """
+  type: PayoutOnboardingCategory!
+
+  """
+  Version of agreement (e.g. "v1").
+  """
+  version: String!
+}
+
+"""
+Inputs to the acceptSquadStreamInvitation mutation.
+"""
+input AcceptSquadStreamInvitationInput {
+  """
+  ID of the invitation to be accepted.
+  """
+  invitationID: ID!
+}
+
+"""
+Acknowledge the results of a Prediction.
+"""
+input AcknowledgePredictionResultInput {
+  """
+  The Prediction ID.
+  """
+  id: ID!
+}
+
+"""
+AcknowledgeSubscriptionStateInput updates the state of the given subscription to aknowledged.
+"""
+input AcknowledgeSubscriptionStateInput {
+  """
+  ID of the subscription being updated.
+  """
+  subscriptionID: ID!
+}
+
+"""
+Required input to acknowledge an unban request on a channel.
+"""
+input AcknowledgeUnbanRequestInput {
+  """
+  ID of the unban request to be acknowledged.
+  """
+  id: ID!
+}
+
+"""
+The input to be provided to the activateExtension mutation.
+"""
+input ActivateExtensionInput {
+  """
+  The anchor the extension is getting activated into.
+  """
+  anchor: ExtensionAnchor!
+
+  """
+  The composite ID of an extension installation <extensionID:version:channelID>.
+  """
+  extensionInstallationID: ID!
+
+  """
+  The slot the extension is getting activated into.
+  """
+  slot: String!
+}
+
+"""
+ActivityInput represents what the user is doing right now.
+
+If type is WATCHING, userID must be supplied.
+
+If type is PLAYING, gameID must be supplied.
+"""
+input ActivityInput {
+  gameID: String
+  type: ActivityType
+  userID: String
+}
+
+"""
+AddAutohostChannelsInput append channelIDs to a user's list to autohost.
+"""
+input AddAutohostChannelsInput {
+  """
+  ChannelIDs that will be added to the list to autohost.
+  """
+  channelIDs: [ID!]!
+
+  """
+  UserID to update autohost list for.
+  """
+  userID: ID!
+}
+
+input AddBrowserPushSubscriptionInput {
+  """
+  An authentication secret. It must be a non-blank string.
+  """
+  auth: String!
+
+  """
+  A custom URL pointing to a push server, which can be used to send a push message to the
+  particular service worker instance that subscribed to the push service. It must be a
+  non-blank string.
+  """
+  endpoint: String!
+
+  """
+  An Elliptic curve Diffie–Hellman public key on the P-256 curve. It must be a non-blank string.
+  """
+  p256DH: String!
+}
+
+"""
+AddChannelBlockedTermInput takes in the channel, phrases, and if the term should be editable by mods.
+"""
+input AddChannelBlockedTermInput {
+  """
+  channelID is the channelID owner of terms.
+  """
+  channelID: ID!
+
+  """
+  isModEditable is if the term is viewable or editable by mods.
+  """
+  isModEditable: Boolean!
+
+  """
+  phrase defines the string that is to be blocked.
+  """
+  phrase: String
+
+  """
+  phrases is the strings that are blocked.
+  """
+  phrases: [String!]!
+}
+
+"""
+AddChannelPermittedTermInput takes in the channel, phrases, and if the term should be editable by mods.
+"""
+input AddChannelPermittedTermInput {
+  """
+  channelID is the owner of the permitted terms.
+  """
+  channelID: ID!
+
+  """
+  phrase defines the string that is to be permitted.
+  """
+  phrase: String
+
+  """
+  phrases are the strings that are permitted in a channel.
+  """
+  phrases: [String!]!
+}
+
+"""
+AddCollectionItemInput accepts a collectionID and item ID and parameters to add the item to a collection.
+"""
+input AddCollectionItemInput {
+  """
+  The id of the collection.
+  """
+  collectionID: ID!
+
+  """
+  The id of the item of which will be added to the collection.
+  """
+  itemID: ID!
+
+  """
+  The type of item ie. video.
+  """
+  itemType: String!
+}
+
+"""
+Add a Phase to a Competition.
+"""
+input AddCompetitionPhaseInput {
+  """
+  Unique Competition ID.
+  """
+  competitionID: ID!
+}
+
+"""
+Add a User as a player to a Competition.
+"""
+input AddCompetitionPlayerInput {
+  """
+  Unique Competition ID.
+  """
+  competitionID: ID!
+
+  """
+  The player's Discord username.
+  """
+  discordUsername: String
+
+  """
+  The player's in-game username.
+  """
+  inGameUsername: String
+
+  """
+  The state the player in. Defaults to INVITED if not specified.
+  """
+  state: CompetitionPlayerState
+
+  """
+  Twitch user id of the player.
+  """
+  userID: ID!
+}
+
+"""
+Inputs adding a competition team to a competition.
+"""
+input AddCompetitionTeamInput {
+  """
+  ID of the competition team captain.
+  """
+  captainID: ID
+
+  """
+  ID of the competition.
+  """
+  competitionID: ID!
+
+  """
+  The user ids of the team members.
+  """
+  members: [ID!]
+
+  """
+  The name of the team.
+  """
+  name: String!
+}
+
+"""
+AddDeviceTokenInput accepts a token and other parameters to add a device token to a given user.
+"""
+input AddDeviceTokenInput {
+  """
+  App build number of the current device.
+  """
+  appBuild: String
+
+  """
+  Unique identifier of the current device.
+  Note: deprecated field -- the deviceID now comess of the X-Device-Id header...
+  """
+  deviceID: ID
+
+  """
+  Arbitrary name associated with the device.
+  """
+  deviceName: String
+
+  """
+  The ID of the new token.
+  """
+  deviceToken: ID!
+
+  """
+  Notification capabilities of the current device.
+  """
+  notificationCapabilitiesTypes: [String!]
+
+  """
+  Onsite notification capabilities of the current device.
+  """
+  onsiteCapabilitiesTypes: [String!]
+
+  """
+  The platform the token is associated with, i.e. 'android' or 'ios'.
+  """
+  platform: String!
+
+  """
+  ID for the user associated with the new device token.
+  Note: deprecated field -- the userID now comes off the authenticated user.
+  """
+  userID: ID
+}
+
+"""
+AddDropToCampaignInput has fields required to create a drop within a campaign.
+"""
+input AddDropToCampaignInput {
+  """
+  The campaign this drop belongs to.
+  """
+  campaignID: ID!
+
+  """
+  The type of rule defining what needs to happen to trigger this drop.
+  """
+  dropRuleType: DropRuleType!
+
+  """
+  The date at which this drop can no longer occur. Default to campaign endDate if not provided.
+  """
+  endAt: Time
+
+  """
+  The friendly name of this drop.
+  """
+  name: String!
+
+  """
+  The date at which this drop can start to occur. Default to campaign startDate if not provided.
+  """
+  startAt: Time
+}
+
+"""
+AddEditorInput contains the parameters to add an editor.
+"""
+input AddEditorInput {
+  """
+  The channel for which the target user will become an editor.
+  """
+  channelID: ID!
+
+  """
+  The ID of the user who will become an editor.
+  Either targetUserID or targetUserLogin must be provided.
+  """
+  targetUserID: ID
+
+  """
+  The login of the user who will become an editor.
+  Either targetUserID or targetUserLogin must be provided.
+  """
+  targetUserLogin: String
+}
+
+"""
+AddRadioRecentlyPlayedInput contains the parameters to register a play start.
+"""
+input AddRadioRecentlyPlayedInput {
+  """
+  The type of content the ID maps to.
+  """
+  contentType: RadioRecentlyPlayedType!
+
+  """
+  The ID of the recently played item.
+  """
+  id: ID!
+}
+
+input AddReactionInput {
+  emoteID: ID!
+  entityID: ID!
+}
+
+"""
+Data required to add recommendation feedback.
+"""
+input AddRecommendationFeedbackInput {
+  """
+  Reason for the feedback (ie. Not interested, offensive, etc).
+  """
+  category: RecommendationFeedbackCategory!
+
+  """
+  The id of the item (channelID, gameID, etc).
+  """
+  itemID: ID!
+
+  """
+  One of CHANNEL, GAME, SHELF, VOD.
+  """
+  itemType: RecommendationFeedbackType!
+
+  """
+  The page this event was fired from.
+  """
+  sourceItemPage: String!
+
+  """
+  The unique id given to this request.
+  """
+  sourceItemRequestID: ID!
+
+  """
+  The tracking id of the shelf / shelf card.
+  """
+  sourceItemTrackingID: ID!
+}
+
+"""
+AddStreamAuthorizedUserInput contains the channelID for the broadcaster and the authorized userID.
+"""
+input AddStreamAuthorizedUserInput {
+  """
+  authorizedUserID for an authorized user who is allow to stream on behalf of broadcaster.
+  """
+  authorizedUserID: ID!
+
+  """
+  channelID of the broadcaster.
+  """
+  channelID: ID!
+}
+
+"""
+The context of the Client when the ad request is about to be made.
+"""
+input AdRequestClientContext {
+  """
+  If the client is in audio only mode.
+  """
+  isAudioOnly: Boolean!
+
+  """
+  If the client is in mini theater mode.
+  """
+  isMiniTheater: Boolean!
+
+  """
+  If the client is in Picture in Picture mode.
+  """
+  isPIP: Boolean!
+
+  """
+  If the client is broadcasting to an external device (i.e. Chromecast, Airplay).
+  """
+  isUsingExternalPlayback: Boolean!
+
+  """
+  App that the client is using.
+  """
+  clientApp: String
+
+  """
+  Version of the app.
+  """
+  appVersion: String
+}
+
+"""
+The context of an upcoming ad request.
+"""
+input AdRequestContext {
+  """
+  The ID generated for the ad Session.
+  """
+  adSessionID: ID!
+
+  """
+  The context of the client at the time the ad is requested.
+  """
+  clientContext: AdRequestClientContext!
+
+  """
+  The commercial break ID of a channel wide midroll.
+  """
+  commercialID: ID
+
+  """
+  The duration of the ad break in seconds.
+  """
+  duration: Int!
+
+  """
+  If the requested ad is a viewer level midroll.
+  """
+  isVLM: Boolean
+
+  """
+  The context of the player at the time the ad is requested.
+  """
+  playerContext: AdRequestPlayerContext!
+
+  """
+  The type of ad request being made.
+  """
+  rollType: AdrollType!
+
+  """
+  The game played on the channel.
+  """
+  game: String
+
+  """
+  The twitch correlator.
+  """
+  twitchCorrelator: String
+
+  """
+  Format of the Ad being requested.
+  """
+  adFormat: String
+}
+
+"""
+The context of the Player when the ad request is about to be made.
+"""
+input AdRequestPlayerContext {
+  """
+  The type of content being watched.
+  """
+  contentType: AdRequestContentType!
+
+  """
+  If the session was initiated by playing automatically.
+  """
+  isAutoPlay: Boolean!
+
+  """
+  The signature for the access token for the current video session.
+  """
+  nauthSig: String!
+
+  """
+  The access token for the current video session.
+  """
+  nauthToken: String!
+
+  """
+  The ID for the current video session.
+  """
+  videoSessionID: ID
+
+  """
+  PlayerSizeMode of the incoming request.
+  """
+  playerSizeMode: String
+}
+
+"""
+Input required to allocate keys for the bounty.
+"""
+input AllocateKeysForBountyInput {
+  """
+  Unique Identifier for the bounty.
+  """
+  bountyID: ID!
+
+  """
+  UserID that is allocating keys for the bounty.
+  """
+  userID: ID!
+}
+
+input AllowRejectedChatMessageInput {
+  id: ID!
+}
+
+"""
+Input to the allowRejectedCheer mutation.
+"""
+input AllowRejectedCheerInput {
+  """
+  Client-generated unique ID used to prevent a cheer from being re-sent (thus spending double bits).
+  The server will reject any request with an ID that has already been used.
+  """
+  id: ID!
+
+  """
+  ID of the user whose message is automodded.
+  """
+  targetUserID: ID!
+}
+
+"""
+AndroidPaymentTrackingDataInput contains fields to pass in tracking data.
+"""
+input AndroidPaymentTrackingDataInput {
+  """
+  The user's device ID.
+  """
+  deviceID: ID
+
+  """
+  The locale of the user.
+  """
+  locale: String
+}
+
+"""
+AndroidReceiptDataInput contains the necessary fields to pass in Android purchase receipt data.
+"""
+input AndroidReceiptDataInput {
+  """
+  The currency the user was charged in.
+  """
+  currency: String!
+
+  """
+  The amount user was charged.
+  """
+  price: String!
+
+  """
+  The raw receipt of the purchase.
+  """
+  rawReceipt: String!
+
+  """
+  The receipt signature for the purchase.
+  """
+  signedReceipt: String!
+
+  """
+  The unit the user was charged in.
+  """
+  units: AndroidCurrencyUnits!
+}
+
+"""
+A mapping of extension type to list of activation configs.
+"""
+input ApplyExtensionActivationsInput {
+  """
+  A list of activations to apply to the given channelID.
+  """
+  activations: [ExtensionActivationInput!]!
+
+  """
+  The ID of the channel the activations are being performed on.
+  """
+  channelID: ID!
+}
+
+"""
+Required input to approve an unban request on a channel.
+"""
+input ApproveUnbanRequestInput {
+  """
+  ID of the unban request to be resolved.
+  """
+  id: ID!
+
+  """
+  Optional message from the resolver to be shown to the unban requester.
+  """
+  resolverMessage: String
+}
+
+"""
+ArchiveChanletInput archives a chanlet by chanlet ID.
+"""
+input ArchiveChanletInput {
+  """
+  The ID of the chanlet being archived.
+  """
+  chanletID: ID!
+}
+
+"""
+Archive community goal input.
+"""
+input ArchiveCommunityPointsCommunityGoalInput {
+  """
+  The channel.
+  """
+  channelID: ID!
+
+  """
+  The community goal.
+  """
+  goalID: ID!
+}
+
+"""
+Inputs for archiving a poll.
+"""
+input ArchivePollInChannelInput {
+  """
+  The id of the channel that contains the poll to archive.
+  """
+  channelID: ID!
+}
+
+"""
+Inputs for archiving a poll.
+"""
+input ArchivePollInput {
+  """
+  The id of the poll to archive.
+  """
+  pollID: ID!
+}
+
+"""
+The input for assign emote to bits tier.
+"""
+input AssignEmoteToBitsTierInput {
+  """
+  ID of the channel that owns the bits tier.
+  """
+  channelID: ID!
+
+  """
+  ID of the emote to be assigned.
+  """
+  emoteID: ID!
+
+  """
+  Threshold of the bits tier to assign the emote to.
+  """
+  tierThreshold: Int!
+}
+
+"""
+The input for assign emote to subscription product.
+"""
+input AssignEmoteToSubscriptionProductInput {
+  """
+  ID of the emote to be assigned.
+  """
+  emoteID: ID!
+
+  """
+  ID of the subscription product to assign the emote to.
+  """
+  productID: ID!
+}
+
+"""
+Inputs to the SetExtensionBillingManager mutation.
+"""
+input AssignExtensionBillingManagerInput {
+  """
+  The ID of the extensions.
+  """
+  extensionID: ID!
+
+  """
+  The twitch ID of the organization member.
+  """
+  userID: ID!
+}
+
+"""
+AutoModContentInput is the input of query AutoModContent.
+"""
+input AutoModContentInput {
+  """
+  channel ID is where the text enforcement will be tested.
+  """
+  channelID: ID!
+
+  """
+  text is the original raw string that needs evaluation by automod.
+  """
+  text: String!
+
+  """
+  overallLevel is the override overall level that will be passed in (0-4).
+  """
+  overallLevel: Int
+
+  """
+  autoModSettings is the override automod settings that will be passed in.
+  """
+  autoModSettings: DetailedAutoModLevelsInput
+}

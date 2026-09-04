@@ -1,0 +1,1758 @@
+"""
+BackupIngestSession is session metadata related to broadcaster's backup session.
+"""
+type BackupIngestSession {
+  """
+  The session where the current session was stitched from.
+  """
+  stitchedFrom: [BackupStreamSession!]
+
+  """
+  The session where the current session was stitched to.
+  """
+  stitchedTo: [BackupStreamSession!]
+}
+
+"""
+BackupStreamSession identifies the backup stream session.
+"""
+type BackupStreamSession {
+  """
+  Type of live stream.
+  """
+  broadcastFormat: BroadcastFormat!
+
+  """
+  The ID of backup session.
+  """
+  id: ID!
+
+  """
+  Time when the backup stream was stitched as primary session.
+  """
+  stitchedTimeAt: Time!
+}
+
+"""
+Communicates a user's status in chat.
+"""
+type Badge {
+  """
+  Identifies an action to trigger when this badge is clicked.
+  """
+  clickAction: BadgeClickAction @deprecated(reason: "Should use onClickAction instead")
+
+  """
+  The URL to redirect to if the badge's onClickAction is VISIT_URL.
+  """
+  clickURL: String
+
+  """
+  A localized, human-friendly description of the badge.
+  Defaults to English if no translation exists for the requested locale.
+  """
+  description: String!
+
+  """
+  The badge's unique identifier.
+  """
+  id: ID!
+
+  """
+  A URL to the badge's image.
+  """
+  imageURL(size: BadgeImageSize = NORMAL): String!
+
+  """
+  Identifies an action to trigger when this badge is clicked.
+  """
+  onClickAction: BadgeClickAction
+
+  """
+  Information about the user's relationship to this badge.
+  """
+  self: BadgeSelfEdge
+
+  """
+  The identifier of the set which this badge belongs (e.g. "subscriber").
+  """
+  setID: ID!
+
+  """
+  A localized, human-friendly title for the badge.
+  Defaults to English if no translation exists for the requested locale.
+  """
+  title: String!
+
+  """
+  The badge's associated broadcaster.
+  Returns null if this is a global badge.
+  """
+  user: User
+
+  """
+  The badge's version (e.g. "1mo").
+  """
+  version: String!
+}
+
+"""
+Further details about this object, subject to the user's permissions.
+"""
+type BadgeSelfEdge {
+  """
+  Whether the given badge should be visible publicly in the badge owner's chat card badge carousel.
+  """
+  isVisibleInChatCard: Boolean!
+}
+
+"""
+Balance for a Twitch User Account in a FIAT currency. Can be used to purchase
+product on the Twitch Platform.
+"""
+type Balance {
+  """
+  Amount in the smallest unit of subcurrency.
+  """
+  amount: Int!
+
+  """
+  ISO-4217 currency code of a user's balance.
+  """
+  currency: Currency!
+
+  """
+  When the credit amount will expire. Can be non-expirable (null).
+  """
+  expiresAt: Time
+
+  """
+  Number of digits after the decimal separator.
+  """
+  exponent: Int!
+}
+
+type BanUserFromChatRoomError {
+  code: BanUserFromChatRoomErrorCode!
+
+  """
+  On DURATION_INVALID, maximum number of seconds a user can be timed out for.
+  """
+  maxTimeoutDurationSeconds: Int
+
+  """
+  On DURATION_INVALID, minimum number of seconds a user can be timed out for.
+  """
+  minTimeoutDurationSeconds: Int
+}
+
+type BanUserFromChatRoomPayload {
+  """
+  The new ban status of this user regarding the specified channel.
+  """
+  ban: ChatRoomBanStatus
+
+  """
+  Mutation error caused by the user input.
+  """
+  error: BanUserFromChatRoomError
+}
+
+type BanVideoCommenterPayload {
+  user: User
+}
+
+"""
+The result of a BeginUseBitsInExtension mutation.
+"""
+type BeginUseBitsInExtensionPayload {
+  """
+  The user's balance.
+  """
+  balance: Int
+
+  """
+  How many bits are required for this.
+  """
+  bitsRequired: Int
+
+  """
+  Does the front end need to prompt the user.
+  """
+  isPromptRequired: Boolean
+
+  """
+  The new transaction ID for this spend.
+  """
+  transactionID: ID
+}
+
+"""
+BitsAdOffer is an offer to earn bits by watching an ad or interacting with an engagement.
+"""
+type BitsAdOffer implements BitsOffer {
+  """
+  bits is the minimum number of bits received from watching an ad.
+  Some ads may reward more, but this is the number displayed to the user before choosing to watch an ad for bits.
+  """
+  bits: Int!
+  id: ID!
+
+  """
+  type is `BitsOfferType.AD`.
+  """
+  type: BitsOfferType!
+}
+
+"""
+Bits Badges with their associated settings.
+"""
+type BitsBadgeTier {
+  """
+  The badge for this tier.
+  """
+  badge: Badge
+
+  """
+  Whether the broadcaster can upload emoticons for this tier.
+  """
+  canUploadEmoticons: Boolean!
+
+  """
+  The emoticon configurations for emoticons that are currently in the process of being uploaded for this tier.
+  """
+  emoticonUploadConfigurations: [EmoteUploadConfiguration]!
+
+  """
+  The emoticons that are associated with this tier.
+  """
+  emoticons: [Emote]!
+
+  """
+  Whether the badge is enabled for this threshold.
+  """
+  isEnabled: Boolean!
+
+  """
+  Time when this badge tier was last updated.
+  """
+  lastUpdated: Time
+
+  """
+  The amount of bits a user must cheer to achieve this tier.
+  """
+  threshold: Int!
+
+  """
+  The number of users who have unlocked this badge tier.
+  """
+  unlockedUsersCount: Int!
+}
+
+"""
+A notification about achieving a new bits badge tier. Used to send a special message.
+"""
+type BitsBadgeTierNotification {
+  """
+  Whether or not the notification can be shared with chat.
+  """
+  canShare: Boolean!
+
+  """
+  UUID for notification.
+  """
+  id: ID!
+
+  """
+  Represents the badge tier threshold reached by the user on a channel (e.g. 100, 1000, etc).
+  """
+  threshold: Int!
+
+  """
+  The list of bits badge tier emoticons that were obtained as part of achieving this notification's bits badge tier.
+  """
+  unlockedEmoticons: [Emote]!
+}
+
+"""
+BitsBundleOffer is an offer to purchase a number of bits for a certain price.
+"""
+type BitsBundleOffer implements BitsOffer {
+  """
+  amount is the numerical cost of this offer (ex: 20.00).
+  """
+  amount: Float!
+
+  """
+  asin is the Amazon Standard Identification Number for this offer.
+  """
+  asin: ID!
+
+  """
+  bits is the number of bits this offer provides.
+  """
+  bits: Int!
+
+  """
+  Currency code that the price and amount are displayed in (USD, CAD, etc.).
+  """
+  currencyCode: String!
+
+  """
+  discount is the bulk discount this offer provides compared to the base offer [0.0-1.0).
+  """
+  discount: Float!
+  id: ID!
+
+  """
+  includesVAT is a boolean flag to indicate that the Value Added Tax (VAT)
+  is included in the price of a Bits product. This is important for Bits prices
+  in EU.
+  """
+  includesVAT: Boolean!
+
+  """
+  isPromo is a flag that signifies if the offer is a promotional offer. This is for clients that
+  need to display promotional offers differently.
+  """
+  isPromo: Boolean!
+
+  """
+  price is the formatted currency cost of this offer to be displayed to the user.
+  """
+  price: String!
+    @deprecated(
+      reason: "Use the 'amount' field and localize it yourself in conjunction with the 'currencyCode' field"
+    )
+
+  """
+  promotion contains information about this bits offer if it is a promotional
+  offer. Is null if the offer is not promotional.
+  """
+  promotion: BitsPromotion
+
+  """
+  type is `BitsOfferType.BUNDLE`.
+  """
+  type: BitsOfferType!
+
+  """
+  url is the purchase URL to use for this offer.
+  The url contains a `{channelID}` token which should be replaced by the
+  `User.id` of the channel bits are being purchased from.
+  """
+  url: String!
+}
+
+"""
+An event that captures a single bits transaction.
+"""
+type BitsEvent {
+  """
+  Amount of bits used.
+  """
+  amount: Int!
+
+  """
+  Channel bits were used on.
+  """
+  channel: User
+
+  """
+  Event ID.
+  """
+  id: ID!
+
+  """
+  What type of event the bits were used on.
+  """
+  type: BitsEventType!
+
+  """
+  Time the bits were used at.
+  """
+  usedAt: Time!
+}
+
+"""
+A paginated list of bits events, and its metadata.
+"""
+type BitsEventConnection {
+  """
+  The list of bits events on this page.
+  """
+  edges: [BitsEventEdge!]!
+
+  """
+  Information about this page of bits.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of bits events in the overall collection.
+  """
+  totalCount: Int!
+}
+
+"""
+An element in a paginated list of bits events, and its metadata.
+"""
+type BitsEventEdge {
+  """
+  Offset acting as a cursor.
+  """
+  cursor: Cursor!
+
+  """
+  The element node.
+  """
+  node: BitsEvent!
+}
+
+"""
+A list of hashtags to use in chat while using bits.
+"""
+type BitsHashtagConnection {
+  """
+  The list of BitsHashtagEdges.
+  """
+  edges: [BitsHashtagEdge!]
+}
+
+"""
+BitsHashtagEdge contains.
+"""
+type BitsHashtagEdge {
+  """
+  The cursor of the record. This will be the BitsHashtagEdge ID.
+  """
+  cursor: Cursor!
+
+  """
+  The node of the edge contains all information about the hashtag.
+  """
+  node: BitsHashtagEntry!
+}
+
+"""
+BitsHashtagEntry contains information about a hashtag, sucn as the description and image URL for display.
+"""
+type BitsHashtagEntry {
+  """
+  description text.
+  """
+  description: String
+
+  """
+  The ID, which would be the hashtag value.
+  """
+  id: ID!
+
+  """
+  An image to display in autocomplete.
+  """
+  imageURL: String
+}
+
+"""
+The Bits Key Code that can be claimed to add bits to a user's account.
+"""
+type BitsKeyCode implements Claimable {
+  """
+  A description of what is claimable for the bits key code.
+  """
+  description: String!
+
+  """
+  The ID of the bits key code.
+  """
+  id: ID!
+
+  """
+  The field that gives us claim information for the logged in user.
+  """
+  self: SelfClaimEdge
+
+  """
+  The type is `ClaimableType.BITS_KEY_CODE`.
+  """
+  type: ClaimableType!
+}
+
+"""
+User edge relating the key's status to the user.
+"""
+type BitsKeyCodeSelfClaimEdge implements SelfClaimEdge {
+  """
+  If the user is eligible to claim the key code.
+  """
+  canClaim: Boolean!
+
+  """
+  Nullable field for the country where the user redeemed the claimable.
+  """
+  countryOfResidence: String
+
+  """
+  The user ID that is claiming the code.
+  """
+  id: ID!
+
+  """
+  Nullable status code for if the user cannot claim the key code.
+  """
+  statusCode: String
+}
+
+"""
+BitsLeaderboard contains the leaderboard for a specified channel.
+"""
+type BitsLeaderboard {
+  """
+  entries is the list of users in the leaderboard ordered by the number of bits cheered.
+  """
+  entries: BitsLeaderboardConnection!
+    @deprecated(
+      reason: "the ID field is not unique between leaderboards on leaderboard entries. Use leaderboard item."
+    )
+
+  """
+  id is the id of this leaderboard.
+  """
+  id: ID!
+
+  """
+  items is the list of users in the leaderboard ordered by the number of bits cheered.
+  """
+  items: BitsLeaderboardItemConnection!
+
+  """
+  SecondsRemaining is the number of seconds left before the leaderboard expires (or zero for all-time).
+  """
+  secondsRemaining: Int!
+}
+
+"""
+Bits leaderboard connection is used to show the various leaderboard entries.
+"""
+type BitsLeaderboardConnection {
+  edges: [BitsLeaderboardEdge]!
+}
+
+"""
+BitsLeaderboardEdge describes an edge in a bits leaderboard.
+"""
+type BitsLeaderboardEdge {
+  """
+  The cursor for this leaderboard edge.
+  """
+  cursor: String!
+
+  """
+  The leaderboard entry at this edge.
+  """
+  node: BitsLeaderboardEntry
+}
+
+"""
+Leaderboard entry at a specific node in a leaderboard connection.
+"""
+type BitsLeaderboardEntry {
+  """
+  id the id of this leaderboard entry.
+  """
+  id: ID!
+
+  """
+  rank the ordinal rank of this leaderboard entry.
+  """
+  rank: Int!
+
+  """
+  score the number of bits cheered by this leaderboard entry.
+  """
+  score: Int!
+}
+
+"""
+Leaderboard item at a specific node in a leaderboard connection.
+"""
+type BitsLeaderboardItem {
+  """
+  entryKey the key of this leaderboard item.
+  """
+  entryKey: String!
+
+  """
+  id the id of this leaderboard item.
+  """
+  id: ID!
+
+  """
+  rank the ordinal rank of this leaderboard item.
+  """
+  rank: Int!
+
+  """
+  score the number of bits cheered by this leaderboard entry.
+  """
+  score: Int!
+}
+
+"""
+Bits leaderboard connection is used to show the various leaderboard items.
+"""
+type BitsLeaderboardItemConnection {
+  """
+  edges ...
+  """
+  edges: [BitsLeaderboardItemEdge]
+
+  """
+  pageInfo ...
+  """
+  pageInfo: PageInfo!
+
+  """
+  totalCount ...
+  """
+  totalCount: Int
+}
+
+"""
+BitsLeaderboardItemEdge describes an edge in a bits leaderboard.
+"""
+type BitsLeaderboardItemEdge {
+  """
+  The cursor for this leaderboard edge.
+  """
+  cursor: Cursor!
+
+  """
+  The leaderboard entry at this edge.
+  """
+  node: BitsLeaderboardItem
+}
+
+"""
+BitsLeaderboardSettings are channel-specific settings related to Bits Leaderboards.
+"""
+type BitsLeaderboardSettings {
+  """
+  isEnabled indicates if the Bits leaderboard is pinned in this channel.
+  """
+  isEnabled: Boolean!
+
+  """
+  timePeriodType indicates whether the leaderboard type is of WEEKLY, ALL-TIME, etc.
+  """
+  timePeriodType: LeaderboardTimePeriodType
+}
+
+"""
+The type used when checking which payment methods a user can use.
+"""
+type BitsPaymentMethods {
+  """
+  A list of the valid bits payment methods for a user.
+  """
+  paymentMethods: [BitsPaymentMethodType!]
+}
+
+"""
+A product for bits that contains all information about a product, except for the pricing.
+"""
+type BitsProduct {
+  """
+  The amount of bits the product is for.
+  """
+  amount: Int!
+
+  """
+  The product ID.
+  """
+  id: ID!
+
+  """
+  The maximum quantity a user can purchase at once.
+  """
+  maxQuantity: Int!
+
+  """
+  The offer id associated with this product's id (if available).
+  """
+  offerID: ID
+
+  """
+  A field that contains promotional information about the product.
+  """
+  promo: BitsProductPromotion
+
+  """
+  The relation of the product to the user.
+  """
+  self: BitsProductSelfEdge
+
+  """
+  The product type, which right now is only "purchase".
+  """
+  type: BitsProductType!
+}
+
+"""
+The type used when checking bits product eligibility for a user.
+"""
+type BitsProductEligibility {
+  """
+  A boolean that is true when the user is eligible for the product.
+  """
+  canPurchase: Boolean!
+
+  """
+  If the user is ineligible for the product, then this code is set
+  as the reason why the user is ineligible for the product.
+  """
+  reasonCode: String
+}
+
+"""
+Promotional information about bits products.
+"""
+type BitsProductPromotion {
+  """
+  The unique ID of the bits product promo.
+  """
+  id: ID!
+
+  """
+  The localized title of the promo product.
+  """
+  title: String!
+
+  """
+  The type of promotion the product is associated with. This type is not enumerable since it is very dynamic.
+  """
+  type: String!
+}
+
+"""
+Contains the Bits product's preview price and tax info for a Bits purchase, and error if a preview cannot be created.
+"""
+type BitsProductPurchaseInfo {
+  """
+  Lists any additional actions for a bits checkout session.
+  """
+  actions: [CheckoutAction!]!
+
+  """
+  The error is present if purchase info failed to be retrieved.
+  """
+  error: BitsProductPurchaseInfoError
+
+  """
+  Gets the preview price and tax info for the Bits purchase.
+  """
+  previewPriceInfo: PriceInfo
+}
+
+"""
+Error information shown when priceInfo could not be retrieved for Bits Product.
+"""
+type BitsProductPurchaseInfoError {
+  """
+  The descriptive error code.
+  """
+  code: BitsProductPurchaseInfoErrorCode!
+}
+
+"""
+The relation of a Bits product to a user.
+"""
+type BitsProductSelfEdge {
+  """
+  Holds configuration necessary to start bits purchase checkout flow for this product for current user.
+  """
+  checkoutConfiguration: CheckoutConfiguration
+
+  """
+  Is the user eligible to claim the product at the given quantity.
+  """
+  eligibility(quantity: Int!): BitsProductEligibility!
+
+  """
+  Gets the preview price and tax info for the Bits purchase, or error if that failed.
+  """
+  purchaseInfo(quantity: Int!, paymentSession: PaymentSession): BitsProductPurchaseInfo!
+}
+
+type BitsPromotion {
+  """
+  id indicates the particular promo that this offer is associated with.
+  """
+  id: ID!
+
+  """
+  PromoType indicates the type of promo that the offer represents i.e First time purchase, single purchase, etc...
+  """
+  type: String!
+}
+
+"""
+Settings tied to a bits user.
+"""
+type BitsUserSettings {
+  """
+  Settings specific to the first cheer tutorial.
+  """
+  firstCheerTutorial: FirstCheerTutorial
+}
+
+"""
+Information regarding a Blizzard account that is linked to Twitch.
+"""
+type BlizzardUser {
+  """
+  The BattleTag that is stored for the user.
+  """
+  battleTag: String!
+
+  """
+  The Blizzard ID that is stored for the user.
+  """
+  id: ID!
+
+  """
+  The region the Blizzard account is from.
+  """
+  region: String!
+}
+
+type BlockUserPayload {
+  """
+  User that was blocked.
+  """
+  targetUser: User!
+}
+
+"""
+A BoostSettings is a set of preferences set by a creator regarding Community Boosts for their channel.
+"""
+type BoostSettings {
+  """
+  If Boosts earned through community challenges are enabled on this channel.
+  """
+  isEarnedEnabled: Boolean
+
+  """
+  If the channel is eligible to recieve boosts.
+  """
+  isEligible: Boolean!
+
+  """
+  If Boosts are enabled on this channel.
+  """
+  isEnabled: Boolean
+
+  """
+  If Boosts paid for by the community are enabled on this channel.
+  """
+  isPaidEnabled: Boolean
+}
+
+"""
+A bounty is a task that a user can complete for a payout.
+"""
+type Bounty {
+  """
+  The campaign that this bounty belongs to.
+  """
+  campaign: BountyCampaign!
+
+  """
+  The chat Call to Action that will be display during the bounty.
+  """
+  chatCTA: BountyChatCTA
+
+  """
+  When the bounty was claimed by the user.
+  """
+  claimTime: Time @deprecated(reason: "Replacing with 'claimedAt' for consistency with 'At' suffix")
+
+  """
+  When the bounty was claimed by the user.
+  """
+  claimedAt: Time
+
+  """
+  When the bounty expires.
+  """
+  endAt: Time
+    @deprecated(
+      reason: "Replacing with 'expiresAt' as that is a more descriptive property name for the value."
+    )
+
+  """
+  When the the user stops tracking.
+  """
+  endTime: Time
+    @deprecated(
+      reason: "Replacing with 'trackingStoppedAt' as that is a more descriptive property name for the value."
+    )
+
+  """
+  When the bounty expires.
+  """
+  expiresAt: Time
+
+  """
+  The bounty's unique identifier.
+  """
+  id: ID!
+
+  """
+  The product keys for the bounty.
+  """
+  keys: [BountyProductKey!]
+
+  """
+  When the bounty was last modified.
+  """
+  lastModifiedAt: Time
+
+  """
+  The number of concurrent users (CCU) required to hit the maximum payout for the bounty.
+  """
+  maximumPayoutCCU: Int
+
+  """
+  The maximum payout for completing this bounty in USD cents.
+  """
+  maximumPayoutCents: Int!
+
+  """
+  The number of concurrent users (CCU) required to earn a payout for the bounty.
+  """
+  minimumPayoutCCU: Int
+
+  """
+  The node includes all bounty moderation metadata.
+  """
+  moderationMetadata: BountyModerationMetadata
+
+  """
+  The moderation status of the bounty.
+  """
+  moderationStatus: BountyModerationStatus
+    @deprecated(reason: "Replacing with 'status' within moderationMetadata.")
+
+  """
+  The actual payout for completing this bounty in USD cents.
+  """
+  payoutCents: Int
+
+  """
+  The platform on which the user will play the game for this bounty (ie. PC).
+  """
+  platform: String
+
+  """
+  The region that the broadcaster has selected for this bounty (as defined by BountyCampaignKeyDescriptor).
+  """
+  region: String
+
+  """
+  Restrictions for this bounty.
+  """
+  restriction: BountyRestriction
+
+  """
+  When the bounty was claimed by the user.
+  """
+  startAt: Time
+    @deprecated(
+      reason: "Replacing with 'claimTime' as that is a more descriptive property name for the value."
+    )
+
+  """
+  When the bounty was started by the user.
+  """
+  startTime: Time
+    @deprecated(
+      reason: "Replacing with 'trackingStartedAt' as that is a more descriptive property name for the value."
+    )
+
+  """
+  The status of the bounty.
+  """
+  status: BountyStatus!
+
+  """
+  When the user starts tracking the bounty.
+  """
+  trackingStartedAt: Time
+
+  """
+  When the user stops tracking the bounty.
+  """
+  trackingStoppedAt: Time
+
+  """
+  The videos for this bounty.
+  """
+  videos: [BountyVideo!]
+}
+
+"""
+Bounty board settings configure how a user can interact with the Bounty Boards feature.
+"""
+type BountyBoardSettings {
+  """
+  This determines whether or not a user has a bounty board notification.
+  """
+  hasNotification: Boolean!
+
+  """
+  This determines whether the user has the Bounty Boards feature enabled.
+  """
+  isEnabled: Boolean! @deprecated(reason: "Use 'status' instead.")
+
+  """
+  The user's status on Bounty Board.
+  """
+  status: BountyBoardUserStatus!
+}
+
+"""
+A campaign defines the requirements and parameters for a set of bounties.
+"""
+type BountyCampaign {
+  """
+  The list of games that if isAllowAllGames is false, the bounty must use.
+  """
+  allowedGames: [Game!]
+
+  """
+  The platforms on which users can play this campaign's game (ie. PC, PS4, Switch).
+  """
+  availablePlatforms: [String!]
+
+  """
+  The length of this campaign's bounties (in days).
+  """
+  bountyLengthDays: Int!
+
+  """
+  Override Box Art URL only for campaign shown on Bounty Board Dashboard, unrelated to game.
+  """
+  boxArtURL: String
+
+  """
+  Details about the campaign that only the sponsoring brand should see.
+  """
+  brandDetails: BountyCampaignBrandDetails
+
+  """
+  Override Cover URL only for campaign shown on Bounty Board Dashboard, unrelated to game.
+  """
+  coverURL: String
+
+  """
+  Details for this campaign.
+  """
+  details: String!
+
+  """
+  Override Display name only for campaign shown on Bounty Board Dashboard, unrelated to game.
+  """
+  displayName: String
+
+  """
+  When the campaign expires.
+  """
+  endAt: Time!
+    @deprecated(
+      reason: "Replacing with 'endTime' as that is a more descriptive property name for the value."
+    )
+
+  """
+  When the campaign expires.
+  """
+  endTime: Time!
+
+  """
+  The game identifier that is related to this campaign.
+  """
+  game: Game
+    @deprecated(
+      reason: "Replacing with 'allowedGames' as this provides a set of available games instead of a single game"
+    )
+
+  """
+  The campaign's unique identifier.
+  """
+  id: ID!
+
+  """
+  If the campaing is a promotional campaign.
+  """
+  isPromotionEligible: Boolean
+
+  """
+  The information about keys for the campaigns.
+  """
+  keyDescriptors: [BountyCampaignKeyDescriptor!]
+
+  """
+  Why the campaign was rejected.
+  """
+  rejectionReason: String @deprecated(reason: "Use 'rejectionReason' in 'brandDetails' instead.")
+
+  """
+  If a campaign allows any game to be played.
+  """
+  shouldAllowAllGames: Boolean
+
+  """
+  The sponsor that is funding this campaign (ie. Amazon Game Studios).
+  """
+  sponsor: String!
+
+  """
+  When the campaign starts.
+  """
+  startAt: Time!
+    @deprecated(
+      reason: "Replacing with 'startTime' as that is a more descriptive property name for the value."
+    )
+
+  """
+  When the campaign starts.
+  """
+  startTime: Time!
+
+  """
+  The status of the campaign.
+  """
+  status: BountyCampaignStatus @deprecated(reason: "Use 'status' in 'brandDetails' instead.")
+
+  """
+  How many seconds a bounty for this campaign must be streamed to complete the bounty.
+  """
+  streamLengthSeconds: Int
+
+  """
+  The click target of the campaign if it is a promotional campaign.
+  """
+  targetPromotionalVideoClicks: Int
+
+  """
+  The URL for the terms and conditions page.
+  """
+  termsAndConditionsURL: String
+
+  """
+  The title of the campaign (ie. Stream Breakaway for 1 hour).
+  """
+  title: String!
+
+  """
+  The tracking URLs for this campaign.
+  """
+  trackingPixels: [TrackingPixel!]
+
+  """
+  The type of the campaign (ie. PAY_TO_STREAM).
+  """
+  type: BountyCampaignType!
+
+  """
+  The URL of the video for this campaign.
+  """
+  videoURL: String @deprecated(reason: "Use 'videos' instead.")
+
+  """
+  The video URLS for the campaign.
+  """
+  videos: [BountyCampaignVideo!]
+}
+
+"""
+Details about a bounty campaign that only the sponsoring brand should see.
+"""
+type BountyCampaignBrandDetails {
+  """
+  The list of users (if any) blacklisted for the campaign.
+  Limited to 40 users - use totalBlockedBroadcasters for the total count.
+  """
+  blacklistedBroadcasters: [User!]
+
+  """
+  The multiplier for the broadcaster payout rate.
+  """
+  broadcasterMultiplier: Float
+
+  """
+  Reporting data for the campaign.
+  """
+  campaignReporting: BountyCampaignReporting
+
+  """
+  The chat Calls to Action for the campaign.
+  """
+  chatCTAs: [BountyChatCTA!]
+
+  """
+  The total number of broadcasters who have claimed the bounty.
+  """
+  claimedBountyCount: Int
+    @deprecated(reason: "Use 'claimedBountyCount' in 'campaignReporting' instead.")
+
+  """
+  How much of the budget has been claimed (in cents).
+  """
+  claimedBudgetCents: Int
+    @deprecated(reason: "Use 'claimedBudgetCents' in 'campaignReporting' instead.")
+
+  """
+  The total number of broadcasters who have completed the bounty.
+  """
+  completedBountyCount: Int
+    @deprecated(reason: "Use 'completedBountyCount' in 'campaignReporting' instead.")
+
+  """
+  The total number of broadcasters who have expanded the bounty.
+  """
+  expandedBountyCount: Int
+    @deprecated(reason: "Use 'expandedBountyCount' in 'campaignReporting' instead.")
+
+  """
+  If all broadcasters are targeted for the campaign.
+  """
+  includesAllBroadcasters: Boolean
+
+  """
+  If all countries are targeted for the campaign.
+  """
+  includesAllCountries: Boolean!
+
+  """
+  If all games are targeted for the campaign.
+  """
+  includesAllGames: Boolean!
+
+  """
+  If variety broadcasters are targeted for the campaign.
+  """
+  includesVarietyBroadcasters: Boolean!
+
+  """
+  Detailed performance metrics for this campaign.
+  """
+  performanceMetrics: [BountyCampaignPerformanceMetric!]
+    @deprecated(reason: "Use 'performanceMetrics' in 'campaignReporting' instead.")
+
+  """
+  Why the campaign was rejected.
+  """
+  rejectionReason: String
+
+  """
+  How much of the budget has been spent (completed bounties) (in cents).
+  """
+  spentBudgetCents: Int
+
+  """
+  The status of the campaign.
+  """
+  status: BountyCampaignStatus
+
+  """
+  Targeted countries for the campaign (represented by ISO 3166-1 alpha-2).
+  """
+  targetedCountries: [String!]
+
+  """
+  Targeted Games for the campaign.
+  """
+  targetedGames: [Game!]
+
+  """
+  The total length of the blacklistedBroadcasters list.
+  """
+  totalBlockedBroadcasters: Int
+
+  """
+  The total budget for the campaign (in cents).
+  """
+  totalBudgetCents: Int
+
+  """
+  The number of broadcasters who have viewed the bounty.
+  """
+  viewedBountyCount: Int
+    @deprecated(reason: "Use 'viewedBountyCount' in 'campaignReporting' instead.")
+}
+
+"""
+A list of bounty campaigns related to the subject.
+"""
+type BountyCampaignConnection {
+  """
+  The campaigns.
+  """
+  edges: [BountyCampaignEdge]
+
+  """
+  Information about pagination in this connection.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+Information about the relationship to the bounty campaign and the subject.
+Also includes the campaign itself.
+"""
+type BountyCampaignEdge {
+  """
+  Uniquely identifies this campaign's position in a connection.
+  """
+  cursor: Cursor!
+
+  """
+  The campaign.
+  """
+  node: BountyCampaign
+}
+
+"""
+A descriptor for a product key.
+"""
+type BountyCampaignKeyDescriptor {
+  """
+  The platform for the key.
+  """
+  platform: String!
+
+  """
+  The region for the key.
+  """
+  region: String!
+}
+
+"""
+Metric containing details about how a campaign performed over a time period.
+"""
+type BountyCampaignPerformanceMetric {
+  """
+  The number of click-throughs from the Chat CTAs of the campaign.
+  """
+  chatCTAClickThroughCount: Int
+
+  """
+  The total number of bounties that were completed.
+  """
+  completedBountyCount: Int!
+
+  """
+  The end time of this metric.
+  """
+  endTime: Time!
+
+  """
+  The total number of minutes watched.
+  """
+  minutesWatched: Int!
+
+  """
+  The start time of this metric.
+  """
+  startTime: Time!
+
+  """
+  The number of viewers that watched at least thirty seconds of the campaign's content.
+  """
+  thirtySecondViewerCount: Int!
+
+  """
+  The total number of viewers that watched the campaign's content.
+  """
+  totalViewerCount: Int!
+
+  """
+  The number of viewers that watched at least two minutes of the campaign's content.
+  """
+  twoMinuteViewerCount: Int!
+}
+
+"""
+Details about a bounty campaign reporting that only the sponsoring brand should see.
+"""
+type BountyCampaignReporting {
+  """
+  The total number of clicks from chat CTAs from every bounty.
+  """
+  chatCTAsClicks: Int
+
+  """
+  The total number of impressions from chat CTAs from every bounty.
+  """
+  chatCTAsImpressions: Int
+
+  """
+  The total number of broadcasters who have claimed the bounty.
+  """
+  claimedBountyCount: Int
+
+  """
+  How much of the budget has been claimed (live bounties) (in cents).
+  """
+  claimedBudgetCents: Int
+
+  """
+  The total number of broadcasters who have completed the bounty.
+  """
+  completedBountyCount: Int
+
+  """
+  The total number of broadcasters who have expanded the bounty.
+  """
+  expandedBountyCount: Int
+
+  """
+  Detailed performance metrics for this campaign.
+  """
+  performanceMetrics: [BountyCampaignPerformanceMetric!]
+
+  """
+  How much of the budget has been spent (completed bounties) (in cents).
+  """
+  spentBudgetCents: Int
+
+  """
+  The number of broadcasters who have viewed the bounty.
+  """
+  viewedBountyCount: Int
+}
+
+"""
+A video for a bounty board campaign.
+"""
+type BountyCampaignVideo {
+  """
+  The country that the video is targeted for (represented by ISO 3166-1 alpha-2).
+  """
+  country: String!
+
+  """
+  The title of the video.
+  """
+  title: String!
+
+  """
+  The URL of the video.
+  """
+  url: String!
+}
+
+"""
+A chat Call to Action (CTA) that will be trigger in the broadcaster chat while doing the bounty.
+"""
+type BountyChatCTA {
+  """
+  The country targeted for the chat CTA (represented by ISO 3166-1 alpha-2).
+  """
+  countryCode: String!
+
+  """
+  The time (in seconds) between each appearance of the chat CTA.
+  """
+  frequencySeconds: Int!
+
+  """
+  The initial delay (in seconds) before the first chat CTA.
+  """
+  initialDelaySeconds: Int!
+
+  """
+  The title of the chat CTA.
+  """
+  title: String!
+
+  """
+  The URL of the chat CTA.
+  """
+  url: String!
+}
+
+"""
+A list of bounty related to the subject.
+"""
+type BountyConnection {
+  """
+  The bounties.
+  """
+  edges: [BountyEdge!]
+
+  """
+  Information about pagination in this connection.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+Information about the relationship to the bounty and the subject.
+Also includes the bounty itself.
+"""
+type BountyEdge {
+  """
+  Uniquely identifies this bounty's position in a connection.
+  """
+  cursor: Cursor!
+
+  """
+  The bounty.
+  """
+  node: Bounty
+}
+
+"""
+Bounty Moderation metadata includes moderation metadata for a specific bounty.
+"""
+type BountyModerationMetadata {
+  """
+  The moderation fail reason of the bounty.
+  """
+  reason: BountyModerationFailReason
+
+  """
+  The moderation status of the bounty.
+  """
+  status: BountyModerationStatus
+
+  """
+  When the bounty was last moderated.
+  """
+  updatedAt: Time
+}
+
+"""
+A key that can be redeemed for a product.
+"""
+type BountyProductKey {
+  """
+  The code that is used to redeem the product.
+  """
+  code: String!
+
+  """
+  The platform where the code is redeemed.
+  """
+  platform: String
+
+  """
+  The product type of the key - GAME, DLC, GIVEAWAY, GIFTCARD, etc.
+  """
+  productType: BountyKeyProductType
+
+  """
+  The region where the code can be redeemed. The format and granularity of this field varies
+  depending on the product key vendor.
+  """
+  region: String
+}
+
+"""
+Defines the restrictions that are placed on a bounty.
+"""
+type BountyRestriction {
+  """
+  The days of the week that a bounty can be completed on. The values are from 0
+  to 6, representing day of the week from Monday to Sunday.
+  """
+  days: [Int!]
+
+  """
+  The end of the time period that a bounty can be completed in. This is in 24-hour clock notation, so 2100 means 9 PM UTC.
+  """
+  endTime: Int
+
+  """
+  The start of the time period that a bounty can be completed in. This is in
+  24-hour clock notation, so 1000 means 10 AM UTC.
+  """
+  startTime: Int
+}
+
+"""
+A video that the broadcaster must play on stream to complete the bounty.
+"""
+type BountyVideo {
+  """
+  The title of the video.
+  """
+  title: String!
+
+  """
+  The URL of the video.
+  """
+  url: String!
+}
+
+"""
+Brand portal settings configure how a company can interact with the brand portal.
+"""
+type BrandPortalSettings {
+  """
+  This determines whether or not a company can access all games in brand portal.
+  """
+  canAccessAllGames: Boolean!
+
+  """
+  This determines whether or not a company can access the Brand Portal.
+  """
+  isEnabled: Boolean!
+}
+
+"""
+A historical representation of a live stream.
+"""
+type Broadcast {
+  """
+  The game which was last streamed during the broadcast.
+  """
+  game: Game
+
+  """
+  The broadcast's unique identifier.
+  """
+  id: ID
+
+  """
+  When the broadcast started.
+  """
+  startedAt: Time
+
+  """
+  The title of the broadcast.
+  """
+  title: String
+}
+
+"""
+An indicator of the viewer reach for a pool of a broadcasters.
+"""
+type BroadcasterViewerReach {
+  """
+  Range of the number of broadcasters in the pool.
+  """
+  broadcasterPool: Range!
+
+  """
+  Range of minutes watched for this bounty campaign.
+  """
+  minutesWatched: Range!
+
+  """
+  Range of total viewers across the broadcaster pool.
+  """
+  viewerPool: Range!
+}
+
+"""
+Settings for a User's broadcast that persist between streams.
+"""
+type BroadcastSettings {
+  """
+  The game that the user has set as their current game. This will influence what
+  the game field on a Streams object is when the User starts streaming.
+  """
+  game: Game
+
+  """
+  The broadcast setting's unique identifier.
+  This happens to be the same as the User's ID, but should not be assumed to have any meaning.
+  """
+  id: ID!
+
+  """
+  A flag indicating if the user's broadcast is intended for mature audiences only.
+  """
+  isMature: Boolean!
+
+  """
+  The primary language that the user has configured for their broadcasts. The
+  default value is "", when the user has not indicated a primary language.
+  """
+  language: Language!
+
+  """
+  The text that will be in the notification that sends when the user starts broadcasting.
+  The default value is "<user> went live!", when the user has not set a custom value.
+  """
+  liveUpNotification: String @deprecated(reason: "Use liveUpNotificationInfo instead.")
+
+  """
+  The information about the live up notification of a user.
+  """
+  liveUpNotificationInfo: LiveUpNotificationInfo
+
+  """
+  The title of the user's broadcast. The default value is "", when the user has not indicated a title.
+  """
+  title: String!
+}
+
+"""
+Associated metrics for the "Build a Community" quest.
+"""
+type BuildACommunity {
+  """
+  Image URL for the quest's badge.
+  """
+  badgeURL: String
+
+  """
+  Time that this quest was completed.
+  """
+  completedAt: Time
+
+  """
+  Number of followers needed to complete the quest.
+  """
+  followers: QuestGoalInt
+
+  """
+  Number of Unique Chatters needed to complete the quest.
+  """
+  uniqueChatters: QuestGoalInt
+}
+
+"""
+Result of bulk approving unban requests.
+"""
+type BulkApproveUnbanRequestPayload {
+  """
+  Used for errors arising from bulk approving unban requests.
+  """
+  error: UnbanRequestError
+
+  """
+  The approved unban requests.
+  """
+  unbanRequests: [UnbanRequest!]
+}
+
+"""
+Result of bulk denying unban requests.
+"""
+type BulkDenyUnbanRequestPayload {
+  """
+  Used for errors arising from bulk denying unban requests.
+  """
+  error: UnbanRequestError
+
+  """
+  The denied unban requests.
+  """
+  unbanRequests: [UnbanRequest!]
+}

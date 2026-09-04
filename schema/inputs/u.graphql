@@ -1,0 +1,2890 @@
+"""
+Optional filters that can be applied to an unban requests query.
+"""
+input UnbanRequestsOptions {
+  """
+  The order of the results, either oldest first or newest first.
+  """
+  order: UnbanRequestsSortOrder = NEWEST
+
+  """
+  Filter results to only requests of this status.
+  """
+  status: UnbanRequestStatus
+
+  """
+  Filter results to only requests from this user.
+  """
+  userID: ID
+}
+
+input UnbanUserFromChatRoomInput {
+  bannedUserLogin: String!
+  channelID: ID!
+}
+
+input UnblockUserInput {
+  """
+  ID of user to unblock.
+  """
+  targetUserID: ID!
+}
+
+"""
+Data required to undo recommendation feedback.
+"""
+input UndoRecommendationFeedbackInput {
+  """
+  The id of the feedback.
+  """
+  feedbackID: ID!
+
+  """
+  The page this event was fired from.
+  """
+  sourceItemPage: String!
+
+  """
+  The unique id given to this request.
+  """
+  sourceItemRequestID: ID!
+
+  """
+  The unique tracking id of the shelf / shelf card.
+  """
+  sourceItemTrackingID: ID!
+}
+
+"""
+UnfollowGameInput contains just the game ID of the game to unfollow.
+"""
+input UnfollowGameInput {
+  gameID: ID!
+}
+
+input UnfollowUserInput {
+  targetID: ID!
+}
+
+input UnfriendUserInput {
+  """
+  The authenticated user will no longer be friends with the user whose ID is equal to targetID.
+  """
+  targetID: ID!
+}
+
+"""
+UnhostInput contains the necessary inputs to unhost a channel.
+"""
+input UnhostInput {
+  """
+  Channel ID to unhost from.
+  """
+  channelID: ID!
+}
+
+"""
+The required input for an uninstallExtension mutation.
+"""
+input UninstallExtensionInput {
+  """
+  The composite ID of an extension installation <extensionID:version:channelID>.
+  """
+  extensionInstallationID: ID!
+}
+
+"""
+UnlinkAmazonConnectionInput represent the parameters necessary to unlink an amazon connection.
+"""
+input UnlinkAmazonConnectionInput {
+  """
+  Id of the user that wishes to unlink his amazon connection.
+  """
+  userID: ID
+}
+
+"""
+User ID input of the connection being deleted.
+"""
+input UnlinkRiotConnectionInput {
+  """
+  Twitch User ID to delete.
+  """
+  userID: ID!
+}
+
+input UnlinkSSOInput {
+  """
+  The single sign-on (SSO) app that should be unlinked from the authenticated user's account.
+  """
+  app: String!
+
+  """
+  The token that identifies the user on the linked SSO app.
+  """
+  token: String
+}
+
+"""
+Input for unlocking a chosen modified subscriber emote with Community Points.
+"""
+input UnlockChosenModifiedSubscriberEmoteInput {
+  """
+  The channel the emote is being redeemed on.
+  """
+  channelID: ID!
+
+  """
+  The client's perception of the reward's cost.
+  """
+  cost: Int!
+
+  """
+  The modified emote to unlock.
+  """
+  emoteID: ID!
+
+  """
+  Client-set identifier for the transaction. This ID should be universally unique.
+  """
+  transactionID: ID!
+}
+
+"""
+Input for unlocking a chosen subscriber emote with Community Points.
+"""
+input UnlockChosenSubscriberEmoteInput {
+  """
+  The channel the emote is being redeemed on.
+  """
+  channelID: ID!
+
+  """
+  The client's perception of the reward's cost.
+  """
+  cost: Int!
+
+  """
+  The emote to unlock.
+  """
+  emoteID: ID!
+
+  """
+  Client-set identifier for the transaction. This ID should be universally unique.
+  """
+  transactionID: ID!
+}
+
+"""
+Input for unlocking a random subscriber emote with Community Points.
+"""
+input UnlockRandomSubscriberEmoteInput {
+  """
+  The channel the emote is being redeemed on.
+  """
+  channelID: ID!
+
+  """
+  The client's perception of the reward's cost.
+  """
+  cost: Int!
+
+  """
+  Client-set identifier for the transaction. This ID should be universally unique.
+  """
+  transactionID: ID!
+}
+
+"""
+UnmodUserInput contains the parameters to remove a user as a moderator to a channel.
+"""
+input UnmodUserInput {
+  """
+  The channel that the user will be removed as a moderator to.
+  """
+  channelID: ID!
+
+  """
+  The ID of the user that will be removed as a moderator.
+  Either targetID or targetLogin must be provided.
+  """
+  targetID: ID
+
+  """
+  The login of the user that will be removed as a moderator.
+  Either targetID or targetLogin must be provided.
+  """
+  targetLogin: String
+}
+
+"""
+UnsetHypeTrainConfigInput takes series of optional config settings and unsets the custom value for the default..
+"""
+input UnsetHypeTrainConfigInput {
+  """
+  Custom emote to be rendered in Hype Train messaging.
+  """
+  calloutEmote: Boolean
+
+  """
+  Length of the cooldown period after a hype train ends.
+  """
+  cooldownPeriodMinutes: Boolean
+
+  """
+  The difficulty of hype train levels.
+  """
+  difficulty: Boolean
+
+  """
+  Hype Train kickoff settings.
+  """
+  eventsThreshold: Boolean
+
+  """
+  Whether hype train should be enabled.
+  """
+  isEnabled: Boolean
+
+  """
+  A boolean flag that indicates if the hype train settings should be personalized by Twitch.
+  """
+  shouldUsePersonalizedSettings: Boolean
+
+  """
+  Use creator color as base color of the Hype Train progress bar.
+  """
+  willUseCreatorColor: Boolean
+}
+
+"""
+Input to the unsubscribe mutation. One of "channel" or "type" fields must be provided.
+"""
+input UnsubscribeEmailInput {
+  """
+  The unique ID of the origin email.
+  """
+  sourceEmailID: String!
+
+  """
+  The email type of the origin email.
+  """
+  sourceEmailType: String!
+
+  """
+  ID of the channel whose notifications should be blocked.
+  """
+  targetChannelID: ID
+
+  """
+  The email type from which the user is unsubscribing.
+  """
+  targetEmailType: String
+
+  """
+  ID of the user requesting the unsubscribe action.
+  """
+  userID: ID!
+
+  """
+  Server signature to verify authenticity of the link author.
+  """
+  validatingHash: String!
+}
+
+"""
+Inputs to the updateAdProperties mutation.
+"""
+input UpdateAdPropertiesInput {
+  """
+  Toggle for disable prerolls for midrolls feature.
+  """
+  hasDisablePrerollsAbilityEnabled: Boolean
+
+  """
+  Toggle for disable prerolls for midrolls notifcations.
+  The "Disable Prerolls" product is a way for streamers to disable preroll ads by running midroll ads.
+  The streamer can choose to enable notifications (ie. "Preroll Ads are now disabled for X minutes") for this product.
+  """
+  hasDisablePrerollsNotificationsEnabled: Boolean
+
+  """
+  Toggle for enable multiplayer ads for subs.
+  """
+  isMultiplayerAdsForSubsEnabled: Boolean
+
+  """
+  User the update belongs to.
+  """
+  targetUserID: ID!
+}
+
+"""
+Inputs for updating all videos viewability by channel id mutation.
+"""
+input UpdateAllChannelVideosViewabilityInput {
+  """
+  The ID of the channel to update all videos from.
+  """
+  channelID: ID!
+
+  """
+  Determines viewability of all the channels videos.
+  """
+  scope: VideoPrivacyScope!
+}
+
+input UpdateAllWhisperThreadsInput {
+  markAllAsRead: Boolean
+}
+
+"""
+UpdateAutohostSettingsInput update a user's autohost settings.
+"""
+input UpdateAutohostSettingsInput {
+  """
+  True if this channel has the autohost feature turned on.
+  """
+  isEnabled: Boolean
+
+  """
+  The strategy to use when choosing channels to autohost.
+  """
+  strategy: AutohostSettingsStrategy
+
+  """
+  UserID to update settings for.
+  """
+  userID: ID!
+
+  """
+  True if this user autohosts their team members.
+  """
+  willAutohostTeam: Boolean
+
+  """
+  True if this channels prefers autohost over vodcast.
+  """
+  willPrioritizeAutohost: Boolean
+}
+
+"""
+Defines AutoMod category level settings for a Channel, either overallLevel or detailedAutoModLevels should be non null.
+"""
+input UpdateAutoModLevelsInput {
+  """
+  String ID of the channel AutoModProperties are being updated for.
+  """
+  channelID: ID!
+
+  """
+  This field represents the detailed AutoMod category settings, which may map to an overallLevel.
+  """
+  detailedLevels: DetailedAutoModLevelsInput
+
+  """
+  This field will be a value between 0 and 4, inclusive, it is not required.
+  """
+  overallLevel: Int
+}
+
+input UpdateAutoModPropertiesInput {
+  """
+  These fields should be values between 0 and 6 inclusive.
+  """
+  aggressiveLevel: Int!
+
+  """
+  String ID of the channel AutoModProperties are being updated for.
+  """
+  channelID: String!
+  identityLevel: Int!
+  profanityLevel: Int!
+  sexualLevel: Int!
+}
+
+"""
+UpdateBitsBadgeTierNotificationInput is the input required when updating a bits badge tier notification.
+"""
+input UpdateBitsBadgeTierNotificationInput {
+  """
+  Optional message to send when sharing notification. If supplied, will accompany user notice.
+  """
+  message: String
+
+  """
+  Unique Identifier for the notification.
+  """
+  notificationID: ID!
+
+  """
+  New state for notification.
+  """
+  notificationState: BitsBadgeTierNotificationState!
+}
+
+"""
+Settings related to bits badges.
+"""
+input UpdateBitsBadgeTiersInput {
+  """
+  A list of bits badge tiers to be modified.
+  """
+  tiers: [BitsBadgeTierInput!]
+
+  """
+  The owner ID of the channel that the badge tiers belong to.
+  """
+  userID: ID!
+}
+
+"""
+The required input for a updateBoostSettings mutation.
+"""
+input UpdateBoostSettingsInput {
+  """
+  The Id of the channel where we want to update the boost enable/disable settings.
+  """
+  channelID: ID!
+
+  """
+  Whether the channel has enabled boost challenges.
+  """
+  isEarnedEnabled: Boolean
+
+  """
+  Whether the channel has enabled boosts.
+  """
+  isEnabled: Boolean
+
+  """
+  Whether the channel has enabled boosts paid for by the community.
+  """
+  isPaidEnabled: Boolean
+}
+
+"""
+The required input for a updateBroadcastSettings mutation.
+"""
+input UpdateBroadcastSettingsInput {
+  """
+  Indicate broadcaster's streaming language.
+  """
+  broadcasterLanguage: String
+
+  """
+  The title of the game that the broadcaster is playing.
+  """
+  game: String
+
+  """
+  The isMature boolean to set onto the user broadcast.
+  """
+  isMature: Boolean
+
+  """
+  Channel's streaming Status.
+  """
+  status: String
+
+  """
+  The Id of the user whose broadcast setting is being updated.
+  """
+  userID: ID!
+}
+
+"""
+Inputs for updating the user's celebration config.
+"""
+input UpdateCelebrationConfigInput {
+  """
+  ID of channel to update the celebration config.
+  """
+  channelID: ID!
+
+  """
+  If turn, celebrations are enabled on the channel.
+  """
+  isEnabled: Boolean!
+}
+
+"""
+Inputs for creating a new celebration.
+"""
+input UpdateCelebrationInput {
+  """
+  Where on the channel page the celebration will show.
+  """
+  area: CelebrationArea
+
+  """
+  ID of celebration to update.
+  """
+  celebrationID: ID!
+
+  """
+  ID of channel where the celebration to update exists.
+  """
+  channelID: ID!
+
+  """
+  Length the celebration will play.
+  """
+  durationMilliseconds: Int
+
+  """
+  Effect which will show when the celebration triggers (ex Fireworks).
+  """
+  effect: CelebrationEffect
+
+  """
+  Threshold which will trigger the celebration (ex: Cheering 100 Bits).
+  """
+  eventThreshold: Int
+
+  """
+  Event type which will trigger the celebration (ex: Cheering Bits).
+  """
+  eventType: CelebrationEventType
+
+  """
+  Intensity of the celebration.
+  Should be bounded (TBA) value which will determine the spectacle of the celebration.
+  """
+  intensity: Int
+
+  """
+  If true, the celebration is enabled.
+  """
+  isEnabled: Boolean
+}
+
+"""
+Inputs for updating the user's celebration product config.
+"""
+input UpdateCelebrationProductConfigInput {
+  """
+  List of celebrations products for purchase in the channel.
+  """
+  celebrationProducts: [CelebrationProductConfigInput!]!
+
+  """
+  ID of channel to update the celebration product config.
+  """
+  channelID: ID!
+}
+
+"""
+Inputs for updating the user's celebration user settings.
+"""
+input UpdateCelebrationUserSettingsInput {
+  """
+  If true, celebrations are disabled for the user to see.
+  """
+  isOptedOut: Boolean
+}
+
+"""
+Mutation input for updating chanlet content attributes.
+"""
+input UpdateChanletContentAttributesInput {
+  """
+  Identifier of the chanlet.
+  """
+  chanletID: ID!
+
+  """
+  A list of multi-view content attribute IDs.
+  The provided list will override the list of IDs currently stored.
+  """
+  contentAttributeIDs: [ID!]
+}
+
+"""
+The required input for a updateChannelClipsSetting mutation.
+"""
+input UpdateChannelClipsSettingInput {
+  """
+  The Id of the channel where we want to update the clips enable/disable setting.
+  """
+  channelID: ID!
+
+  """
+  If isClipsEnabled is true, allow the following roles to create Clips on the channel.
+  """
+  creationRestrictedTo: ChannelClipsCreationRestrictedToInput
+
+  """
+  If there are clip creation restrictions, use the following to add options to those restrictions.
+  """
+  creationRestrictionOptions: ChannelClipsCreationAuthRestrictionOptionsInput
+
+  """
+  Set whether or not users can create Clips on this channel.
+  """
+  isClipsEnabled: Boolean!
+}
+
+"""
+The input to update a channel's category shelf content.
+"""
+input UpdateChannelHomePreferencesInput {
+  """
+  A list of category IDs to hide from the category shelf.
+  """
+  categoryIDsToHide: [ID!]
+
+  """
+  A list of category IDs to unhide from the category shelf.
+  """
+  categoryIDsToUnhide: [ID!]
+
+  """
+  The ID of the channel whose category shelf is being updated.
+  """
+  channelID: ID!
+
+  """
+  The hero preset.
+  """
+  heroPreset: HeroPreset
+
+  """
+  The type of streamer shelf to display.
+  """
+  streamerShelfType: StreamerShelfType
+}
+
+"""
+Update a channel's Prediction Settings.
+All fields other than channelID are nullable; only specify fields that you wish to update.
+"""
+input UpdateChannelPredictionSettingsInput {
+  """
+  Whether channel moderators are allowed to create and resolve Prediction Events.
+  """
+  canModeratorsManagePredictions: Boolean
+
+  """
+  The ID of the channel to update the settings of.
+  """
+  channelID: ID!
+}
+
+input UpdateChatColorInput {
+  """
+  Named color for normal users (e.g. "Blue"  or "Coral", see https://help.twitch.tv/customer/portal/articles/659095-twitch-chat-and-moderation-commands)
+  or a hex color for Turbo users (e.g. "#001122").
+  """
+  color: String!
+}
+
+"""
+Possible chat settings modifiable for the channel specified via ChannelID.
+
+NOTE: Subscribers-only chat mode settings are in the UpdateSubscriptionProduct
+mutation.
+"""
+input UpdateChatSettingsInput {
+  """
+  autoModLevel is an integer from 0-4 representing the level of automoderation of chat
+  0 is off, 4 is the highest level of moderation.
+
+  Deprecated: No longer used.
+  """
+  autoModLevel: Int
+
+  """
+  ID of the channel for which chat settings are being updated.
+  """
+  channelID: String!
+
+  """
+  chatDelayInMs is the delay before non-mods see a message.
+  """
+  chatDelayInMs: Int
+
+  """
+  followersOnlyDurationMinutes is the number of minutes a user must have
+  followed the broadcaster before being able to chat.
+  """
+  followersOnlyDurationMinutes: Int
+
+  """
+  hideLinks indicates if links should be deleted from non-mod messages.
+  """
+  hideLinks: Boolean
+
+  """
+  isBroadcasterLanguageModeEnabled indicates if the broadcaster requires chat messages to
+  match their language.
+
+  Deprecated: No longer used.
+  """
+  isBroadcasterLanguageModeEnabled: Boolean
+
+  """
+  Indicates whether chat is currently enforcing that messages may only contain
+  emotes.
+  """
+  isEmoteOnlyModeEnabled: Boolean
+
+  """
+  If isOptedOutOfGlobalBannedWordsList is true, the legacy twitch banned words list will
+  be inserted into automod if the channel has automod enabled.
+
+  Deprecated: No longer used.
+  """
+  isOptedOutOfGlobalBannedWordsList: Boolean
+
+  """
+  Indicates whether chat is currently enforcing that messages must be
+  reasonably unique from recent messages. Previously known as "r9k mode".
+  """
+  isUniqueChatModeEnabled: Boolean
+
+  """
+  requireVerifiedAccount indicates if users must be verified to chat.
+  """
+  requireVerifiedAccount: Boolean
+
+  """
+  A list of chat rules to display to users when joining a chat channel.
+  """
+  rules: [String!]
+
+  """
+  The number of seconds a user must wait in between sending chat messages
+  If value is null, slow mode is not enabled.
+  """
+  slowModeDurationSeconds: Int
+}
+
+"""
+The data needed to update or create a broadcaster's custom cheermotes for a given tier.
+"""
+input UpdateCheermoteTierInput {
+  """
+  A list containing the image IDs for all assets needed for the cheermote tier.
+  """
+  imageAssets: [EmoteImageAssetInput!]!
+
+  """
+  The cheermote tier that should be updated.
+  """
+  tierThreshold: CheermoteTierThreshold!
+
+  """
+  The user whose cheermotes are being updated.
+  """
+  userID: ID!
+}
+
+"""
+Partner settings related to chat badges with bits.
+"""
+input UpdateCheerPartnerSettingsBadgesInput {
+  """
+  A list of tiers to modify.
+  """
+  tiers: [BitsBadgeTierInput!]
+}
+
+"""
+Partner settings related to chat messages with bits.
+"""
+input UpdateCheerPartnerSettingsChatMessageInput {
+  """
+  The setting that controls if the user has project v enabled on their channel.
+  """
+  isOptedOutOfProjectV: Boolean
+
+  """
+  The minimnm setting that controls the minimum bits that must be part of a cheer emote.
+  """
+  minBitsPerEmote: Int
+
+  """
+  The minimum setting that controls the minimum amount a user must cheer in the channel.
+  """
+  minBitsToCheer: Int
+}
+
+"""
+Settings related to bits cheer bomb events.
+"""
+input UpdateCheerPartnerSettingsCheerBombInput {
+  """
+  Flag that is true if the user has opted out of the cheer bomb event.
+  """
+  isOptedOut: Boolean
+}
+
+"""
+Partner settings related to the custom cheermote prefix.
+"""
+input UpdateCheerPartnerSettingsCustomPrefixInput {
+  """
+  Flag that is set if the user has the custom cheermote prefix enabled.
+  """
+  isEnabled: Boolean
+}
+
+"""
+Mutation input for updating Bits partner channel settings.
+"""
+input UpdateCheerPartnerSettingsInput {
+  """
+  Partner settings related to chat badges with bits.
+  """
+  badges: UpdateCheerPartnerSettingsBadgesInput
+
+  """
+  Partner settings related to chat messages with bits.
+  """
+  chatMessage: UpdateCheerPartnerSettingsChatMessageInput
+
+  """
+  Partner settings related to cheer bomb events.
+  """
+  cheerBombEvent: UpdateCheerPartnerSettingsCheerBombInput
+
+  """
+  Partner settings related to the custom cheermote prefix.
+  """
+  customPrefix: UpdateCheerPartnerSettingsCustomPrefixInput
+
+  """
+  Whether to onboard or offboard the user with bits.
+  """
+  isOnboarded: Boolean
+
+  """
+  Partner settings related to the bits leaderboard.
+  """
+  leaderboard: UpdateCheerPartnerSettingsLeaderboardInput
+
+  """
+  Partner settings related to the recent cheer message.
+  """
+  recentCheer: UpdateCheerPartnerSettingsRecentCheerInput
+
+  """
+  Partner settings related to sponsored cheermote campaigns.
+  """
+  sponsoredCheermote: UpdateCheerPartnerSettingsSponsoredCheermoteInput
+
+  """
+  The user ID to update channel settings.
+  """
+  userID: ID!
+}
+
+"""
+Partner settings related to the bits leaderboard.
+"""
+input UpdateCheerPartnerSettingsLeaderboardInput {
+  """
+  Flag that is true if the user has bits leaderboards turned on.
+  """
+  isEnabled: Boolean
+
+  """
+  The time period the user wants the leaderboard to be displayed as.
+  """
+  timePeriod: String
+}
+
+"""
+Partner settings related to the recent cheer message.
+"""
+input UpdateCheerPartnerSettingsRecentCheerInput {
+  """
+  Flag that when true pins the recent cheer to their channel.
+  """
+  canPin: Boolean
+
+  """
+  The minimum bits a user must cheer to show their cheer on the chat header.
+  """
+  minimumBits: Int
+
+  """
+  The amount of time a recent cheer is shown before being dismissed.
+  """
+  timeoutMilliseconds: Int
+}
+
+"""
+Settings related to sponsored cheermote campaigns.
+"""
+input UpdateCheerPartnerSettingsSponsoredCheermoteInput {
+  """
+  The campaign ID we are modifying for the user.
+  """
+  id: ID!
+
+  """
+  Flag that is true if the user has opted in of the sponsored cheermote campaign.
+  """
+  isOptedIn: Boolean!
+}
+
+"""
+UpdateClipInput updates the title of the clip with the provided slug.
+"""
+input UpdateClipInput {
+  """
+  The slug of the clip to update.
+  """
+  slug: ID!
+
+  """
+  The new title of the clip.
+  """
+  title: String
+}
+
+"""
+UpdateClipViewCountInput increments the viewcount of the provided slug.
+"""
+input UpdateClipViewCountInput {
+  """
+  The slug of the clip to increment viewcount on.
+  """
+  slug: ID!
+}
+
+"""
+UpdateCollectionInput accepts a collection ID and parameters to update a collection.
+"""
+input UpdateCollectionInput {
+  """
+  The id of the collection to be updated.
+  """
+  collectionID: ID!
+
+  """
+  The updated description of the collection.
+  """
+  description: String
+
+  """
+  The itemID of the item whose thumbnail will be collection's thumbnail.
+  """
+  thumbnailInput: UpdateCollectionThumbnailInput
+
+  """
+  The updated title of the collection.
+  """
+  title: String
+
+  """
+  The updated type of the collection.
+  """
+  type: CollectionType
+}
+
+"""
+UpdateCollectionThumbnailInput accepts a item ID and item Type for the new collection's thumbnail.
+"""
+input UpdateCollectionThumbnailInput {
+  """
+  The id of the item whose thumbnail will be collection's thumbnail.
+  """
+  id: ID!
+
+  """
+  The type of the item whose thumbnail will be collection's thumbnail.
+  """
+  type: String!
+}
+
+"""
+Input for updating an automatic Community Points reward in a channel.
+Only the channelID and rewardType are required. All other fields are optional.
+Only set fields that are intended to be updated.
+"""
+input UpdateCommunityPointsAutomaticRewardInput {
+  """
+  The optional custom background color for this reward.
+  Should be a hex color string, for example "FF0000".
+  """
+  backgroundColor: String
+
+  """
+  The channel ID that the reward is being updated in.
+  """
+  channelID: ID!
+
+  """
+  The point cost of this reward.
+  """
+  cost: Int
+
+  """
+  Whether the reward is enabled.
+  """
+  isEnabled: Boolean
+
+  """
+  The ID of the reward being updated.
+  """
+  rewardType: CommunityPointsAutomaticRewardType!
+
+  """
+  A flag to reset this automatic reward's background color to default.
+  """
+  shouldResetBackgroundColor: Boolean
+
+  """
+  A flag to reset this automatic reward's cost to default.
+  """
+  shouldResetCost: Boolean
+
+  """
+  A flag to reset this automatic reward's image to default.
+  """
+  shouldResetImage: Boolean
+}
+
+"""
+Input for updating Community Points channel settings..
+Only the channelID is required. All other fields are optional.
+Only set fields that are intended to be updated.
+"""
+input UpdateCommunityPointsChannelSettingsInput {
+  """
+  The channel ID to update the settings of.
+  """
+  channelID: ID!
+
+  """
+  Whether the channel has community points turned on.
+  """
+  isEnabled: Boolean
+
+  """
+  The channel's custom community points name.
+  """
+  name: String
+
+  """
+  A flag to reset this channel's community points image to default.
+  """
+  shouldResetImage: Boolean
+
+  """
+  A flag to reset this channel's community points name to default.
+  """
+  shouldResetName: Boolean
+}
+
+"""
+Update community goal input.
+"""
+input UpdateCommunityPointsCommunityGoalInput {
+  """
+  The amount of community points that this goal needs to succeed.
+  """
+  amountNeeded: Int
+
+  """
+  The background color of this goal.
+  """
+  backgroundColor: String
+
+  """
+  The channel.
+  """
+  channelID: ID!
+
+  """
+  The description of this goal.
+  """
+  description: String
+
+  """
+  The *initial* duration the streamer set for the goal.
+  Only really used during the UNSTARTED state; once the goal is started
+  the endedAt timestamp is populated (and updated for extended deadlines).
+  """
+  durationDays: Int
+
+  """
+  The time the goal is scheduled to end. Used to extend a goal.
+  """
+  endsAt: Time
+
+  """
+  The id of the goal.
+  """
+  goalID: ID!
+
+  """
+  Reset background color to default if true.
+  """
+  resetBackgroundColor: Boolean
+
+  """
+  Reset image to default if true.
+  """
+  resetImage: Boolean
+
+  """
+  Reset max contribution per stream to default if true.
+  """
+  resetMaxContributionPerStream: Boolean
+
+  """
+  The current status of this goal.
+  """
+  status: CommunityPointsCommunityGoalStatus
+
+  """
+  The title of this goal.
+  """
+  title: String
+}
+
+"""
+Input for updating a custom Community Points reward in a channel.
+Only the channelID and rewardID are required. All other fields are optional.
+Only set fields that are intended to be updated.
+"""
+input UpdateCommunityPointsCustomRewardInput {
+  """
+  The optional custom background color for this reward.
+  Should be a hex color string, for example "FF0000".
+  """
+  backgroundColor: String
+
+  """
+  The channel ID that the reward is being updated in.
+  """
+  channelID: ID!
+
+  """
+  The point cost of this reward.
+  """
+  cost: Int
+
+  """
+  The length of the global cooldown applied to rewards redeemed of this type.
+  """
+  globalCooldownSetting: CommunityPointsCustomRewardGlobalCooldownSettingInput
+
+  """
+  Whether this reward has real world value.
+  """
+  hasRealWorldValue: Boolean
+
+  """
+  Whether the reward is enabled.
+  """
+  isEnabled: Boolean
+
+  """
+  Whether the reward is temporarily paused.
+  """
+  isPaused: Boolean
+
+  """
+  Whether only subscribers are allowed to redeem this reward in this channel.
+  """
+  isSubOnly: Boolean
+
+  """
+  Whether this reward requires users to enter text input.
+  """
+  isUserInputRequired: Boolean
+
+  """
+  The most rewards of this type that can be redeemed per stream.
+  """
+  maxPerStreamSetting: CommunityPointsCustomRewardMaxPerStreamSettingInput
+
+  """
+  The most rewards of this type that can be redeemed per user per stream.
+  """
+  maxPerUserPerStreamSetting: CommunityPointsCustomRewardMaxPerUserPerStreamSettingInput
+
+  """
+  The optional user-facing prompt for this reward.
+  """
+  prompt: String
+
+  """
+  The ID of the reward being updated.
+  """
+  rewardID: ID!
+
+  """
+  Whether redemptions for this reward should skip the broadcaster's request queue and get
+  automatically fulfilled.
+  """
+  shouldRedemptionsSkipRequestQueue: Boolean
+
+  """
+  A flag to reset this custom reward's image to the default.
+  """
+  shouldResetImage: Boolean
+
+  """
+  The short title displayed for this reward.
+  """
+  title: String
+}
+
+"""
+Input for acting on all Community Points redemptions for a channel.
+"""
+input UpdateCommunityPointsCustomRewardRedemptionStatusesByChannelInput {
+  """
+  The channel ID the redemptions were made in.
+  """
+  channelID: ID!
+
+  """
+  The new status to set the redemptions to.
+  """
+  newStatus: CommunityPointsCustomRewardRedemptionStatus!
+
+  """
+  The old status redemptions are currently set to.
+  """
+  oldStatus: CommunityPointsCustomRewardRedemptionStatus!
+}
+
+"""
+Input for acting on the Community Points redemptions from the provided list.
+"""
+input UpdateCommunityPointsCustomRewardRedemptionStatusesByRedemptionsInput {
+  """
+  The channel ID the redemptions were made in.
+  """
+  channelID: ID!
+
+  """
+  The new status to set the redemptions to.
+  """
+  newStatus: CommunityPointsCustomRewardRedemptionStatus!
+
+  """
+  The old status redemptions are currently set to.
+  """
+  oldStatus: CommunityPointsCustomRewardRedemptionStatus!
+
+  """
+  The redemption IDs to update.
+  """
+  redemptionIDs: [ID!]!
+}
+
+"""
+Input for acting on all Community Points redemptions for a reward.
+"""
+input UpdateCommunityPointsCustomRewardRedemptionStatusesByRewardInput {
+  """
+  The channel ID the redemptions were made in.
+  """
+  channelID: ID!
+
+  """
+  The new status to set the redemptions to.
+  """
+  newStatus: CommunityPointsCustomRewardRedemptionStatus!
+
+  """
+  The old status redemptions are currently set to.
+  """
+  oldStatus: CommunityPointsCustomRewardRedemptionStatus!
+
+  """
+  The reward ID to update all redemptions with oldStatus for.
+  """
+  rewardID: ID!
+}
+
+"""
+Input for acting on a Community Points redemption.
+"""
+input UpdateCommunityPointsCustomRewardRedemptionStatusInput {
+  """
+  The channel ID the redemption was made in.
+  """
+  channelID: ID!
+
+  """
+  The new status to set the redemption to.
+  """
+  newStatus: CommunityPointsCustomRewardRedemptionStatus!
+
+  """
+  The redemption ID.
+  """
+  redemptionID: ID!
+}
+
+"""
+Requests to change a user's enrollment status in the Community Points early access program.
+"""
+input UpdateCommunityPointsEarlyAccessSettingsInput {
+  """
+  Sets whether the user is signing up for or removing themself from the early access program.
+  """
+  isSignedUp: Boolean!
+}
+
+"""
+Input for updating the last viewed community points content timestamps on a channel.
+The global content that was viewed on the channel will also have the timestamps updated.
+"""
+input UpdateCommunityPointsLastViewedContentInput {
+  """
+  The channelID where the content was viewed.
+  """
+  channelID: ID!
+
+  """
+  The content types that were viewed.
+  """
+  viewedContent: [CommunityPointsContentType!]!
+}
+
+"""
+Input required for updating community points smart costs acknowledgements.
+"""
+input UpdateCommunityPointsSmartCostsAcknowledgementsInput {
+  """
+  List of acknowledgements to update.
+  """
+  acknowledgements: [SmartCostsAcknowledgementInput!]!
+
+  """
+  The channel ID that the reward is being updated in.
+  """
+  channelID: ID!
+}
+
+"""
+The competition contact info for updates.
+"""
+input UpdateCompetitionContactInfoInput {
+  """
+  Link to Discord server for competition contact purposes.
+  """
+  discordURL: String
+
+  """
+  Email address point of contact for the competition.
+  """
+  email: String
+}
+
+"""
+Update a Competition.
+"""
+input UpdateCompetitionInput {
+  """
+  Banner image for the competition event page.
+  """
+  bannerImageURL: String
+
+  """
+  This is the amount of time (in minutes) available for participants to check-in once competition startAt has passed.
+  """
+  checkInDurationMinutes: Int
+
+  """
+  Long form description of the competition.
+  """
+  description: String
+
+  """
+  The time the competition is scheduled to end.
+  """
+  endAt: Time
+
+  """
+  The predefined structure of phases and lobbies.
+  """
+  formatType: FormatType
+
+  """
+  The game being played in the competition>.
+  """
+  gameID: ID
+
+  """
+  ID of the Competition we want to update.
+  """
+  id: ID!
+
+  """
+  Primary artwork for the competition.
+  """
+  imageURL: String
+
+  """
+  Specific format restrictions for a competition.
+  """
+  leaderboardDetails: UpdateCompetitionLeaderboardDetailsInput
+
+  """
+  The name of the competition.
+  """
+  name: String
+
+  """
+  The participant-facing points of contact for the competition that only registered participants can see.
+  """
+  participantOnlyContactInfo: UpdateCompetitionContactInfoInput
+
+  """
+  Long form text block description that explains the prizing for the competition
+  and will be converted to Markdown client-side.
+  """
+  prizeDescription: String
+
+  """
+  The public points of contact for the competition that anyone can see.
+  """
+  publicContactInfo: UpdateCompetitionContactInfoInput
+
+  """
+  The time the competition is scheduled to end registration.
+  """
+  registrationEndAt: Time
+
+  """
+  The maximum number of players in a REGISTERED state.
+  """
+  registrationLimit: Int
+
+  """
+  Long form text block description that explains the rules for the competition
+  and will be converted to Markdown client-side.
+  """
+  rulesDescription: String
+
+  """
+  The time the competition is scheduled to start.
+  """
+  startAt: Time
+
+  """
+  The state of the tournament.
+  """
+  state: CompetitionState
+
+  """
+  The size of a team when ParticipantType is Team.
+  """
+  teamSize: Int
+
+  """
+  Link URL to any additional terms and conditions.
+  """
+  termsURL: String
+}
+
+"""
+Editable fields for Leaderboard competition details.
+"""
+input UpdateCompetitionLeaderboardDetailsInput {
+  """
+  The max participant count for a lobby in phase.
+  """
+  lobbyMaxSize: Int
+
+  """
+  The number of phases a competition should have.
+  """
+  phaseCount: Int
+
+  """
+  The way points are assigned to a participant in case of a tie.
+  """
+  tiebreakerLabel: TiebreakerLabel
+}
+
+"""
+Update the state of a player in a Competition.
+"""
+input UpdateCompetitionPlayerInput {
+  """
+  Unique Competition ID.
+  """
+  competitionID: ID!
+
+  """
+  The discord username for the player.
+  """
+  discordUsername: String
+
+  """
+  The in game username for the player.
+  """
+  inGameUsername: String
+
+  """
+  Indicates whether the player is disqualified.
+  """
+  isDisqualified: Boolean
+
+  """
+  The state a player has in the competition we want to change.
+  """
+  state: CompetitionPlayerState
+
+  """
+  Twitch user id of the player.
+  """
+  userID: ID!
+}
+
+"""
+Update a team in a Competition.
+"""
+input UpdateCompetitionTeamInput {
+  """
+  Twitch user id of the participant to make into the TeamCaptain.
+  """
+  captainID: ID
+
+  """
+  Unique Competition ID.
+  """
+  competitionID: ID!
+
+  """
+  Indicates whether the team is disqualified.
+  """
+  isDisqualified: Boolean
+
+  """
+  The user ids of the team members.
+  """
+  members: [ID!]
+
+  """
+  Unique Team ID for the specified Competition.
+  """
+  teamID: ID!
+
+  """
+  The new name of the team.
+  """
+  teamName: String
+}
+
+"""
+UpdateConsentInput updates or creates a consent status for a privacy law.
+"""
+input UpdateConsentInput {
+  """
+  Consent Session ID.
+  """
+  consentSessionID: ID!
+
+  """
+  Privacy rule set of applicable law, e.g. CCPA or GDPR.
+  """
+  privacyLawName: PrivacyLawName!
+
+  """
+  Consent status for each vendor.
+  """
+  vendorStatus: [VendorConsentStatusInput!]!
+}
+
+"""
+Update tags associated with CLIP, STREAM, or VOD with contentID.
+"""
+input UpdateContentTagsInput {
+  """
+  List of tag IDs to be added from the content.
+  """
+  addedTagIDs: [ID!]
+
+  """
+  ID of the channel owning the content.
+  """
+  authorID: ID!
+
+  """
+  ID of content: Channel ID for Streams, Slugs for Clips, and VOD ids for VODs.
+  """
+  contentID: ID!
+
+  """
+  Type of content being returned. Can only be of values CLIP, STREAM, or VOD.
+  """
+  contentType: ContentType!
+
+  """
+  List of tag IDs to be removed from the content.
+  """
+  removedTagIDs: [ID!]
+}
+
+"""
+Input for updating properties of an existing Mosaic layout.
+Must specify the id of the layout, which is validated based
+on the current userID. Must also specify the type of the layout.
+Other fields are optional; only specified fields are updated,
+and undefined ones are left unchanged.
+"""
+input UpdateDashboardViewMosaicLayoutInput {
+  """
+  The Mosaic data blob (in string form) representing a Mosaic layout.
+  If left undefined, the data will not be changed.
+  """
+  data: MosaicData
+
+  """
+  The id of the specific mosaic layout to be updated. This identifies
+  a combination of type and channel for this user, and has an additional
+  unique component to distinguish it from other layouts for this type and channel.
+  """
+  id: ID!
+
+  """
+  The display name of the layout. This allows the display name to be changed.
+  If left undefined, the display name will not be changed.
+  """
+  name: String
+
+  """
+  The version tag for a Mosaic layout, which can be optionally updated.
+  If left undefined, the value will not be changed.
+  """
+  version: String
+}
+
+"""
+UpdateDropBenefitInput has fields required to update a drop benefit.
+"""
+input UpdateDropBenefitInput {
+  """
+  The redirect URL where a user can link their account.
+  """
+  accountLinkURL: String!
+
+  """
+  The ID of this benefit object.
+  """
+  benefitID: ID!
+
+  """
+  The global limit of how often this benefit can be entitled to a user.
+  """
+  entitlementLimit: Int!
+
+  """
+  The game that awarded the Drop.
+  """
+  gameID: ID!
+
+  """
+  Specifies if this reward is considered for a game that is available on iOS.
+  """
+  isIosAvailable: Boolean
+
+  """
+  The display name of this benefit object.
+  """
+  name: String!
+
+  """
+  The RBAC organization ID of the owner.
+  """
+  ownerID: ID!
+}
+
+"""
+UpdateDropBenefitOnDropInput has fields required to update a drop's benefit.
+"""
+input UpdateDropBenefitOnDropInput {
+  """
+  The benefit to add to the drop.
+  """
+  benefitID: ID!
+
+  """
+  How many times the drop can award the benefit.
+  """
+  dropEntitlementLimit: Int!
+
+  """
+  The drop to add the benefit to.
+  """
+  dropID: ID!
+}
+
+"""
+UpdateDropPreconditionsInput has fields required to update multiple drops and their precondition drop.
+"""
+input UpdateDropPreconditionsInput {
+  """
+  The campaign we want to update drops for.
+  """
+  campaignID: ID!
+
+  """
+  A list of drops and their drop precondition.
+  """
+  dropPreconditions: [DropPrecondition]!
+}
+
+"""
+The required input for a updateDropsOptOutStatus mutation.
+"""
+input UpdateDropsOptOutStatusInput {
+  """
+  Channel's drop opt-out Status.
+  """
+  isOptedOut: Boolean!
+
+  """
+  The Id of the user whose broadcast setting is being updated.
+  """
+  userID: ID!
+}
+
+"""
+The required input for an updateEmoteOrders mutation.
+"""
+input UpdateEmoteOrdersInput {
+  """
+  The list of emotes with their newly requested orders in a particular group.
+  """
+  orders: [EmoteOrder!]!
+}
+
+"""
+UpdateExtensionDiscoveryDataInput updates the discovery data of a given extension version.
+"""
+input UpdateExtensionDiscoveryDataInput {
+  """
+  Extension metadata used for discovery.
+  """
+  discoveryManifest: ExtensionDiscoveryManifestInput!
+
+  """
+  The extension ID of the manifest to update.
+  """
+  id: ID!
+
+  """
+  The extension version to update.
+  """
+  version: String!
+}
+
+"""
+UpdateExtensionManifestInput updates the manifest.
+"""
+input UpdateExtensionManifestInput {
+  """
+  ExtensionAssetManifest is data related to the assets of an extension.
+  """
+  assetManifest: ExtensionAssetManifestInput!
+
+  """
+  Data about what an Extension can do, in general, and at the time of interaction.
+  """
+  capabilities: ExtensionCapabilitiesInput!
+
+  """
+  ExtensionDeveloperManifest is the developer specific extension data.
+  """
+  developerManifest: ExtensionDeveloperManifestInput!
+
+  """
+  Extension metadata used for discovery.
+  """
+  discoveryManifest: ExtensionDiscoveryManifestInput!
+
+  """
+  The extension ID of the manifest to update.
+  """
+  id: ID!
+
+  """
+  The extension version to update.
+  """
+  version: String!
+
+  """
+  Extension views.
+  """
+  views: ExtensionViewsInput!
+}
+
+"""
+UpdateHypeTrainConfigInput takes series of optional config settings.
+"""
+input UpdateHypeTrainConfigInput {
+  """
+  Custom emote to be rendered in Hype Train messaging.
+  """
+  calloutEmoteID: ID
+
+  """
+  Length of the cooldown period after a hype train ends.
+  """
+  cooldownPeriodMinutes: Int
+
+  """
+  The difficulty of hype train levels.
+  """
+  difficulty: HypeTrainDifficulty
+
+  """
+  Whether hype train should be enabled.
+  """
+  isEnabled: Boolean
+
+  """
+  Hype Train kickoff settings.
+  """
+  kickoff: HypeTrainKickoffInput
+
+  """
+  A boolean flag that indicates if the hype train settings should be personalized by Twitch.
+  """
+  shouldUsePersonalizedSettings: Boolean
+
+  """
+  Use creator color as base color of the Hype Train progress bar.
+  """
+  willUseCreatorColor: Boolean
+}
+
+"""
+Updates the user's activity sharing setting. This must only be sent in response to a direct action by the user
+intended to change the setting.
+"""
+input UpdateIsSharingActivityInput {
+  """
+  Determines whether or not to show the user's activity in their shared status. When false, the user will always
+  appear as if they are performing no activity.
+  """
+  isSharingActivity: Boolean!
+}
+
+"""
+Mutation input for updating partner leaderboard settings.
+"""
+input UpdateLeaderboardSettingsInput {
+  """
+  The default leaderboard the user wants to show.
+  """
+  defaultLeaderboard: LeaderboardType
+
+  """
+  Setting for enabling bits cheering leaderboards.
+  """
+  isCheerEnabled: Boolean
+
+  """
+  Setting for enabling sub gifting leaderboards.
+  """
+  isSubGiftEnabled: Boolean
+
+  """
+  The time period the user wants the leaderboard to be displayed as.
+  """
+  timePeriod: LeaderboardTimePeriodType
+
+  """
+  The user ID to update leaderboard settings.
+  """
+  userID: ID!
+}
+
+"""
+The required input for a updateLiveUpNotification mutation.
+"""
+input UpdateLiveUpNotificationInput {
+  """
+  The text that will be in the notification that sends when the user starts broadcasting.
+  If updated to "", the default value of "<user> went live!" will be used/returned.
+  """
+  liveUpNotification: String!
+
+  """
+  The ID of the user whose live up notification is being updated.
+  """
+  userID: ID!
+}
+
+"""
+Inputs for updating the score for the lobby participant, who is a competition player or competition team, in a competition.
+"""
+input UpdateLobbyParticipantScoreInput {
+  """
+  ID of the competition.
+  """
+  competitionID: ID!
+
+  """
+  ID of the competition lobby.
+  """
+  lobbyID: ID!
+
+  """
+  ID of the competition player or competition team.
+  """
+  participantID: ID!
+
+  """
+  ID of the competition phase.
+  """
+  phaseID: ID!
+
+  """
+  The assigned score value.
+  """
+  score: Int!
+}
+
+"""
+Exchanges one of two auth inputs for an AccessToken and RefreshToken.
+"""
+input UpdateLWATokenInput {
+  """
+  Either an AuthorizationCode or a RefreshToken.
+  """
+  grant: String!
+
+  """
+  The type of grant provided.
+  """
+  grantType: GrantType!
+}
+
+"""
+Contains a list of multi-view content attributes to be updated.
+"""
+input UpdateMultiviewContentAttributesInput {
+  """
+  List of multi-view content attributes to be updated.
+  """
+  params: [MultiviewContentAttributeParams!]!
+}
+
+"""
+Used for mutating onboarding status.
+"""
+input UpdateOnboardingSkippedChannelsInput {
+  """
+  List of channels the user skips during the onboarding process.
+  """
+  channelIDs: [ID!]!
+
+  """
+  ID for the user to update.
+  """
+  userID: ID!
+}
+
+"""
+Inputs to the UpdateOrganizationMemberRole mutation.
+"""
+input UpdateOrganizationMemberRoleInput {
+  """
+  ID of the organization where the user is a member.
+  """
+  organizationID: ID!
+
+  """
+  New role of the user in the organization.
+  """
+  role: OrganizationMemberRole!
+
+  """
+  User's Twitch ID.
+  """
+  userID: ID!
+}
+
+"""
+UpdateOwnerChanletAttributesInput updates the owner chanlet attributes.
+"""
+input UpdateOwnerChanletAttributesInput {
+  """
+  The ID of the owner chanlet (channel that owns chanlets).
+  """
+  channelID: ID!
+
+  """
+  Whether the chanlets should return for the viewers.
+  """
+  isChanletFeatureEnabled: Boolean!
+}
+
+input UpdatePanelInput {
+  description: String
+  id: ID!
+  imageURL: String
+  linkURL: String
+  slotID: String
+  title: String
+}
+
+"""
+The required input for a updatePhoneNumberConfirmation mutation.
+"""
+input UpdatePhoneNumberConfirmationInput {
+  """
+  The one time password required to complete phone number registration. This can
+  only be generated from the UpdatePhoneNumber mutation.
+  """
+  oneTimePassword: String!
+
+  """
+  The phone number being added to a twitch user profile.
+  """
+  phoneNumber: String!
+
+  """
+  The ID of the user that is requesting to add or modify their phone number.
+  """
+  userID: ID!
+}
+
+"""
+The required input for a updatePhoneNumber mutation.
+"""
+input UpdatePhoneNumberInput {
+  """
+  The phone number being added to a twitch user profile.
+  """
+  phoneNumber: String!
+
+  """
+  The ID of the user that is requesting to add or modify their phone number.
+  """
+  userID: ID!
+}
+
+"""
+The offer id you wish to update as well as the status for the update.
+"""
+input UpdatePrimeOfferStatusInput {
+  """
+  The list of offers and statuses to update.
+  """
+  statusChanges: [OfferAndStatus!]!
+
+  """
+  The user to update the offer statuses for.
+  """
+  userID: ID!
+}
+
+"""
+UpdatePrimeSettingsInput contains boolean for setting the users preference on chat notifications,
+and the users preference on the emoticon set name to be selected.
+"""
+input UpdatePrimeSettingsInput {
+  """
+  The Prime Emoticons Set Name for Prime Emoticons Smilies.
+  """
+  primeEmoticonsSetName: PrimeEmoticonsSetName
+
+  """
+  True or False for whether the user wants notifications enabled.
+  """
+  shouldEnableSubCreditChatNotification: Boolean
+
+  """
+  The ID of the user who's settings are being updated.
+  """
+  userID: ID!
+}
+
+"""
+UpdateRaidSettingsInput update a user's raid settings.
+"""
+input UpdateRaidSettingsInput {
+  """
+  Determines what other channels can raid this channel.
+  """
+  incomingRaidsPolicy: IncomingRaidsPolicy
+
+  """
+  UserID to update settings for.
+  """
+  userID: ID!
+}
+
+input UpdateRoomInput {
+  """
+  Deprecated. Use minimumReadMessagesRole instead.
+  """
+  isPreviewable: Boolean
+
+  """
+  Deprecated. Use minimumReadMessagesRole and minimumSendMessagesRole instead.
+  """
+  minimumAllowedRole: RoomRole
+
+  """
+  Minimum role required to read messages in the room.
+  """
+  minimumReadMessagesRole: RoomRole
+
+  """
+  Minimum role required to send messages in the room.
+  """
+  minimumSendMessagesRole: RoomRole
+  name: String
+  roomID: ID!
+  topic: String
+}
+
+input UpdateRoomModesInput {
+  """
+  Turns emotes only mode on or off.
+  """
+  enableEmotesOnlyMode: Boolean
+
+  """
+  Turns r9k mode on or off.
+  """
+  enableR9KMode: Boolean
+
+  """
+  Turns slow mode on or off.
+  """
+  enableSlowMode: Boolean
+  roomID: ID!
+
+  """
+  If slow mode enabled, the number of seconds users must wait between messages.
+  """
+  slowModeDurationSeconds: Int
+}
+
+input UpdateRoomViewInput {
+  isArchived: Boolean
+  isMuted: Boolean
+  lastReadAt: Time
+  roomID: ID!
+}
+
+"""
+The input to update a schedule segment.
+"""
+input UpdateScheduleSegmentInput {
+  """
+  The categories of the segment.
+  """
+  categories: [ID!]
+
+  """
+  The duration of the segment in minutes.
+  """
+  durationMinutes: Int
+
+  """
+  The start date and time of the first occurrence of the segment.
+  """
+  firstOccurrenceDate: Time
+
+  """
+  Whether the segment is cancelled.
+  """
+  isCancelled: Boolean
+
+  """
+  The schedule id.
+  """
+  scheduleID: ID!
+
+  """
+  The segment id to update.
+  """
+  segmentID: ID!
+
+  """
+  The start time of the segment.
+  """
+  start: SegmentStartTimeInput
+
+  """
+  The geographic timezone of the segment.
+  """
+  timezone: String
+
+  """
+  The title of the segment.
+  """
+  title: String
+}
+
+"""
+Updates the list of streamer onboarding content that a user has seen.
+"""
+input UpdateSeenCreatorOnboardingContentInput {
+  """
+  A list of content IDs that should be marked as seen.
+  """
+  onboardingContentIDs: [ID!]!
+
+  """
+  UserID for the user to update seen content.
+  """
+  userID: ID!
+}
+
+"""
+UpdateSocialMediaInput updates existing a social media item under the given channelID.
+"""
+input UpdateSocialMediaInput {
+  """
+  The unique channel identifier.
+  """
+  channelID: ID!
+
+  """
+  The unique indentifier of the social media item.
+  """
+  id: ID!
+
+  """
+  The visible text of the social media item.
+  """
+  title: String
+
+  """
+  The web address of the social media item.
+  """
+  url: String
+}
+
+"""
+The required input for an updateSquadInvitePolicy mutation.
+"""
+input UpdateSquadInvitePolicyInput {
+  """
+  The new invite policy that will replace what is currently set for the user.
+  """
+  incomingInvitePolicy: SquadStreamIncomingInvitePolicy!
+
+  """
+  The ID corresponding to the user whose invite policy should be updated.
+  """
+  userID: ID!
+}
+
+"""
+Inputs to the updateSquadStream mutation.
+"""
+input UpdateSquadStreamInput {
+  """
+  The ID of the squad stream to be updated.
+  """
+  squadStreamID: ID!
+
+  """
+  If specified, the new status of the squad stream.
+  """
+  status: SquadStreamStatus
+}
+
+"""
+Inputs to updating a stucco.
+"""
+input UpdateStuccoInput {
+  """
+  ID of the channel this stucco belongs to.
+  """
+  channelID: ID!
+
+  """
+  Description representing the stucco, should be the words contained in the stucco, used by screen readers.
+  """
+  description: String!
+
+  """
+  Base64 encoded binary data of the 92x28px stucco ("1x") image asset.
+  """
+  imageData1x: String!
+
+  """
+  Base64 encoded binary data of the 182x56px stucco ("2x") image asset.
+  """
+  imageData2x: String!
+
+  """
+  Base64 encoded binary data of the 368x112px stucco ("4x") image asset.
+  """
+  imageData4x: String!
+
+  """
+  Unique ID of the stucco to update.
+  """
+  stuccoID: ID!
+
+  """
+  Text code representing the stucco without any prefixes (prefixes are added in the backend).
+  """
+  suffix: String!
+}
+
+"""
+Inputs for updating a stucco pack (exchanging stuccos contained in the pack).
+"""
+input UpdateStuccoPackInput {
+  """
+  Id of the channel this pack is part of.
+  """
+  channelID: ID!
+
+  """
+  Id of the stucco pack to update.
+  """
+  stuccoPackID: ID!
+
+  """
+  Updated list of stuccos for this pack.
+  """
+  stuccos: [UpdateStuccoPackItemInput!]
+}
+
+"""
+Single item in a stuccopack, as part of the update stucco pack call, representing one stucco to be used in a certain slot.
+"""
+input UpdateStuccoPackItemInput {
+  """
+  Slot index in the pack (used for ordering).
+  """
+  slotIndex: Int!
+
+  """
+  Id of the stucco.
+  """
+  stuccoID: ID!
+}
+
+"""
+Inputs to the updateSubscriptionProduct mutation.
+"""
+input UpdateSubscriptionProductInput {
+  """
+  Name of the product.
+  """
+  displayName: String
+
+  """
+  Toggle to enable add free viewing.
+  """
+  hasAdFree: Boolean
+
+  """
+  Toggle to enable fast chat (or disable slow mode).
+  """
+  hasFastChat: Boolean
+
+  """
+  Toggle to enable sub only chat.
+  """
+  hasSubOnlyChat: Boolean
+
+  """
+  Toggle to enable sub only video.
+  """
+  hasSubOnlyVideoArchive: Boolean
+
+  """
+  The id of the subscription product.
+  """
+  id: ID!
+
+  """
+  User the update belongs to.
+  """
+  targetUserID: ID!
+}
+
+"""
+The required input for a UpdateUserColorsInput mutation.
+"""
+input UpdateUserColorsInput {
+  """
+  The user's primary color hex string (e.g. "FFFFFF").
+  """
+  primaryColorHex: String!
+
+  """
+  The ID of the user whose creator colors are being updated.
+  """
+  userID: ID!
+}
+
+"""
+The required input for a updateUserCreateDateHidden mutation.
+"""
+input UpdateUserCreateDateHiddenInput {
+  """
+  The hide create date boolean to set onto the user.
+  """
+  isCreateDateHidden: Boolean!
+
+  """
+  The ID of the user whose privacy setting is being updated.
+  """
+  userID: ID!
+}
+
+"""
+The required input for a updateUserDirectoryHidden mutation.
+"""
+input UpdateUserDirectoryHiddenInput {
+  """
+  The directory hidden boolean to set onto the user.
+  """
+  IsDirectoryHidden: Boolean!
+}
+
+"""
+The required input for a updateUserEmailReuseable mutation.
+"""
+input UpdateUserEmailReusableInput {
+  """
+  The email reusable boolean to set onto the user.
+  """
+  IsEmailReusable: Boolean!
+
+  """
+  The ID of the user whose broadcast setting is being updated.
+  """
+  userID: ID!
+}
+
+"""
+The required input for a UpdateUser mutation.
+"""
+input UpdateUserInput {
+  """
+  If true the phone number associated with this user will be deleted.
+  """
+  deletePhoneNumber: Boolean
+
+  """
+  The user's personal description.
+  """
+  description: String
+
+  """
+  The user's display name.
+  """
+  displayName: String
+
+  """
+  The user's personal email.
+  """
+  email: String
+
+  """
+  Whether or not to send a mobile verification code if email verification is required.
+  """
+  includeVerificationCode: Boolean
+
+  """
+  User id of the user being updated.
+  """
+  userID: ID!
+}
+
+"""
+The required input for a updateUserIsEmailRevertSuccess mutation.
+"""
+input UpdateUserIsEmailRevertSuccessInput {
+  """
+  The show email revert success msg boolean to set onto the user.
+  """
+  isEmailRevertSuccess: Boolean!
+
+  """
+  The ID of the user whose email revert success flag is being updated.
+  """
+  userID: ID!
+}
+
+"""
+Update the current authorized user's Prediction Settings.
+All fields are nullable; only specify fields that you wish to update.
+"""
+input UpdateUserPredictionSettingsInput {
+  """
+  Whether the user has accepted the latest Predictions Terms of Service.
+  """
+  hasAcceptedTOS: Boolean
+
+  """
+  Whether the user has opted to display a temporary chat badge indicating their choices during Predictions Events.
+  """
+  isTemporaryChatBadgeEnabled: Boolean
+}
+
+"""
+UpdateUserSubscriptionSettingsInput updates the users subscription settings.
+"""
+input UpdateUserSubscriptionSettingsInput {
+  """
+  Whether the user only wants to receive gifts to channels they follow.
+  """
+  giftsInFollowedChannelsOnly: Boolean
+
+  """
+  Whether the user wants to hide Badge Modifiers.
+  """
+  isBadgeModifierHidden: Boolean
+
+  """
+  If the user wants to hide their Founder Badges.
+  """
+  isFounderBadgesHidden: Boolean
+
+  """
+  Whether the user wants to show how many gifts they've purchased.
+  """
+  isGiftCountHidden: Boolean
+
+  """
+  Whether the user wants to show their subscription tenure and status in the chat viewer card.
+  """
+  isSubscriptionStatusHidden: Boolean
+}
+
+"""
+Inputs to the updateUserTeamMembership mutation.
+"""
+input UpdateUserTeamMembershipInput {
+  """
+  Whether or not the team should be the user's primary team.
+  Note only True values are effective here. A user must always have one and only
+  one primary team, and setting false would break that invariant.
+  Setting a team as Primary will make all of a user's other team memberships non-primary.
+  """
+  primary: Boolean
+
+  """
+  Whether or not the membership should reveal its revenue.
+  """
+  revenueRevealed: Boolean!
+
+  """
+  Whether or not the membership should reveal its stats.
+  """
+  statsRevealed: Boolean!
+
+  """
+  The team which the membership belongs to.
+  """
+  teamID: ID!
+
+  """
+  The user whose membership is being modified.
+  """
+  userID: ID!
+}
+
+"""
+Input information for updating a user's video shelves. Video shelves are
+added/removed and reordered based on the provided shelfOptions.
+"""
+input UpdateUserVideoShelvesInput {
+  """
+  Channel for which to update shelves.
+  """
+  channelID: ID!
+
+  """
+  A list of different shelf options to populate the user's video shelves.
+  """
+  shelfOptions: [ShelvesAvailableOptions!]!
+}
+
+"""
+Input information for updating a resume watching entry for a specified user and video.
+"""
+input UpdateUserViewedVideoInput {
+  """
+  Position for where in the video to update for the resume watching entry.
+  """
+  position: Int!
+
+  """
+  User for which to update the resume watching entry.
+  """
+  userID: ID!
+
+  """
+  Video for which to update the resume watching entry.
+  """
+  videoID: ID!
+
+  """
+  Type of the video for which to update the resume watching entry.
+  """
+  videoType: VideoType!
+}
+
+input UpdateVideoCommentInput {
+  """
+  ID of the comment being updated.
+  """
+  commentID: ID!
+
+  """
+  The state of the comment.
+  """
+  state: VideoCommentState!
+}
+
+"""
+Input information for updating a video.
+"""
+input UpdateVideoInput {
+  """
+  The description of the video.
+  """
+  description: String
+
+  """
+  The name of the game presented in the video.
+  """
+  game: String
+
+  """
+  The language of the video.
+  """
+  language: String
+
+  """
+  Determines viewability of the video; PUBLIC or PRIVATE.
+  """
+  scope: VideoPrivacyScope
+
+  """
+  The thumbnail URL of the video.
+  """
+  thumbnailPath: String
+
+  """
+  The title of the video.
+  """
+  title: String
+
+  """
+  ID of the video being updated.
+  """
+  videoID: ID!
+}
+
+"""
+UpdateVideoStreamSettingsInput updates the broadcaster's stream settings such as stream delay length seconds or stream key.
+"""
+input UpdateVideoStreamSettingsInput {
+  """
+  ChannelID of the broadcaster. This has to be same as authenticated user's userID.
+  """
+  channelID: ID!
+
+  """
+  The number of seconds delay for a stream. When this is set, a stream will be
+  ingested with specified delay in seconds. Maximum is set to 900 seconds.
+  """
+  delaySeconds: Int
+
+  """
+  Whether or not a stream should be started as a low latency stream.
+  """
+  isLowLatency: Boolean
+
+  """
+  Whether or not the broadcaster prefers to archive the vod for a stream.
+  """
+  shouldArchiveVODs: Boolean
+
+  """
+  Whether or not to show the disconnect slate.
+  """
+  shouldShowDisconnectSlate: Boolean
+}
+
+"""
+Inputs for the updating videos by id mutation.
+"""
+input UpdateVideosViewabilityInput {
+  """
+  Determines viewability of the videos; PUBLIC or PRIVATE.
+  """
+  scope: VideoPrivacyScope
+
+  """
+  The IDs of the videos to be updated.
+  """
+  videoIDs: [ID!]!
+}
+
+"""
+The change that will be applied to the user's visibility. See VisibilityInput for details on the effects of each
+value.
+"""
+input UpdateVisibilityInput {
+  visibility: VisibilityInput!
+}
+
+"""
+The request to the UpdateWhisperSettings mutation.
+"""
+input UpdateWhisperSettingsInput {
+  """
+  Whether to disallow strangers from iniating a whisper thread to this user.
+  """
+  isBlockingWhispersFromStrangers: Boolean
+}
+
+input UpdateWhisperThreadInput {
+  """
+  Whether to archive the room.
+  """
+  isArchived: Boolean
+
+  """
+  Whether to mute the room.
+  """
+  isMuted: Boolean
+
+  """
+  Whether to mark the message as spam.
+  """
+  isSpam: Boolean
+
+  """
+  ID of last message read by the user.
+  """
+  lastReadMessageID: ID
+
+  """
+  Whether to revoke temporary send Whisper permission from the other user.
+  """
+  removeWhitelist: Boolean
+
+  """
+  ID of thread to be marked as read.
+  """
+  threadID: ID!
+}
+
+"""
+Generates an image URL to upload to.
+"""
+input UploadCompetitionImageInput {
+  """
+  Unique Competition ID.
+  """
+  competitionID: ID!
+
+  """
+  Type of image being uploaded.
+  """
+  imageType: CompetitionImageType!
+}
+
+"""
+UseChatNotificationTokenInput is the input required for the UseChatNotificationToken mutation.
+"""
+input UseChatNotificationTokenInput {
+  """
+  The channel that this token will be used on.
+  """
+  channelLogin: String!
+
+  """
+  Whether or not to include user's streak tenure.
+  """
+  includeStreak: Boolean!
+
+  """
+  An optional message that will be displayed when this chat token is used.
+  """
+  message: String
+
+  """
+  An optional ID of token to be used.
+  """
+  tokenID: ID
+}
+
+"""
+Exactly one of the identifiers must be specified.
+"""
+input UserByAttribute {
+  """
+  The human-readable identifier for a clip.
+  When specified, returns the broadcaster of the clip.
+  """
+  broadcasterOfClipSlug: String
+
+  """
+  The user's login.
+  """
+  login: String
+
+  """
+  The identifier for a video collection.
+  When specified, returns the owner of the collection.
+  """
+  ownsCollectionID: ID
+
+  """
+  The identifier for a video.
+  When specified, returns the owner of the video.
+  """
+  ownsVideoID: ID
+}
+
+"""
+Filtering criteria for paginated user clips results.
+"""
+input UserClipsInput {
+  """
+  The ID of the broadcaster to filter results by.
+  """
+  broadcasterID: ID
+
+  """
+  The ID of the curator to filter results by.
+  """
+  curatorID: ID
+
+  """
+  DEPRECATED: `filter` should no longer be used. Prefer `period` and `sort` instead.
+  A filter which restricts results.
+  """
+  filter: ClipsFilter
+
+  """
+  The name of the game to filter results by.
+  """
+  gameName: String
+
+  """
+  The time period to restrict clips based on creation time.
+  """
+  period: ClipsPeriod = LAST_WEEK
+
+  """
+  The sort order for the clips results.
+  """
+  sort: ClipsSort = VIEWS_DESC
+}

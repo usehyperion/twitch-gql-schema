@@ -1,0 +1,161 @@
+"""
+User's can have different wallet types based on legal and accounting
+requirements.
+"""
+enum WalletType {
+  """
+  Only supports loading from FIAT currencies from gift card providers.
+  """
+  GIFT_CARD
+}
+
+"""
+The possible restrictions for a user trying to host Watch Parties.
+"""
+enum WatchPartiesRestriction {
+  """
+  A user cannot host Watch Parties in their current region.
+  """
+  REGION_NOT_SUPPORTED
+
+  """
+  Unknown restriction.
+  """
+  UNKNOWN
+}
+
+"""
+Restrictions on a piece of content.
+"""
+enum WatchPartyContentRestriction {
+  """
+  Default type.
+  """
+  UNKNOWN
+
+  """
+  Content is viewable by majority regions.
+  """
+  BROAD_AVAILABILITY
+
+  """
+  Content is viewable in a select number of regions.
+  """
+  LIMITED_AVAILABILITY
+}
+
+"""
+Enum for user errors.
+"""
+enum WatchPartyErrorCode {
+  """
+  Used for invalid requests.
+  """
+  BAD_REQUEST
+
+  """
+  Used when the access token is expired.
+  """
+  FORBIDDEN
+
+  """
+  Used when the user's request is throttled.
+  """
+  REQUEST_THROTTLED
+
+  """
+  Used when the user is geo restricted.
+  """
+  GEO_RESTRICTED
+
+  """
+  Used when the error is unknown.
+  """
+  UNKNOWN
+}
+
+"""
+Content types for Prime Video.
+"""
+enum WatchPartyItemType {
+  """
+  Default type.
+  """
+  UNKNOWN
+
+  """
+  A leaf node episode in a series/season.
+  """
+  EPISODE
+
+  """
+  A leaf node movie.
+  """
+  MOVIE
+
+  """
+  Usually a collection of episodes.
+  """
+  SEASON
+
+  """
+  Usually a collection of seasons.
+  """
+  SERIES
+}
+
+"""
+Enum for state.
+"""
+enum WatchPartyState {
+  """
+  Default value.
+  """
+  UNKNOWN
+
+  """
+  Pre-play countdown.
+  """
+  HYPE_IN
+
+  """
+  In progress, video playback.
+  """
+  IN_PROGRESS
+
+  """
+  Offline.
+  """
+  OFFLINE
+}
+
+"""
+An enumeration of the permissions for one user to Whisper another.
+"""
+enum WhisperPermissionType {
+  """
+  The sender is allowed to Whisper the recipient.
+  """
+  PERMITTED
+
+  """
+  The sender is not allowed to Whisper the recipient.
+  """
+  NOT_PERMITTED
+
+  """
+  Any sender is able to Whisper the recipient.
+  """
+  NOT_RESTRICTED
+
+  """
+  The sender is temporarily allowed to Whisper the recipient.
+  """
+  TEMPORARY
+}
+
+enum WhisperSpamLikelihood {
+  LOW
+  MEDIUM
+  HIGH
+}

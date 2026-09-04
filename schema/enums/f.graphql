@@ -1,0 +1,104 @@
+"""
+The status of the track appeal.
+"""
+enum FlaggedTrackAppealStatus {
+  """
+  The track appeal has not yet been resolved.
+  """
+  PENDING
+
+  """
+  The track appeal has a resolved at time.
+  """
+  RESOLVED
+}
+
+enum FollowedGamesType {
+  """
+  Only games which are currently being streamed will be returned.
+  """
+  LIVE
+
+  """
+  All followed games.
+  """
+  ALL
+}
+
+enum FollowsFilter {
+  """
+  All users the user is following.
+  """
+  ALL
+
+  """
+  Users the user is following to which the user can subscribe.
+  this is authenticated so only a logged in user can filter by SUBBABLE.
+  """
+  SUBBABLE
+}
+
+"""
+Enum for follow errors.
+"""
+enum FollowUserErrorCode {
+  """
+  Used when fromUser is being blocked by targetUser.
+  """
+  FORBIDDEN
+
+  """
+  Used when user has reached their follow cap.
+  """
+  TOO_MANY_FOLLOWS
+}
+
+"""
+The format type signifies the format the competition will run from.
+"""
+enum FormatType {
+  """
+  Double elimination bracket format.
+  """
+  DOUBLE_ELIM
+
+  """
+  Single elimination bracket format.
+  """
+  SINGLE_ELIM
+
+  """
+  Round robin format.
+  """
+  ROUND_ROBIN
+
+  """
+  Leaderboard format.
+  """
+  LEADERBOARD
+
+  """
+  Custom format.
+  """
+  CUSTOM
+
+  """
+  Unknown format.
+  """
+  UNKNOWN
+}
+
+"""
+Decides how to sort Friendship-related responses.
+"""
+enum FriendSort {
+  """
+  Sort from oldest to newest.
+  """
+  ASC
+
+  """
+  Sort from newest to oldest.
+  """
+  DESC
+}

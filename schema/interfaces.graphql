@@ -1,0 +1,445 @@
+"""
+An action (and metadata about the action) which a user or session is performing.
+"""
+interface Activity {
+  """
+  The type of activity.
+  """
+  type: ActivityType
+}
+
+"""
+BitsOffer is a way to obtain more bits.
+"""
+interface BitsOffer {
+  """
+  bits is the number of bits this offer grants.
+  """
+  bits: Int!
+  id: ID!
+
+  """
+  type is the kind of offer object.
+  """
+  type: BitsOfferType!
+}
+
+"""
+A challenge to which users can contribute bits.
+"""
+interface ChannelChallenge {
+  """
+  Total bits amount contributed.
+  """
+  bitsAmount: Int!
+
+  """
+  Time when challenge was created.
+  """
+  createdAt: Time!
+
+  """
+  User that created the challenge.
+  """
+  createdBy: User
+
+  """
+  Amount of seconds from when the challenge starts to when it ends.
+  """
+  durationSeconds: Int!
+
+  """
+  ID of challenge.
+  """
+  id: ID!
+
+  """
+  User who owns this challenge. The challenge will appear on their channel.
+  """
+  ownedBy: User
+
+  """
+  Amount of milliseconds before the challenge times out.
+  0 when the challenge has timed out.
+  """
+  remainingDurationMilliseconds: Int!
+
+  """
+  The authenticated user's relationship with this challenge.
+  Main use case is to connect the user to a challenge to allow bit contributions.
+  Null if un-authenticated user is making this query.
+  """
+  self: ChannelChallengeSelfEdge
+
+  """
+  The status of the challenge.
+  """
+  status: ChannelChallengeStatus!
+
+  """
+  Time when challenge was updated.
+  """
+  updatedAt: Time!
+}
+
+"""
+Data about a single configured Mosaic layout. This layout
+specifies a configuration of panel dimensions and positions
+in a grid, as defined by the Mosaic algorithm.
+"""
+interface ChannelDashboardLayout {
+  """
+  A unique identifier to uniquely reference this layout.
+  """
+  id: ID!
+
+  """
+  The display name for the layout shown to the user.
+  """
+  name: String!
+
+  """
+  A version to identify how the layout was generated,
+  such as for deprecation purposes.
+  """
+  version: String!
+
+  """
+  When the layout was last updated
+  """
+  lastUpdated: Time
+}
+
+"""
+An entry of a moderation action performed on a channel.
+"""
+interface ChannelModerationActionEntry {
+  """
+  The action that was taken.
+  """
+  action: ModerationAction!
+
+  """
+  Timestamp when action was taken.
+  """
+  createdAt: Time!
+
+  """
+  UUID of the moderation action.
+  """
+  id: ID!
+
+  """
+  The moderator who took the action.
+  """
+  moderator: User
+}
+
+"""
+An interface to represent a claimable thing.
+"""
+interface Claimable {
+  """
+  A description of what the claimable is.
+  """
+  description: String!
+
+  """
+  The ID of the claimable.
+  """
+  id: ID!
+
+  """
+  A field that is populated with relevant information about claiming the object given a valid logged in user.
+  """
+  self: SelfClaimEdge
+
+  """
+  The type of claimable.
+  """
+  type: ClaimableType!
+}
+
+"""
+An action (and metadata about the action) which occurred for a channel's Dashboard Activity Feed.
+"""
+interface DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+    @deprecated(reason: "ingest start has been removed from activity feed")
+
+  """
+  Unique identifier for this activity.
+  """
+  id: ID! @deprecated(reason: "ingest start has been removed from activity feed")
+
+  """
+  When this activity occurred.
+  """
+  timestamp: Time! @deprecated(reason: "ingest start has been removed from activity feed")
+}
+
+"""
+A Directory is a container of content – Streams, Videos, and Clips – on Twitch.
+"""
+interface Directory {
+  """
+  URL to an avatar image.
+  The image dimensions are specifiable via the `height` and `width` parameters.
+
+  If `height` or `width` are not specified, the URL will contain
+  the template strings `{height}` and/or `{width}` in their respective places.
+  """
+  avatarURL(width: Int, height: Int): String
+
+  """
+  Number of broadcasters currently broadcasting in this directory.
+  """
+  broadcastersCount: Int
+
+  """
+  URL to a cover image.
+  The image dimensions are specifiable via the `height` and `width` parameters.
+
+  If `height` or `width` are not specified, the URL will contain
+  the template strings `{height}` and/or `{width}` in their respective places.
+  """
+  coverURL(width: Int, height: Int): String
+
+  """
+  The type of directory – community or game.
+  """
+  directoryType: DirectoryType
+
+  """
+  The name to display for the directory.
+  """
+  displayName: String!
+
+  """
+  Number of users that follow this directory.
+  """
+  followersCount: Int
+
+  """
+  The directory's unique Twitch identifier.
+  """
+  id: ID!
+
+  """
+  The canonical name of the directory.
+  """
+  name: String!
+
+  """
+  Get a page of live streams broadcasting in this directory.
+  If no language filters are provided all languages will be returned.
+  Tags are an array of tag ID as optional filters for streams.
+  """
+  streams(first: Int = 10, after: Cursor, languages: [String!], tags: [String!]): StreamConnection
+
+  """
+  Number of viewers currently watching a stream which is in this directory.
+  """
+  viewersCount: Int
+}
+
+"""
+An interface to handle shared Drop data. The `Drop` type is already in use (although deprecated) so we can't use that name.
+"""
+interface DropType {
+  """
+  The rewards for this drop and how often those rewards can be awarded.
+  """
+  benefitEdges: [DropBenefitEdge!]
+
+  """
+  The campaign this drop belongs to.
+  """
+  campaign: DropCampaign!
+
+  """
+  The time this drop becomes unavailable.
+  """
+  endAt: Time!
+
+  """
+  A unique identifier.
+  """
+  id: ID!
+
+  """
+  The name of this drop.
+  """
+  name: String!
+
+  """
+  The time this drop becomes available.
+  """
+  startAt: Time!
+}
+
+"""
+ExtensionView is the interface which every anchor-specific extension view extends from.
+"""
+interface ExtensionView {
+  """
+  Relative path of the HTML file to load for this view, used by devsite to specify the layout of assets.
+  """
+  viewerPath: String!
+
+  """
+  The URL which should be loaded in for the extension.
+  """
+  viewerURL: String!
+}
+
+"""
+The hype train reward interface, which has to implement an identifier and the hype train reward type.
+"""
+interface HypeTrainReward {
+  """
+  The identifier of the reward.
+  """
+  id: ID!
+
+  """
+  The type of reward that is entitled.
+  """
+  type: HypeTrainRewardType!
+}
+
+"""
+InterruptScheduleError is a wrapper for error associated with the CreateScheduleSegment mutation.
+"""
+interface InterruptScheduleError {
+  """
+  Error code.
+  """
+  code: InterruptScheduleErrorCode!
+}
+
+"""
+OEmbed is a universal spec converted to GraphQL from http://oembed.com/.
+"""
+interface OEmbed {
+  authorName: String
+  authorURL: String
+  cacheAge: Int
+
+  """
+  The inputURL is the URL that we are trying to resolve via oEmbed.  It is not part
+  of the official spec, but GQL implementations practically need to use it.
+  """
+  inputURL: String!
+  providerName: String
+  providerURL: String
+
+  """
+  The description of thumbnail from the oembed spec fits with an optional thumbnail
+  type with required parameters.
+  """
+  thumbnail: ThumbnailOEmbed
+  title: String
+  type: String!
+  version: String!
+}
+
+"""
+Panel is information about a single info panel for a channel.
+"""
+interface Panel {
+  """
+  id is a unique identifier for the panel.
+  """
+  id: ID!
+
+  """
+  type is the kind of panel.
+  """
+  type: PanelType!
+}
+
+"""
+A benefit the user receives when purchasing a product from the product catalog.
+"""
+interface ProductCatalogBenefit {
+  """
+  The identifier of the benefit.
+  """
+  id: ID!
+}
+
+"""
+A product appearing in the product catalog.
+"""
+interface ProductCatalogItem {
+  """
+  A list of benefits the user will receive when purchasing the product.
+  """
+  benefits: [ProductCatalogBenefit!]
+
+  """
+  A description of the product.
+  """
+  description: String
+
+  """
+  The identifier of the product.
+  """
+  id: ID!
+
+  """
+  A list of offers available for purchasing the product.
+  """
+  offers: [Offer!]
+
+  """
+  The owner (ex: channel) of the product.
+  """
+  owner: ID!
+
+  """
+  The title of the product.
+  """
+  title: String!
+}
+
+interface RecommendedStream {
+  """
+  The recommended stream.
+  """
+  stream: Stream
+
+  """
+  The type of recommendation. Different types contain different metadata about why the recommendation was made.
+  """
+  type: StreamRecommendationType
+}
+
+"""
+An interface to represent the logged in user's relationship to the claimable.
+"""
+interface SelfClaimEdge {
+  """
+  If the user is eligible to claim the object.
+  """
+  canClaim: Boolean!
+
+  """
+  Nullable field for the country where the user redeemed the claimable.
+  """
+  countryOfResidence: String
+
+  """
+  The user ID that is claiming.
+  """
+  id: ID!
+
+  """
+  Nullable status code for if the user cannot claim the object.
+  """
+  statusCode: String
+}

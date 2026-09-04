@@ -1,0 +1,54 @@
+"""
+HiddenView holds the view configuration of an extension if it is a hidden load test extension.
+"""
+input HiddenViewInput {
+  """
+  Relative path of the HTML file to load for this view.
+  """
+  viewerPath: String!
+}
+
+"""
+Input to describe a single continuous time range of the source VOD to be included in the highlight.
+"""
+input HighlightRange {
+  """
+  The end time offset in milliseconds into the VOD.
+  """
+  endMs: Int!
+
+  """
+  The start time offset in milliseconds into the VOD.
+  """
+  startMs: Int!
+
+  """
+  The ID of the source VOD to create a Highlight from.
+  """
+  vodID: ID!
+}
+
+"""
+HostTargetChannelInput contains the necessary inputs to host a target channel.
+"""
+input HostTargetChannelInput {
+  """
+  Channel ID where host was initiated on.
+  """
+  channelID: ID!
+
+  """
+  Target channel ID to host.
+  """
+  targetID: ID!
+}
+
+"""
+HypeTrainKickoffInput specifies settings for kicking off hype trains.
+"""
+input HypeTrainKickoffInput {
+  """
+  The number of qualifying events needed to kickoff a hype train.
+  """
+  eventsThreshold: Int
+}

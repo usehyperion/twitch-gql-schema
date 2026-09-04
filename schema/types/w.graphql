@@ -1,0 +1,554 @@
+"""
+Twitch Wallet Balances in multiple FIAT currencies. Can be used to purchase
+product on the Twitch Platform.
+"""
+type WalletBalances {
+  """
+  List of all Balances that a Twitch User has on their account.
+  """
+  allBalances: [Balance!]
+
+  """
+  Currencies that an Twitch User is currently eligible to use.
+  """
+  eligibleCurrencies: [Currency!]
+}
+
+type Watching implements Activity {
+  """
+  This activity's type, i.e. "WATCHING".
+  """
+  type: ActivityType
+
+  """
+  The user whose stream is being watched.
+  """
+  user: User
+}
+
+"""
+Contains all information for Prime Video Watch Parties.
+"""
+type WatchParty {
+  """
+  Enum representing the restrictions on this Watch Party.
+  """
+  contentRestriction: WatchPartyContentRestriction!
+
+  """
+  Option Watch Party decoration.
+  """
+  decoration: WatchPartyDecoration
+
+  """
+  The catalog item id played for this watch party.
+  """
+  gti: ID! @deprecated(reason: "Use decoration.item.id")
+
+  """
+  Unique ID of the watch party.
+  """
+  id: ID!
+
+  """
+  Progress of the current state, null for offline watch parties.
+  """
+  progress: WatchPartyProgress
+
+  """
+  Current state of the watch party.
+  """
+  state: WatchPartyState!
+
+  """
+  Current title of the watch party.
+  """
+  title: String!
+
+  """
+  CCVs for the watch party.
+  """
+  viewersCount: Int!
+}
+
+"""
+Decoration information for a Watch Party.
+"""
+type WatchPartyDecoration {
+  """
+  Fully decorated item for a watch party.
+  """
+  item: WatchPartyItem!
+
+  """
+  Authenticated: filled in only if the user is authorized to watch the content.
+  """
+  player: WatchPartyPlayer
+}
+
+"""
+Information to communicate to the user about an error state.
+"""
+type WatchPartyError {
+  """
+  Error code.
+  """
+  code: WatchPartyErrorCode!
+}
+
+"""
+Contains all fields needed to render a watch party item.
+"""
+type WatchPartyItem {
+  """
+  String representing the age rating.
+  """
+  contentRating: String
+
+  """
+  Enum representing the restrictions on this item. When available, defer to
+  the Watch Party content restriction.
+  """
+  contentRestriction: WatchPartyContentRestriction!
+
+  """
+  Additional details based on the item type.
+  """
+  details: WatchPartyItemDetails
+
+  """
+  List of genres.
+  """
+  genres: [String!]!
+
+  """
+  Whether or not this item has children content.
+  """
+  hasChildren: Boolean!
+
+  """
+  Unique GTI.
+  """
+  id: ID!
+
+  """
+  If the content is mature.
+  """
+  isMature: Boolean!
+
+  """
+  If this is a child, ID of the parent.
+  """
+  parentID: ID
+
+  """
+  Link to continue watching on PV.
+  """
+  primeVideoLink: String
+
+  """
+  Prime video rating.
+  """
+  primeVideoRating: PrimeVideoRating
+
+  """
+  Null if user is logged out, contains eligibility information.
+  """
+  self: WatchPartyItemSelfEdge
+
+  """
+  List of actors and actresses.
+  """
+  starring: [String!]!
+
+  """
+  Localized summary.
+  """
+  summary: String
+
+  """
+  Localized box art.
+  """
+  thumbnailURL: String!
+
+  """
+  Localized title.
+  """
+  title: String!
+
+  """
+  Video content type, i.e. episode or series.
+  """
+  type: WatchPartyItemType!
+
+  """
+  Publication year.
+  """
+  yearPublished: Int
+
+  """
+  Whether the content has parental control restrictions enabled.
+  """
+  isParentalControlRestricted: Boolean
+}
+
+"""
+Watch party items, returned in a query.
+"""
+type WatchPartyItemConnection {
+  """
+  One item per edge.
+  """
+  edges: [WatchPartyItemEdge!]!
+
+  """
+  Used for user authentication errors.
+  """
+  error: WatchPartyError
+
+  """
+  Amazon link.
+  """
+  homepageBrowseLink: String!
+
+  """
+  Pagination info.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+Represents a single item for a watch party.
+"""
+type WatchPartyItemEdge {
+  """
+  Cursor to continue querying from here.
+  """
+  cursor: Cursor!
+
+  """
+  Item information.
+  """
+  node: WatchPartyItem!
+}
+
+"""
+Contains information about viewer eligibility, likely to change.
+"""
+type WatchPartyItemEligibility {
+  """
+  Whether the viewer can watch this content.
+  """
+  canView: Boolean!
+
+  """
+  Localized string explaining why if canView is false.
+  """
+  reason: String
+}
+
+"""
+Used for upselling Prime, populated from authentication or geotoken.
+"""
+type WatchPartyItemSelfEdge {
+  """
+  Info about whether or not the user can view this piece of content.
+  """
+  eligibility: WatchPartyItemEligibility!
+
+  """
+  True if the content is PV gated and we will upsell.
+  """
+  willShowPrimeUpsell: Boolean!
+}
+
+"""
+Contains information needed to initialize a PV player and play content.
+"""
+type WatchPartyPlayer {
+  """
+  Device Proxy URL to initialize the PV player.
+  """
+  deviceProxyBaseURL: String!
+
+  """
+  Parameters to initialize the PV player.
+  """
+  sdkInit: String!
+
+  """
+  Token to initialize the PV player.
+  """
+  token: String!
+}
+
+"""
+Tracks the current state.
+"""
+type WatchPartyProgress {
+  """
+  Total duration of the current state.
+  """
+  durationSeconds: Int!
+
+  """
+  Current position in seconds of the state.
+  """
+  positionSeconds: Int!
+
+  """
+  Wall clock time for the start of the current state.
+  """
+  start: Time!
+}
+
+"""
+Wrapper to allow passing back errors.
+"""
+type WatchPartyResult {
+  """
+  Used for user authentication errors.
+  """
+  error: WatchPartyError
+
+  """
+  Can be null if the channel is offline or for authentication errors.
+  """
+  session: WatchParty
+}
+
+"""
+A message sent in a whisper thread.
+"""
+type WhisperMessage {
+  """
+  Content of the message.
+  """
+  content: MessageBody!
+
+  """
+  Time the message was deleted.
+  """
+  deletedAt: Time
+
+  """
+  Time the message was edited.
+  """
+  editedAt: Time
+
+  """
+  User that sent the message.
+  """
+  from: User!
+
+  """
+  UUID of the message.
+  """
+  id: ID!
+
+  """
+  Unique nonce.
+  """
+  nonce: String
+
+  """
+  Time the message was sent.
+  """
+  sentAt: Time!
+
+  """
+  The thread the message is a part of.
+  """
+  thread: WhisperThread!
+}
+
+"""
+Paginated list of messages in a thread.
+"""
+type WhisperMessageConnection {
+  """
+  The elements of the list.
+  """
+  edges: [WhisperMessageEdge!]!
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+Element in a list of messages.
+"""
+type WhisperMessageEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  The whisper message.
+  """
+  node: WhisperMessage!
+}
+
+"""
+The ability for a Twitch user to send or receive Whispers to/from another Twitch user.
+"""
+type WhisperPermissions {
+  """
+  If send is NOT_PERMITTED, true if the reason is that the other Twitch user is considered a stranger.
+  """
+  isStrangerBlocked: Boolean!
+
+  """
+  Capability of the user to receive Whispers from the other Twitch user.
+  """
+  receive: WhisperPermissionType
+
+  """
+  Capability of the user to send Whispers to the other Twitch user.
+  """
+  send: WhisperPermissionType
+}
+
+"""
+Settings related to the Whispers (private user-to-user messaging) feature.
+"""
+type WhisperSettings {
+  """
+  If true, disallows strangers from initiating a whisper thread to this user.
+  """
+  isBlockingWhispersFromStrangers: Boolean!
+
+  """
+  If true, this user is disallowed from sending or receiving whisper messages.
+  """
+  isWhisperBanned: Boolean!
+}
+
+"""
+Spam classification data for a message.
+"""
+type WhisperSpamInfo {
+  """
+  Time user last marked the thread as not spam.
+  """
+  lastMarkedNotSpamAt: Time
+
+  """
+  Spam classification score.
+  """
+  likelihood: WhisperSpamLikelihood
+}
+
+"""
+A conversation between two users.
+"""
+type WhisperThread {
+  """
+  ID of the whisper thread.
+  """
+  id: ID!
+
+  """
+  Whether the thread has been archived.
+  """
+  isArchived: Boolean!
+
+  """
+  Whether the user has muted the thread.
+  """
+  isMuted: Boolean!
+
+  """
+  The last message sent in this thread. Null if no messages in this thread.
+  """
+  lastMessage: WhisperMessage
+
+  """
+  List of messages in the thread.
+  """
+  messages(first: Int = 10, after: Cursor): WhisperMessageConnection
+
+  """
+  List of users in the thread.
+  """
+  participants: [User]!
+
+  """
+  Spam data about the thread.
+  """
+  spamInfo: WhisperSpamInfo
+
+  """
+  Number of whispers that have not been read by the user in the thread.
+  """
+  unreadMessagesCount: Int!
+
+  """
+  Last message read by the user in the thread.
+  """
+  userLastMessageRead: WhisperMessage
+    @deprecated(reason: "Not used. Use lastMessage to get the last message. ")
+
+  """
+  Timestamp of when the other participant may message the user in the thread.
+  """
+  whitelistedUntil: Time
+}
+
+"""
+Paginated list of whisper threads.
+"""
+type WhisperThreadConnection {
+  """
+  The elements of the list.
+  """
+  edges: [WhisperThreadEdge!]!
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Total number of whisper threads.
+  """
+  totalCount: Int!
+
+  """
+  Total number of whisper threads containing unread messages for the current user.
+  """
+  totalUnreadCount: Int
+}
+
+"""
+Element in a list of whisper threads.
+"""
+type WhisperThreadEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  The whisper thread.
+  """
+  node: WhisperThread!
+}
+
+"""
+Withholding Tax Detail is the withholding tax rates for the creator.
+"""
+type WithholdingTaxDetail {
+  """
+  Government royalty tax rate applied to user's earnings.
+  """
+  royaltyTaxRate: Float!
+
+  """
+  Government service tax rate applied to user's earnings.
+  """
+  serviceTaxRate: Float!
+}

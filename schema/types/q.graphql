@@ -1,0 +1,74 @@
+"""
+Interval that a quest is being evaluated for.
+"""
+type QuestEvaluationInterval {
+  """
+  Duration of the interval (in days).
+  """
+  durationInDays: Int!
+
+  """
+  End time of the interval.
+  """
+  endTime: Time!
+
+  """
+  Start time of the interval.
+  """
+  startTime: Time!
+}
+
+"""
+Progress towards a particular quest goal.
+"""
+type QuestGoalFloat {
+  """
+  Current progress towards quest goal.
+  """
+  current: Float!
+
+  """
+  Number needed to complete the quest goal.
+  """
+  goal: Float!
+}
+
+"""
+Progress towards a particular quest goal.
+"""
+type QuestGoalInt {
+  """
+  Current progress towards quest goal.
+  """
+  current: Int!
+
+  """
+  Number needed to complete the quest goal.
+  """
+  goal: Int!
+}
+
+"""
+The quests associated with a user.
+"""
+type Quests {
+  """
+  "Build a Community" quest.
+  """
+  buildACommunity: BuildACommunity
+
+  """
+  "It Begins" quest.
+  """
+  itBegins: ItBegins
+
+  """
+  "Path to Affiliate" quest.
+  """
+  pathToAffiliate: PathToAffiliate
+
+  """
+  "Path to Partner" quest.
+  """
+  pathToPartner: PathToPartner
+}

@@ -1,0 +1,35 @@
+"""
+FinalizeCompetitionLobbyInput contains the inputs required to change a lobby's status to done.
+"""
+input FinalizeCompetitionLobbyInput {
+  """
+  The competition id of the competition.
+  """
+  competitionID: ID!
+
+  """
+  The lobbyID of the competition that we want to mark done.
+  """
+  lobbyID: ID!
+
+  """
+  The phase id of the competition that this lobby belongs to.
+  """
+  phaseID: ID!
+}
+
+input FollowGameInput {
+  """
+  The identifier of the game to follow.
+  """
+  gameID: ID!
+}
+
+input FollowUserInput {
+  """
+  disableNotifications, when true, prevents the followed user's stream from sending email and push notifications to
+  the authenticated user when it goes live.
+  """
+  disableNotifications: Boolean!
+  targetID: ID!
+}

@@ -1,0 +1,421 @@
+"""
+Possible error codes from the makePrediction mutation.
+"""
+enum MakePredictionErrorCode {
+  """
+  The current user is forbidden from making a Prediction on this Prediction Event.
+  """
+  FORBIDDEN
+
+  """
+  The provided event ID or outcome ID does not exist.
+  """
+  NOT_FOUND
+
+  """
+  This Prediction Event is no longer actively accepting predictions.
+  """
+  EVENT_NOT_ACTIVE
+
+  """
+  The client is retrying with a transaction id that has already been used.
+  """
+  DUPLICATE_TRANSACTION
+
+  """
+  The client is retrying with a transaction id that is currently being processed in another request.
+  """
+  TRANSACTION_IN_PROGRESS
+
+  """
+  The user does not have enough points to make this prediction.
+  """
+  NOT_ENOUGH_POINTS
+
+  """
+  Making this prediction would bring the user's total amount spent on this prediction above the maximum.
+  """
+  MAX_POINTS_PER_EVENT
+
+  """
+  The user has already made a prediction on a different Outcome, so this prediction cannot be made.
+  """
+  MULTIPLE_OUTCOMES
+
+  """
+  The user is restricted from full participation because their geographic
+  location has a blanket ban on Prediction participation.
+  """
+  REGION_LOCKED
+
+  """
+  The user must accept the Predictions Terms of Service.
+  """
+  MUST_ACCEPT_TOS
+
+  """
+  The user's request was rate limited. They can try again after a few seconds.
+  """
+  RATE_LIMITED
+
+  """
+  The user is restricted from full participation because their geographic
+  location has a ban on Predictions for the specific game/category being played.
+  """
+  CATEGORY_REGION_LOCKED
+
+  """
+  The user is restricted from full participation because they have the ability to manage Predictions on this channel.
+  """
+  EVENT_MANAGER
+
+  """
+  The user attempted to make a Prediction in Spectator Mode but is ineligible for that mode.
+  """
+  SPECTATOR_MODE_INELIGIBLE
+
+  """
+  The user attempted to make a Prediction in Spectator Mode but has already made one on this Event.
+  """
+  SPECTATOR_MODE_DUPLICATE
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+The possible return status of a drop trigger try on a channel.
+"""
+enum ManuallyTriggerDropResultStatus {
+  """
+  Returned if the trigger try was successful.
+  """
+  SUCCESS
+
+  """
+  Returned if the streamer is not eligible to have the drop triggered on it.
+  """
+  VERIFICATION_FAILURE
+
+  """
+  Returned if the drop triggered returned an error for given channel.
+  """
+  ERROR
+}
+
+"""
+Revealed Metric types that the client can filter on.
+"""
+enum MemberMetricsRevealedParams {
+  """
+  Return all members.
+  """
+  NONE
+
+  """
+  Return all `StatsRevealed` members.
+  """
+  STATS
+
+  """
+  Return all `RevenueRevealed` members.
+  """
+  REVENUE
+
+  """
+  Return users with both `StatsRevealed` and `RevenueRevealed`.
+  """
+  STATS_AND_REVENUE
+}
+
+"""
+ModerationAction represents the recorded actions a channel moderator takes on a channel.
+"""
+enum ModerationAction {
+  """
+  Moderator changes Automod settings levels.
+  """
+  AUTOMOD_LEVEL_CHANGE
+
+  """
+  Moderator allows message caught by Automod.
+  """
+  ALLOW_MESSAGE
+
+  """
+  Moderator approves unban request.
+  """
+  APPROVE_UNBAN_REQUEST
+
+  """
+  Moderator bans a user.
+  """
+  BAN_USER
+
+  """
+  Moderator adds terms to Automod blocked list.
+  """
+  BLOCKED_TERM_ADD
+
+  """
+  Moderator removes terms to Automod blocked list.
+  """
+  BLOCKED_TERM_REMOVE
+
+  """
+  Moderator clears chat.
+  """
+  CHAT_CLEAR
+
+  """
+  Moderator creates a mod comment about a user.
+  """
+  COMMENT
+
+  """
+  Moderator deletes a chat message.
+  """
+  DELETE_MESSAGE
+
+  """
+  Moderator denies message caught by Automod.
+  """
+  DENY_MESSAGE
+
+  """
+  Moderator denies unban request.
+  """
+  DENY_UNBAN_REQUEST
+
+  """
+  Moderator turns emotes only chat off.
+  """
+  EMOTES_ONLY_OFF
+
+  """
+  Moderator turns chat to motes only.
+  """
+  EMOTES_ONLY_ON
+
+  """
+  Moderator turns followers only chat off.
+  """
+  FOLLOWERS_ONLY_OFF
+
+  """
+  Moderator turns chat to followers only.
+  """
+  FOLLOWERS_ONLY_ON
+
+  """
+  Moderator hosts another channel.
+  """
+  HOST
+
+  """
+  Default Action.
+  """
+  INVALID_ACTION
+
+  """
+  Moderator unmods a user.
+  """
+  UNMOD_USER
+
+  """
+  Moderator mods a user.
+  """
+  MOD_USER
+
+  """
+  Moderator adds terms to Automod permitted list.
+  """
+  PERMITTED_TERM_ADD
+
+  """
+  Moderator removes terms to Automod permitted list.
+  """
+  PERMITTED_TERM_REMOVE
+
+  """
+  Moderator raids another channel.
+  """
+  RAID
+
+  """
+  Moderator turns slow off in chat.
+  """
+  SLOW_OFF
+
+  """
+  Moderator slows chat.
+  """
+  SLOW_ON
+
+  """
+  Moderator turns subscribers only chat off.
+  """
+  SUBS_ONLY_OFF
+
+  """
+  Moderator turns chat to subscribers only.
+  """
+  SUBS_ONLY_ON
+
+  """
+  Moderator timeouts a user.
+  """
+  TIMEOUT_USER
+
+  """
+  Moderator unbans a user.
+  """
+  UNBAN_USER
+
+  """
+  Moderator unhosts another channel.
+  """
+  UNHOST
+
+  """
+  Moderator turns unique only chat off.
+  """
+  UNIQUE_OFF
+
+  """
+  Moderator turns unique only chat on.
+  """
+  UNIQUE_ON
+
+  """
+  Moderator unraids another channel.
+  """
+  UNRAID
+
+  """
+  Moderator untimeouts a user.
+  """
+  UNTIMEOUT_USER
+
+  """
+  Moderator makes user not vip.
+  """
+  UNVIP_USER
+
+  """
+  Moderator makes user vip.
+  """
+  VIP_USER
+}
+
+"""
+Access levels to moderator logs.
+"""
+enum ModLogsAccessLevel {
+  """
+  User cannot read moderator logs or create new entries.
+  """
+  NONE
+
+  """
+  User can read moderator log entries.
+  """
+  READ
+
+  """
+  User can read and create moderator log entries.
+  """
+  WRITE
+}
+
+"""
+ModLogsAction represents the recorded actions a channel moderator takes on a channel.
+"""
+enum ModLogsAction {
+  """
+  Default Action.
+  """
+  INVALID_ACTION
+
+  """
+  Channel Mod chat bans a user.
+  """
+  BAN_USER
+
+  """
+  Channel Mod chat timeouts a user.
+  """
+  TIMEOUT_USER
+
+  """
+  Channel Mod chat unbans a user.
+  """
+  UNBAN_USER
+
+  """
+  Channel Mod sets chat mode.
+  """
+  SET_CHANNEL_MODE
+
+  """
+  Channel Mod changes.
+  """
+  CHANGE_CHANNEL_RULES
+
+  """
+  Channel Mod approves an automod caught message.
+  """
+  ALLOW_MESSAGE
+
+  """
+  Channel Mod denies an automod caught message.
+  """
+  DENY_MESSAGE
+
+  """
+  Channel Mod updates mod terms.
+  """
+  UPDATE_MODERATED_TERMS
+
+  """
+  Channel Mod creates a mod comment about a user.
+  """
+  COMMENT
+
+  """
+  Channel Mod chat untimeouts a user.
+  """
+  UNTIMEOUT_USER
+}
+
+"""
+ModUserErrorCode defines a client error that occurred while adding a moderator.
+"""
+enum ModUserErrorCode {
+  """
+  The requesting user does not have permission to add a moderator in this channel.
+  """
+  FORBIDDEN
+
+  """
+  The target user does not exist or has a suspended account.
+  """
+  TARGET_NOT_FOUND
+
+  """
+  The channel does not exist.
+  """
+  CHANNEL_NOT_FOUND
+
+  """
+  The target user is banned or timed out in this channel.
+  """
+  TARGET_IS_CHAT_BANNED
+
+  """
+  The target user is already a moderator.
+  """
+  TARGET_ALREADY_MOD
+}

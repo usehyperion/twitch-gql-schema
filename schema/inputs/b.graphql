@@ -1,0 +1,275 @@
+input BanUserFromChatRoomInput {
+  bannedUserLogin: String!
+  channelID: ID!
+
+  """
+  This argument accepts a string specifying a duration.
+  It takes a succession of a number (positive integer) and a time unit, one of:
+  s[econd[s]], m[inute[s]], h[our[s]], d[ay[s]], w[eek[s]], mo[nth[s]].
+  Number/unit pairs can be contiguous or separated by spaces.
+  Valid examples: "3d4h" "11 minutes" "2month", "1s", "12 second"
+  If not provided, target is banned permanently.
+  """
+  expiresIn: String
+
+  """
+  The reason that the user has been banned or timed out.
+  """
+  reason: String
+}
+
+input BanVideoCommenterInput {
+  """
+  The id of the channel from where to ban commenter from.
+  """
+  channelID: ID!
+
+  """
+  The id of the commenter to ban.
+  """
+  commenterID: ID!
+}
+
+"""
+The required input for an BeginUseBitsInExtension mutation.
+"""
+input BeginUseBitsInExtensionInput {
+  """
+  Channel on which to use the bits.
+  """
+  channelID: ID!
+
+  """
+  Extension client ID to spend bits in.
+  """
+  extensionClientID: ID!
+
+  """
+  The SKU of the item being bought.
+  """
+  sku: String!
+}
+
+"""
+BillingAuthInfo holds data to facilitate the Fraud analysis.
+"""
+input BillingAuthInfo {
+  """
+  Fraud Session ID.
+  """
+  recurlyFraudSessionID: ID
+
+  """
+  Token generated after completing a 3-D Secure device fingerprinting or
+  authentication challenge.
+  """
+  threeDSecureActionResultTokenID: ID
+}
+
+"""
+BadgeTier Emoticon data to modify.
+"""
+input BitsBadgeTierEmoticonSetting {
+  """
+  The text representation that will allow a user to invoke the emoticon in chat.
+  Usually consists of: a creator's emoticon prefix + a codeSuffix.
+  """
+  code: String!
+
+  """
+  The creator-defined suffix that differentiates this emoticon from other emoticons in the channel.
+  Usually begins with either a capital letter or a number.
+  """
+  codeSuffix: String!
+
+  """
+  I'm going to make these new fields nullable and transition them to non-nullable after deprecate the existing flow
+  Image ID for the 28x28 emote asset.
+  """
+  imageID1x: String
+
+  """
+  Image ID for the 56x56 emote asset.
+  """
+  imageID2x: String
+
+  """
+  Image ID for the 112x112 emote asset.
+  """
+  imageID4x: String
+}
+
+"""
+BadgeTier metadata to modify.
+"""
+input BitsBadgeTierInput {
+  """
+  Whether to reset the images to the default images.
+  """
+  deleteImage: Boolean
+
+  """
+  Wether to reset the badge title to the default title.
+  """
+  deleteTitle: Boolean
+
+  """
+  A list of emoticons to modify.
+  """
+  emoticonSettings: [BitsBadgeTierEmoticonSetting!]
+
+  """
+  Base64 encoded binary data of the 18x18px badge ("1x") image asset.
+  """
+  imageData1x: String
+
+  """
+  Base64 encoded binary data of the 36x36px badge ("2x") image asset.
+  """
+  imageData2x: String
+
+  """
+  Base64 encoded binary data of the 72x72px badge ("4x") image asset.
+  """
+  imageData4x: String
+
+  """
+  Whether the badge is enabled for this threshold.
+  """
+  isEnabled: Boolean
+
+  """
+  The threshold to modify.
+  """
+  threshold: Int!
+
+  """
+  Badge title as string.
+  """
+  title: String
+}
+
+"""
+BitsChallengeConditionPoolRecipientWeightedShare represents the weighted share of the total bits pool
+that a recipient user is entitled to upon condition satisfaction.
+"""
+input BitsChallengeConditionPoolRecipientWeightedShare {
+  """
+  TUID of the bits recipient.
+  """
+  recipientUserID: ID!
+
+  """
+  The weight of the recipient's share from the total bits pool. The sum of all the recipients' weights
+  dictates the proportion that a particular recipient receives from the pool
+  (shareWeight/totalShareWeight * totalBitsAmountInPool).
+  """
+  weight: Int!
+}
+
+"""
+Filter and sorting options for querying all bits events for a Twitch user.
+"""
+input BitsEventConnectionCriteriaInput {
+  """
+  Sort bits events by... defaults to date.
+  """
+  sortBy: BitsEventSort = DATE
+
+  """
+  Sort bits events direction, defaults to descending.
+  """
+  sortDirection: BitsEventSortDirection = DESC
+
+  """
+  Only show bits events of a certain type, defaults to returning all types.
+  """
+  type: BitsEventType
+
+  """
+  Only show bits events after this date.
+  """
+  usedAfter: Time
+
+  """
+  Only show bits events before this date.
+  """
+  usedBefore: Time
+}
+
+input BlockUserInput {
+  """
+  Reason the user is being blocked.
+  """
+  reason: String
+
+  """
+  Feature from which the user is being blocked.
+  """
+  sourceContext: BlockContext
+
+  """
+  ID of user to block.
+  """
+  targetUserID: ID!
+}
+
+"""
+The chat Call to Action (CTA) that will be created as part of this campaign.
+"""
+input BountyCampaignChatCTAInput {
+  """
+  The country that the chat CTA is targeted for (represented by ISO 3166-1 alpha-2).
+  """
+  countryCode: String!
+
+  """
+  The title for the chat CTA.
+  """
+  title: String!
+
+  """
+  The URL for the chat CTA.
+  """
+  url: String!
+}
+
+"""
+The video that will be created as part of this campaign.
+"""
+input BountyCampaignVideoInput {
+  """
+  The country that the video is targeted for (represented by ISO 3166-1 alpha-2).
+  """
+  country: String!
+
+  """
+  The title of the video.
+  """
+  title: String!
+
+  """
+  The URL of the video.
+  """
+  url: String!
+}
+
+"""
+Required input to bulk approve a list of unban requests on a channel.
+"""
+input BulkApproveUnbanRequestInput {
+  """
+  IDs of the unban requests to be approved.
+  """
+  ids: [ID!]!
+}
+
+"""
+Required input to deny a list of unban requests on a channel.
+"""
+input BulkDenyUnbanRequestInput {
+  """
+  IDs of the unban requests to be denied.
+  """
+  ids: [ID!]!
+}

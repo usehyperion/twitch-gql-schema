@@ -1,0 +1,13 @@
+input JoinChannelRoomsInput {
+  channelID: ID!
+}
+
+"""
+Inputs to the joinRaid mutation.
+"""
+input JoinRaidInput {
+  """
+  The raid ID being joined by the user.
+  """
+  raidID: ID!
+}

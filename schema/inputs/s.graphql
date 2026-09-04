@@ -1,0 +1,2047 @@
+"""
+The view configuration of an extension if the component anchor is supported.
+"""
+input SaveComponentViewInput {
+  """
+  The developer configured height of the extension as a ratio relative to it's width.
+  """
+  aspectHeight: Int
+
+  """
+  Specifies the width of a component extension in relation to it's targetHeight and aspectRatioY.
+
+  NOTE:  targetHeight and aspectRatio will replace aspectHeight and aspectWidth.
+         however, since both will be used for a short time during the rollout of the new UI,
+         aspectWidth and aspectHeight will not be deprecated until later.
+  """
+  aspectRatioX: Int!
+
+  """
+  Specifies the height of a component extension in relation to it's targetHeight and aspectRatioX.
+
+  NOTE:  targetHeight and aspectRatio will replace aspectHeight and aspectWidth,
+         however, since both will be used for a short time during the rollout of the new UI,
+         aspectWidth and aspectHeight will not be deprecated until later.
+  """
+  aspectRatioY: Int!
+
+  """
+  The developer configured width of the extension as a ratio relative to it's height.
+  """
+  aspectWidth: Int
+
+  """
+  Specifies whether to automatically scale the extension iframe using css zoom as the video
+  player dimensions change.
+  """
+  hasAutoscale: Boolean
+
+  """
+  Specifies whether CSS zooming should be applied to the CE container, creating a consistent
+  size of 1024 pixels along the long edge of the component. Default: true.
+  """
+  hasZoom: Boolean
+
+  """
+  If Autoscale is true, this indicates the baseline width of the extension.
+  This fields is optional, but is required if hasAutoscale is true.
+  """
+  scalePixels: Int
+
+  """
+  Size of the long edge of the Component Extension, relative to the length of the corresponding
+  interactable dimension of the video.
+  """
+  size: Float
+
+  """
+  The percentage of the available space (0-100) (between the top and bottom player controls)
+  that the extension aims to consume.
+
+  NOTE:  targetHeight and aspectRatio will replace aspectHeight and aspectWidth,
+         however, since both will be used for a short time during the rollout of the new UI,
+         aspectWidth and aspectHeight will not be deprecated until later.
+  """
+  targetHeight: Int!
+
+  """
+  Relative path of the HTML file to load for this view.
+  """
+  viewerPath: String!
+
+  """
+  If hasZoom is set to true, specify the effective CSS zoom to apply to the long edge of the CE.
+  Default: 1024.
+  """
+  zoomPixels: Int
+}
+
+"""
+ConfigViewInput holds the view configuration of an extension if the config page is supported.
+"""
+input SaveConfigViewInput {
+  """
+  Relative path of the HTML file to load for this view.
+  """
+  viewerPath: String!
+}
+
+"""
+ExtensionAssetManifestInput is data related to the assets of an extension.
+"""
+input SaveExtensionAssetManifestInput {
+  """
+  Hash of the asset zip file.
+  """
+  assetHash: String!
+}
+
+"""
+ExtensionCapabilitiesInput contains data about what an Extension can do, in general, and at the time of interaction.
+"""
+input SaveExtensionCapabilitiesInput {
+  """
+  The bits support level required by the broadcaster for the extension to operate. Defaults to "NONE".
+  """
+  bitsSupportLevel: ExtensionBitsSupportLevel = NONE
+
+  """
+  Location of configuration.
+  """
+  configurationLocation: ExtensionConfigurationLocation!
+
+  """
+  Does this extension use bits.
+  """
+  hasBitsSupport: Boolean!
+
+  """
+  Does this extension support chat.
+  """
+  hasChatSupport: Boolean!
+
+  """
+  Required configuration string.
+  """
+  requiredConfiguration: String!
+
+  """
+  The subscription support level required by the broadcaster for the extension to operate. Defaults to "NONE".
+  """
+  subscriptionsSupportLevel: ExtensionSubscriptionsSupportLevel
+
+  """
+  Whitelists for restricting extension access and behavior.
+  """
+  whitelists: ExtensionWhitelistsInput!
+
+  """
+  Will this extension request an identity link.
+  """
+  willRequestIdentityLink: Boolean!
+}
+
+"""
+ExtensionDeveloperManifestInput is the developer specific extension data.
+"""
+input SaveExtensionDeveloperManifestInput {
+  """
+  Author email.
+  """
+  authorEmail: String!
+
+  """
+  Testing uri for extension development.
+  """
+  testingBaseURI: String!
+}
+
+"""
+Extension metadata used for discovery.
+"""
+input SaveExtensionDiscoveryManifestInput {
+  """
+  Name of the extension author.
+  """
+  authorName: String!
+
+  """
+  Extension categories.
+  """
+  categories: [ID!]!
+
+  """
+  Extension descriprion. 1024 character limit.
+  """
+  description: String!
+
+  """
+  games an extension is associated with.
+  """
+  games: [ID!]!
+
+  """
+  name of the extension.
+  """
+  name: String!
+
+  """
+  Url to an extensions privacy policy.
+  """
+  privacyPolicyURL: String!
+
+  """
+  Extension summary. 140 character limit.
+  """
+  summary: String!
+
+  """
+  Extension developers support email.
+  """
+  supportEmail: String!
+
+  """
+  Extension eula/tos url.
+  """
+  termsURL: String!
+
+  """
+  A summary of the extension's functionality from a viewer's perspective.
+  """
+  viewerSummary: String!
+}
+
+"""
+SaveExtensionManifestInput updates the manifest.
+"""
+input SaveExtensionManifestInput {
+  """
+  ExtensionAssetManifest is data related to the assets of an extension.
+  """
+  assetManifest: SaveExtensionAssetManifestInput!
+
+  """
+  Data about what an Extension can do, in general, and at the time of interaction.
+  """
+  capabilities: SaveExtensionCapabilitiesInput!
+
+  """
+  ExtensionDeveloperManifest is the developer specific extension data.
+  """
+  developerManifest: SaveExtensionDeveloperManifestInput!
+
+  """
+  Extension metadata used for discovery.
+  """
+  discoveryManifest: SaveExtensionDiscoveryManifestInput!
+
+  """
+  The extension ID of the manifest to update.
+  """
+  id: ID!
+
+  """
+  The extension version to update.
+  """
+  version: String!
+
+  """
+  Extension views.
+  """
+  views: SaveExtensionViewsInput!
+}
+
+"""
+The potential anchor-specific configurations and extension can have.
+"""
+input SaveExtensionViewsInput {
+  """
+  The developer configuration of the extension as a component extension, if supported.
+  """
+  component: SaveComponentViewInput
+
+  """
+  The developer configuration of the extension's configuration view, if supported.
+  """
+  config: SaveConfigViewInput
+
+  """
+  The developer configuration of the extension's live configuration dashboard view, if supported.
+  """
+  liveConfig: SaveLiveConfigViewInput
+
+  """
+  The developer configuration of the extension as a mobile extension, if supported.
+  """
+  mobile: SaveMobileViewInput
+
+  """
+  The developer configuration of the extension as a panel extension, if supported.
+  """
+  panel: SavePanelViewInput
+
+  """
+  The developer configuration of the extension as a video overlay extension, if supported.
+  """
+  videoOverlay: SaveVideoOverlayViewInput
+}
+
+"""
+ExtensionWhitelistsInput contains whitelists for restricting extension access and behavior.
+"""
+input SaveExtensionWhitelistsInput {
+  """
+  List of broadcaster account IDs allowed to install an extension after release.
+  If this is empty or missing, all broadcasters can use this extension.
+  """
+  broadcasters: [ID!]!
+
+  """
+  URLs which are permitted to be opened from the configuration dialog.
+  """
+  configURLs: [String!]!
+
+  """
+  URLs which are permitted to be opened from an extension set as a panel.
+  """
+  panelURLs: [String!]!
+
+  """
+  List of account IDs which should have access to a version of an extension.
+  Users in this list are ignored by the broadcaster whitelist check.
+  """
+  testers: [ID!]!
+}
+
+"""
+HiddenView holds the view configuration of an extension if it is a hidden load test extension.
+"""
+input SaveHiddenViewInput {
+  """
+  Relative path of the HTML file to load for this view.
+  """
+  viewerPath: String!
+}
+
+"""
+LiveConfigViewInput holds the view configuration of an extension if the live config dashboard page is supported.
+"""
+input SaveLiveConfigViewInput {
+  """
+  Relative path of the HTML file to load for this view.
+  """
+  viewerPath: String!
+}
+
+"""
+MobileViewInput holds the view configuration of an extension if mobile is supported.
+"""
+input SaveMobileViewInput {
+  """
+  Relative path of the HTML file to load for this view.
+  """
+  viewerPath: String!
+}
+
+"""
+PanelViewInput holds the view configuration of an extension if the panel anchor is supported.
+"""
+input SavePanelViewInput {
+  """
+  The extension developer configured height of the panel extension.
+  """
+  height: Int!
+
+  """
+  Relative path of the HTML file to load for this view.
+  """
+  viewerPath: String!
+}
+
+"""
+VideoOverlayViewInput holds the view configuration of an extension if the videoOverlay anchor is supported.
+"""
+input SaveVideoOverlayViewInput {
+  """
+  Relative path of the HTML file to load for this view.
+  """
+  viewerPath: String!
+}
+
+"""
+The inputs for the segmentList query.
+"""
+input ScheduleSegmentListInput {
+  """
+  Flag to indicate whether in progress segments should be returned.
+  """
+  ignoreInProgress: Boolean
+
+  """
+  The reference time to request segments after. If not provided, the current time will be used.
+  """
+  startTime: Time
+
+  """
+  The desired timezone for the times sent with the returned segments. If not set, UTC is used.
+  """
+  utcOffsetMinutes: Int
+}
+
+"""
+The optional parameters for scheduleSegment.
+"""
+input ScheduleSegmentOptions {
+  """
+  The reference time to request segments after. If not provided, the current time will be used.
+  """
+  relativeDate: Time
+
+  """
+  The desired timezone for the times sent with the returned segments. If not set, UTC is used.
+  """
+  utcOffsetMinutes: Int
+
+  """
+  The weekday that is used to mark the beginning of the week. If not supplied, this will default to "MONDAY".
+  """
+  startingWeekday: ScheduleSegmentDay
+}
+
+"""
+SearchForOptions allows the user to target specific result types.
+"""
+input SearchForOptions {
+  """
+  List of indices to run a user's query against.
+  """
+  targets: [SearchForTarget!]
+}
+
+"""
+Specify which index to run a user's search.
+"""
+input SearchForTarget {
+  """
+  Pagination cursor for user to optionally provide to request a specific page of results.
+  """
+  cursor: String
+
+  """
+  Search index to run a user's query against.
+  """
+  index: SearchIndex!
+
+  """
+  Limit the number of results returned.
+  """
+  limit: Int
+}
+
+"""
+SearchOptions to customize results returned by the search query.
+"""
+input SearchOptions {
+  """
+  List of indices to run a user's query against. If no targets are specified,
+  the query is run against all the indices listed in SearchIndex.
+  """
+  targets: [SearchTarget!]
+}
+
+"""
+Specify which index to run a user's search.
+"""
+input SearchTarget {
+  """
+  When true, response will return  the total number of matching documents in
+  index for a given query. The value for limit is ignored and assumed to be zero.
+  """
+  countTotalMatches: Boolean
+
+  """
+  Search index to run a user's query against.
+  """
+  index: SearchIndex!
+
+  """
+  Max number of matching documents that will be returned.
+  """
+  limit: Int!
+}
+
+"""
+Inputs for seeding a competition participant.
+"""
+input SeedCompetitionParticipantInput {
+  """
+  ID of the competition.
+  """
+  competitionID: ID!
+
+  """
+  ID of the competition player or competition team.
+  """
+  participantID: ID!
+
+  """
+  The assigned seed value.
+  """
+  seedValue: Int!
+}
+
+"""
+The segment start time input.
+"""
+input SegmentStartTimeInput {
+  """
+  The day of the segment.
+  """
+  day: ScheduleSegmentDay!
+
+  """
+  The hour of the segment 0-23.
+  """
+  hour: Int!
+
+  """
+  The minute of the segment 0-59.
+  """
+  minute: Int!
+}
+
+"""
+Inputs for selecting a channel badge.
+"""
+input SelectChannelBadgeInput {
+  """
+  Set ID of the badge to select.
+  """
+  badgeSetID: ID!
+
+  """
+  Optional Version of the Badge to select.
+  """
+  badgeSetVersion: String
+
+  """
+  ID of the channel this badge is selected on.
+  """
+  channelID: ID!
+}
+
+"""
+Inputs for selecting a global badge.
+"""
+input SelectGlobalBadgeInput {
+  """
+  Set ID of the badge to select.
+  """
+  badgeSetID: ID!
+
+  """
+  Optional Version of the Badge to select.
+  """
+  badgeSetVersion: String
+}
+
+"""
+Input for sending a chat message through subscriber-only mode with Channel Points.
+"""
+input SendChatMessageThroughSubscriberModeInput {
+  """
+  The channel the message is being sent to.
+  """
+  channelID: ID!
+
+  """
+  The client's perception of the reward's cost.
+  """
+  cost: Int!
+
+  """
+  The user's message.
+  """
+  message: String!
+
+  """
+  Client-set identifier for the transaction. This ID should be universally unique.
+  """
+  transactionID: ID!
+}
+
+input SendCheerInput {
+  """
+  bits is the number of bits the message will spend (as parsed by the client).
+  """
+  bits: Int!
+
+  """
+  content is the text to process and forward to the chat system.
+  """
+  content: String!
+
+  """
+  Client-generated unique ID used to prevent a cheer from being re-sent (thus spending double bits).
+  The server will reject any request with an ID that has already been used.
+  """
+  id: ID!
+
+  """
+  Optional field that dictates the user wants their cheer to appear anonymously (i.e. unassociated with their username).
+  """
+  isAnonymous: Boolean = false
+
+  """
+  Optional field that dictates whether automod should be enabled for the cheer or not.
+  """
+  isAutoModEnabled: Boolean
+
+  """
+  Optional field that dictates the cheer message was sent from a room, as this provides the context for what room
+  it was sent from.
+  """
+  roomID: ID
+
+  """
+  Optional field that dictates that the user want to cheer anyways, even though they know it will be automodded.
+  """
+  shouldCheerAnyway: Boolean
+
+  """
+  targetID is the `User.id` of the channel to send the cheer to.
+  """
+  targetID: ID!
+}
+
+"""
+Input to the sendExtensionMessage mutation.
+"""
+input SendExtensionMessageInput {
+  """
+  The channelID the extension is active on.
+  """
+  channelID: ID!
+
+  """
+  The type of the content.
+  """
+  contentType: String!
+
+  """
+  A JWT token signed with the shared secret for this extension.
+  """
+  extAuthToken: String!
+
+  """
+  The ID of the extension which is sending the message.
+  """
+  extensionID: ID!
+
+  """
+  The content of the message to be sent.
+  """
+  message: String!
+
+  """
+  The set of target message receievers to send to, e.g. "broadcast".
+  """
+  targets: [String!]!
+}
+
+"""
+Input for sending a highlighted chat message with Channel Points.
+"""
+input SendHighlightedChatMessageInput {
+  """
+  The channel the message is being sent to.
+  """
+  channelID: ID!
+
+  """
+  The client's perception of the reward's cost.
+  """
+  cost: Int!
+
+  """
+  The user's message.
+  """
+  message: String!
+
+  """
+  Client-set identifier for the transaction. This ID should be universally unique.
+  """
+  transactionID: ID!
+}
+
+input SendRoomMessageInput {
+  message: String!
+
+  """
+  Optional nonce which will be included in the pubsub event for this message.
+  """
+  nonce: String
+  roomID: ID!
+}
+
+input SendWhisperInput {
+  """
+  Message to send to user.
+  """
+  message: String!
+
+  """
+  Random string generated by the client and should be unique across messages.
+  """
+  nonce: String!
+
+  """
+  User to send a whisper to.
+  """
+  recipientUserID: ID!
+}
+
+"""
+Sets the auto ad density for the channel.
+"""
+input SetAutoAdDensityInput {
+  """
+  Input for auto ad length seconds.
+  """
+  autoAdLengthSeconds: Int!
+
+  """
+  Input for auto ad period minutes.
+  """
+  autoAdPeriodMinutes: Int!
+
+  """
+  Input for target ID of channel.
+  """
+  targetChannelID: ID!
+}
+
+"""
+SetAutohostChannelsInput sets the user's list to autohost.
+"""
+input SetAutohostChannelsInput {
+  """
+  ChannelIDs that will be on the list to autohost.
+  """
+  channelIDs: [ID!]!
+
+  """
+  UserID to update autohost list for.
+  """
+  userID: ID!
+}
+
+"""
+Input for setting auto refill settings.
+"""
+input SetAutoRefillSettingsInput {
+  """
+  The charge instrument information for starting a purchase.
+  """
+  chargeInstrument: ChargeInstrumentInput!
+
+  """
+  The currency this should be charged in.
+  """
+  currency: Currency!
+
+  """
+  The gross amount (of currency) that can be charged on the charge instrument.
+  """
+  grossAmount: Int!
+
+  """
+  Optional id of the auto refill settings that are being modified.
+  """
+  id: ID
+
+  """
+  Indicates if the profile is active.
+  """
+  isEnabled: Boolean!
+
+  """
+  Id of the refill offer used on auto refill.
+  """
+  offerID: ID!
+
+  """
+  The threshold amount a balance must go below to trigger a reload.
+  """
+  threshold: Int!
+}
+
+"""
+Input for the set bits user settings mutation.
+"""
+input SetBitsUserSettingsInput {
+  """
+  Optional field that dictates whether a user has exited out of the first cheer tutorial by clicking out of the experience.
+  """
+  abandonedFirstCheerTutorial: Boolean
+
+  """
+  Optional field that dictates whether a user has skipped the first cheer tutorial by clicking the skip button.
+  """
+  skippedFirstCheerTutorial: Boolean
+}
+
+input SetChannelFeedEnabledInput {
+  """
+  The new desired value for channel_feed_enabled.
+  """
+  enabled: Boolean!
+}
+
+input SetChannelNotificationSettingInput {
+  category: String!
+  channelID: ID!
+  platform: String!
+  settingState: String!
+}
+
+"""
+Inputs to the setChannelTrailer mutation.
+"""
+input SetChannelTrailerInput {
+  """
+  The channel whose trailer should be updated.
+  """
+  channelID: ID!
+
+  """
+  The ID of the video that should be used as the channel's trailer,
+  or null if the trailer should be cleared.
+  """
+  trailerVideoID: ID
+}
+
+"""
+The required input to set a user's chat pause setting.
+"""
+input SetChatPauseSettingInput {
+  """
+  The desired method for a user to pause chat.
+  """
+  chatPauseSetting: ChatPauseSetting!
+}
+
+"""
+Update tags associated with CLIP, STREAM, or VOD with contentID.
+"""
+input SetContentTagsInput {
+  """
+  ID of the channel owning the content.
+  """
+  authorID: ID!
+
+  """
+  ID of content: Channel ID for Streams, Slugs for Clips, and VOD ids for VODs.
+  """
+  contentID: ID!
+
+  """
+  Type of content being returned. Can only be of values CLIP, STREAM, or VOD.
+  """
+  contentType: ContentType!
+
+  """
+  List of tag IDs to be replaced from the content.
+  """
+  tagIDs: [ID!]!
+}
+
+"""
+The input to be provided to the SetCreatorBadgeFlair mutation.
+"""
+input SetCreatorBadgeFlairInput {
+  """
+  ID for channel to apply setting for.
+  """
+  channelID: ID!
+
+  """
+  Setting to apply to channel setting for badge flair.
+  """
+  creatorBadgeFlair: CreatorBadgeFlairSetting!
+}
+
+"""
+Inputs to the SetDashboardAlertQueueActivityStatus mutation.
+"""
+input SetDashboardAlertQueueActivityStatusInput {
+  """
+  The ID corresponding to the activity whose alert queue activity status should be updated.
+  """
+  activityID: ID!
+
+  """
+  The value to set the status to.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus!
+
+  """
+  The ID corresponding to the user whose alert queue activity status should be updated.
+  """
+  userID: ID!
+}
+
+"""
+Inputs to the SetDashboardAlertQueuePreference mutation. Only one of the boolean settings should be set at once.
+"""
+input SetDashboardAlertQueuePreferenceInput {
+  """
+  If true, cannot publish alerts to the user.
+  """
+  shouldEnableDNDMode: Boolean
+
+  """
+  If true, cannot publish bits alerts to the user.
+  """
+  shouldHideBits: Boolean
+
+  """
+  If true, cannot publish follows alerts to the user.
+  """
+  shouldHideFollows: Boolean
+
+  """
+  If true, cannot publish subscription gift alerts to the user.
+  """
+  shouldHideGiftSubscriptions: Boolean
+
+  """
+  If true, cannot publish hosts alerts to the user.
+  """
+  shouldHideHosts: Boolean
+
+  """
+  If true, cannot publish raids alerts to the user.
+  """
+  shouldHideRaids: Boolean
+
+  """
+  If true, cannot publish regular subscriptions alerts to the user (gift subs are still shown).
+  """
+  shouldHideSubscriptions: Boolean
+
+  """
+  The ID corresponding to the user whose alert queue preference should be updated.
+  """
+  userID: ID!
+}
+
+"""
+The input to be provided to the setDefaultPaymentMethod mutation.
+"""
+input SetDefaultPaymentMethodInput {
+  """
+  Country (ISO-3166) associated to the billing info for the customer's payment method.
+  """
+  billingCountry: String
+
+  """
+  The last four digits of the user provided account number.
+  """
+  lastFour: String
+
+  """
+  Payment type used via the payment provider.
+  """
+  paymentType: PaymentInstrumentType!
+
+  """
+  The payment provider we're updating the payment method on.
+  """
+  provider: PaymentProvider!
+
+  """
+  The token used to verify the selected payment method.
+  """
+  token: String!
+
+  """
+  The user to set default payment method for.
+  """
+  userID: ID!
+}
+
+"""
+The required input to set a user's deleted message display setting.
+"""
+input SetDeletedMessageDisplaySettingInput {
+  """
+  The desired deleted message display setting to be saved.
+  """
+  deletedMessageDisplaySetting: DeletedMessageDisplaySetting!
+}
+
+"""
+SetDropBenefitsOnDropInput has fields required to update a drop's list of benefits.
+"""
+input SetDropBenefitsOnDropInput {
+  """
+  The benefits that should be awarded when this drop is claimed.
+  """
+  benefitIDs: [ID!]!
+
+  """
+  The drop to update.
+  """
+  dropID: ID!
+}
+
+"""
+SetDropCampaignAccessInput has fields required to update a campaign's access.
+"""
+input SetDropCampaignAccessInput {
+  """
+  A list of channels that are allowed for this campaign.
+  """
+  allowedChannels: [ID!]
+
+  """
+  A list of channels that are blocked from this campaign.
+  """
+  blockedChannels: [ID!]
+
+  """
+  The campaign ID.
+  """
+  campaignID: ID!
+
+  """
+  Is the allowedChannels list in effect. Just having allowedChannels present
+  does not mean the access list should be enabled.
+  """
+  isAllowedChannelsEnabled: Boolean!
+
+  """
+  Is the blockedChannels list in effect. Just having blockedChannels present does not mean the block list should be enabled.
+  """
+  isBlockedChannelsEnabled: Boolean!
+
+  """
+  A list of users that are able to view this campaign and functionalities while the campaign is in the testing state.
+  """
+  testViewers: [ID!]
+}
+
+"""
+SetDropCampaignStatusInput has fields required to update a campaign's status.
+"""
+input SetDropCampaignStatusInput {
+  """
+  The campaign ID.
+  """
+  campaignID: ID!
+
+  """
+  The status the campaign should receive.
+  """
+  status: DropCampaignStatus!
+}
+
+"""
+SetDropCampaignSummaryInput has fields required to update a campaign summary.
+"""
+input SetDropCampaignSummaryInput {
+  """
+  The redirect URL where a user can link their account.
+  """
+  accountLinkURL: String!
+
+  """
+  The campaign ID.
+  """
+  campaignID: ID!
+
+  """
+  The type of a campaign defines what type of drops are allowed to be added to the campaign.
+  """
+  campaignType: CampaignType
+
+  """
+  The description of this campaign.
+  """
+  description: String!
+
+  """
+  The URL that links to the details / marketing page for this drop.
+  """
+  detailsURL: String!
+
+  """
+  The date at which this campaign ends and all contained drops end at the latest.
+  """
+  endAt: Time!
+
+  """
+  The game associated with this campaign.
+  """
+  gameID: ID!
+
+  """
+  The name of the campaign.
+  """
+  name: String!
+
+  """
+  This is the Organization ID (RBAC) to determine access / ownership of the campaign and attached drops.
+  """
+  ownerID: ID!
+
+  """
+  The date at which this campaign starts and all contained drops start the earliest.
+  """
+  startAt: Time!
+}
+
+"""
+SetDropEventRuleInput has the fields required to set an event based rule on a drop.
+"""
+input SetDropEventRuleInput {
+  """
+  How long the viewer has to claim their reward.
+  """
+  claimDurationSeconds: Int!
+
+  """
+  The associated drop for the rule to update.
+  """
+  dropID: ID!
+
+  """
+  The in-game conditions that must be met for the drop to trigger.
+  """
+  eventRules: [DropEventConditionInput!]!
+
+  """
+  A textual description of what has to occur for the drop to trigger.
+  """
+  questDescription: String!
+
+  """
+  Name of the drop.
+  """
+  questName: String!
+}
+
+"""
+SetDropManualTriggerRuleInput has the fields required to set a manual trigger based rule on a drop.
+"""
+input SetDropManualTriggerRuleInput {
+  """
+  How long the viewer has to claim their reward.
+  """
+  claimDurationSeconds: Int!
+
+  """
+  The associated drop for the rule to update.
+  """
+  dropID: ID!
+}
+
+"""
+SetDropSummaryInput has fields required to update a drop's summary.
+"""
+input SetDropSummaryInput {
+  """
+  The associated drop for the summary to update.
+  """
+  dropID: ID!
+
+  """
+  The date at which this drop can no longer occur.
+  """
+  endAt: Time
+
+  """
+  The friendly name of this drop.
+  """
+  name: String!
+
+  """
+  The date at which this drop can start to occur.
+  """
+  startAt: Time
+}
+
+"""
+SetDropTimeBasedRuleInput has fields required to update a drop's rule to a minutes watched based rule.
+"""
+input SetDropTimeBasedRuleInput {
+  """
+  The associated drop for the rule to update.
+  """
+  dropID: ID!
+
+  """
+  The ID of the drop that must be claimed before you can make progress on this drop.
+  """
+  preconditionDropID: ID!
+
+  """
+  The amount of minutes a viewer must have watched before they can claim this drop.
+  """
+  requiredMinutesWatched: Int!
+}
+
+"""
+The required input to set a user's emote animations setting.
+"""
+input SetEmoteAnimationsEnabledInput {
+  """
+  Whether emote animations should be enabled for the current user.
+  """
+  isEmoteAnimationsEnabled: Boolean!
+}
+
+"""
+The required input to set a user's emote animations setting callout dismissed.
+"""
+input SetEmoteAnimationsSettingCalloutDismissedInput {
+  """
+  Whether the emote animations setting callout is dismissed by the user.
+  """
+  isEmoteAnimationsSettingCalloutDismissed: Boolean!
+}
+
+"""
+SetEmoteModifierGroupsInput is the input required when a creator sets their emote modifiers.
+"""
+input SetEmoteModifierGroupsInput {
+  """
+  Emote modifier groups to set.
+  """
+  groups: [EmoteModifierGroupInput!]!
+}
+
+"""
+The required input for a setExtensionConfiguration mutation.
+"""
+input SetExtensionConfigurationInput {
+  """
+  The channel to which this configuration applies to.
+  """
+  channelID: ID!
+
+  """
+  The version of the configuration.
+  """
+  configVersion: String!
+
+  """
+  The configuration string to post.
+  """
+  content: String!
+
+  """
+  The extension ID.
+  """
+  extensionID: ID!
+}
+
+"""
+The required input to set feature flags for an installation.
+"""
+input SetExtensionFeatureFlagsInput {
+  """
+  Optional value to enable/disable chat for the specified installation.
+  """
+  canSendChat: Boolean
+
+  """
+  Optional value to enable/disable bits for the specified installation.
+  """
+  canUseBits: Boolean
+
+  """
+  Optional value for dynamicManagement flag on games.
+  """
+  dynamicManagement: [ExtensionDynamicManagementInput]
+
+  """
+  The ID of the extension installation to set feature flags for.
+  """
+  id: ID!
+}
+
+"""
+The required input to set oauth on an installation.
+"""
+input SetExtensionInstallationOAuthInput {
+  """
+  The installation ID we're setting the oauth token for.
+  """
+  id: ID!
+
+  """
+  The OAuth token created for the extension.
+  """
+  oauthToken: String!
+}
+
+"""
+SetGameDropAccountLinkClientInput has fields necessary to update a game's account link
+client ID used to verify a user has connected their in-game account.
+"""
+input SetGameDropAccountLinkClientInput {
+  """
+  The client ID used to verify that users have linked their accounts properly.
+  """
+  clientID: ID!
+
+  """
+  The ID of the game to link the client ID to.
+  """
+  gameID: ID!
+}
+
+"""
+SetHeroAsAvatarInput contains the parameters to copy the user's hero to their avatar.
+no parameters are required, because this mutation copies the requesting user's hero to
+the requesting user's avatar, but we're passing the heroID here
+because of a bug in the way `make check` works.
+"""
+input SetHeroAsAvatarInput {
+  """
+  The ID of the hero to copy to its owning user's profile picture.
+  """
+  heroID: ID!
+}
+
+"""
+The required input to set a role's moderator logs' access.
+"""
+input SetModLogsAccessInput {
+  """
+  The access level to moderator logs to be given to the role.
+  """
+  accessLevel: ModLogsAccessLevel!
+
+  """
+  The Channel for which to set moderator log access.
+  """
+  channelID: ID!
+
+  """
+  The user role for which to set the moderator log access permission.
+  """
+  channelRole: ChannelUserRole!
+}
+
+"""
+The required input to set a user's mod view settings relating to turorial.
+"""
+input SetModViewSettingsInput {
+  """
+  The time the tutorial on the mod view page was seen.
+  """
+  tutorialSeenAt: Time!
+
+  """
+  The viewed state of the tutorial on the mod view page.
+  """
+  tutorialState: TutorialState!
+}
+
+input SetNotificationSettingInput {
+  category: String!
+  platform: String!
+  settingState: String!
+}
+
+"""
+SetOverwatchLeagueTeamPreferenceInput contains the OverwatchLeagueTeamPreference ID to set.
+"""
+input SetOverwatchLeagueTeamPreferenceInput {
+  """
+  The channelID from the channel this event is taking place on.
+  """
+  OverwatchTeamPreferenceOptionID: ID!
+}
+
+"""
+The required input for a setPreferredLanguageTag mutation.
+"""
+input SetPreferredLanguageTagInput {
+  """
+  The preferred language tag to set onto the user.
+  """
+  preferredLanguageTag: LanguageTag!
+
+  """
+  The user to modify.
+  """
+  userID: ID!
+}
+
+"""
+The required input to set radio track information currently being played.
+"""
+input SetRadioCurrentlyPlayingInput {
+  """
+  The type of content the ID maps to.
+  """
+  contentType: RadioCurrentlyPlayingType
+
+  """
+  Whether the track is currently playing or not.
+  """
+  isCurrentlyPlaying: Boolean!
+
+  """
+  The ID of the source.
+  """
+  sourceID: ID
+
+  """
+  The ID of the currently playing track.
+  """
+  trackID: ID
+}
+
+"""
+The required input to set a user's readable chat colors setting.
+"""
+input SetReadableChatColorsEnabledInput {
+  """
+  Whether readable chat colors should be enabled for the current user.
+  """
+  isReadableChatColorsEnabled: Boolean!
+}
+
+"""
+SetResourceRestrictionInput sets a restriction for the given resourceID.
+"""
+input SetResourceRestrictionInput {
+  """
+  The ID of the resource to set the restriction on.
+  """
+  resourceID: ID!
+
+  """
+  The type of resource that will be restricted.
+  """
+  resourceType: RestrictionResource!
+
+  """
+  The restriction options, if any, to apply to the restriction being created.
+  """
+  restrictionOptions: [ResourceRestrictionOption!]
+
+  """
+  The type of restriction that should be placed onto the channel. If empty, the restriction will be deleted.
+  """
+  restrictionType: ResourceRestrictionType
+}
+
+"""
+SetScheduleReminderInput has fields required to set a schedule event reminder.
+"""
+input SetScheduleReminderInput {
+  """
+  The ID of the segment to set a reminder for.
+  """
+  segmentID: ID!
+
+  """
+  Whether the reminder should be enabled or disabled.
+  """
+  shouldEnable: Boolean!
+}
+
+"""
+SetSessionStatusInput represents a user's status within a single session (browser tab, game, desktop application,
+mobile application, etc.).
+"""
+input SetSessionStatusInput {
+  """
+  activity is the action the user is performing in your application. The purpose of an activity is to allow the user's
+  friends and related users to join in on whatever the user is doing. If the user is not performing any action that
+  other users can join in on (e.g. watching a VOD, browsing their settings page) or is not performing any action at
+  all, this should be set to null.
+  """
+  activity: ActivityInput
+
+  """
+  availability is the state of the user's session in your application. You should set it to ONLINE if the user is
+  known to be at their device, IDLE if they are not, and OFFLINE if your application is currently terminating.
+
+  Note that if your application fails to send an OFFLINE heartbeat before terminating, the session will automatically
+  expire after some time without a heartbeat.
+  """
+  availability: AvailabilityInput!
+
+  """
+  sessionID must be supplied and can be any string unique to this session. Generating a random UUID when your
+  application starts and sending it for each setSessionStatus is a good idea.
+
+  Each instance of your application should send the same ID for each of its setSessionStatus calls, but two instances
+  of your application running at the same time should never have the same session ID.
+  """
+  sessionID: String!
+}
+
+"""
+Inputs to the setSquadStreamPrimaryPlayer mutation.
+"""
+input SetSquadStreamPrimaryPlayerInput {
+  """
+  ID of the device viewing squad stream.
+  """
+  deviceID: ID!
+
+  """
+  ID of the channel as the current primary player.
+  """
+  primaryPlayerID: ID!
+
+  """
+  ID of the squad stream.
+  """
+  squadID: ID!
+}
+
+"""
+Required input to set unban requests settings on a channel.
+"""
+input SetUnbanRequestsSettingsInput {
+  """
+  The channel on which to update settings for.
+  """
+  channelID: ID!
+
+  """
+  The amount of time after a ban before an unban request can be made.
+  """
+  cooldownMinutes: Int!
+
+  """
+  Whether unban requests are allowed to be created on the channel.
+  """
+  isEnabled: Boolean!
+}
+
+"""
+SetUserResidenceInput is input required to set a user's residence.
+"""
+input SetUserResidenceInput {
+  """
+  User's country in ISO alpha-2.
+  """
+  countryCode: String!
+
+  """
+  Target user for setting residence.
+  """
+  userID: ID!
+
+  """
+  User's zip code.
+  """
+  zipCode: String
+}
+
+"""
+A set of options for configuring which shelf data to return to the user.
+"""
+input ShelvesAvailableOptions {
+  """
+  The ID of the collection. Only valid when shelfType is set to
+  VideoShelfType.COLLECTION.
+  """
+  collectionID: ID
+
+  """
+  The ID of the game shelf to query. Only valid when shelfType is set to
+  VideoShelfType.GAME_VIDEOS.
+  """
+  gameID: ID
+
+  """
+  Which shelf type to query. Currently required.
+  In future, omitting this option returns all valid shelves.
+  """
+  shelfType: VideoShelfType
+}
+
+"""
+A set of options to configuring how the shelves data is returned to the consumer.
+"""
+input ShelvesOptions {
+  """
+  Should indicate whether the response includes empty shelves.
+  """
+  includeEmpty: Boolean = false
+}
+
+"""
+Options used to determine the content returned in the short video feed.
+"""
+input ShortVideoFeedOptions {
+  """
+  The platform of the viewer -- used to curate content in the feed.
+  """
+  platform: ShortVideoFeedPlatform
+
+  """
+  The type of short video feed to return.
+  """
+  type: ShortVideoFeedType
+}
+
+"""
+The input representing Community Points Smart Costs Acknowledgements.
+"""
+input SmartCostsAcknowledgementInput {
+  """
+  The last acknowledged cost.
+  """
+  lastAcknowledgedCost: Int!
+
+  """
+  The type of automatic reward the smart costs acknowledgement is for.
+  """
+  rewardType: CommunityPointsAutomaticRewardType!
+}
+
+"""
+Input requires the broadcaster to be payed and user to deduct credit.
+"""
+input SpendSubscriptionCreditInput {
+  """
+  The user id of streamer being subscribed to.
+  """
+  broadcasterID: String!
+
+  """
+  Twitch user ID.
+  """
+  userID: ID!
+}
+
+"""
+StartAdInput ...
+"""
+input StartAdInput {
+  """
+  channelID is the ID of the channel the ad will run on.
+  """
+  channelID: ID!
+
+  """
+  lengthSeconds is the requested ad break length in seconds (30s ad, 60s ad, etc).
+  """
+  lengthSeconds: Int
+}
+
+"""
+StartBountyInput includes the bounty a user is trying to start.
+"""
+input StartBountyInput {
+  """
+  Unique Identifier for the bounty.
+  """
+  bountyID: ID!
+
+  """
+  Title of the stream for the bounty. Must start with #sponsored.
+  """
+  title: String!
+
+  """
+  UserID of the user that will start the bounty.
+  """
+  userID: ID!
+}
+
+"""
+Input for remotely and asynchronously starting a cloud broadcast for the given channelID.
+"""
+input StartCloudBroadcastInput {
+  """
+  The desired framerate of the broadcast.
+  """
+  framerate: Int
+
+  """
+  The desired height of the broadcast.
+  """
+  height: Int
+
+  """
+  The cloud provider to send a start cloud broadcast request to..
+  """
+  providerID: ID!
+
+  """
+  The desired width of the broadcast.
+  """
+  width: Int
+}
+
+"""
+StartPayoutOnboardingWorkflowInput returns the required input when starting a new workflow for payout onboarding.
+"""
+input StartPayoutOnboardingWorkflowInput {
+  """
+  TargetUserID is the ID of the user whose workflow will be started.
+  """
+  targetUserID: ID!
+}
+
+"""
+Input for starting a PV Watch Party.
+"""
+input StartWatchPartyInput {
+  """
+  Amazon LWA access token.
+  """
+  accessToken: String!
+
+  """
+  Channel ID of the creator.
+  """
+  channelID: ID!
+
+  """
+  Catalog GTI to use.
+  """
+  watchPartyItemID: ID!
+}
+
+"""
+StopBountyInput includes the bounty a user is trying to stop.
+"""
+input StopBountyInput {
+  """
+  Unique Identifier for the bounty.
+  """
+  bountyID: ID!
+
+  """
+  UserID of the user that will stop the bounty.
+  """
+  userID: ID!
+}
+
+"""
+Input for remotely stoping a Cloud broadcast for the given channelID.
+"""
+input StopCloudBroadcastInput {
+  """
+  The the broadcast id to use when stopping a broadcast.
+  """
+  id: ID!
+}
+
+"""
+Input for stopping a PV Watch Party.
+"""
+input StopWatchPartyInput {
+  """
+  Amazon LWA access token.
+  """
+  accessToken: String!
+
+  """
+  Channel ID of the creator.
+  """
+  channelID: ID!
+}
+
+"""
+Query to let consumers filter streams that have specific metadata.
+e.g. return only those hearthstone streams that have broadcasterheroclass as mage.
+FE uses these parameters to implemtent filters.
+"""
+input StreamMetadataFilterInput {
+  """
+  Filter streams by CSGO Map.
+  """
+  counterStrikeMap: String
+
+  """
+  Filter streams by CSGO skill.
+  """
+  counterStrikeSkill: String
+
+  """
+  Filter streams by Hearthstone hero class e.g "Mage".
+  """
+  hearthstoneBroadcasterHeroClass: String
+
+  """
+  Filter streams by Hearthstone hero name e.g "Jaina".
+  """
+  hearthstoneBroadcasterHeroName: String
+
+  """
+  Filter streams by Hearthstone game mode e.g "arena" or "rank" etc.
+  """
+  hearthstoneGameMode: String
+
+  """
+  Filter streams by League Of Legends champion id.
+  """
+  leagueOfLegendsChampionID: String
+
+  """
+  The maximum AVC level of the stream. e.g "4.1".
+  """
+  maxAVCLevel: String
+
+  """
+  The maximum AVC profile of the stream.
+  """
+  maxAVCProfile: AVCProfile
+
+  """
+  The maximum height of the stream.
+  """
+  maxHeight: Int
+
+  """
+  Filter streams by Overwatch broadcaster's character e.g "Widowmaker".
+  """
+  overwatchBroadcasterCharacter: String
+
+  """
+  Filter streams by PUBG game mode.
+  """
+  pubgGameMode: String
+
+  """
+  Filter streams by PUBG max number of players alive in game.
+  """
+  pubgPlayerAliveMax: String
+
+  """
+  Filter streams by PUBG min number of players alive in game.
+  """
+  pubgPlayerAliveMin: String
+}
+
+"""
+Optional inputs to filter streams
+add additional optional fields for filtering streams to the StreamOptions input type.
+"""
+input StreamOptions {
+  """
+  Filter streams based on restriction types.
+  """
+  includeRestricted: [StreamRestrictionType!]
+
+  """
+  Broadcaster languages to filter the streams by.
+  Deprecated: use language tags instead.
+  """
+  languages: [Language!]
+
+  """
+  The locale of the user.
+  """
+  locale: String
+
+  """
+  The platform to filter streams by.
+  """
+  platformType: PlatformType = all
+
+  """
+  If sorted by relevance, this provides additional context used to influence recommendations.
+  """
+  recommendationsContext: RecommendationsContext
+
+  """
+  A GUID that is created by the caller for tracking. This should be globally
+  unique per request and is required if sort=RELEVANCE.
+  """
+  requestID: ID
+
+  """
+  The sort param can be used to change the default sorting.
+  """
+  sort: StreamSort = VIEWER_COUNT
+
+  """
+  List of tags to filter by.
+  """
+  tags: [String!]
+}
+
+"""
+StreamRecommendationsFilters defines parameters which filter down stream recommendation results.
+"""
+input StreamRecommendationsFilters {
+  """
+  Stream recommendation results will only include streams with these category ids.
+  Clients can use this filtering option for flows where a user can select categories to filter on.
+  The category IDs should be available from queries in the previous step of the user flow.
+  Example: categoryIDs: ["513143", "33214"] where "513143" and "33214" are
+  coming from categories selected by the user in the previous page.
+  """
+  categoryIDs: [ID!]
+}
+
+"""
+SubmitCSATFeedbackInput creates or updates a currently authenticated user's rating/feedback of Twitch Developer Products.
+"""
+input SubmitCSATFeedbackInput {
+  """
+  The action that prompted the CSAT callout to appear.
+  """
+  actionPrompted: CSATActionPrompted
+
+  """
+  The company ID, if the user is submitting the feedback through an organization's console.
+  """
+  companyID: ID
+
+  """
+  The additional feedback that the user submits after the rating.
+  """
+  feedback: String
+
+  """
+  The GUID used when updating a CSAT Feedback entry with additional feedback or changes.
+  """
+  guid: ID
+
+  """
+  The rating that the user submits.
+  """
+  rating: CSATRating
+
+  """
+  The page in Twilight that the user responds to the CSAT callout from.
+  """
+  source: String!
+}
+
+"""
+SubmitEmotePrefix creates a new emoticon prefix for a channel.
+"""
+input SubmitEmotePrefixInput {
+  """
+  The channel ID whose emote prefix will be updated.
+  """
+  channelID: ID!
+
+  """
+  The new emote prefix.
+  """
+  name: String!
+}
+
+"""
+SubmitEmoticonPrefix creates a new emoticon prefix for a channel.
+"""
+input SubmitEmoticonPrefixInput {
+  """
+  The channel ID.
+  """
+  channelID: ID!
+
+  """
+  Emoticon prefix.
+  """
+  name: String!
+}
+
+"""
+SubmitExtensionFeedbackInput submits a user's feedback for a related rating on a Twitch extension.
+"""
+input SubmitExtensionFeedbackInput {
+  """
+  Feedback that the broadcaster can write.
+  """
+  comment: String!
+
+  """
+  The ID of the extension the feedback applies to.
+  """
+  extensionClientID: ID!
+
+  """
+  The version of the extension the feedback applies to.
+  """
+  extensionVersion: String!
+
+  """
+  ID of the user submitting the feedback for the extension.
+  """
+  userID: ID!
+}
+
+"""
+Criteria for building paginated list of user's all active subscriptions.
+"""
+input SubscriptionBenefitCriteriaInput {
+  """
+  Only return subscription benefits for a given filter value.
+  """
+  filter: SubscriptionBenefitFilter = ALL
+
+  """
+  Platform where subscriptions were purchased.
+  """
+  platform: SubscriptionPlatform = WEB
+}
+
+"""
+The individual swap participant input.
+"""
+input SwapCompetitionLobbyParticipantInput {
+  """
+  The id of the lobby where the lobby participant currently is.
+  """
+  lobbyID: ID!
+
+  """
+  The id of the lobby participant, which can be competition player id or competition team id, we are swapping with.
+  """
+  participantID: ID!
+}
+
+"""
+SwapCompetitionLobbyParticipantsInput exchanges the lobby placements of the two participants within the same phase.
+"""
+input SwapCompetitionLobbyParticipantsInput {
+  """
+  The id of the competition.
+  """
+  competitionID: ID!
+
+  """
+  The participantID and lobbyID of the first lobby participant to be swapped.
+  """
+  first: SwapCompetitionLobbyParticipantInput!
+
+  """
+  The id of the phase.
+  """
+  phaseID: ID!
+
+  """
+  The participantID and lobbyID of the second lobby participant to be swapped.
+  """
+  second: SwapCompetitionLobbyParticipantInput!
+}
+
+"""
+SyncGameOnDropCampaignPayload contains the campaign ID that needs to be synced.
+"""
+input SyncGameOnDropCampaignInput {
+  """
+  The ID of the campaign to sync.
+  """
+  campaignID: ID!
+}

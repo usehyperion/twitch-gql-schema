@@ -1,0 +1,4007 @@
+"""
+CampaignDiscoveryEventType contains the different types of discovery events that campaign objectives can track.
+"""
+enum CampaignDiscoveryEventType {
+  """
+  An event describing a user's interaction with the command center.
+  """
+  ENGAGE_COMMAND_CENTER
+
+  """
+  An event describing a user's interaction with a stream.
+  """
+  ENGAGE_STREAM
+}
+
+"""
+The type of the campaign.
+"""
+enum CampaignType {
+  """
+  The default campaign type that allows all drop types but manual_triggers.
+  """
+  DEFAULT
+
+  """
+  The manual trigger campaign type only allows for manual trigger type drops.
+  """
+  MANUAL_TRIGGER_BASED
+}
+
+"""
+Error types recognized.
+"""
+enum CancelActiveBoostOrdersErrorCode {
+  """
+  Invalid parameter in the request.
+  """
+  INVALID_PARAMETER
+
+  """
+  Internal error being returned from service.
+  """
+  INTERNAL_ERROR
+}
+
+"""
+Error types recognized.
+"""
+enum CancelBountyErrorCode {
+  """
+  Invalid parameter in the request.
+  """
+  INVALID_PARAMETER
+
+  """
+  Bounty isn't live, thus cannot be canceled.
+  """
+  BOUNTY_NOT_LIVE
+
+  """
+  Unknown error being returned from service.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+Describes the conditions around a user's cancellation of their purchase (e.g. refund policy).
+"""
+enum CancellationPolicyType {
+  """
+  The product is not refundable.
+  """
+  NON_REFUNDABLE
+
+  """
+  The product is refundable.
+  """
+  REFUNDABLE
+}
+
+"""
+Possible error codes from the cancelPredictionEvent mutation.
+"""
+enum CancelPredictionEventErrorCode {
+  """
+  The current user is forbidden from cancelling this Prediction Event.
+  """
+  FORBIDDEN
+
+  """
+  This Prediction Event has already either been resolved or canceled, and as such this action cannot be taken.
+  """
+  EVENT_ENDED
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+CancelRaidErrorCode are the possible errors that this mutation returns.
+"""
+enum CancelRaidErrorCode {
+  """
+  The a raid does not exist.
+  """
+  RAID_DOES_NOT_EXIST
+
+  """
+  The request is missing valid channel parameters.
+  """
+  INVALID_CHANNEL
+
+  """
+  The user tries to unraid without an active raid.
+  """
+  NO_ACTIVE_RAID
+}
+
+"""
+The status of a chat message.
+"""
+enum CaughtMessageStatus {
+  """
+  INVALID status.
+  """
+  INVALID
+
+  """
+  The caught message is approved by a mod.
+  """
+  ALLOWED
+
+  """
+  The caught message is denied by a mod.
+  """
+  DENIED
+
+  """
+  The caught message is pending for a while and now it's expired.
+  """
+  EXPIRED
+
+  """
+  The caught message is pending review.
+  """
+  PENDING
+}
+
+"""
+Area in which the celebration will show.
+"""
+enum CelebrationArea {
+  """
+  Celebration will show everywhere over the channel page.
+  """
+  EVERYWHERE
+
+  """
+  Celebration will show only over the video.
+  """
+  VIDEO_ONLY
+
+  """
+  Celebration will show over the video and panel.
+  """
+  VIDEO_AND_PANEL
+
+  """
+  Unknown celebration area.
+  """
+  UNKNOWN
+}
+
+"""
+Type of effect that can show during a celebration.
+"""
+enum CelebrationEffect {
+  """
+  Will show fireworks when the celebration triggers.
+  """
+  FIREWORKS
+
+  """
+  Will show an emote rain when the celebration triggers.
+  """
+  RAIN
+
+  """
+  Will show an flamethrowers when the celebration triggers.
+  """
+  FLAMETHROWERS
+
+  """
+  Unknown effect.
+  """
+  UNKNOWN
+}
+
+"""
+Vote in celebration error code.
+"""
+enum CelebrationErrorCode {
+  """
+  Attempted to preform operation on celebration that does not exist.
+  """
+  CELEBRATION_NOT_FOUND
+
+  """
+  A celebration with that same event type and threshold already exists.
+  """
+  CELEBRATION_ALREADY_EXISTS
+
+  """
+  Requesting user does not have permission.
+  """
+  PERMISSION_DENIED
+
+  """
+  The user has reached the limit (20) of celebrations they can have.
+  """
+  OVER_CELEBRATION_LIMIT
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+Type of event that can trigger a celebration.
+"""
+enum CelebrationEventType {
+  """
+  Cheering with bits.
+  """
+  BITS_CHEER
+
+  """
+  Gifting subscriptions to other users.
+  """
+  SUBSCRIPTION_GIFT
+
+  """
+  Unknown event type.
+  """
+  UNKNOWN
+}
+
+"""
+Type of intensity of a celebration.
+"""
+enum CelebrationIntensity {
+  """
+  A small intensity celebration.
+  """
+  SMALL
+
+  """
+  A medium intensity celebration.
+  """
+  MEDIUM
+
+  """
+  A large intensity celebration.
+  """
+  LARGE
+
+  """
+  Unknown intensity.
+  """
+  UNKNOWN
+}
+
+"""
+Final state of the condition participant.
+"""
+enum ChallengeConditionParticipantEndState {
+  """
+  Pending completion of associated condition.
+  """
+  PENDING
+
+  """
+  Associated condition expired.
+  """
+  CONDITION_EXPIRED
+
+  """
+  Associated condition was canceled.
+  """
+  CONDITION_CANCELED
+
+  """
+  Associated condition was satisfied.
+  """
+  CONDITION_SATISFIED
+
+  """
+  Condition participant expired before associated condition could be satisfied.
+  """
+  EXPIRED
+
+  """
+  Condition participant was canceled.
+  """
+  CANCELED
+
+  """
+  Condition participant failed validation prior to being processed.
+  """
+  FAILED_VALIDATION
+
+  """
+  Unknown state.
+  """
+  UNKNOWN
+}
+
+"""
+Whether or not the condition participant was successfully processed upon condition completion.
+"""
+enum ChallengeConditionParticipantProcessingState {
+  """
+  Pending completion of associated condition.
+  """
+  PENDING
+
+  """
+  Condition participant processed successfully.
+  """
+  SUCCESS
+
+  """
+  Error processing condition participant.
+  """
+  ERROR
+
+  """
+  Unknown state.
+  """
+  UNKNOWN
+}
+
+"""
+The current state of the condition.
+"""
+enum ChallengeConditionState {
+  """
+  New condition participants can be associated with this condition.
+  """
+  ACTIVE
+
+  """
+  Condition was manually terminated. New condition participants cannot be associated.
+  """
+  CANCELED
+
+  """
+  Condition was satisfied for the final time. New condition participants cannot be associated with this condition.
+  """
+  INACTIVE
+
+  """
+  Condition was automatically terminated. New condition participants cannot be associated.
+  """
+  EXPIRED
+
+  """
+  Unknown state.
+  """
+  UNKNOWN
+}
+
+"""
+The type of effect.
+"""
+enum ChallengeEffectType {
+  """
+  Type of effect that results in using a user's bits.
+  """
+  USE_BITS
+
+  """
+  Unknown type.
+  """
+  UNKNOWN
+}
+
+"""
+Possible error codes returned from a change username.
+"""
+enum ChangeUsernameErrorCode {
+  """
+  Sudo token expired, prompt the user to log in again.
+  """
+  REAUTH_NEEDED
+
+  """
+  Too many attempts to update login.
+  """
+  REQUESTS_THROTTLED
+
+  """
+  Login was changed recently (last 60 days).
+  """
+  LOGIN_CHANGE_COOLDOWN
+
+  """
+  Login is not available.
+  """
+  LOGIN_UNAVAILABLE
+
+  """
+  Login is too short.
+  """
+  LOGIN_TOO_SHORT
+
+  """
+  Login is too long.
+  """
+  LOGIN_TOO_LONG
+
+  """
+  Login contains characters that are not allowed.
+  """
+  LOGIN_CONTAINS_INVALID_CHARACTERS
+
+  """
+  Login change requires a verified email.
+  """
+  LOGIN_CHANGE_EMAIL_VERIFIED
+
+  """
+  Unrecognized error returned from the backend service.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+ChanletSort indicates the desired order of chanlets in the list returned by LoadChanletsByUserID.
+"""
+enum ChanletSort {
+  """
+  ChanletSortNone indicates that the order of chanlets returned is insignificant
+  to the client and is allowed to be arbitrary.
+  """
+  NONE
+
+  """
+  ChanletSortViewerCount indicates chanlets should return sorted by viewer counts, descending.
+  """
+  VIEWER_COUNT
+}
+
+"""
+Possible sort orders for lists of challenges.
+"""
+enum ChannelChallengeSort {
+  """
+  Sort the challenges by time.
+  """
+  START_TIME
+
+  """
+  Sort the challenges by time.
+  """
+  END_TIME
+}
+
+"""
+The status of the challenge.
+"""
+enum ChannelChallengeStatus {
+  """
+  Encountered some challenge status that we do not know how to handle.
+  """
+  UNKNOWN
+
+  """
+  Challenge is active. Users can contribute bits, with the challenge information publicly visible.
+  """
+  ACTIVE
+
+  """
+  Challenge was manually ended by a user and marked as "completed". Users cannot
+  contribute bits. Challenge information publicly visible.
+  """
+  COMPLETED
+
+  """
+  Challenge was manually ended by a user and marked as "failed". Users cannot
+  contribute bits. Challenge information publicly visible.
+  """
+  FAILED
+
+  """
+  Challenge has ended and is no longer publicly visible. Users cannot contribute
+  bits. Challenge information publicly visible.
+  """
+  TIMED_OUT
+}
+
+"""
+What channel feature the dashboard view is for.
+"""
+enum ChannelDashboardViewType {
+  """
+  Views for Stream Manager layout panels and other components.
+  """
+  STREAM_MANAGER
+
+  """
+  Views for Twitch Studio layout panels.
+  """
+  TWITCH_STUDIO
+}
+
+"""
+An enumeration of permissions a user can have on a channel.
+"""
+enum ChannelPermission {
+  """
+  Permission to manage Chanlets, which represent sub-streams in a multiview mode.
+  """
+  MULTIVIEW_ADMIN
+
+  """
+  Permission to create restrictions on the channel.
+  """
+  SET_CHANNEL_RESTRICTION
+}
+
+"""
+An enumeration of the different restriction types.
+"""
+enum ChannelRestrictionType {
+  """
+  The resource is restricted for an unknown reason.
+  """
+  UNKNOWN
+
+  """
+  The channel is restricted by a subscription.
+  """
+  SUB_ONLY_LIVE
+
+  """
+  The channel is restricted by the All-Access Pass.
+  """
+  ALL_ACCESS_PASS
+}
+
+"""
+The possible user roles within a channel.
+"""
+enum ChannelUserRole {
+  """
+  The channel owner.
+  """
+  BROADCASTER
+
+  """
+  An editor for the channel.
+  """
+  EDITOR
+
+  """
+  A moderator for the channel.
+  """
+  MODERATOR
+
+  """
+  A subscriber of the channel.
+  """
+  SUBSCRIBER
+
+  """
+  A user with no roles.
+  """
+  REGULAR
+}
+
+"""
+ChargeModelPlanIntervalUnit defines the unit of the charge model interval.
+"""
+enum ChargeModelPlanIntervalUnit {
+  """
+  Interval unit of Days.
+  """
+  DAYS
+
+  """
+  Interval unit of Months.
+  """
+  MONTHS
+
+  """
+  Unknown interval unit.
+  """
+  UNKNOWN
+}
+
+"""
+ChatPauseSetting represents the possible settings for the user's preferred way to pause chat when moderating.
+"""
+enum ChatPauseSetting {
+  """
+  SCROLL_ONLY is the default behavior and pauses chat every time the users scrolls over the chat list.
+  """
+  SCROLL_ONLY
+
+  """
+  MOUSEOVER pauses chat whenever a user's mouse hovers over the list, unpauses
+  automatically after 5 seconds if no scroll is performed.
+  """
+  MOUSEOVER
+
+  """
+  ALTKEY pauses chat when the user presses the alt key (option for mac users). It unpauses when the key is released.
+  """
+  ALTKEY
+
+  """
+  MOUSEOVER_ALTKEY pauses chat on mouse hover and hitting the alt key.
+  """
+  MOUSEOVER_ALTKEY
+}
+
+"""
+Reasons that a user might not be allowed to chat in a specific channel.
+"""
+enum ChatRestrictedReason {
+  """
+  The user is prevented from chatting without a verified phone number.
+  They will be prompted to verify one upon chatting.
+  """
+  REQUIRE_VERIFIED_PHONE_NUMBER
+
+  """
+  The user is prevented from chatting by subscribers-only mode. They should
+  subscribe to the channel to chat.
+  """
+  SUBSCRIBERS_ONLY
+
+  """
+  The user is prevented from chatting by followers-only mode. They should
+  either follow the channel, or wait longer to satisfy the required time.
+  See user.self.follower.followedAt for when the user followed, and
+  user.self.chatSettings.followersOnlyDurationMinutes for the minimum
+  required follow time.
+  """
+  FOLLOWERS_ONLY
+
+  """
+  The user is prevented from chatting by verified-only mode. They should
+  verify their account to chat.
+  """
+  VERIFIED_ONLY
+
+  """
+  The user can't chat because they've chatted too recently. See
+  user.self.lastRecentChatMessageAt to calculate how much time is remaining
+  before they can chat again.
+  """
+  SLOW_MODE
+}
+
+"""
+ChatTheme is a client-side UI theme.
+It can be used to provide different images based on the dominant background color they are designed to display on.
+"""
+enum ChatTheme {
+  DARK
+  LIGHT
+}
+
+"""
+Actions required when initiating a checkout flow.
+"""
+enum CheckoutAction {
+  """
+  Action to block saved payment methods.
+  """
+  BLOCK_SAVED_PAYMENT_METHOD
+
+  """
+  Action to show velocity limit CTA.
+  """
+  EXCEEDED_VELOCITY_LIMITS
+
+  """
+  Action to show the user enabled 2FA before saving their payment method.
+  """
+  VERIFIED_SAVED_PAYMENT_METHOD
+
+  """
+  Action to disable new credit cards from being added on purchases.
+  """
+  DISABLE_NEW_CREDIT_CARD
+
+  """
+  Action to disable new credit cards from being added on purchases.
+  """
+  DISABLE_NEW_DIRECT_DEBIT
+
+  """
+  Action to indicate this user is authorized to make purchases.
+  """
+  AUTHORIZED_USER
+
+  """
+  Action to indicate xsolla should be prioritized.
+  """
+  PRIORITIZE_XSOLLA
+}
+
+"""
+The supported cheermote tier thresholds.
+"""
+enum CheermoteTierThreshold {
+  """
+  Cheermote tier threshold requiring at least 1 Bit.
+  """
+  TIER_1
+
+  """
+  Cheermote tier threshold requiring at least 100 Bits.
+  """
+  TIER_100
+
+  """
+  Cheermote tier threshold requiring at least 1000 Bits.
+  """
+  TIER_1000
+
+  """
+  Cheermote tier threshold requiring at least 5000 Bits.
+  """
+  TIER_5000
+
+  """
+  Cheermote tier threshold requiring at least 10000 Bits.
+  """
+  TIER_10000
+}
+
+"""
+CheermoteType is the kind of cheermore (custom vs 1st- or 3rd-party global).
+"""
+enum CheermoteType {
+  """
+  The type for the generic "Cheer" action.
+  """
+  DEFAULT
+
+  """
+  Custom Channel Cheermotes.
+  """
+  CUSTOM
+
+  """
+  Sponsored Cheermotes.
+  """
+  SPONSORED
+
+  """
+  Charity Cheermotes.
+  """
+  CHARITY
+
+  """
+  First Party Cheermotes, like Kappa and BibleThump.
+  """
+  FIRST_PARTY
+
+  """
+  Third Party Cheermotes, like Muxy and BitBoss.
+  """
+  THIRD_PARTY
+
+  """
+  Cheermotes for display only. The cannot be cheered, but will be rendered in Chat.
+  """
+  DISPLAY_ONLY
+
+  """
+  The type for the anonymous cheer action.
+  """
+  ANONYMOUS
+
+  """
+  Unknown cheermote type, we only return this if we get a bad cheermote,
+  we decided this is better than erroring the whole response, the front end should treat this the same as DISPLAY_ONLY.
+  """
+  UNKNOWN
+}
+
+"""
+The enumerated types of claimables.
+"""
+enum ClaimableType {
+  """
+  A key code that has a bits amount associated with it.
+  """
+  BITS_KEY_CODE
+
+  """
+  A key code that has a subscription to a product associated with it.
+  """
+  SUBS_KEY_CODE
+
+  """
+  A key code that has a gift card with monetary value associated with it.
+  """
+  GIFT_CARD_KEY_CODE
+}
+
+"""
+Error types recognized.
+"""
+enum ClaimBountyErrorCode {
+  """
+  Invalid parameter in the request.
+  """
+  INVALID_PARAMETER
+
+  """
+  User reached the maximum number of bounties.
+  """
+  BOUNTY_LIMIT_REACHED
+
+  """
+  User already claimed that bounty.
+  """
+  BOUNTY_ALREADY_CLAIMED
+
+  """
+  Unknown error being returned from service.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+The possible reasons a claim could fail.
+"""
+enum ClaimCommunityPointsErrorCode {
+  """
+  The point claim was not found.
+  """
+  NOT_FOUND
+
+  """
+  The current user is not allowed to claim these points.
+  """
+  FORBIDDEN
+}
+
+"""
+Hint describing the current availability state of the claim for the user.
+"""
+enum ClaimHint {
+  """
+  We found no existing entitlements for the customer for the offer.
+  The offer is ready for claiming.
+  """
+  AVAILABLE
+
+  """
+  We found an existing entitlement for the customer, and the currently linked
+  Amazon account is the account on the entitlement.
+  This is preventing a future claim by the querying account.
+  """
+  CLAIMED_NO_CONFLICTS
+
+  """
+  We found an existing entitlement for the customer, but the currently linked
+  Amazon account is NOT the account on the entitlement.
+  This is preventing a future claim by the querying account.
+  """
+  CLAIMED_AMAZON_LINK_CONFLICT
+
+  """
+  We found an existing entitlement for one of the accounts for the customer.
+  The existing entitlement is not blocking an additional claim.
+  """
+  RECLAIMABLE_NO_CONFLICTS
+
+  """
+  We found an existing entitlement linked to the household, but the querying account did not claim it themselves.
+  This is preventing a future claim by the querying account.
+  """
+  CLAIMED_BY_MEMBER_OF_HOUSEHOLD
+
+  """
+  Customer does not have Twitch Prime.
+  The user needs to sign up before claiming.
+  """
+  NEED_PRIME
+
+  """
+  The entitlement we found is for a code offer, and we have run out of codes.
+  We may restock codes in the future and will report another claim hint type if so.
+  """
+  OFFER_FULLY_CLAIMED
+
+  """
+  No valid claim hint was provided.
+  This will also occur when we implement new claim hints but have not yet updated this repo.
+  """
+  UNKNOWN
+}
+
+"""
+Error types recognized.
+"""
+enum ClaimPrimeOfferErrorCode {
+  """
+  Status when offer is already claimed by the current user or an associated account.
+  """
+  OFFER_ALREADY_CLAIMED
+
+  """
+  Unknown error being returned from service.
+  """
+  UNKNOWN
+}
+
+"""
+An enumeration on the different status strings returned by a clip status.
+"""
+enum ClipCreationState {
+  """
+  The creating status indicates that the source quality video is still
+  undergoing processing and transcoding.
+  """
+  CREATING
+
+  """
+  Clip has been successfully created in the source video quality.
+  The field videoQualities will be gradually added to with other quality options.
+  """
+  CREATED
+
+  """
+  Clip creation failed and will remain in this state.
+  Possible errors can happen due to problems in downloading and slicing
+  the source of the original video, clipping offline channels, transcoding, etc.
+  """
+  FAILED
+}
+
+"""
+The set of methods to restrict clips results.
+"""
+enum ClipsFilter {
+  """
+  Limit results to trending clips.
+  """
+  TRENDING
+
+  """
+  Limit results to clips created in the period between now and the last 24 hours.
+  """
+  LAST_DAY
+
+  """
+  Limit results to clips created in the period between now and the last 7 days.
+  """
+  LAST_WEEK
+
+  """
+  Limit results to clips created in the period between now and the last 30 days.
+  """
+  LAST_MONTH
+
+  """
+  No limit on clips creation period.
+  """
+  ALL_TIME
+}
+
+"""
+An enumeration on the different time frames to filter clips results based on
+creation time.
+"""
+enum ClipsPeriod {
+  """
+  Limit results to clips created in the period between now and the last 24 hours.
+  """
+  LAST_DAY
+
+  """
+  Limit results to clips created in the period between now and the last 7 days.
+  """
+  LAST_WEEK
+
+  """
+  Limit results to clips created in the period between now and the last 30 days.
+  """
+  LAST_MONTH
+
+  """
+  No limit on when the clips were created.
+  """
+  ALL_TIME
+}
+
+"""
+An enumeration on the different sort orders of clips results.
+"""
+enum ClipsSort {
+  """
+  Sort the clips ascending by created_at.
+  """
+  CREATED_AT_ASC
+
+  """
+  Sort the clips descending by created_at.
+  """
+  CREATED_AT_DESC
+
+  """
+  Sort the clips ascending by views.
+  """
+  VIEWS_ASC
+
+  """
+  Sort the clips descending by views.
+  """
+  VIEWS_DESC
+
+  """
+  Sort the clips descending by popularity.
+  """
+  TRENDING
+}
+
+"""
+CloneExtensionDiscoveryDataError is an error associated with the cloneExtensionDiscoveryData mutation.
+"""
+enum CloneExtensionDiscoveryDataError {
+  """
+  User is unable to clone the extension.
+  """
+  UNAUTHORIZED
+
+  """
+  Version specified is invalid.
+  """
+  INVALID_NEW_VERSION
+
+  """
+  The Version to clone from does not exist.
+  """
+  VERSION_NOT_FOUND
+}
+
+"""
+CloneExtensionManifestError is an error associated with the cloneExtensionManifest mutation.
+"""
+enum CloneExtensionManifestError {
+  """
+  User is unable to clone the extension.
+  """
+  UNAUTHORIZED
+
+  """
+  Version specified is invalid.
+  """
+  INVALID_NEW_VERSION
+
+  """
+  The version to clone to already exists.
+  """
+  VERSION_ALREDY_EXISTS
+
+  """
+  The Version to clone from does not exist.
+  """
+  VERSION_NOT_FOUND
+}
+
+"""
+Represents the status of a cloud broadcast.
+"""
+enum CloudBroadcastState {
+  """
+  Broadcast is offline and needs to be started.
+  """
+  OFFLINE
+
+  """
+  Broadcast is pending and currently starting.
+  """
+  PENDING
+
+  """
+  Broadcast is online and ready.
+  """
+  ONLINE
+
+  """
+  The broadcast status is unknown.
+  """
+  UNKNOWN
+}
+
+"""
+The set of different collection types.
+"""
+enum CollectionType {
+  """
+  Series collection type.
+  """
+  SERIES
+
+  """
+  Default collection type.
+  """
+  DEFAULT
+}
+
+"""
+Types of CommunityPointsAutomaticRewards.
+"""
+enum CommunityPointsAutomaticRewardType {
+  """
+  Send a single message through sub-only mode.
+  """
+  SINGLE_MESSAGE_BYPASS_SUB_MODE
+
+  """
+  Unlock a random subscriber emote.
+  """
+  RANDOM_SUB_EMOTE_UNLOCK
+
+  """
+  Unlock a chosen subscriber emote.
+  """
+  CHOSEN_SUB_EMOTE_UNLOCK
+
+  """
+  Send a highlighted chat message.
+  """
+  SEND_HIGHLIGHTED_MESSAGE
+
+  """
+  Unlock a chosen modification for a subscriber emote.
+  """
+  CHOSEN_MODIFIED_SUB_EMOTE_UNLOCK
+}
+
+"""
+Community goal status.
+"""
+enum CommunityPointsCommunityGoalStatus {
+  """
+  Goal was just created.
+  """
+  UNSTARTED
+
+  """
+  Goal was started.
+  """
+  STARTED
+
+  """
+  Goal ended.
+  """
+  ENDED
+
+  """
+  Goal marked fulfilled by streamer.
+  """
+  FULFILLED
+
+  """
+  Goal archived.
+  """
+  ARCHIVED
+
+  """
+  Goal status unknown.
+  """
+  UNKNOWN
+}
+
+"""
+Community goal type.
+"""
+enum CommunityPointsCommunityGoalType {
+  """
+  Goal owned by creator.
+  """
+  CREATOR
+
+  """
+  Community Boost Goal.
+  """
+  BOOST
+
+  """
+  Goal type unknown.
+  """
+  UNKNOWN
+}
+
+"""
+The different types of content for community points.
+"""
+enum CommunityPointsContentType {
+  """
+  The content type is not understood by GQL.
+  """
+  UNKNOWN
+
+  """
+  The content type for automatic rewards.
+  """
+  AUTOMATIC_REWARD
+
+  """
+  The content type for custom rewards.
+  """
+  CUSTOM_REWARD
+}
+
+"""
+Ways to sort Community Points redemptions.
+"""
+enum CommunityPointsCustomRewardRedemptionQueueSortOrder {
+  """
+  The oldest redemption first.
+  """
+  OLDEST
+
+  """
+  The newest redemption first.
+  """
+  NEWEST
+}
+
+"""
+Possible states for a CommunityPointsCustomRewardRedemption.
+"""
+enum CommunityPointsCustomRewardRedemptionStatus {
+  """
+  A redemption that has not been acted on by the broadcaster.
+  """
+  UNFULFILLED
+
+  """
+  A redemption that has been fulfilled by the broadcaster.
+  """
+  FULFILLED
+
+  """
+  A redemption that has been canceled by the broadcaster.
+  """
+  CANCELED
+
+  """
+  A redemption that has been reported by the broadcaster.
+  """
+  REPORTED
+}
+
+"""
+The possible categories for a collection of custom reward templates.
+"""
+enum CommunityPointsCustomRewardTemplateCollectionCategory {
+  """
+  Unknown category.
+  """
+  UNKNOWN
+
+  """
+  The templates are for custom rewards that are related to actions in a game.
+  """
+  GAME
+
+  """
+  The templates are for custom rewards that are related to actions irl.
+  """
+  IRL
+
+  """
+  The templates are for custom rewards that are related to actions on twitch.
+  """
+  TWITCH
+}
+
+"""
+Reasons that community point earning could be multiplied for a user in a channel.
+"""
+enum CommunityPointsMultiplierReason {
+  """
+  Tier-1 Subscriber.
+  """
+  SUB_T1
+
+  """
+  Tier-2 Subscriber.
+  """
+  SUB_T2
+
+  """
+  Tier-3 Subscriber.
+  """
+  SUB_T3
+}
+
+"""
+Possible errors from redeeming an unlock emote Community Points reward.
+"""
+enum CommunityPointsUnlockEmoteErrorCode {
+  """
+  The emote ID provided is for the wrong channel or the wrong type of emote.
+  """
+  INVALID_EMOTE
+
+  """
+  The user is already entitled to the emote provided.
+  """
+  EMOTE_ALREADY_ENTITLED
+
+  """
+  The user is entitled to all emotes that would be randomly selected from.
+  """
+  NO_EMOTES_AVAILABLE
+
+  """
+  The user does not have sufficient points to redeem the reward.
+  """
+  INSUFFICIENT_POINTS
+
+  """
+  The client is retrying a redemption with a transaction id that has already been redeemed.
+  """
+  TRANSACTION_ALREADY_COMMITTED
+
+  """
+  The client is retrying a redemption with a transaction id that is currently being redeemed in another request.
+  """
+  TRANSACTION_IN_PROGRESS
+
+  """
+  The reward cost has changed since the user has tried to redeem it.
+  """
+  REWARD_COST_MISMATCH
+
+  """
+  The reward is currently disabled.
+  """
+  REWARD_DISABLED
+
+  """
+  The user is not allowed to redeem this reward on this channel.
+  """
+  REWARD_FORBIDDEN
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+Methods for updating community points CustomReward redemption statuses.
+"""
+enum CommunityPointsUpdateCustomRewardRedemptionStatusesMethod {
+  """
+  Unknown method.
+  """
+  UNKNOWN
+
+  """
+  Statuses for all redemptions for the channel are being updated.
+  """
+  BY_CHANNEL
+
+  """
+  Statuses for all redemptions for a reward are being updated.
+  """
+  BY_REWARD
+
+  """
+  Statuses for the provided redemptions are being updated.
+  """
+  BY_REDEMPTIONS
+}
+
+"""
+Enum for fields passing through automod.
+"""
+enum CompetitionAutomodField {
+  """
+  Competition name.
+  """
+  COMPETITION_NAME
+
+  """
+  Public contact info discord URL.
+  """
+  PCI_DISCORD
+
+  """
+  Public contact info email.
+  """
+  PCI_EMAIL
+
+  """
+  Participant only contact info discord URL.
+  """
+  POCI_DISCORD
+
+  """
+  Participant only contact info email.
+  """
+  POCI_EMAIL
+
+  """
+  Competition image URL.
+  """
+  IMAGE_URL
+
+  """
+  Competition banner image URL.
+  """
+  BANNER_IMAGE_URL
+
+  """
+  Terms URL.
+  """
+  TERMS_URL
+
+  """
+  Competition description.
+  """
+  DESCRIPTION
+
+  """
+  Competition rules description.
+  """
+  RULES
+
+  """
+  Competition prize description.
+  """
+  PRIZE
+
+  """
+  Player discord username.
+  """
+  PLAYER_DISCORD_USERNAME
+
+  """
+  Player in game username.
+  """
+  PLAYER_IN_GAME_USERNAME
+
+  """
+  Team name.
+  """
+  TEAM_NAME
+
+  """
+  Used when the field is unknown.
+  """
+  UNKNOWN
+}
+
+"""
+Enum for user errors.
+"""
+enum CompetitionErrorCode {
+  """
+  Used when an argument is missing but was required.
+  """
+  REQUIRED_ARGUMENT
+
+  """
+  Used when an argument that is passed in is invalid in some way.
+  """
+  INVALID_ARGUMENT
+
+  """
+  Used when an attempt to add a resource but that resource already exists.
+  """
+  ALREADY_EXISTS
+
+  """
+  Used when the registration limit on the competition has been reached.
+  """
+  LIMIT_REACHED
+
+  """
+  Used when a competition field fails to pass automod.
+  """
+  AUTOMOD_FAILED
+
+  """
+  Used when the error is unknown.
+  """
+  UNKNOWN
+}
+
+"""
+The competition Image type sent by the user to determine what image is being uploaded to the competition.
+"""
+enum CompetitionImageType {
+  """
+  Banner image for the competition.
+  """
+  BANNER
+
+  """
+  Thumbnail image for the competition.
+  """
+  THUMBNAIL
+
+  """
+  Image type is unknown.
+  """
+  UNKNOWN
+}
+
+"""
+The participant type signifies whether the competition will be played as team or solo.
+"""
+enum CompetitionParticipantType {
+  """
+  Participants are represented as a team.
+  """
+  TEAM
+
+  """
+  Participant is represented as solo.
+  """
+  SOLO
+
+  """
+  Unknown participant type.
+  """
+  UNKNOWN
+}
+
+"""
+The phase type subdivides phases for more complex tournament types.
+"""
+enum CompetitionPhaseType {
+  """
+  This phase contains participants who have not used their second-chance.
+  """
+  DOUBLE_ELIMINATION_WINNERS
+
+  """
+  This phase contains participants who have lost a lobby once.
+  """
+  DOUBLE_ELIMINATION_LOSERS
+
+  """
+  Phase type is not applicable to a phase of this competition type.
+  """
+  NOT_APPLICABLE
+
+  """
+  Phase type is unknown.
+  """
+  UNKNOWN
+}
+
+"""
+The states a player can have in the competition.
+"""
+enum CompetitionPlayerState {
+  """
+  The player has been invited.
+  """
+  INVITED
+
+  """
+  The player has registered to compete in this competition in the future.
+  """
+  REGISTERED
+
+  """
+  The player has checked in to compete now.
+  """
+  CHECKED_IN
+
+  """
+  The player has competed in the competition.
+  """
+  COMPETED
+
+  """
+  The player has declined the competition.
+  """
+  DECLINED
+
+  """
+  The player state is unknown.
+  """
+  UNKNOWN
+}
+
+"""
+The State of the Competition.
+"""
+enum CompetitionState {
+  """
+  Upcoming competition.
+  """
+  UPCOMING
+
+  """
+  Past competition.
+  """
+  PAST
+
+  """
+  Live competition.
+  """
+  LIVE
+
+  """
+  A competition that's awaiting check-ins.
+  """
+  CHECK_IN
+
+  """
+  A competition that's ready to be started.
+  """
+  READY
+
+  """
+  A competition that finished with no conclusion.
+  """
+  CANCELLED
+
+  """
+  Unknown state.
+  """
+  UNKNOWN
+}
+
+"""
+Enum for user errors.
+"""
+enum CompetitionUploadImageErrorCode {
+  """
+  Used when an argument is missing but was required.
+  """
+  REQUIRED_ARGUMENT
+
+  """
+  Used when an argument that is passed in is invalid in some way.
+  """
+  INVALID_ARGUMENT
+
+  """
+  Used when the error is unknown.
+  """
+  UNKNOWN
+}
+
+"""
+The Visibility of the Competition.
+"""
+enum CompetitionVisibilityState {
+  """
+  Private competition.
+  """
+  PRIVATE
+
+  """
+  Public competition.
+  """
+  PUBLIC
+
+  """
+  Unknown state.
+  """
+  UNKNOWN
+}
+
+"""
+List of features from GVL https://vendorlist.consensu.org/v2/vendor-list.json.
+"""
+enum ConsentFeature {
+  """
+  Match and combine offline data sources.
+  """
+  MATCH_COMBINE_OFFLINE_DATA_SOURCES
+
+  """
+  Link different devices.
+  """
+  LINK_DIFFERENT_DEVICES
+
+  """
+  Receive and use automati…tics for identification.
+  """
+  RECEIVE_USE_AUTO_SENT_DEVICE_CHARACTERISTICS_FOR_IDENTIFICATION
+}
+
+"""
+List of purposes from GVL https://vendorlist.consensu.org/v2/vendor-list.json.
+"""
+enum ConsentPurpose {
+  """
+  Store and/or access information on a device.
+  """
+  STORE_ACCESS_INFO_ON_DEVICE
+
+  """
+  Select basic ads.
+  """
+  SELECT_BASIC_ADS
+
+  """
+  Create a personalised ads profile.
+  """
+  CREATE_PERSONALISED_ADS_PROFILE
+
+  """
+  Select personalised ads.
+  """
+  SELECT_PERSONALISED_ADS
+
+  """
+  Create a personalised content profile.
+  """
+  CREATE_PERSONALISED_CONTENT_PROFILE
+
+  """
+  Select personalised content.
+  """
+  SELECT_PERSONALISED_CONTENT
+
+  """
+  Measure ad performance.
+  """
+  MEASURE_AD_PERFORMANCE
+
+  """
+  Measure content performance.
+  """
+  MEASURE_CONTENT_PERFORMANCE
+
+  """
+  Apply market research to…erate audience insights.
+  """
+  APPLY_MARKET_RESEARCH_TO_GENERATE_AUDIENCE_INSIGHTS
+
+  """
+  Develop and improve products.
+  """
+  DEVELOP_IMPROVE_PRODUCTS
+}
+
+"""
+List of special features from GVL https://vendorlist.consensu.org/v2/vendor-list.json.
+"""
+enum ConsentSpecialFeature {
+  """
+  Use precise geolocation data.
+  """
+  USE_PRECISE_GEO_DATA
+
+  """
+  Actively scan device cha…tics for identification.
+  """
+  ACTIVELY_SCAN_DEVICE_CHARACTERISTICS_FOR_IDENTIFICATION
+}
+
+"""
+List of special purposes from GVL https://vendorlist.consensu.org/v2/vendor-list.json.
+"""
+enum ConsentSpecialPurpose {
+  """
+  Ensure security, prevent fraud, and debug.
+  """
+  ENSURE_SECURITY_PREVENT_FRAUD_DEBUG
+
+  """
+  Technically deliver ads or content.
+  """
+  TECHNICALLY_DELIVER_ADS_CONTENT
+}
+
+"""
+ConsentStatus is the flag to show user gives or denies the consent.
+"""
+enum ConsentStatus {
+  """
+  User gives consent.
+  """
+  GIVEN
+
+  """
+  User denies consent.
+  """
+  DENIED
+}
+
+"""
+An enumeration on the different content type that enable tagging.
+"""
+enum ContentType {
+  """
+  Clip will enable tagging in v2.
+  """
+  CLIP
+
+  """
+  User is enabled for tagging in v1.
+  """
+  USER
+  LIVE_CHANNEL @deprecated(reason: "Use 'USER' instead")
+
+  """
+  VOD will enable tagging in v2.
+  """
+  VOD
+
+  """
+  Games and other stream categories.
+  """
+  CATEGORY
+}
+
+"""
+Contribute community goal error codes.
+"""
+enum ContributeCommunityPointsCommunityGoalErrorCode {
+  """
+  The goal is not currently redeemable, possibly because stream is not live.
+  """
+  NOT_CURRENTLY_REDEEMABLE
+
+  """
+  The current user does not have enough points to contribute this amount.
+  """
+  NOT_ENOUGH_POINTS
+
+  """
+  The community goal was not found.
+  """
+  NOT_FOUND
+
+  """
+  The current user is not allowed to contribute community points towards community goals for this channel.
+  """
+  FORBIDDEN
+
+  """
+  The current user has already reached the maximum points contributable per stream.
+  """
+  MAX_PER_STREAM
+
+  """
+  The current user has a contribution already in progress.
+  """
+  TRANSACTION_IN_PROGRESS
+
+  """
+  The current user has already completed this transaction.
+  """
+  DUPLICATE_TRANSACTION
+
+  """
+  The current user is banned.
+  """
+  USER_BANNED
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+Contribute to challenge error code.
+"""
+enum ContributeToChallengeErrorCode {
+  """
+  User tried to contribute to a challenge that doesn't exist i.e. there is no indicated challenge at all).
+  """
+  CHALLENGE_NOT_FOUND
+
+  """
+  User tried to contribute to a challenge that is not active.
+  """
+  CHALLENGE_NOT_ACTIVE
+
+  """
+  Request is for a channel ID that is invalid (e.g. banned channel, channel doesn't exist).
+  """
+  INVALID_CHANNEL_ID
+
+  """
+  User's bits balance is too low to perform request (e.g. they only have 10 bits and they request to spend 100).
+  """
+  INSUFFICIENT_BITS_BALANCE
+
+  """
+  User is not allowed to contribute to the challenge (e.g. they're banned in the channel).
+  """
+  USER_FORBIDDEN
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+CookieVendorType is the type of cookie.
+"""
+enum CookieVendorType {
+  """
+  Vendors cookies that are essential.
+  """
+  ESSENTIAL
+
+  """
+  Vendors cookies that are used for analytics purposes.
+  """
+  ANALYTICS
+
+  """
+  Vendors cookies that are used for advertising purposes.
+  """
+  ADVERTISING
+}
+
+"""
+Possible error codes returned for creating emotes.
+"""
+enum CreateArchivedEmoteErrorCode {
+  """
+  The creator has reached their limit of archived emotes.
+  """
+  EMOTE_LIMIT_REACHED
+
+  """
+  Only the channel owner is allowed to upload archived emotes.
+  """
+  INVALID_OWNER
+
+  """
+  The emote code submitted is unacceptable (contains offensive, banned, or "bad" words, which violates guidelines).
+  """
+  EMOTE_CODE_UNACCEPTABLE
+
+  """
+  Data for least one of the image sizes is not provided or invalid.
+  """
+  INCOMPLETE_EMOTE_IMAGE_DATA
+
+  """
+  The emote code suffix submitted contains invalid characters.
+  """
+  INVALID_CODE_SUFFIX
+
+  """
+  The upload emote image could not be parsed.
+  """
+  INVALID_IMAGE_UPLOAD
+
+  """
+  The uploaded emote image could not be found.
+  """
+  EMOTE_IMAGE_NOT_FOUND
+
+  """
+  There were not enough image assets supplied for the selected asset type.
+  """
+  NOT_ENOUGH_EMOTE_IMAGE_ASSETS
+
+  """
+  There were more image assets supplied than required for the selected asset type.
+  """
+  TOO_MANY_EMOTE_IMAGE_ASSETS
+
+  """
+  The selected emote asset type was invalid.
+  """
+  INVALID_EMOTE_ASSET_TYPE
+
+  """
+  The selected emote state was invalid.
+  """
+  INVALID_EMOTE_STATE
+
+  """
+  There were more emote groups supplied than required for the emote state.
+  """
+  TOO_MANY_EMOTE_GROUPS
+
+  """
+  A static image asset was not supplied, but is required for the selected asset type.
+  """
+  EMOTE_MISSING_STATIC_ASSET
+
+  """
+  An animated image asset was not supplied, but is required for the selected asset type.
+  """
+  EMOTE_MISSING_ANIMATED_ASSET
+
+  """
+  Other errors returned from the service.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+Error code describing a CreateBadgeFlairError
+"""
+enum CreateBadgeFlairErrorCode {
+  """
+  Channel ID argument was invalid or empty.
+  """
+  INVALID_CHANNEL_ID
+
+  """
+  Image ID for 1x image was invalid or empty.
+  """
+  INVALID_FLAIR_IMAGE_1X_ID
+
+  """
+  Image ID for 2x image was invalid or empty.
+  """
+  INVALID_FLAIR_IMAGE_2X_ID
+
+  """
+  Image ID for 4x image was invalid or empty.
+  """
+  INVALID_FLAIR_IMAGE_4X_ID
+
+  """
+  Tier value was invalid or empty.
+  """
+  INVALID_TIER
+}
+
+"""
+Create Challenge Condition error code.
+"""
+enum CreateChallengeConditionErrorCode {
+  """
+  User tried to create a condition with a bits recipient that is ineligible to receive bits.
+  """
+  BITS_RECIPIENT_INELIGIBLE
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+Create Challenge Condition Participant error code.
+"""
+enum CreateChallengeConditionParticipantErrorCode {
+  """
+  User tried to create a condition participant with a USE_BITS effect type, but they are ineligible to use bits.
+  """
+  BITS_BENEFACTOR_INELIGIBLE
+
+  """
+  User tried to create a condition participant with a USE_BITS effect type, but they lacked sufficient bits.
+  """
+  INSUFFICIENT_BITS_BALANCE
+
+  """
+  User tried to create a condition participant for an inactive condition.
+  """
+  CONDITION_NOT_ACTIVE
+
+  """
+  User tried to create a condition participant for a non-existent condition.
+  """
+  CONDITION_NOT_FOUND
+
+  """
+  User tried to create a condition participant with an effect type that is not supported by the associated condition.
+  """
+  EFFECT_TYPE_UNSUPPORTED_BY_CONDITION
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+CreateClipErrorCode contains the possible errors that can occur when creating a clip.
+"""
+enum CreateClipErrorCode {
+  """
+  This channel cannot be clipped.
+  """
+  CHANNEL_NOT_CLIPPABLE
+
+  """
+  The channel has been banned and cannot be clipped.
+  """
+  CHANNEL_BANNED
+
+  """
+  User has been banned from the channel and cannot clip.
+  """
+  USER_BANNED
+
+  """
+  User has been timed out from the channel and cannot clip.
+  """
+  USER_TIMED_OUT
+
+  """
+  Clip cannot be created because channel is no longer live.
+  """
+  CHANNEL_NOT_LIVE
+
+  """
+  Clip cannot be created because the request is throttled.
+  """
+  REQUEST_THROTTLED
+
+  """
+  User does not have permissions and cannot clip.
+  """
+  USER_RESTRICTED
+
+  """
+  Unknown error.
+  """
+  UNKNOWN
+}
+
+"""
+Create community goal error code.
+"""
+enum CreateCommunityPointsCommunityGoalErrorCode {
+  """
+  Goal already exists.
+  """
+  DUPLICATE_GOAL
+
+  """
+  Goal title failed automod.
+  """
+  TITLE_AUTOMOD_FAILED
+
+  """
+  Goal title is invalid.
+  """
+  TITLE_INVALID
+
+  """
+  Goal description failed automod.
+  """
+  DESCRIPTION_AUTOMOD_FAILED
+
+  """
+  Goal description is invalid.
+  """
+  DESCRIPTION_INVALID
+
+  """
+  Goal amount is invalid.
+  """
+  GOAL_AMOUNT_INVALID
+
+  """
+  Goal duration is invalid.
+  """
+  DURATION_INVALID
+
+  """
+  Goal background color is invalid.
+  """
+  BACKGROUND_COLOR_INVALID
+
+  """
+  Too many goals already exists.
+  """
+  TOO_MANY_GOALS
+
+  """
+  The current user is not allowed to create goals for this channel.
+  """
+  FORBIDDEN
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+The possible reasons creating a custom Community Points reward in a channel could fail.
+"""
+enum CreateCommunityPointsCustomRewardErrorCode {
+  """
+  An unexpected error occurred.
+  """
+  UNKNOWN
+
+  """
+  The current user is not allowed to create a reward in this channel.
+  """
+  FORBIDDEN
+
+  """
+  The title failed AutoMod.
+  """
+  TITLE_AUTOMOD_FAILED
+
+  """
+  The prompt failed AutoMod.
+  """
+  PROMPT_AUTOMOD_FAILED
+
+  """
+  The cost is invalid. Costs must be greater than 0.
+  """
+  COST_INVALID
+
+  """
+  The maxPerStream is invalid. maxPerStream must be greater than 0.
+  """
+  MAX_PER_STREAM_INVALID
+
+  """
+  The channel has too many rewards. An existing reward must be deleted before you can create a new reward.
+  """
+  TOO_MANY_REWARDS
+
+  """
+  The title is invalid. Titles must not be empty and must be at most 45 characters long.
+  """
+  TITLE_INVALID
+
+  """
+  A reward with the provided title already exists. Custom reward titles must be unique.
+  """
+  DUPLICATE_REWARD
+
+  """
+  The background color is invalid. Backgrounds must be a valid hex color, for example "FF0000".
+  """
+  BACKGROUND_COLOR_INVALID
+
+  """
+  The template id provided is invalid. Template id must be the id for a valid template or null.
+  """
+  TEMPLATE_INVALID
+
+  """
+  The maxPerUserPerStream is invalid. maxPerUserPerStream must be greater than 0.
+  """
+  MAX_PER_USER_PER_STREAM_INVALID
+
+  """
+  The globalCooldown is invalid. globalCooldown must be greater tham 0.
+  """
+  GLOBAL_COOLDOWN_INVALID
+}
+
+"""
+The possible reasons generating upload info for Community Points images could fail.
+"""
+enum CreateCommunityPointsImageUploadInfoErrorCode {
+  """
+  The current user is not allowed to upload images for this channel.
+  """
+  FORBIDDEN
+
+  """
+  More than one image type was specified in the request.
+  """
+  MORE_THAN_ONE_TYPE
+
+  """
+  Your provided custom reward ID was not found.
+  """
+  CUSTOM_REWARD_NOT_FOUND
+}
+
+"""
+Error codes for issues that may occur when trying to create a
+new Mosaic layout.
+"""
+enum CreateDashboardViewMosaicLayoutErrorCode {
+  """
+  An unhandled error.
+  """
+  UNKNOWN
+
+  """
+  User has reached a limit of layouts they can store.
+  """
+  CUSTOM_LIMIT_EXCEEDED
+
+  """
+  The name argument is required.
+  """
+  INVALID_ARGUMENT_NAME
+
+  """
+  The userID argument is required.
+  """
+  INVALID_ARGUMENT_USERID
+
+  """
+  The provided type argument is invalid.
+  """
+  INVALID_ARGUMENT_TYPE
+
+  """
+  The layout argument is required.
+  """
+  INVALID_ARGUMENT_LAYOUT
+
+  """
+  The version argument is required.
+  """
+  INVALID_ARGUMENT_VERSION
+
+  """
+  The channelID argument is required.
+  """
+  INVALID_ARGUMENT_CHANNELID
+
+  """
+  One or more unspecified aguments are invalid. These are not
+  user-actionable, but might indicate a logic error.
+  """
+  INVALID_ARGUMENT
+}
+
+"""
+Possible errors from CreateDropImageUploadURL.
+"""
+enum CreateDropImageUploadURLErrorCode {
+  """
+  The user does not have permissions to create this type of image for this service.
+  """
+  USER_UNAUTHORIZED
+
+  """
+  There was an issue calling a dependency of this call.
+  """
+  SERVICE_DEPENDENCY_FAILURE
+
+  """
+  An issue not matching any other specific error code.
+  """
+  UNKNOWN
+}
+
+"""
+CreateExtensionClientError is an error associated with the createExtensionClient mutation.
+"""
+enum CreateExtensionClientError {
+  """
+  The specified name was invalid.
+  """
+  INVALID_NAME
+
+  """
+  The specified name is already taken by another extension or app.
+  """
+  NAME_IN_USE
+}
+
+"""
+CreateExtensionImageUploadInfoErrorCode is an error code associated with CreateExtensionImageUploadInfoError.
+"""
+enum CreateExtensionImageUploadInfoErrorCode {
+  """
+  User is unable to make modifications to the extension.
+  """
+  UNAUTHORIZED
+
+  """
+  Version specified is invalid.
+  """
+  INVALID_VERSION
+
+  """
+  Not enough discovery image to upload. Must >= 0.
+  """
+  NOT_ENOUGH_UPLOAD_DISCOVERY_IMAGE
+
+  """
+  Not enough logo image to upload. Must >= 0.
+  """
+  NOT_ENOUGH_UPLOAD_LOGO_IMAGE
+
+  """
+  Not enough screenshot image to upload. Must >= 0.
+  """
+  NOT_ENOUGH_UPLOAD_SCREENSHOT_IMAGE
+
+  """
+  Not enough taskbar image to upload. Must >= 0.
+  """
+  NOT_ENOUGH_UPLOAD_TASKBAR_IMAGE
+
+  """
+  Too many discovery image to upload. Must <= 1.
+  """
+  TOO_MANY_UPLOAD_DISCOVERY_IMAGE
+
+  """
+  Too many logo image to upload. Must <= 1.
+  """
+  TOO_MANY_UPLOAD_LOGO_IMAGE
+
+  """
+  Too many screenshot image to upload. Must <= 1.
+  """
+  TOO_MANY_UPLOAD_SCREENSHOT_IMAGE
+
+  """
+  Too many taskbar image to upload. Must <= 1.
+  """
+  TOO_MANY_UPLOAD_TASKBAR_IMAGE
+}
+
+"""
+CreateExtensionZipUploadInfoError is an error associated with the createExtensionZipUploadInfo mutation.
+"""
+enum CreateExtensionZipUploadInfoError {
+  """
+  User is unable to make modifications to the extension.
+  """
+  UNAUTHORIZED
+
+  """
+  Version specified is invalid.
+  """
+  INVALID_VERSION
+}
+
+"""
+Client error code.
+"""
+enum CreateGameApplicationErrorCode {
+  """
+  The game has already been owned by another company.
+  """
+  GAME_HAS_ALREADY_BEEN_OWNED
+
+  """
+  Sumbitting user does not have authorization to create a game application for the organization.
+  """
+  PERMISSION_DENIED
+
+  """
+  Internal error.
+  """
+  INTERNAL_ERROR
+}
+
+"""
+A code indicating why the create call failed, if it did.
+"""
+enum CreateLoyaltyBadgeResponseCode {
+  """
+  Only eligible users can create a badge.
+  """
+  ERR_INVALID_USER
+
+  """
+  The badge image 1x submitted was not valid.
+  """
+  ERR_INVALID_BADGE_IMAGE_1X_ID
+
+  """
+  The badge image 2x submitted was not valid.
+  """
+  ERR_INVALID_BADGE_IMAGE_2X_ID
+
+  """
+  The badge image 4x submitted was not valid.
+  """
+  ERR_INVALID_BADGE_IMAGE_4X_ID
+
+  """
+  The badge tenure submitted was not valid.
+  """
+  ERR_INVALID_BADGE_REQUIRED_TENURE_MONTHS
+
+  """
+  Badge already exists for this tenure.
+  """
+  ERR_BADGE_EXISTS
+
+  """
+  User is timed out of badge creation.
+  """
+  ERR_BADGE_TIMEOUT
+
+  """
+  Unknown error occurred, most likely a server error.
+  """
+  ERR_UNKNOWN
+}
+
+"""
+A code indicating why the config call failed, if it did.
+"""
+enum CreateLoyaltyBadgeUploadConfigResponseCode {
+  """
+  Only eligible users can create a badge upload config.
+  """
+  ERR_INVALID_USER
+
+  """
+  The badge submitted was not valid.
+  """
+  ERR_INVALID_BADGE_SIZE
+
+  """
+  Unknown error occurred, most likely a server error.
+  """
+  ERR_UNKNOWN
+}
+
+"""
+Client error code.
+"""
+enum CreateOrganizationApplicationErrorCode {
+  """
+  Internal error.
+  """
+  INTERNAL_ERROR
+
+  """
+  Invalid Argument.
+  """
+  INVALID_ARGUMENT
+}
+
+"""
+CreateOrganizationInviteErrorCode defines a client error that occurred while creating an organization Invite.
+"""
+enum CreateOrganizationInviteErrorCode {
+  """
+  Internal error.
+  """
+  INTERNAL_ERROR
+
+  """
+  Invalid Argument.
+  """
+  INVALID_ARGUMENT
+
+  """
+  Organization Invite already exists.
+  """
+  ALREADY_EXISTS
+
+  """
+  User does not have permission to perform action.
+  """
+  PERMISSION_DENIED
+
+  """
+  The user does not exist.
+  """
+  USER_NOT_FOUND
+
+  """
+  The user doesn't meet the requirements to have this role. For example, when trying to assign the
+  "BILLING_MANAGER" role, but the user doesn't have 2FA enabled or completed Extension Monetization Onboarding.
+  """
+  MEMBER_INELIGIBLE
+}
+
+"""
+CreateOrganizationJWTErrorCode defines a client error that occurred while creating Organization JWT.
+"""
+enum CreateOrganizationJWTErrorCode {
+  """
+  User does not have permission to create the JWT for this operation and company.
+  """
+  PERMISSION_DENIED
+
+  """
+  The operation passed in was invalid.
+  """
+  INVALID_ARGUMENT
+}
+
+"""
+CreateOrganizationMemberErrorCode defines a client error that occurred while creating an organization member.
+"""
+enum CreateOrganizationMemberErrorCode {
+  """
+  Organization Member already exists.
+  """
+  ALREADY_EXISTS
+
+  """
+  User does not have permission to perform action.
+  """
+  PERMISSION_DENIED
+
+  """
+  The user does not exist.
+  """
+  USER_NOT_FOUND
+
+  """
+  The user doesn't meet the requirements to have this role. For example, when trying to assign the
+  "BILLING_MANAGER" role, but the user doesn't have 2FA enabled or completed Extension Monetization Onboarding.
+  """
+  MEMBER_INELIGIBLE
+}
+
+"""
+Vote in poll error code.
+"""
+enum CreatePollErrorCode {
+  """
+  User attempted to create poll with restricted content.
+  """
+  AUTOMOD_FAILED
+
+  """
+  User attempted to create poll when a poll was already active.
+  """
+  POLL_ALREADY_ACTIVE
+
+  """
+  User attempted to create poll with bits on a channel where bits are not enabled.
+  """
+  CHANNEL_NOT_BITS_ENABLED
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+Possible error codes from the createPredictionEvent mutation.
+"""
+enum CreatePredictionEventErrorCode {
+  """
+  The current user is forbidden from creating Prediction Events on the specified channel.
+  """
+  FORBIDDEN
+
+  """
+  User attempted to create a Prediction Event with restricted content.
+  """
+  AUTOMOD_FAILED
+
+  """
+  There is already an active or pending Prediction Event on the channel. The Event must be resolved before a new
+  Prediction Event can be created.
+  """
+  EVENT_ALREADY_ACTIVE
+
+  """
+  Channel Points are not enabled on this channel.
+  """
+  CHANNEL_POINTS_NOT_ENABLED
+
+  """
+  The colors chosen for each Option must be unique.
+  """
+  COLORS_NOT_UNIQUE
+
+  """
+  Events must have at least 2 Outcomes.
+  """
+  NOT_ENOUGH_OUTCOMES
+
+  """
+  Events have a maximum number of Outcomes.
+  """
+  TOO_MANY_OUTCOMES
+
+  """
+  The specified Prediction Window is invalid. Prediction window must be positive. Prediction window has a maximum.
+  """
+  INVALID_PREDICTION_WINDOW
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+CreateRaidErrorCode are the possible errors that this mutation returns.
+"""
+enum CreateRaidErrorCode {
+  """
+  The user is already raiding another channel.
+  """
+  ALREADY_RAIDING
+
+  """
+  The user tries to raid themselves.
+  """
+  CANNOT_RAID_YOURSELF
+
+  """
+  The user tries to raid an unraidable channel.
+  """
+  CANNOT_RAID_THIS_CHANNEL
+
+  """
+  The request is missing valid channel parameters.
+  """
+  INVALID_CHANNEL
+
+  """
+  The user tries to raid with too many viewers.
+  """
+  TOO_MANY_VIEWERS_TO_RAID
+}
+
+enum CreateRoomErrorCode {
+  """
+  Name too short or too long.
+  """
+  NAME_LENGTH_INVALID
+
+  """
+  Name contains invalid characters (e.g. spaces).
+  """
+  NAME_CONTAINS_INVALID_CHARACTERS
+
+  """
+  Name failed automod check.
+  """
+  NAME_INAPPROPRIATE
+
+  """
+  Name was not unique to channel.
+  """
+  NAME_NOT_UNIQUE
+
+  """
+  Topic too short or too long.
+  """
+  TOPIC_LENGTH_INVALID
+
+  """
+  Topic failed automod check.
+  """
+  TOPIC_INAPPROPRIATE
+
+  """
+  User cannot create any more rooms.
+  """
+  MAX_ROOMS_LIMIT_EXCEEDED
+
+  """
+  Invalid roles specified (e.g. a more permissive role for send than read).
+  """
+  ROLES_INVALID
+}
+
+"""
+The possible errors.
+"""
+enum CreateScheduleError {
+  """
+  Channel already has a schedule.
+  """
+  ALREADY_EXISTS
+
+  """
+  Cannot create a schedule for this channel.
+  """
+  PERMISSION_DENIED
+}
+
+"""
+The possible errors when creating a schedule segment.
+"""
+enum CreateScheduleSegmentErrorCode {
+  """
+  Not authorized to edit this user schedule.
+  """
+  PERMISSION_DENIED
+
+  """
+  The schedule to create a segment for was not found.
+  """
+  NOT_FOUND
+
+  """
+  The number of categories is invalid. Refer to the error for min and max acceptable values.
+  """
+  INVALID_CATEGORY_COUNT
+
+  """
+  The segment time overlaps with another segment time.
+  """
+  OVERLAPPING_SEGMENTS
+
+  """
+  The title length is invalid. Refer to the error for min and max acceptable values.
+  """
+  INVALID_TITLE
+
+  """
+  The title failed the moderation check.
+  """
+  TITLE_FAILED_MODERATION
+
+  """
+  The timezone is not valid.
+  """
+  INVALID_TIMEZONE
+
+  """
+  The category is not valid.
+  """
+  INVALID_CATEGORIES
+
+  """
+  The the start day is not valid.
+  """
+  INVALID_START_DAY
+
+  """
+  The start hour is not valid.
+  """
+  INVALID_START_HOUR
+
+  """
+  The start minute is not valid.
+  """
+  INVALID_START_MINUTE
+
+  """
+  The duration is invalid. Refer to the error for min and max acceptable values.
+  """
+  INVALID_DURATION
+
+  """
+  The segment is invalid.
+  """
+  INVALID_SEGMENT
+
+  """
+  The input is not valid.
+  """
+  INVALID_ARGUMENT
+
+  """
+  The number of segments is invalid. Refer to the error for min and max acceptable values.
+  """
+  INVALID_SEGMENT_COUNT
+
+  """
+  The count for the number of times segment should repeat is invalid. The value must be 0 or greater.
+  """
+  REPEAT_ENDS_AFTER_COUNT_INVALID
+
+  """
+  The segment first occurrence date is set in the past.
+  """
+  FIRST_OCCURRENCE_DATE_IN_PAST
+}
+
+"""
+CreateSocialMediaError is a user error while creating a social media.
+"""
+enum CreateSocialMediaError {
+  """
+  The title failed moderation.
+  """
+  FAILED_TITLE_MODERATION
+
+  """
+  The provided title was too long.
+  """
+  TITLE_TOO_LONG
+
+  """
+  The provided url is invalid.
+  """
+  INVALID_URL
+
+  """
+  Maximun number of social medias reached.
+  """
+  TOO_MANY
+}
+
+"""
+CreateSquadStreamInvitationErrorCode are the possible errors that this mutation returns.
+"""
+enum CreateSquadStreamInvitationErrorCode {
+  """
+  The squad is already full.
+  """
+  SQUAD_FULL
+
+  """
+  The recipient does not have access to squad streams.
+  """
+  USER_CANNOT_ACCESS_SQUADS
+
+  """
+  The recipient is already in the squad.
+  """
+  USER_ALREADY_IN_SQUAD
+
+  """
+  The recipient is already invited to the squad.
+  """
+  INVITATION_ALREADY_EXISTS
+
+  """
+  The sender does not have permission to invite the recipient.
+  """
+  INVITATION_BLOCKED
+
+  """
+  The invitation is not valid (e.g. the user is inviting themselves).
+  """
+  INVITATION_INVALID
+
+  """
+  The user is not authorized to invite members to the squad.
+  """
+  UNAUTHORIZED
+}
+
+"""
+Error codes from create unban request mutation.
+"""
+enum CreateUnbanRequestErrorCode {
+  """
+  User already has a request for the current ban.
+  """
+  ALREADY_CREATED
+
+  """
+  User is not banned in the channel.
+  """
+  NOT_BANNED
+
+  """
+  User is attempting to create a request too since their ban. Must wait for cooldown period to end.
+  """
+  TOO_SOON_SINCE_BAN
+
+  """
+  Channel is not receiving unban requests.
+  """
+  UNBAN_REQUESTS_DISABLED
+
+  """
+  Unknown error.
+  """
+  UNKNOWN
+}
+
+"""
+CreateVideoBookmarkErrorCode are the possible errors that this mutation returns.
+"""
+enum CreateVideoBookmarkErrorCode {
+  """
+  The broadcaster is not live.
+  """
+  BROADCASTER_NOT_LIVE
+
+  """
+  Archives are disabled for the channel.
+  """
+  ARCHIVES_DISABLED
+
+  """
+  The rerun broadcast format is unsupported..
+  """
+  BROADCAST_FORMAT_INVALID_RERUN
+
+  """
+  The premiere broadcast format is unsupported.
+  """
+  BROADCAST_FORMAT_INVALID_PREMIERE
+
+  """
+  The VOD for the associated broadcast is not yet ready.
+  """
+  VOD_NOT_READY
+
+  """
+  An unexpected internal server error occurred.
+  """
+  INTERNAL_SERVER_ERROR
+
+  """
+  The user is unauthorized to create the bookmark.
+  """
+  USER_UNAUTHORIZED
+
+  """
+  The description length has exceeded the max length.
+  """
+  MAX_DESCRIPTION_LENGTH_EXCEEDED
+}
+
+"""
+Setting for a user's channel that indicates what type of badge flair, if any,
+is available for eligible subscribers to select.
+"""
+enum CreatorBadgeFlairSetting {
+  """
+  Indicates no badge flair is available.
+  """
+  NONE
+
+  """
+  Indicates badge flair using the default Twitch-provided flair asset is available.
+  """
+  DEFAULT
+
+  """
+  Indicates badge flair using a custom user-provided flair asset is available.
+  """
+  CUSTOM
+}
+
+"""
+Valid subscription tiers that custom badge flair can be associated to.
+"""
+enum CreatorBadgeFlairTier {
+  """
+  Tier 2 subscriptions (sometimes represented with string "2000").
+  """
+  TIER_2
+
+  """
+  Tier 3 subscriptions (sometimes represented with string "3000").
+  """
+  TIER_3
+}
+
+"""
+Specifies the general trend of this data set vs the previous data set.
+"""
+enum CreatorReferralTrend {
+  """
+  The new data set has increased relative to the previous data set.
+  """
+  POSITIVE
+
+  """
+  The new data set has not changed relative to the previous data set.
+  """
+  NEUTRAL
+
+  """
+  The new data set has decreased relative to the previous data set.
+  """
+  NEGATIVE
+}
+
+"""
+Types of non-fiat currencies.
+"""
+enum CreditType {
+  """
+  Indicates that there is no specific type of Credit in this model.
+  """
+  NO_CREDIT_TYPE
+
+  """
+  A sub token type.
+  """
+  SUB_TOKEN
+}
+
+"""
+Possible values of actionPrompted in SubmitCSATFeedbackInput.
+"""
+enum CSATActionPrompted {
+  """
+  The user registers their client app (i.e. save information for an app), in their personal console.
+  """
+  CLIENT_APP_REGISTER
+
+  """
+  The user creates a new drop campaign.
+  """
+  DROP_CREATE_CAMPAIGN
+
+  """
+  The user moves a drop's state to active.
+  """
+  DROP_MOVE_STATE_TO_ACTIVE
+
+  """
+  The user move's a drop's state to testing.
+  """
+  DROP_MOVE_STATE_TO_TESTING
+
+  """
+  The user creates a new extension.
+  """
+  EXTENSION_CREATE
+
+  """
+  The user changes the state of an extension.
+  """
+  EXTENSION_STATE_CHANGE
+
+  """
+  The user views the analytics page of their game.
+  """
+  GAMES_VIEW_ANALYTICS
+
+  """
+  The user submits box art for their game.
+  """
+  GAMES_SUBMIT_BOX_ART
+
+  """
+  The user creates a new organization.
+  """
+  ORGANIZATION_CREATE
+
+  """
+  The user adds another user to their organization.
+  """
+  ORGANIZATION_ADD_USER
+}
+
+"""
+Possible ratings that the user can submit as part of their feedback.
+"""
+enum CSATRating {
+  """
+  The user selects "Very Dissatisfied".
+  """
+  VERY_DISSATISFIED
+
+  """
+  The user selects "Somewhat Dissatisfied".
+  """
+  SOMEWHAT_DISSATISFIED
+
+  """
+  The user selects "Neutral".
+  """
+  NEUTRAL
+
+  """
+  The user selects "Somewhat Satisfied".
+  """
+  SOMEWHAT_SATISFIED
+
+  """
+  The user selects "Very Satisfied".
+  """
+  VERY_SATISFIED
+}
+
+"""
+An enumeration of ISO 4217 currencies accepted by the API.
+"""
+enum Currency {
+  """
+  Afghani currency.
+  """
+  AFN
+
+  """
+  Euro currency.
+  """
+  EUR
+
+  """
+  Lek currency.
+  """
+  ALL
+
+  """
+  Algerian Dinar currency.
+  """
+  DZD
+
+  """
+  US Dollar currency.
+  """
+  USD
+
+  """
+  Kwanza currency.
+  """
+  AOA
+
+  """
+  East Caribbean Dollar currency.
+  """
+  XCD
+
+  """
+  Argentine Peso currency.
+  """
+  ARS
+
+  """
+  Armenian Dram currency.
+  """
+  AMD
+
+  """
+  Aruban Florin currency.
+  """
+  AWG
+
+  """
+  Australian Dollar currency.
+  """
+  AUD
+
+  """
+  Azerbaijan Manat currency.
+  """
+  AZN
+
+  """
+  Bahamian Dollar currency.
+  """
+  BSD
+
+  """
+  Bahraini Dinar currency.
+  """
+  BHD
+
+  """
+  Taka currency.
+  """
+  BDT
+
+  """
+  Barbados Dollar currency.
+  """
+  BBD
+
+  """
+  Belarusian Ruble currency.
+  """
+  BYN
+
+  """
+  Belize Dollar currency.
+  """
+  BZD
+
+  """
+  CFA Franc BCEAO currency.
+  """
+  XOF
+
+  """
+  Bermudian Dollar currency.
+  """
+  BMD
+
+  """
+  Indian Rupee currency.
+  """
+  INR
+
+  """
+  Ngultrum currency.
+  """
+  BTN
+
+  """
+  Boliviano currency.
+  """
+  BOB
+
+  """
+  Mvdol currency.
+  """
+  BOV
+
+  """
+  Convertible Mark currency.
+  """
+  BAM
+
+  """
+  Pula currency.
+  """
+  BWP
+
+  """
+  Norwegian Krone currency.
+  """
+  NOK
+
+  """
+  Brazilian Real currency.
+  """
+  BRL
+
+  """
+  Brunei Dollar currency.
+  """
+  BND
+
+  """
+  Bulgarian Lev currency.
+  """
+  BGN
+
+  """
+  Burundi Franc currency.
+  """
+  BIF
+
+  """
+  Cabo Verde Escudo currency.
+  """
+  CVE
+
+  """
+  Riel currency.
+  """
+  KHR
+
+  """
+  CFA Franc BEAC currency.
+  """
+  XAF
+
+  """
+  Canadian Dollar currency.
+  """
+  CAD
+
+  """
+  Cayman Islands Dollar currency.
+  """
+  KYD
+
+  """
+  Chilean Peso currency.
+  """
+  CLP
+
+  """
+  Unidad de Fomento currency.
+  """
+  CLF
+
+  """
+  Yuan Renminbi currency.
+  """
+  CNY
+
+  """
+  Colombian Peso currency.
+  """
+  COP
+
+  """
+  Unidad de Valor Real currency.
+  """
+  COU
+
+  """
+  Comorian Franc currency.
+  """
+  KMF
+
+  """
+  Congolese Franc currency.
+  """
+  CDF
+
+  """
+  New Zealand Dollar currency.
+  """
+  NZD
+
+  """
+  Costa Rican Colon currency.
+  """
+  CRC
+
+  """
+  Kuna currency.
+  """
+  HRK
+
+  """
+  Cuban Peso currency.
+  """
+  CUP
+
+  """
+  Peso Convertible currency.
+  """
+  CUC
+
+  """
+  Netherlands Antillean Guilder currency.
+  """
+  ANG
+
+  """
+  Czech Koruna currency.
+  """
+  CZK
+
+  """
+  Danish Krone currency.
+  """
+  DKK
+
+  """
+  Djibouti Franc currency.
+  """
+  DJF
+
+  """
+  Dominican Peso currency.
+  """
+  DOP
+
+  """
+  Egyptian Pound currency.
+  """
+  EGP
+
+  """
+  El Salvador Colon currency.
+  """
+  SVC
+
+  """
+  Nakfa currency.
+  """
+  ERN
+
+  """
+  Ethiopian Birr currency.
+  """
+  ETB
+
+  """
+  Falkland Islands Pound currency.
+  """
+  FKP
+
+  """
+  Fiji Dollar currency.
+  """
+  FJD
+
+  """
+  CFP Franc currency.
+  """
+  XPF
+
+  """
+  Dalasi currency.
+  """
+  GMD
+
+  """
+  Lari currency.
+  """
+  GEL
+
+  """
+  Ghana Cedi currency.
+  """
+  GHS
+
+  """
+  Gibraltar Pound currency.
+  """
+  GIP
+
+  """
+  Quetzal currency.
+  """
+  GTQ
+
+  """
+  Pound Sterling currency.
+  """
+  GBP
+
+  """
+  Guinean Franc currency.
+  """
+  GNF
+
+  """
+  Guyana Dollar currency.
+  """
+  GYD
+
+  """
+  Gourde currency.
+  """
+  HTG
+
+  """
+  Lempira currency.
+  """
+  HNL
+
+  """
+  Hong Kong Dollar currency.
+  """
+  HKD
+
+  """
+  Forint currency.
+  """
+  HUF
+
+  """
+  Iceland Krona currency.
+  """
+  ISK
+
+  """
+  Rupiah currency.
+  """
+  IDR
+
+  """
+  Iranian Rial currency.
+  """
+  IRR
+
+  """
+  Iraqi Dinar currency.
+  """
+  IQD
+
+  """
+  New Israeli Sheqel currency.
+  """
+  ILS
+
+  """
+  Jamaican Dollar currency.
+  """
+  JMD
+
+  """
+  Yen currency.
+  """
+  JPY
+
+  """
+  Jordanian Dinar currency.
+  """
+  JOD
+
+  """
+  Tenge currency.
+  """
+  KZT
+
+  """
+  Kenyan Shilling currency.
+  """
+  KES
+
+  """
+  Won currency.
+  """
+  KRW
+
+  """
+  Kuwaiti Dinar currency.
+  """
+  KWD
+
+  """
+  Som currency.
+  """
+  KGS
+
+  """
+  Lao Kip currency.
+  """
+  LAK
+
+  """
+  Lebanese Pound currency.
+  """
+  LBP
+
+  """
+  Loti currency.
+  """
+  LSL
+
+  """
+  Rand currency.
+  """
+  ZAR
+
+  """
+  Liberian Dollar currency.
+  """
+  LRD
+
+  """
+  Libyan Dinar currency.
+  """
+  LYD
+
+  """
+  Swiss Franc currency.
+  """
+  CHF
+
+  """
+  Pataca currency.
+  """
+  MOP
+
+  """
+  Denar currency.
+  """
+  MKD
+
+  """
+  Malagasy Ariary currency.
+  """
+  MGA
+
+  """
+  Malawi Kwacha currency.
+  """
+  MWK
+
+  """
+  Malaysian Ringgit currency.
+  """
+  MYR
+
+  """
+  Rufiyaa currency.
+  """
+  MVR
+
+  """
+  Ouguiya currency.
+  """
+  MRU
+
+  """
+  Mauritius Rupee currency.
+  """
+  MUR
+
+  """
+  ADB Unit of Account currency.
+  """
+  XUA
+
+  """
+  Mexican Peso currency.
+  """
+  MXN
+
+  """
+  Mexican Unidad de Inversion (UDI) currency.
+  """
+  MXV
+
+  """
+  Moldovan Leu currency.
+  """
+  MDL
+
+  """
+  Tugrik currency.
+  """
+  MNT
+
+  """
+  Moroccan Dirham currency.
+  """
+  MAD
+
+  """
+  Mozambique Metical currency.
+  """
+  MZN
+
+  """
+  Kyat currency.
+  """
+  MMK
+
+  """
+  Namibia Dollar currency.
+  """
+  NAD
+
+  """
+  Nepalese Rupee currency.
+  """
+  NPR
+
+  """
+  Cordoba Oro currency.
+  """
+  NIO
+
+  """
+  Naira currency.
+  """
+  NGN
+
+  """
+  Rial Omani currency.
+  """
+  OMR
+
+  """
+  Pakistan Rupee currency.
+  """
+  PKR
+
+  """
+  Balboa currency.
+  """
+  PAB
+
+  """
+  Kina currency.
+  """
+  PGK
+
+  """
+  Guarani currency.
+  """
+  PYG
+
+  """
+  Sol currency.
+  """
+  PEN
+
+  """
+  Philippine Peso currency.
+  """
+  PHP
+
+  """
+  Zloty currency.
+  """
+  PLN
+
+  """
+  Qatari Rial currency.
+  """
+  QAR
+
+  """
+  Romanian Leu currency.
+  """
+  RON
+
+  """
+  Russian Ruble currency.
+  """
+  RUB
+
+  """
+  Rwanda Franc currency.
+  """
+  RWF
+
+  """
+  Saint Helena Pound currency.
+  """
+  SHP
+
+  """
+  Tala currency.
+  """
+  WST
+
+  """
+  Dobra currency.
+  """
+  STN
+
+  """
+  Saudi Riyal currency.
+  """
+  SAR
+
+  """
+  Serbian Dinar currency.
+  """
+  RSD
+
+  """
+  Seychelles Rupee currency.
+  """
+  SCR
+
+  """
+  Leone currency.
+  """
+  SLL
+
+  """
+  Singapore Dollar currency.
+  """
+  SGD
+
+  """
+  Sucre currency.
+  """
+  XSU
+
+  """
+  Solomon Islands Dollar currency.
+  """
+  SBD
+
+  """
+  Somali Shilling currency.
+  """
+  SOS
+
+  """
+  South Sudanese Pound currency.
+  """
+  SSP
+
+  """
+  Sri Lanka Rupee currency.
+  """
+  LKR
+
+  """
+  Sudanese Pound currency.
+  """
+  SDG
+
+  """
+  Surinam Dollar currency.
+  """
+  SRD
+
+  """
+  Lilangeni currency.
+  """
+  SZL
+
+  """
+  Swedish Krona currency.
+  """
+  SEK
+
+  """
+  WIR Euro currency.
+  """
+  CHE
+
+  """
+  WIR Franc currency.
+  """
+  CHW
+
+  """
+  New Taiwan Dollar currency.
+  """
+  TWD
+
+  """
+  Somoni currency.
+  """
+  TJS
+
+  """
+  Tanzanian Shilling currency.
+  """
+  TZS
+
+  """
+  Baht currency.
+  """
+  THB
+
+  """
+  Pa’anga currency.
+  """
+  TOP
+
+  """
+  Trinidad and Tobago Dollar currency.
+  """
+  TTD
+
+  """
+  Tunisian Dinar currency.
+  """
+  TND
+
+  """
+  Turkish Lira currency.
+  """
+  TRY
+
+  """
+  Turkmenistan New Manat currency.
+  """
+  TMT
+
+  """
+  Uganda Shilling currency.
+  """
+  UGX
+
+  """
+  Hryvnia currency.
+  """
+  UAH
+
+  """
+  UAE Dirham currency.
+  """
+  AED
+
+  """
+  Peso Uruguayo currency.
+  """
+  UYU
+
+  """
+  Uruguay Peso en Unidades Indexadas (UI) currency.
+  """
+  UYI
+
+  """
+  Unidad Previsional currency.
+  """
+  UYW
+
+  """
+  Uzbekistan Sum currency.
+  """
+  UZS
+
+  """
+  Vatu currency.
+  """
+  VUV
+
+  """
+  Bolívar Soberano currency.
+  """
+  VES
+
+  """
+  Dong currency.
+  """
+  VND
+
+  """
+  Yemeni Rial currency.
+  """
+  YER
+
+  """
+  Zambian Kwacha currency.
+  """
+  ZMW
+
+  """
+  Zimbabwe Dollar currency.
+  """
+  ZWL
+}

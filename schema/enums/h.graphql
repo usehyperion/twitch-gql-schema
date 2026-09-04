@@ -1,0 +1,320 @@
+"""
+The complete list of asset types.
+"""
+enum HeroAssetType {
+  """
+  Background asset.
+  """
+  BACKGROUND
+
+  """
+  Hat asset.
+  """
+  HAT
+
+  """
+  Hair asset.
+  """
+  HAIR
+
+  """
+  Eyebrow asset.
+  """
+  EYEBROWS
+
+  """
+  Eye asset.
+  """
+  EYES
+
+  """
+  Glasses asset.
+  """
+  GLASSES
+
+  """
+  Nose asset.
+  """
+  NOSE
+
+  """
+  Mouth asset.
+  """
+  MOUTH
+
+  """
+  Facial hair asset.
+  """
+  FACIAL_HAIR
+
+  """
+  Freckles asset.
+  """
+  FRECKLES
+
+  """
+  Undershirt asset.
+  """
+  UNDERSHIRT
+
+  """
+  Jacket asset.
+  """
+  JACKET
+
+  """
+  Gloves asset.
+  """
+  GLOVES
+
+  """
+  Pants asset.
+  """
+  PANTS
+
+  """
+  Socks asset.
+  """
+  SOCKS
+
+  """
+  Shoes asset.
+  """
+  SHOES
+}
+
+"""
+The hero preset.
+"""
+enum HeroPreset {
+  """
+  The first preset.
+  """
+  PRESET_1
+
+  """
+  The second preset.
+  """
+  PRESET_2
+}
+
+"""
+HostTargetChannelErrorCode are the list of thrown errors.
+"""
+enum HostTargetChannelErrorCode {
+  """
+  The target channel is already being hosted.
+  """
+  TARGET_CHANNEL_ALREADY_HOSTED
+
+  """
+  The target channel is unhostable because the target channel has ignored/banned
+  the channel attempting to host, the target channel is blocked from hosting, etc.
+  """
+  UNHOSTABLE_CHANNEL
+
+  """
+  The target channel is a TOS/DMCA/suspended channel and cannot be hosted.
+  """
+  TARGET_CHANNEL_IN_BAD_STANDING
+
+  """
+  A channel cannot host itself.
+  """
+  CANNOT_HOST_SELF
+}
+
+"""
+The conductor type of the Hype Train reward.
+"""
+enum HypeTrainConductorType {
+  """
+  The current conductor of an active hype train.
+  """
+  CURRENT
+
+  """
+  The former conductor of a hype train.
+  """
+  FORMER
+
+  """
+  An unknown conductor type.
+  """
+  UNKNOWN
+}
+
+"""
+The difficulty a Hype Train can be set to.
+"""
+enum HypeTrainDifficulty {
+  """
+  Easy, the easiest difficulty level.
+  """
+  EASY
+
+  """
+  Medium, the middle difficulty level.
+  """
+  MEDIUM
+
+  """
+  Hard, the hard difficulty level.
+  """
+  HARD
+
+  """
+  Super Hard, the harder difficulty level.
+  """
+  SUPER_HARD
+
+  """
+  Insane, the hardest difficulty level.
+  """
+  INSANE
+
+  """
+  An unknown difficulty.
+  """
+  UNKNOWN
+}
+
+"""
+The enumerated end reasons for a Hype Train.
+"""
+enum HypeTrainEndReason {
+  """
+  The Hype Train expired, which means that the Hype Train never completed level 1 after being started.
+  """
+  EXPIRED
+
+  """
+  The Hype Train is in progress, which means it has not ended.
+  """
+  IN_PROGRESS
+
+  """
+  The Hype Train was completed, which means that any level was completed.
+  """
+  COMPLETED
+
+  """
+  An unknown ending reason.
+  """
+  UNKNOWN
+}
+
+"""
+An enumeration of event types for Hype Train Activity Feeds.
+"""
+enum HypeTrainEventType {
+  """
+  Event of when a Hype Train started for the given channel.
+  """
+  HYPE_TRAIN_STARTED
+
+  """
+  Event of when a Hype Train ended for the given channel.
+  """
+  HYPE_TRAIN_ENDED
+
+  """
+  Notification of when another Hype Train can start.
+  """
+  HYPE_TRAIN_COOL_DOWN_EXPIRED
+}
+
+"""
+The participation action of events in a Hype Train.
+"""
+enum HypeTrainParticipationAction {
+  """
+  A Cheer event.
+  """
+  CHEER
+
+  """
+  A use of bits in extensions.
+  """
+  BITS_ON_EXTENSION
+
+  """
+  A poll bits usage.
+  """
+  POLLS
+
+  """
+  A tier 1 sub purchase.
+  """
+  TIER_1_SUB
+
+  """
+  A tier 2 sub purchase.
+  """
+  TIER_2_SUB
+
+  """
+  A tier 3 sub purchase.
+  """
+  TIER_3_SUB
+
+  """
+  A tier 1 sub gift.
+  """
+  TIER_1_GIFTED_SUB
+
+  """
+  A tier 2 sub gift.
+  """
+  TIER_2_GIFTED_SUB
+
+  """
+  A tier 3 sub gift.
+  """
+  TIER_3_GIFTED_SUB
+
+  """
+  An unkonwn action.
+  """
+  UNKNOWN
+}
+
+"""
+The Hype Train participation source that denotes the commerce types that can occur.
+"""
+enum HypeTrainParticipationSource {
+  """
+  Bits source, like cheering.
+  """
+  BITS
+
+  """
+  Subs source, like subbing to twitch.tv/michael on stream.
+  """
+  SUBS
+
+  """
+  An unknown source.
+  """
+  UNKNOWN
+}
+
+"""
+The enumerated types of rewards that can be entitled.
+"""
+enum HypeTrainRewardType {
+  """
+  Emote rewards.
+  """
+  EMOTE
+
+  """
+  Badge rewards.
+  """
+  BADGE
+
+  """
+  An unknown reward type.
+  """
+  UNKNOWN
+}

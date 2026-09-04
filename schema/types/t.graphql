@@ -1,0 +1,1070 @@
+"""
+Tag(s) are used as a discovery and search mechanism for tagged content, including Streams, Clips, and VODs.
+"""
+type Tag {
+  """
+  Timestamp of the creation of this tag.
+  """
+  createdAt: Time
+
+  """
+  This tag's unique identifier.
+  """
+  id: ID!
+
+  """
+  Whether this tag is auto generated.
+  """
+  isAutomated: Boolean!
+
+  """
+  Whether this tag is a language tag.
+  """
+  isLanguageTag: Boolean!
+
+  """
+  Localized description of this tag.
+  """
+  localizedDescription: String!
+
+  """
+  Localized Name of this tag.
+  """
+  localizedName: String!
+
+  """
+  Scope of the Tag.
+  """
+  scope: TagScope!
+
+  """
+  Official Name of this tag in English.
+  """
+  tagName: String!
+}
+
+"""
+The frequency of a tag used as filter for a channel.
+"""
+type TagAnalytic {
+  """
+  A decimal that shows how often a Tag is used.
+  """
+  percentage: Float!
+
+  """
+  The tag for the analytic.
+  """
+  tag: Tag!
+}
+
+"""
+A paginated list of tags, and its metadata.
+"""
+type TagConnection {
+  """
+  The list of tags in this page.
+  """
+  edges: [TagEdge!]
+
+  """
+  Information about this page of tags.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An element in a paginated tags, and its metadata.
+"""
+type TagEdge {
+  """
+  Cursor represents the position of the current edge/node.
+  """
+  cursor: Cursor!
+
+  """
+  Node represents the extension for the current edge.
+  """
+  node: Tag
+}
+
+"""
+TargetedModerationAction is a ModLogs entry of a chat ban,timeout, or unban.
+"""
+type TargetedModActionDetails {
+  """
+  Timestamp when user was banned/timed-out.
+  """
+  bannedAt: Time
+
+  """
+  Duration of the chat timeout (in seconds).
+  """
+  durationSeconds: Int
+
+  """
+  Timestamp when the chat timeout expires.
+  """
+  expiresAt: Time
+
+  """
+  Reason of the action.
+  """
+  reason: String
+}
+
+"""
+TaxInterview describes the information for a user's Amazon tax interview during payout onboarding.
+"""
+type TaxInterview {
+  """
+  Amazon tax interview account ID.
+  """
+  accountID: ID! @deprecated(reason: "Use interview options instead")
+
+  """
+  Amazon tax interview client ID.
+  """
+  clientID: ID! @deprecated(reason: "Use interview options")
+
+  """
+  Legal name of the user completing the Amazon tax interview.
+  """
+  governmentAlias: String! @deprecated(reason: "Use interview options")
+
+  """
+  The preferred locale for user in the accepted format to initate the Amazon tax interview (e.g. "en_US").
+  """
+  locale: String! @deprecated(reason: "Use interview options instead")
+
+  """
+  List of key value pairs that were used to generate the signature.
+  """
+  options: [TaxInterviewOption!]
+
+  """
+  Unique signature to initiate the Amazon tax interview.
+  """
+  signature: String!
+
+  """
+  The type of Amazon tax interview.
+  """
+  type: TaxInterviewType! @deprecated(reason: "Use interview options instead")
+
+  """
+  The URL for user to begin their Amazon tax interview.
+  """
+  url: String!
+}
+
+"""
+TaxInterviewOption is a key value pair type used by the tax interview.
+Each option represents a form value that musted be passed to the argon website.
+"""
+type TaxInterviewOption {
+  """
+  The name of the option.
+  """
+  key: String!
+
+  """
+  The option value.
+  """
+  value: String!
+}
+
+"""
+Represents a tax jurisdiction from which a final price was calculated.
+"""
+type TaxRegion {
+  """
+  Tax country, required for the TaxRegion object type.
+  """
+  countryCode: String!
+
+  """
+  Tax state if applicable.
+  """
+  state: String
+
+  """
+  Tax zip code if applicable.
+  """
+  zipCode: String
+}
+
+"""
+GDPR cookie vendors for vendors that support TCF strings, for a user.
+"""
+type TCFCookieVendor {
+  """
+  User content status for each vendor.
+  """
+  consentStatus: ConsentStatus!
+
+  """
+  If it’s an advertising, analytics, or essential cookie.
+  """
+  cookieVendorType: CookieVendorType!
+
+  """
+  List of features this vendor uses.
+  """
+  features: [ConsentFeature!]
+
+  """
+  A flag that shows if the consent is given by the user or by consent service as default value.
+  """
+  hasUserSetConsent: Boolean!
+
+  """
+  A flag that shows if the vendor should be visible to management page.
+  """
+  isVisible: Boolean!
+
+  """
+  Vendor name.
+  """
+  name: VendorName!
+
+  """
+  Url to the Vendor's privacy policy.
+  """
+  policyURL: String!
+
+  """
+  List of purposes this vendor uses.
+  """
+  purposes: [ConsentPurpose!]
+
+  """
+  List of special features this vendor uses.
+  """
+  specialFeatures: [ConsentSpecialFeature!]
+
+  """
+  List of special purposes this vendor uses.
+  """
+  specialPurposes: [ConsentSpecialPurpose!]
+}
+
+"""
+Team represents a Twitch Team.
+Teams are collections of streaming channels, and are owned by a Twitch user.
+Teams have landing pages, e.g. https://www.twitch.tv/team/clg.
+"""
+type Team {
+  """
+  ID to an image meant to be the background of the Team's landing page.
+  """
+  backgroundImageID: ID
+
+  """
+  URL to an image meant to be the background of the Team's landing page.
+  """
+  backgroundImageURL: String
+
+  """
+  ID to the Team's banner image.
+  """
+  bannerID: ID
+
+  """
+  URL to the Team's banner image.
+  """
+  bannerURL: String
+
+  """
+  Retrieves team stats within the start and end time broken down by granularity.
+  Default end time will be the current time (now).
+  Granularity defaults to 5 minutes.
+  ChannelIDs defaults to all team members.
+  """
+  creatorTimeseriesMetrics(
+    startAt: Time!
+    endAt: Time
+    timeZone: String!
+    granularity: Granularity = FIVE_MINUTE
+    channelIDs: [ID!] = []
+  ): CreatorTimeseriesMetrics
+
+  """
+  Information about the team, formatted in Markdown.
+  """
+  description: String
+
+  """
+  Display version of the team name.
+  """
+  displayName: String!
+
+  """
+  The Team's ID.
+  """
+  id: ID!
+
+  """
+  Channels that the Team owner have opted to highlight that are currently live.
+  These channels may or may not also be members of the Team.
+  They will be returned in the order configured by the Team admin.
+  """
+  liveFeaturedChannels(first: Int = 10, after: Cursor): UserConnection
+
+  """
+  Users that belong to the team that are currently live.
+  They will be returned in the order configured by the Team admin.
+  """
+  liveMembers(first: Int = 10, after: Cursor): UserConnection
+
+  """
+  ID to the Team's logo image.
+  """
+  logoID: ID
+
+  """
+  URL to the Team's logo image.
+  """
+  logoURL: String
+
+  """
+  The list of users that belong to this team.
+  They will be returned in the order configured by the Team admin.
+  metricsRevealed allows the client to return all `none`, `statsRevealed`, or `revenueRevealed` members.
+  Defaults to all members to avoid breaking changes.
+  """
+  members(
+    first: Int = 10
+    after: Cursor
+    metricsRevealedFilter: MemberMetricsRevealedParams
+  ): UserConnection
+
+  """
+  The alphanumeric Twitch name of the team.
+  """
+  name: String!
+
+  """
+  Owner is the User that owns and manages the Team.
+  """
+  owner: User
+
+  """
+  Aggregated analytics for several video referral sources, for use in teams dashboard.
+  ChannelIDs defaults to all team members.
+  """
+  videoPlayReferrals(
+    start: Time!
+    end: Time!
+    filter: ReferralsFilter = ALL
+    dimension: ReferralsDimension!
+    first: Int = 10
+    channelIDs: [ID!] = []
+  ): VideoPlayReferrals
+}
+
+"""
+Outputs from the terminate poll mutation.
+"""
+type TerminatePollInChannelPayload {
+  """
+  The terminated poll.
+  """
+  poll: Poll
+}
+
+"""
+Outputs from the create poll mutation.
+"""
+type TerminatePollPayload {
+  """
+  The created poll.
+  """
+  poll: Poll
+}
+
+"""
+A shelf title token type that contains text with various formatters.
+"""
+type TextToken {
+  """
+  If this title token should be emphasized or not.
+  """
+  hasEmphasis: Boolean!
+
+  """
+  The location that this shelf title token should link to.
+  """
+  location: LinkType!
+
+  """
+  The text to display for this token.
+  """
+  text: String!
+}
+
+type ThumbnailOEmbed {
+  height: Int!
+  url: String!
+  width: Int!
+}
+
+"""
+A drop triggered by accummulating minutes watched.
+"""
+type TimeBasedDrop implements DropType {
+  """
+  The rewards for this drop and how often those rewards can be awarded.
+  """
+  benefitEdges: [DropBenefitEdge!]
+
+  """
+  The campaign this drop belongs to.
+  """
+  campaign: DropCampaign!
+
+  """
+  The time at which this drop becomes unavailable.
+  """
+  endAt: Time!
+
+  """
+  A unique identifier.
+  """
+  id: ID!
+
+  """
+  The name of this drop.
+  """
+  name: String!
+
+  """
+  The drops that must have been claimed before this drop can be claimed / made progress for.
+  """
+  preconditionDrops: [TimeBasedDrop!]
+
+  """
+  The number of minutes a user has to watch in order to claim the reward.
+  """
+  requiredMinutesWatched: Int!
+
+  """
+  User specific data associated with the TimeBasedDrop.
+  """
+  self: TimeBasedDropSelfEdge!
+
+  """
+  The time at which this drop becomes available.
+  """
+  startAt: Time!
+}
+
+"""
+User specific data associated with this drop.
+"""
+type TimeBasedDropSelfEdge {
+  """
+  The current progress for a given user towards this drop.
+  """
+  currentMinutesWatched: Int!
+
+  """
+  The ID of the drop reward granted to the user if the drop is claimable, returns null otherwise.
+  """
+  dropInstanceID: ID
+
+  """
+  Indicates whether or not all preconditions have been met, and the drop is available to get progress.
+  """
+  hasPreconditionsMet: Boolean!
+
+  """
+  Whether the user has already claimed their reward for this drop.
+  """
+  isClaimed: Boolean!
+}
+
+"""
+Single item of stats for the time series.
+"""
+type TimeseriesItem {
+  """
+  Deprecated: Number of follows during this timestamp.
+  """
+  follows: Int @deprecated(reason: "Use user.timeseriesStats.follows instead.")
+
+  """
+  Streamed duration (in minutes).
+  """
+  minutesStreamed: Int!
+
+  """
+  Timestamp of the broken down time series.
+  """
+  timestamp: Time!
+
+  """
+  Value at the timestamp.
+  """
+  value: Float!
+}
+
+"""
+Stats within a time frame broken down by granularity.
+This is used for per channel stats, per team stats use "CreatorTimeseriesMetrics".
+"""
+type TimeseriesStats {
+  """
+  Seconds of ads played per time chunk.
+  """
+  adBreaksInSeconds: [TimeseriesItem!]
+
+  """
+  Ad time (in seconds) per hour per time chunk.
+  """
+  adTimePerHour: [TimeseriesItem!]
+
+  """
+  Average number of viewers per time chunk.
+  """
+  averageViewers: [TimeseriesItem!]
+
+  """
+  Number of chat messages per time chunk.
+  """
+  chatMessages: [TimeseriesItem!]
+
+  """
+  Number of clip views per time chunk.
+  """
+  clipViews: [TimeseriesItem!]
+
+  """
+  Number of clips created per time chunk.
+  """
+  clipsCreated: [TimeseriesItem!]
+
+  """
+  Number of follows during this timestamp.
+  """
+  follows: [TimeseriesItem!]
+
+  """
+  Granularity of the time series, default unit is five minutes.
+  """
+  granularity: Granularity!
+
+  """
+  Host/Raid viewers per time chunk.
+  """
+  hostRaidViewers: [TimeseriesItem!]
+
+  """
+  Deprecated: List of the number of follows within a time period, broken up by granularity.
+  """
+  items: [TimeseriesItem!]
+    @deprecated(reason: "Use specific metric from user.timeseriesStats instead.")
+
+  """
+  Live number of views per time chunk.
+  """
+  liveViews: [TimeseriesItem!]
+
+  """
+  Max viewers per time chunk.
+  """
+  maxViewers: [TimeseriesItem!]
+
+  """
+  Minutes watched per time chunk.
+  """
+  minutesWatched: [TimeseriesItem!]
+
+  """
+  Number of subscriptions per time chunk.
+  """
+  newSubscriptions: [TimeseriesItem!]
+
+  """
+  Promotion clicks for the time period.
+  """
+  promotionClick: [TimeseriesItem!]
+
+  """
+  Promotion displays for the time period.
+  """
+  promotionDisplay: [TimeseriesItem!]
+
+  """
+  Time streamed per time chunk.
+  """
+  timeStreamed: [TimeseriesItem!]
+
+  """
+  Number of people chatting per time chunk.
+  """
+  uniqueChatters: [TimeseriesItem!]
+
+  """
+  Number of unique people watching per time chunk.
+  """
+  uniqueViewers: [TimeseriesItem!]
+}
+
+"""
+A piece of the shelf title in the form of a token.
+"""
+type TitleTokenEdge {
+  """
+  The token.
+  """
+  node: TitleTokenNode
+}
+
+type ToggleRitualsEnabledPayload {
+  """
+  Whether the rituals feature is enabled for a channel.
+  """
+  isEnabled: Boolean!
+  user: User
+}
+
+"""
+Assets for a TokenBundleProduct.
+Each asset will have a 1x, 2x, 3x sizing w/ their respective URLs.
+Different sizing is required for mobile clients.
+"""
+type TokenBundleAsset {
+  """
+  URL of asset of size 1x.
+  """
+  imageURL1x: String!
+
+  """
+  URL of asset size 2x.
+  """
+  imageURL2x: String!
+
+  """
+  URL of asset size 3x.
+  """
+  imageURL3x: String!
+
+  """
+  Key identifier for an asset.
+  ex) "bundleImg", "promoImg", etc.
+  """
+  key: String!
+}
+
+"""
+Tournament is an object that contains all information about a tournament
+managed within Bits for a specific event tied to cheering.
+NOTE: Should have been named CheeringTournament.
+"""
+type Tournament {
+  """
+  Leaderboard of all users who have cheered in the tournament.
+  """
+  globalLeaderboard: BitsLeaderboard! @deprecated
+
+  """
+  Event ID of the tournament.
+  """
+  id: ID! @deprecated
+
+  """
+  The list of global milestones that can be claimed in the tournament.
+  For a given threshold, this milestone is reached when cheers from all users on the channel
+  is greater than or equal to the threshold. This unlocks a reward for all users who have cheered.
+  """
+  progress: TournamentProgress! @deprecated
+
+  """
+  The list of rewards that are a part of the tournament. This is separated out into global, participant, and individual
+  rewards that can be claimed if the user is logged in.
+  """
+  rewards: TournamentRewards @deprecated
+
+  """
+  The list of individual milestones that can be claimed in the tournament.
+  for a given threshold, this milestone is reached when an individual user's total cheers in
+  the channel is greater than or equal to the threshold. This unlocks a reward
+  for the individual user who cheered.
+  """
+  self: TournamentSelfEdge @deprecated
+
+  """
+  Leaderboard of all teams who have been cheered for in the tournament. This leaderboard contains how much each team
+  in the tournament was cheered for.
+  """
+  teamLeaderboard: BitsLeaderboard! @deprecated
+
+  """
+  The list of teams participating in the tournament.
+  """
+  teams: [TournamentTeam]! @deprecated
+}
+
+"""
+Contains all rewards information about the Insider rewards.
+"""
+type TournamentInsiderRewards {
+  """
+  Twitch chat badge rewards.
+  """
+  badges: [TournamentReward!]! @deprecated
+
+  """
+  Bits rewards.
+  """
+  bits: [TournamentReward!]! @deprecated
+
+  """
+  Hero skin rewards.
+  """
+  heroSkins: [TournamentReward!]! @deprecated
+
+  """
+  In Game Content rewards, like sprays and avatars (non-hero skin rewards).
+  """
+  inGameContent: [TournamentReward!]! @deprecated
+}
+
+"""
+Describes the amount of progress that has been made in a tournament, with corresponding milestones about said progress.
+"""
+type TournamentProgress {
+  """
+  The amount of progress that has been made in the tournament. This is not exclusive to cheering in the channel.
+  """
+  amount: Int! @deprecated
+
+  """
+  The milestones associated with the progress made. This is a list of rewards the progress value will unlock.
+  """
+  milestones: [Milestone!]! @deprecated
+}
+
+"""
+Type containing information about a Reward and claiming information.
+"""
+type TournamentReward {
+  """
+  The campaign ID associated with the reward.
+  """
+  campaignID: ID! @deprecated
+
+  """
+  Can this reward be entitled to the user.
+  """
+  canBeFulfilled: Boolean! @deprecated
+
+  """
+  Number representing quantity of the reward that user can claim (but not entitled yet) at the time the request is made.
+  """
+  canBeFulfilledQuantity: Int! @deprecated
+
+  """
+  The reward's description.
+  """
+  description: String! @deprecated
+
+  """
+  Number representing quantity of the reward that user already claimed and can
+  find in his inventory. If the type is In Game Content, Twitch already handed
+  off to the game through the fulfiller.
+  """
+  entitledQuantity: Int! @deprecated
+
+  """
+  The ID of the reward.
+  """
+  id: ID! @deprecated
+
+  """
+  The reward's display image URL.
+  """
+  imageURL: String! @deprecated
+
+  """
+  The state of the reward is entitled to the user.
+  """
+  isEntitled: Boolean! @deprecated
+
+  """
+  Whether the reward is for prime users only.
+  """
+  isPrimeOnly: Boolean! @deprecated
+
+  """
+  Whether the reward can be earned multiple times (e.g. in game consumables).
+  """
+  isRepeatable: Boolean! @deprecated
+
+  """
+  Metadata attached to the reward.
+  """
+  metadata: CampaignRewardMetadata @deprecated
+
+  """
+  The display name of the reward.
+  """
+  name: String! @deprecated
+
+  """
+  Amount of reward (e.g. amount for bits).
+  """
+  quantity: Int! @deprecated
+
+  """
+  A number presenting the rarity of this reward (the higher the rarer).
+  """
+  rarity: Int! @deprecated
+
+  """
+  The type of reward (ex. Twitch Emote, In Game Content).
+  """
+  type: String! @deprecated
+}
+
+"""
+This type holds all information about rewards that are associated with a tournament. The struct parses out
+which rewards are Global, Team, and Individual, as well as if you're logged in that status if you can claim the reward.
+"""
+type TournamentRewards {
+  """
+  The list of Cheerbomb rewards. If the user is logged in, this will also show the claim status of the reward.
+  """
+  cheerbomb: [TournamentReward!]! @deprecated
+
+  """
+  The list of Global rewards. If the user is logged in, this will also show the claim status of the reward.
+  """
+  global: [TournamentReward!]! @deprecated
+
+  """
+  The list of Individual rewards. If the user is logged in, this will also show the claim status of the reward.
+  """
+  individual: [TournamentReward!]! @deprecated
+
+  """
+  The list of Insider rewards, which are granted when one subscribes to the insider pass.
+  """
+  insider: TournamentInsiderRewards! @deprecated
+
+  """
+  The list of Team rewards. If the user is logged in, this will also show the claim status of the reward.
+  """
+  team: [TournamentReward!]! @deprecated
+}
+
+"""
+Tournament progress related to a user.
+"""
+type TournamentSelfEdge {
+  """
+  The leaderboard entry of the user. Gives the current position and score.
+  """
+  globalLeaderboardItem: BitsLeaderboardItem @deprecated
+
+  """
+  Amount of progress a user had made towards the tournament personally. This could be a combination of factors,
+  including bits cheered in the channel.
+  """
+  progress: TournamentProgress! @deprecated
+
+  """
+  A list of the amount of bits a user has cheered for a certain team, as well as the
+  list of milestones that the user could claim with their claim status.
+  """
+  teams: [TournamentTeam!]! @deprecated
+}
+
+"""
+Team is a construct that contains metadata about a team participating in the tournament,
+as well as the milestones associated with cheering for them.
+"""
+type TournamentTeam {
+  """
+  The division of the team. This string is set by the tournament organizer. (NA, CN, Atlantic League, etc.).
+  """
+  division: String! @deprecated
+
+  """
+  The ID of the team.
+  """
+  id: ID! @deprecated
+
+  """
+  The image URL of the team.
+  """
+  logoURL: String! @deprecated
+
+  """
+  Name of the team.
+  """
+  name: String! @deprecated
+}
+
+"""
+Information used to track recommendation events.
+"""
+type TrackingInfo {
+  """
+  The target object for the shelf, if it exists.
+  """
+  reasonTarget: String
+
+  """
+  The type of the target object, if it exists.
+  """
+  reasonTargetType: String
+
+  """
+  The reason why this shelf has been recommended.
+  """
+  reasonType: String!
+
+  """
+  The name of the shelf.
+  """
+  rowName: String!
+}
+
+"""
+A tracking pixel is used to measure impressions or demographics.
+"""
+type TrackingPixel {
+  """
+  Where this pixel came from.
+  """
+  origin: String
+
+  """
+  What service will be using the pixel.
+  """
+  service: String!
+
+  """
+  How long a client needs to view the content before firing the pixel.
+  """
+  timeOffsetSeconds: Int
+
+  """
+  The type of tracker.
+  """
+  type: TrackingPixelType
+
+  """
+  The URL that is requested when the pixel is fired.
+  """
+  url: String!
+}
+
+"""
+A trailer is a video meant to introduce viewers to the creator and the type
+of content they produce.
+"""
+type Trailer {
+  """
+  The trailer video. This may be null if the channel has no trailer.
+  """
+  video: Video
+}
+
+"""
+TranscodeSession is session metadata related to transcode.
+"""
+type TranscodeSession {
+  """
+  Transcoded audio codecs.
+  """
+  audioCodecs: String!
+
+  """
+  Staff-only field. Hostname of which transcode was processed.
+  """
+  host: String
+
+  """
+  Staff-only field. The location of transcode origin.
+  """
+  ingestOrigin: String
+
+  """
+  Staff-only field. Profile of transcode.
+  """
+  profile: String
+
+  """
+  Transcoded video codecs.
+  """
+  videoCodecs: String!
+}
+
+"""
+TransitionExtensionStatePayload returns any errors that occur during update.
+"""
+type TransitionExtensionStatePayload {
+  """
+  The error when the mutation fails to update an extension.
+  """
+  error: TransitionExtensionStateError
+
+  """
+  The updated extension manifest.
+  """
+  manifest: ExtensionManifest
+}
+
+"""
+A result of a try to trigger a drop on a channel.
+"""
+type TriggerResult {
+  """
+  The channel the drop was tried to be triggered on.
+  """
+  channel: Channel
+
+  """
+  The drop instance id in case the drop was successfully triggered.
+  """
+  dropInstanceID: ID
+
+  """
+  The status result of the try to trigger the drop.
+  """
+  status: ManuallyTriggerDropResultStatus!
+}
+
+"""
+Mosaic layouts for Twitch Studio.
+"""
+type TwitchStudioMosaicLayout implements ChannelDashboardLayout {
+  """
+  The actual Mosaic layout data to be stored or fetched.
+  """
+  data: MosaicData!
+
+  """
+  A unique identifier to uniquely reference this layout.
+  """
+  id: ID!
+
+  """
+  The display name for the layout shown to the user.
+  """
+  name: String!
+
+  """
+  A version to identify how the MosaicData was generated,
+  such as for deprecation purposes.
+  """
+  version: String!
+
+  """
+  When the layout was last updated
+  """
+  lastUpdated: Time
+}

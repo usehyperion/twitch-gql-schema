@@ -1,0 +1,39 @@
+"""
+Contains configuration used to setup checkout via Xsolla, a payment provider.
+"""
+type Xsolla {
+  """
+  Iframe URL to allow purchase checkout. This can be an empty string if the URL cannot be generated.
+  """
+  iframeURL: String! @deprecated(reason: "moving iframe URL generation client-side")
+
+  """
+  Indicates if the token is for Xsolla's sandbox environment.
+  """
+  isSandbox: Boolean!
+
+  """
+  Access token to allow purchase checkout. This can be an empty string if the token cannot be generated.
+  """
+  token: String!
+}
+
+type XsollaConfigs {
+  """
+  Iframe URL to allow payment method management or purchase checkout
+  There are various cases in which this can be null. One example during
+  subscription purchase checkout flow is if there is an issue with the
+  Xsolla product mapping to the product in Twitch's system.
+  """
+  iframeURL: String! @deprecated(reason: "Moving iframe URL generation to Twilight")
+
+  """
+  Access token to allow purchase checkout. This can be an empty string if the token cannot be generated.
+  """
+  token: String!
+
+  """
+  Indicates if the token is for Xsolla's sandbox environment.
+  """
+  isSandbox: Boolean!
+}

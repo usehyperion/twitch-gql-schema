@@ -1,0 +1,139 @@
+"""
+Determines what other channels can raid this channel.
+"""
+enum IncomingRaidsPolicy {
+  """
+  This user cannot be radied by anyone.
+  """
+  NONE
+
+  """
+  This user can be raided by other people in their network.
+  """
+  NETWORK
+
+  """
+  This user can be raided by anyone.
+  """
+  ALL
+}
+
+"""
+Reason of why the stream is unstable.
+"""
+enum IngestStreamHealthReason {
+  """
+  Reason not set.
+  """
+  UNKNOWN
+
+  """
+  Stream is behaving normally.
+  """
+  ALL_GOOD
+
+  """
+  Broadcaster's encoder is sending an incompatible audio codec.
+  """
+  INCOMP_AUDIO_CODEC
+
+  """
+  Broadcaster's encoder is sending an incompatible video codec.
+  """
+  INCOMP_VIDEO_CODEC
+
+  """
+  Broadcaster's encoder is using a deprecated MP3 audio codec.
+  """
+  INCOMP_MP3_DEPRECATED
+
+  """
+  The stream is unstable due to high bitrate of the stream.
+  """
+  HIGH_BITRATE
+
+  """
+  Some frames are being dropped by the broadcaster's encoder.
+  """
+  DROPPED_FRAMES
+
+  """
+  Ingest server expects video segments in sequence, but the server did not receive them from the client.
+  """
+  STARVATION
+
+  """
+  The interval between each key frame is too high.
+  """
+  HIGH_KEY_FRAME_INTERVAL
+}
+
+"""
+Health of the stream to inform the broadcaster.
+"""
+enum IngestStreamHealthStatus {
+  """
+  A misspelling of UNKNOWN.
+  """
+  UNKNWON @deprecated(reason: "Use UNKNOWN instead")
+
+  """
+  The stream is ingested okay.
+  """
+  OK
+
+  """
+  The stream is at warning level.
+  """
+  WARN
+
+  """
+  The stream is unstable.
+  """
+  UNSTABLE
+
+  """
+  Health Status not set.
+  """
+  UNKNOWN
+}
+
+"""
+InstallExtensionErrorCode is an error code associated with InstallExtensionError.
+"""
+enum InstallExtensionErrorCode {
+  """
+  User is unable to make modifications to the extension.
+  """
+  UNAUTHORIZED
+
+  """
+  Channel id is invalid, for example, is empty.
+  """
+  INVALID_CHANNEL_ID
+}
+
+"""
+The possible errors.
+"""
+enum InterruptScheduleErrorCode {
+  """
+  Not authorized to disable the schedule.
+  """
+  FORBIDDEN
+
+  """
+  The schedule was not found.
+  """
+  NOT_FOUND
+
+  """
+  EndAt is too far in the future.
+  """
+  END_TOO_FAR_IN_FUTURE
+
+  """
+  The argument is invalid and does not map to a known error.
+  """
+  INVALID_ARGUMENT
+}

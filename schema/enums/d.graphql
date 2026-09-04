@@ -1,0 +1,637 @@
+"""
+DashboardActivityFeedActivityAlertStatus are the possible alert statuses that an activity's corresponding alert can have.
+"""
+enum DashboardActivityFeedActivityAlertStatus {
+  """
+  The alert failed to be published.
+  """
+  FAILED
+
+  """
+  The alert was received when the channel was offline.
+  """
+  OFFLINE
+
+  """
+  The alert has been played and will not be seen again.
+  """
+  PLAYED
+
+  """
+  The alert is currently being displayed.
+  """
+  PLAYING
+
+  """
+  The alert is in the alert queue, but yet to be seen.
+  """
+  QUEUED
+
+  """
+  The alert was not queued and will not be displayed.
+  """
+  REJECTED
+
+  """
+  The alert was being displayed, but was skipped by the broadcaster.
+  """
+  SKIPPED
+
+  """
+  The alert was purged from the alert queue by the broadcaster, after being queued originally.
+  """
+  PURGED
+}
+
+"""
+Client error code.
+"""
+enum DeclineOrganizationInviteErrorCode {
+  """
+  Internal error.
+  """
+  INTERNAL_ERROR
+
+  """
+  Invitation not found.
+  """
+  NOT_FOUND
+
+  """
+  Permission Denied.
+  """
+  PERMISSION_DENIED
+}
+
+"""
+The status codes for this mutation.
+"""
+enum DeleteAllChannelVideosStatusCode {
+  """
+  Deletion job was successful started.
+  """
+  SUCCESS
+
+  """
+  User does not have permission to delete videos.
+  """
+  FORBIDDEN
+
+  """
+  Internal error.
+  """
+  INTERNAL_ERROR
+
+  """
+  Invalid Argument.
+  """
+  INVALID_ARGUMENT
+
+  """
+  Unknown Error.
+  """
+  UNKNOWN
+}
+
+"""
+The errors returned from this mutation.
+"""
+enum DeleteChannelBlockedTermErrorCode {
+  """
+  User does not have permission to delete blocked term in channel.
+  """
+  NO_PERMISSIONS
+}
+
+"""
+The possible error types returned from this mutation.
+"""
+enum DeleteChannelPermittedTermErrorCode {
+  """
+  User does not have permission to delete Permitted term in channel.
+  """
+  NO_PERMISSIONS
+}
+
+"""
+The response codes for this mutation.
+"""
+enum DeleteChatMessageStatusCode {
+  """
+  Deletion was successful.
+  """
+  SUCCESS
+
+  """
+  Deletion was successful. Target user is staff.
+  """
+  SUCCESS_STAFF
+
+  """
+  User does not have permission to delete messages.
+  """
+  FORBIDDEN
+
+  """
+  Target is the broadcaster.
+  """
+  TARGET_IS_BROADCASTER
+
+  """
+  Target is another moderator.
+  """
+  TARGET_IS_MODERATOR
+}
+
+"""
+Possible error codes for DeleteCheermoteTierError.
+"""
+enum DeleteCheermoteTierErrorCode {
+  """
+  The user is not allowed to delete this cheermote tier.
+  """
+  PERMISSION_DENIED
+
+  """
+  Unknown error.
+  """
+  UNKNOWN
+}
+
+"""
+Delete community goal error code.
+"""
+enum DeleteCommunityPointsCommunityGoalErrorCode {
+  """
+  The goal was not found.
+  """
+  NOT_FOUND
+
+  """
+  The current user is not allowed to delete community goals for this channel.
+  """
+  FORBIDDEN
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+The possible reasons deleting a custom Community Points reward in a channel could fail.
+"""
+enum DeleteCommunityPointsCustomRewardErrorCode {
+  """
+  An unexpected error occurred.
+  """
+  UNKNOWN
+
+  """
+  The current user is not allowed to delete a reward in this channel.
+  """
+  FORBIDDEN
+
+  """
+  The reward was not found.
+  """
+  NOT_FOUND
+}
+
+"""
+DeletedMessageDisplaySetting represents the possible settings for how deleted messages should be displayed.
+"""
+enum DeletedMessageDisplaySetting {
+  """
+  LEGACY hides deleted messages behind a clickable '<message_deleted>' chat line.
+  """
+  LEGACY
+
+  """
+  BRIEF removes all deleted messages and inserts a system message that reports the number of deleted messages.
+  """
+  BRIEF
+
+  """
+  DETAILED the deleted message is readable but strikethrough and grayed out.
+  """
+  DETAILED
+}
+
+"""
+Possible error codes for DeleteEmoteError.
+"""
+enum DeleteEmoteErrorCode {
+  """
+  The specified emote does not exist.
+  """
+  EMOTE_NOT_FOUND
+
+  """
+  The user is not allowed to delete this emote.
+  """
+  PERMISSION_DENIED
+
+  """
+  Unknown error.
+  """
+  UNKNOWN
+}
+
+"""
+Error types returned for the deleteExtension mutation.
+"""
+enum DeleteExtensionError {
+  """
+  Returned when the extension id was not specified.
+  """
+  MISSING_EXTENSION_ID
+
+  """
+  Returned when the id specified could not be found.
+  """
+  EXTENSION_NOT_FOUND
+
+  """
+  Returned when the calling user does not have access to delete the extension.
+  """
+  UNAUTHORIZED
+}
+
+"""
+DeleteExtensionImageError is an error associated with the deleteExtensionImage mutation.
+"""
+enum DeleteExtensionImageError {
+  """
+  User is unable to make modifications to the extension.
+  """
+  UNAUTHORIZED
+
+  """
+  Version specified is invalid.
+  """
+  INVALID_VERSION
+
+  """
+  Cannot find url in the manifest.
+  """
+  CANNOT_FIND_URL_IN_MANIFEST
+
+  """
+  Invalid image url.
+  """
+  INVALID_IMAGE_URL
+}
+
+"""
+DeleteExtensionImageError is an error associated with the deleteExtensionSecrets mutation.
+"""
+enum DeleteExtensionSecretsError {
+  """
+  User is unable to delete the extension secrets.
+  """
+  UNAUTHORIZED
+}
+
+"""
+The possible errors when deleting a schedule.
+"""
+enum DeleteScheduleError {
+  """
+  Not authorized to delete this user schedule.
+  """
+  PERMISSION_DENIED
+}
+
+"""
+The possible errors when deleting a schedule segment.
+"""
+enum DeleteScheduleSegmentError {
+  """
+  Not authorized to delete this segment.
+  """
+  PERMISSION_DENIED
+}
+
+"""
+Possible errors that this mutation returns.
+"""
+enum DeleteSquadStreamInvitationErrorCode {
+  """
+  Invitation to be deleted does not exist.
+  """
+  INVITATION_NOT_FOUND
+
+  """
+  Squad associated with the invitation does not exist.
+  """
+  SQUAD_NOT_FOUND
+
+  """
+  User does not have permissions to delete invitation.
+  """
+  UNAUTHORIZED
+
+  """
+  Invitation not in pending or rejected state cannot be deleted.
+  """
+  INVITATION_CANNOT_BE_DELETED
+}
+
+"""
+DeleteStreamAuthorizedUserErrorCode is the client error type that occurred during the DeleteStreamAuthorizedUser mutation.
+"""
+enum DeleteStreamAuthorizedUserErrorCode {
+  """
+  Unable to assign the Targeted user to stream on behalf of the broadcaster.
+  """
+  TARGET_USER_UNRETURNABLE
+
+  """
+  The broadcaster is not found.
+  """
+  CHANNEL_NOT_FOUND
+
+  """
+  Maximum limit for adding authorized user is reached.
+  """
+  MAX_ACCOUNT_LIMIT
+
+  """
+  Permission denied to add an authorized user.
+  """
+  PERMISSION_DENIED
+
+  """
+  Invalid argument to add an authorized user.
+  """
+  INVALID_ARGUMENT
+}
+
+"""
+The set of types of directory.
+"""
+enum DirectoryType {
+  """
+  A game.
+  """
+  GAME
+}
+
+"""
+The possible error enums returned while trying to disable two factor authentication.
+"""
+enum DisableTwoFactorErrorCode {
+  """
+  The user needs to re-authenticate to perform this operation.
+  """
+  REAUTH_NEEDED
+
+  """
+  Something unexpected occured.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+DisableUserAccountErrorCode is an error while deleting a user.
+"""
+enum DisableUserAccountErrorCode {
+  """
+  User ID is invalid.
+  """
+  INVALID_USER_ID
+
+  """
+  Requester is not authorized to make the requested change.
+  """
+  UNAUTHORIZED
+}
+
+"""
+DEPRECATED: to be replaced by SubscriptionPromotionDiscountType.
+Valid discount types for subscription products.
+"""
+enum DiscountType {
+  """
+  Percent discount type, eg. "50%".
+  """
+  PERCENT_OFF
+}
+
+enum DismissRitualTokenErrorCode {
+  """
+  Token is not in a status that can be dismissed.
+  """
+  TOKEN_NOT_AVAILABLE
+
+  """
+  Token does not exist.
+  """
+  TOKEN_NOT_FOUND
+}
+
+"""
+A list of all supported Action types. //To be deprecated.
+"""
+enum DropActionType {
+  """
+  Returned in case the action type cannot be identified.
+  """
+  UNKNOWN_ACTION_TYPE @deprecated
+
+  """
+  Returned in case the action starts a user claim flow.
+  """
+  USER_CLAIM_FLOW @deprecated
+}
+
+"""
+Possible status of a drops campaign.
+"""
+enum DropCampaignStatus {
+  """
+  Drop campaign is currently active.
+  """
+  ACTIVE
+
+  """
+  The drop campaign is past its end date.
+  """
+  EXPIRED
+
+  """
+  The drop campaign is currently in testing mode.
+  """
+  TEST
+
+  """
+  The drop campaign is live but not yet past the start date.
+  """
+  UPCOMING
+
+  """
+  The drop campaign has been turned off.
+  """
+  DISABLED
+}
+
+"""
+The operator used to compare the in-game event.
+"""
+enum DropEventConditionOperator {
+  """
+  An unknown operator, only possible before the drop condition has been set.
+  """
+  UNKNOWN
+
+  """
+  Less than.
+  """
+  SMALLER
+
+  """
+  Less than or equal.
+  """
+  SMALLER_EQUAL
+
+  """
+  Equal.
+  """
+  EQUAL
+
+  """
+  Greater than.
+  """
+  GREATER
+
+  """
+  Greater than or equal.
+  """
+  GREATER_EQUAL
+}
+
+"""
+DropImageType is the list of possible uses that an image can have for drops.
+"""
+enum DropImageType {
+  """
+  Image for telling viewers that drops are available if they link accounts.
+  """
+  LINK_NOTIFICATION
+
+  """
+  Image for showing a viewer what item a developer awarded as a drop.
+  """
+  ITEM
+}
+
+"""
+Status enums for a drop instance.
+"""
+enum DropInstanceEligibilityStatus {
+  """
+  User can claim all rewards.
+  """
+  ELIGIBLE_FOR_ALL
+
+  """
+  User can claim some rewards.
+  """
+  LIMITED
+
+  """
+  User can not claim any of the rewards in this drop instance.
+  """
+  ENTITLEMENT_LIMIT_REACHED
+
+  """
+  User has already claimed this drop instance.
+  """
+  DROP_INSTANCE_ALREADY_CLAIMED
+
+  """
+  The claim duration has expired and user can no longer claim this drop instance.
+  """
+  EXPIRED
+
+  """
+  Unknown is returned if a status is returned from the backend that was not expected.
+  """
+  UNKNOWN
+}
+
+"""
+Availability enum for Drop Rewards.
+"""
+enum DropRewardAvailability {
+  """
+  User can claim this item.
+  """
+  AVAILABLE
+
+  """
+  User has claimed this item already the maximum number of times.
+  """
+  LIMIT_REACHED
+
+  """
+  Unknown is returned when an unexpected status is received from the backend.
+  """
+  UNKNOWN
+}
+
+"""
+The type of drop rule you're creating. Event vs Minutes Watched.
+"""
+enum DropRuleType {
+  """
+  A drop that is triggered by an in-game event.
+  """
+  EVENT_BASED
+
+  """
+  A drop that is granted based on the user's minutes-watched of the drop's game.
+  """
+  TIME_BASED
+
+  """
+  A drop that is triggered by an manual triggered event.
+  """
+  MANUAL_TRIGGER_BASED
+}
+
+"""
+Enum for Drops2 errors.
+"""
+enum DropsErrorCode {
+  """
+  The error code is unknown.
+  """
+  UNKNOWN
+
+  """
+  The user is either not authenticated or not authorized to perform the request.
+  """
+  UNAUTHORIZED
+
+  """
+  A request field either was not present or did not meet validation requirements.
+  """
+  INVALID_ARGUMENT
+
+  """
+  The drops2 object is not in the right state to perform this operation.
+  """
+  FAILED_PRECONDITION
+
+  """
+  The object you wish to query / modify is not found.
+  """
+  NOT_FOUND
+
+  """
+  The object you're trying to create, already exists.
+  """
+  ALREADY_EXISTS
+}

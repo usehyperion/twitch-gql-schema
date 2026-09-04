@@ -1,0 +1,216 @@
+"""
+Input for creating a batch download URL for key codes.
+"""
+input MakeKeyBatchDownloadURLInput {
+  """
+  The ID of the batch to download.
+  """
+  batchID: String!
+}
+
+"""
+Input for making a Prediction.
+"""
+input MakePredictionInput {
+  """
+  The unique identifier of the Prediction Event to make the prediction on.
+  """
+  eventID: ID!
+
+  """
+  The unique identifier of the Prediction Outcome to make the prediction on.
+  """
+  outcomeID: ID!
+
+  """
+  The number of points to spend on this Prediction.
+  """
+  points: Int!
+
+  """
+  Client-set identifier for the transaction. This ID should be universally unique.
+  """
+  transactionID: ID!
+}
+
+"""
+ManuallyTriggerDrop has fields required to update a campaign summary.
+"""
+input ManuallyTriggerDropInput {
+  """
+  The id of the campaign that includes the drop to trigger.
+  """
+  campaignID: ID!
+
+  """
+  The id of the drop to trigger.
+  """
+  dropID: ID!
+
+  """
+  This is the Organization ID (RBAC) to determine access / ownership of the campaign and attached drops.
+  """
+  ownerID: ID!
+}
+
+"""
+Input for readAllCreatorNotifications mutation.
+"""
+input MarkAllCreatorNotificationsAsReadInput {
+  """
+  The ID of the user performing the reading.
+  """
+  userID: ID!
+}
+
+"""
+Input for readAllViewerNotifications mutation.
+"""
+input MarkAllViewerNotificationsAsReadInput {
+  """
+  The ID of the user performing the reading.
+  """
+  userID: ID!
+}
+
+"""
+MobileAdIdentityInput contains mobile device information.
+"""
+input MobileAdIdentityInput {
+  """
+  deviceInfo is a MobileAdDeviceInfo contains a certain number of attributes required by TIFA.
+  """
+  deviceInfo: MobileDeviceInfo!
+
+  """
+  lmt is limit ad tracking signal read from mobile device.
+  """
+  lmt: Boolean!
+
+  """
+  mAID is the mobile ad identifier.
+  """
+  mAID: ID!
+
+  """
+  platform is an enum that describes the device platform.
+  """
+  platform: AdPlatform!
+
+  """
+  userAgent is a string sent by mobile clients.
+  """
+  userAgent: String!
+}
+
+"""
+MobileDeviceInfo contains attributes required by TIFA.
+"""
+input MobileDeviceInfo {
+  """
+  Hardware brand name, ex. samsung.
+  """
+  make: String!
+
+  """
+  Hardware model, ex: "Galaxy S10".
+  """
+  model: String!
+
+  """
+  Hardware os: ex. "Android".
+  """
+  os: String!
+
+  """
+  Os version number.
+  """
+  osVersion: String!
+}
+
+"""
+MobileViewInput holds the view configuration of an extension if mobile is supported.
+"""
+input MobileViewInput {
+  """
+  Relative path of the HTML file to load for this view.
+  """
+  viewerPath: String!
+}
+
+"""
+ModUserInput contains the parameters to add a user as a moderator to a channel.
+"""
+input ModUserInput {
+  """
+  The channel that the user will be added as a moderator to.
+  """
+  channelID: ID!
+
+  """
+  The ID of the user that will be added as a moderator.
+  Either targetID or targetLogin must be provided.
+  """
+  targetID: ID
+
+  """
+  The login of the user that will be added as a moderator.
+  Either targetID or targetLogin must be provided.
+  """
+  targetLogin: String
+}
+
+"""
+Contains all information to create a new content attribute.
+"""
+input MultiviewContentAttributeParams {
+  """
+  Optional list of child content attribute ids.
+  """
+  childIDs: [ID!]
+
+  """
+  Unique identifier.
+  """
+  id: ID
+
+  """
+  Optional an URL to the icon of this content attribute.
+  """
+  imageURL: String
+
+  """
+  Indicates the type of the attribute.
+  """
+  key: String!
+
+  """
+  Human-readable name of the attribute.
+  """
+  name: String!
+
+  """
+  The channel that the content attribute is created under.
+  """
+  ownerChannelID: ID
+
+  """
+  Optional pointer to a parent content attribute instance.
+  """
+  parentID: ID
+
+  """
+  Optional pointer to a parent content attribute key.
+  """
+  parentKey: String
+
+  """
+  value of the attribute.
+  """
+  value: String!
+
+  """
+  Optional abbreviation of value.
+  """
+  valueShortName: String
+}

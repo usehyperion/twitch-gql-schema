@@ -1,0 +1,1958 @@
+"""
+Paginated list of channels a user is an editor for.
+"""
+type EditableChannelConnection {
+  """
+  The elements of the list.
+  """
+  edges: [EditableChannelEdge!]!
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+Points to a editable channel with the editor.
+"""
+type EditableChannelEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  The user whose channel has the editor.
+  """
+  node: User
+}
+
+"""
+Paginated list of editors of a channel.
+"""
+type EditorConnection {
+  """
+  The elements of the list.
+  """
+  edges: [EditorEdge!]!
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+Points to a user with the editor status, with metadata regarding the relationship.
+"""
+type EditorEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  Timestamp of when the editor status was granted.
+  """
+  grantedAt: Time!
+
+  """
+  The user who has the editor status.
+  """
+  node: User
+}
+
+type EditRoomMessagePayload {
+  message: RoomMessage
+}
+
+"""
+The list of payment methods that are supported for web checkout for a user.
+"""
+type EligiblePaymentMethod {
+  """
+  Availability status of the underlying payment gateway.
+  """
+  availabilityStatus: PaymentMethodAvailabilityStatus!
+
+  """
+  Name of the payment method.
+  """
+  name: EligiblePaymentMethodName!
+}
+
+"""
+EmbeddedEmote is an encoding format used to describe an emote embedded in a string of text.
+
+Example:
+  body = "hey KappaHD"
+  from = 4
+  to = 10
+
+  "KappaHD" will be replaced with the KappaHD emote image.
+"""
+type EmbeddedEmote {
+  """
+  The emote's identifier, for example "115847" -> KappaHD.
+  """
+  emoteID: ID
+
+  """
+  from is the index of the string where replacement starts.
+  """
+  from: Int
+  id: ID
+
+  """
+  setID is the identifier of the set this emote is in.
+  """
+  setID: ID
+
+  """
+  to is the index of the string where replacement ends.
+  """
+  to: Int
+}
+
+"""
+EmitCampaignDiscoveryEventPayload is the success response for emitting a campaign discovery event.
+"""
+type EmitCampaignDiscoveryEventPayload {
+  """
+  Whether the call succeeded or not.
+  """
+  isSuccess: Boolean!
+}
+
+type Emote {
+  """
+  The type of image asset of the emote (static, animated, etc.).
+  """
+  assetType: EmoteAssetType
+
+  """
+  The Bits Badge Tier metadata associated with this Bits Badge Tier Emote. Nil for other emote types.
+  """
+  bitsBadgeTierSummary: EmoteBitsBadgeTierSummary
+
+  """
+  The timestamp at which this emote was created.
+  """
+  createdAt: Time
+
+  """
+  The emote's identifier.
+  For example, "115847".
+  """
+  id: ID
+
+  """
+  The list of modifiers a user is entitled to use for an emote.
+  """
+  modifiers: [EmoteModifier!]
+
+  """
+  A priority order for displaying this emote among others in the same group.
+  """
+  order: Int
+
+  """
+  The user who owns the subscription product that this emote belongs to.
+  """
+  owner: User
+
+  """
+  Identifies which set this emote belongs to.
+  """
+  setID: ID
+
+  """
+  The state of an emote. Can be either active or pending.
+  """
+  state: EmoteState!
+
+  """
+  The subscription product this emote belongs to. Nil for globals.
+  """
+  subscriptionProduct: SubscriptionProduct
+
+  """
+  The subscription info for this emote (if the emote is obtainable via subscription).
+  """
+  subscriptionSummaries: [SubscriptionSummary!]
+
+  """
+  This is very sparsely populated at present (only when subscription summaries are populated).
+  This is subscription tier that is associated with this emote (if one exists)
+  and if the emote and subscription shares an owner.
+  """
+  subscriptionTier: SubscriptionSummaryTier
+
+  """
+  For subscription and bits badge tier emotes, this is the user generated suffix.
+  For example, for "lirikLUL" suffix would be "LUL".
+  """
+  suffix: String
+
+  """
+  The visual representation of the emote.
+  For example, "O_o" instead of "(O|o)_(o|O)".
+  """
+  text: String
+
+  """
+  The text token of the emote.
+  For example, "KappaHD".
+  """
+  token: String
+
+  """
+  The type of emote that this is.
+  For example, a global emote, a turbo emote, a prime emote, a sub emote, etc.
+  """
+  type: EmoteType
+}
+
+"""
+Bits Badges Tier metadata for emotes.
+"""
+type EmoteBitsBadgeTierSummary {
+  """
+  The Bits Badge Tier Summary data that is user-dependent.
+  """
+  self: EmoteBitsBadgeTierSummarySelfEdge
+
+  """
+  The amount of bits any user must cheer to achieve this tier.
+  """
+  threshold: Int!
+}
+
+"""
+The Bits Badge Tier Summary data that is user-dependent.
+"""
+type EmoteBitsBadgeTierSummarySelfEdge {
+  """
+  Is true if the user has unlocked this emote.
+  """
+  isUnlocked: Boolean!
+
+  """
+  The number of bits that this user must use in order to unlock this emote. 0 if already unlocked.
+  """
+  numberOfBitsUntilUnlock: Int!
+}
+
+"""
+Represents the data needed to continue the upload of an emoticon image asset.
+"""
+type EmoteImageUploadConfiguration {
+  """
+  The id used by upload service to publish updates via pubsub about the uploaded image.
+  """
+  uploadID: ID
+
+  """
+  The url in s3 for where the front-end should post the image asset.
+  """
+  uploadURL: String
+}
+
+"""
+The name of an emote modifier and it's abbreviated code.
+"""
+type EmoteModifier {
+  """
+  The code to use the emote modifier in chat.
+  """
+  code: String!
+
+  """
+  The name of the emote modifier.
+  """
+  name: PermanentEmoteModifier!
+
+  """
+  Subscription tier associated with modifier (if known and applicable).
+  """
+  subscriptionTier: SubscriptionSummaryTier
+}
+
+"""
+A set of modifiers that have been set on a tier of emotes for a creator.
+"""
+type EmoteModifierGroupPayload {
+  """
+  The modifiers that were set.
+  """
+  modifiers: [PermanentEmoteModifier!]
+
+  """
+  The product the modifiers were set for.
+  """
+  product: SubscriptionProduct
+}
+
+"""
+Represents a group of emotes.
+"""
+type EmoteSet {
+  """
+  The list of emotes which belong to this set.
+  """
+  emotes: [Emote]
+
+  """
+  The emote set's identifier.
+  """
+  id: ID
+
+  """
+  The channel associated with the emote set. Nil for emote sets not associated
+  with an owner (prime, fuel, rewards, etc.).
+  """
+  owner: User
+
+  """
+  The asset type of the emotes within the emote group.
+  """
+  assetType: EmoteGroupAssetType
+}
+
+"""
+Represents an emote that is currently in the process of being uploaded.
+"""
+type EmoteUploadConfiguration {
+  """
+  The relevant metadata for the 1X image asset.
+  """
+  imageUploadConfig1X: EmoteImageUploadConfiguration
+
+  """
+  The relevant metadata for the 2X image asset.
+  """
+  imageUploadConfig2X: EmoteImageUploadConfiguration
+
+  """
+  The relevant metadata for the 4X image asset.
+  """
+  imageUploadConfig4X: EmoteImageUploadConfiguration
+}
+
+"""
+Channels have emoticon prefixes.
+"""
+type EmoticonPrefix {
+  """
+  If the prefix can be edited or not.
+  """
+  isEditable: Boolean!
+
+  """
+  Name of the prefix.
+  """
+  name: String!
+
+  """
+  If the prefix has been approved or not.
+  """
+  state: EmoticonPrefixState!
+}
+
+"""
+Paginated list of endorsed channels using the Relay cursor specification.
+"""
+type EndorsedChannelConnection {
+  """
+  The endorsed channels.
+  """
+  edges: [EndorsedChannelEdge!]
+
+  """
+  Pagination information for this connection.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+Element in a list of endorsed channels.
+"""
+type EndorsedChannelEdge {
+  """
+  Cursor identifying the position of this edge for future queries.
+  """
+  cursor: Cursor!
+
+  """
+  The information about the endorsed channel.
+  """
+  node: Channel!
+
+  """
+  Unique id per channel item, used by the client to attribute display/clicks of items.
+  """
+  trackingID: ID!
+}
+
+"""
+The result of a EndUseBitsInExtension mutation.
+"""
+type EndUseBitsInExtensionPayload {
+  """
+  The user's new bits balance.
+  """
+  balance: Int
+}
+
+"""
+EnhancedExperiencesClient is an OAuth app that is authorized to use
+the Enhanced Experiences (E2) API for game integrations.
+"""
+type EnhancedExperiencesClient {
+  """
+  The client ID of the OAuth app.
+  """
+  id: ID!
+
+  """
+  The name of the client.
+  """
+  name: String!
+
+  """
+  The timestamp when the the client was onboarded to the Enhanced Experiences (E2) API.
+  """
+  onboardedAt: Time
+}
+
+"""
+Episode metadata.
+"""
+type EpisodeDetails {
+  """
+  Total length of the content.
+  """
+  durationSeconds: Int
+
+  """
+  The episode number.
+  """
+  episode: Int
+
+  """
+  The season number.
+  """
+  season: Int
+
+  """
+  The name of the series.
+  """
+  series: String
+}
+
+"""
+EquipHeroAssetsError contains details about an error that occured when equipping assets.
+"""
+type EquipHeroAssetsError {
+  """
+  The type of error that occured when equipping hero assets.
+  """
+  code: EquipHeroAssetsErrorCode!
+}
+
+"""
+EquipHeroAssetsPayload is the response after equipping the assets on the hero.
+"""
+type EquipHeroAssetsPayload {
+  """
+  The error that occured.
+  Null if the operation was successful.
+  """
+  error: EquipHeroAssetsError
+
+  """
+  The hero after equipping - null if error.
+  """
+  hero: Hero
+}
+
+"""
+Drop triggered by an in-game event.
+"""
+type EventBasedDrop implements DropType {
+  """
+  The rewards for this drop and how often those rewards can be awarded.
+  """
+  benefitEdges: [DropBenefitEdge!]
+
+  """
+  The campaign this drop belongs to.
+  """
+  campaign: DropCampaign!
+
+  """
+  Amount of time the viewer has to claim the drop after the rule is completed.
+  """
+  claimDurationSeconds: Int!
+
+  """
+  The event conditions which must be met for this drop to be earned.
+  """
+  conditions: [DropEventCondition!]!
+
+  """
+  The time this drop becomes unavailable.
+  """
+  endAt: Time!
+
+  """
+  A unique identifier.
+  """
+  id: ID!
+
+  """
+  Describes how the event will be accomplished.
+  """
+  missionDescription: String!
+
+  """
+  Name of the mission a streamer has to achieve.
+  """
+  missionName: String!
+
+  """
+  The name of this drop.
+  """
+  name: String!
+
+  """
+  The time this drop becomes available.
+  """
+  startAt: Time!
+}
+
+"""
+Settings for a given event.
+"""
+type EventNotificationSetting {
+  """
+  The setting category.
+  """
+  category: String!
+
+  """
+  Settings for individual platforms.
+  """
+  platforms: [PlatformEventSetting!]!
+}
+
+"""
+Experimental properties that should NOT be used outside of experiments.
+When your property is no longer in use, please mark as deprecated and then formally delete it.
+"""
+type Experiment {
+  """
+  The selected promoted Stream for placement experiments.
+  """
+  promotedStream(promoLocation: Int!): Stream
+}
+
+"""
+Data about an inactive subscription to a broadcaster.
+"""
+type ExpiredSubscription {
+  """
+  The channel that the expired subscription belongs to.
+  """
+  channelOwner: User
+
+  """
+  The unique identifier.
+  """
+  id: ID!
+
+  """
+  Resolves the product that the expired subscription is to.
+  """
+  product: SubscriptionProduct
+
+  """
+  The total tenure of a user to a broadcaster.
+  """
+  tenure: SubscriptionTenure!
+}
+
+"""
+A paginated list of expired subscriptions.
+"""
+type ExpiredSubscriptionConnection {
+  """
+  The list of expired subscriptions.
+  """
+  edges: [ExpiredSubscriptionEdge!]
+
+  """
+  Information about this page of expired subs.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An element in a paginated list of expired subscriptions.
+"""
+type ExpiredSubscriptionEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  The element node.
+  """
+  node: ExpiredSubscription
+}
+
+"""
+Response to a request to export a video to Youtube.
+"""
+type ExportVideoToYoutubePayload {
+  """
+  Video representing the exported video.
+  """
+  video: Video
+}
+
+"""
+Twitch Extension.
+"""
+type Extension {
+  """
+  The anchor point the extension expects to render into on the client.
+  """
+  anchor: ExtensionAnchor!
+
+  """
+  A list of assets which the extension must have uploaded to the Twitch Extensions CDN.
+  """
+  assetURLs: [String!]!
+
+  """
+  The author of the extension as specified by the developer's extension manifest.
+  """
+  authorName: String!
+
+  """
+  The bits support level required by the broadcaster for the extension to operate.
+  """
+  bitsSupportLevel: ExtensionBitsSupportLevel!
+
+  """
+  The list of categories that the developer has set for the extension.
+  """
+  categories: [ExtensionCategory!]!
+
+  """
+  A single challenge condition associated with the specified extension.
+  """
+  challengeCondition(input: ExtensionChallengeConditionByIDInput!): ChallengeCondition
+
+  """
+  The list of challenge condition participants that are associated with this
+  extension for a particular condition participant owner and condition owner.
+  """
+  challengeConditionParticipants(
+    first: Int = 100
+    after: Cursor
+    input: ExtensionChallengeConditionParticipantsInput!
+  ): ExtensionChallengeConditionParticipantConnection
+
+  """
+  The list of challenge conditions that are associated with this extension.
+  """
+  challengeConditions(
+    first: Int = 100
+    after: Cursor
+    input: ExtensionChallengeConditionsInput!
+  ): ExtensionChallengeConditionConnection
+
+  """
+  The client ID of the extension. Also used as the non-composite, non-unique ID of an extension internally.
+  """
+  clientID: ID!
+
+  """
+  The URL which is used to preset the configuration experience of the extension.
+  """
+  configURL: String!
+    @deprecated(
+      reason: "configURL should be captured from the config ExtensionView: Extension.views.config.viewerURL"
+    )
+
+  """
+  The list of games that an extension is content-matched to. This list is managed internally by Twitch.
+  """
+  contentMatchedGames: [Game!]
+
+  """
+  The description of the extension specified by the developer's extension manifest
+  (max-length: 1024 characters).
+  """
+  description: String!
+
+  """
+  The list of games that an extension is associated to. This list is managed by the extension developer.
+  """
+  games: [Game!]
+
+  """
+  Whether the extension developer has turned on chat support for this extension.
+  """
+  hasChatSupport: Boolean!
+
+  """
+  Represents whether or not the developer of the extension would like to provide users with
+  the ability to link their identity with the extension.
+  """
+  hasIdentityLinking: Boolean!
+
+  """
+  The extension icon URLs used to visually represent the extension.
+  """
+  iconURLs: ExtensionIcons!
+
+  """
+  The extension ID which is a composite form of <clientID>:<version>.
+  """
+  id: ID!
+
+  """
+  Represents whether or not the extension supports bits monetization.
+  """
+  isBitsEnabled: Boolean!
+
+  """
+  The URL which is used to preset the live-dashboard experience of the extension.
+  """
+  liveConfigURL: String!
+    @deprecated(
+      reason: "liveConfigURL should be captured from the liveConfig ExtensionView: Extension.views.liveConfig.viewerURL"
+    )
+
+  """
+  The name of the extension specified by the developer's extension manifest
+  (max-length: 40 characters).
+  """
+  name: String!
+
+  """
+  The panel height specified by the developer's extension manifest -or- 300.
+  """
+  panelHeight: Int!
+    @deprecated(
+      reason: "panelHeight should be captured from the panel ExtensionView: Extension.views.panel.height"
+    )
+
+  """
+  The link to the extension's privacy policy as specified by the developer's extension manifest.
+  """
+  privacyPolicyURL: String!
+
+  """
+  Screenshots of the URL used to showcase the extension on extension details pages.
+  """
+  screenshotURLs: [String!]!
+
+  """
+  Represents whether the requesting user is able to install the extension.
+  """
+  self: ExtensionSelfConnection
+
+  """
+  The sku of the extension for monetizable extensions.
+  """
+  sku: String!
+
+  """
+  The current state of the extension in our approval process.
+  """
+  state: ExtensionState!
+
+  """
+  The subscription support level required by the broadcaster for the extension to operate.
+  """
+  subscriptionsSupportLevel: ExtensionSubscriptionsSupportLevel!
+
+  """
+  The summary of the extension specified by the developer's extension manifest
+  (max-length: 140 characters).
+  """
+  summary: String!
+
+  """
+  The support contact email as specified by the developer's extension manifest.
+  """
+  supportEmail: String!
+
+  """
+  End-user license agreement terms of service URL.
+  """
+  termsURL: String!
+
+  """
+  The vendor code of the extension for monetizable extensions.
+  """
+  vendorCode: String!
+
+  """
+  The current version of the extension specified by the developer's extension manifest.
+  """
+  version: String!
+
+  """
+  The URL which is used to preset the viewer experience of the extension.
+  """
+  viewerURL: String!
+    @deprecated(
+      reason: "viewerURL should be captured from the ExtensionView corresponding with the Extension's specified anchor"
+    )
+
+  """
+  The UI configurations of each supported view of the extension.
+  """
+  views: ExtensionViews!
+
+  """
+  The list of URLs an extension can link to while loaded in the configuration experience.
+  """
+  whitelistedConfigURLs: [String!]!
+
+  """
+  The list of URLs a panel extension can link to while loaded in the viewer experience.
+  """
+  whitelistedPanelURLs: [String!]!
+}
+
+"""
+The current activation configuration for an installed extension.
+"""
+type ExtensionActivationConfig {
+  """
+  The anchor that the installation has been activated into. If not activated into a slot,
+  the value will be null.
+  """
+  anchor: ExtensionAnchor
+
+  """
+  The slot that the installation has been activated into. If not activated into a slot,
+  the value will be null.
+  """
+  slot: String
+
+  """
+  The activation state of the extension installation.
+  """
+  state: ActivationState!
+
+  """
+  The horizontal positioning of the left side of the component extension from the left side
+  of the visible video space as a fixed-point percentage (ie: 5742 would represent 57.42 percent).
+  """
+  x: Int
+
+  """
+  The vertical positioning of the top side of the component extension from the top side
+  of the visible video space as a fixed-point percentage (ie: 5742 would represent 57.42 percent).
+  """
+  y: Int
+}
+
+"""
+ExtensionAssetManifest is data related to the assets of an extension.
+"""
+type ExtensionAssetManifest {
+  """
+  Hash of the asset zip file.
+  """
+  assetHash: String!
+
+  """
+  Base URI used for extensions out of local test.
+  """
+  baseURI: String
+
+  """
+  The name of the file that was uploaded.
+  """
+  fileName: String
+
+  """
+  The size of the file that was uploaded.
+  """
+  fileSize: String
+
+  """
+  The time that the assets were uploaded.
+  """
+  uploadedAt: Time
+
+  """
+  The user that uploaded the assets.
+  """
+  uploader: User
+}
+
+"""
+ExtensionCapabilities contains data about what an Extension can do, in general, and at the time of interaction.
+"""
+type ExtensionCapabilities {
+  """
+  The bit support level required by the broadcaster for the extension to operate. Defaults to "NONE".
+  """
+  bitsSupportLevel: ExtensionBitsSupportLevel!
+
+  """
+  Location of configuration.
+  """
+  configurationLocation: ExtensionConfigurationLocation!
+
+  """
+  Does this extension use bits.
+  """
+  hasBitsSupport: Boolean!
+
+  """
+  Does this extension support chat.
+  """
+  hasChatSupport: Boolean!
+
+  """
+  Required configuration string.
+  """
+  requiredConfiguration: String!
+
+  """
+  The subscription support level required by the broadcaster for the extension to operate. Defaults to "NONE".
+  """
+  subscriptionsSupportLevel: ExtensionSubscriptionsSupportLevel!
+
+  """
+  Whitelists for restricting extension access and behavior.
+  """
+  whitelists: ExtensionWhitelists
+
+  """
+  Will this extension request an identity link.
+  """
+  willRequestIdentityLink: Boolean!
+}
+
+"""
+An extension carousel.
+"""
+type ExtensionCarousel {
+  """
+  List of entries associated with the carousel.
+  """
+  entries: [ExtensionCarouselEntry!]!
+
+  """
+  Unique ID of the carousel.
+  """
+  id: ID!
+}
+
+"""
+An extension carousel entry.
+"""
+type ExtensionCarouselEntry {
+  """
+  URL the user is directed to when clicking the carousel entry.
+  """
+  clickThroughURL: String!
+
+  """
+  Unique ID of the entry.
+  """
+  id: ID!
+
+  """
+  URL of the image to display for the carousel entry.
+  """
+  imageURL: String!
+
+  """
+  Text associated with the carousel entry.
+  """
+  title: String!
+}
+
+"""
+An extension category.
+"""
+type ExtensionCategory {
+  """
+  Description for what kind of extensions this category represents.
+  """
+  description: String!
+
+  """
+  The paginated list of extensions in the category.
+  """
+  extensions(first: Int = 10, after: Cursor): ExtensionConnection
+
+  """
+  The category ID which is uniquely generated.
+  """
+  id: ID!
+
+  """
+  Boolean value representing whether a category has been deleted.
+  """
+  isDeleted: Boolean!
+
+  """
+  Denotes that no updates can be made to the category and no extensions can be added to it.
+  """
+  isReadOnly: Boolean!
+
+  """
+  Boolean value representing whether this category should be hidden from listings.
+  """
+  isVisible: Boolean!
+
+  """
+  Human readable name for the Category.
+  """
+  name: String!
+
+  """
+  Display order for this category. Categories are returned in ascending order.
+  """
+  order: Float!
+
+  """
+  The URL-safe slug for the category. This slug may be used as the identifier to retrieve
+  categories from the root Query.
+  """
+  slug: ID
+
+  """
+  Enumerated value specifying how this category's content should be ordered. Popularity, manual, etc.
+  """
+  sortKey: ExtensionCategorySortKey!
+
+  """
+  Category Type which can be curated or developer.
+  """
+  type: ExtensionCategoryType!
+}
+
+"""
+A paginated list of extension categories, and their metadata.
+"""
+type ExtensionCategoryConnection {
+  """
+  The list of extension categories in this page.
+  """
+  edges: [ExtensionCategoryEdge!]!
+
+  """
+  Information about this page of extension categories.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of extension categories.
+  """
+  totalCount: Int!
+}
+
+"""
+An element in a paginated list of extension categories and its metadata.
+"""
+type ExtensionCategoryEdge {
+  """
+  Cursor represents the position of the current edge/node.
+  """
+  cursor: Cursor!
+
+  """
+  Node represents the extension category for the current edge.
+  """
+  node: ExtensionCategory!
+}
+
+"""
+A paginated list of extension challenge conditions.
+"""
+type ExtensionChallengeConditionConnection {
+  """
+  The elements of the paginated list.
+  """
+  edges: [ExtensionChallengeConditionEdge!]!
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An element in a paginated list of extension challenge conditions.
+"""
+type ExtensionChallengeConditionEdge {
+  """
+  An opaque cursor identifying the edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  The element node.
+  """
+  node: ChallengeCondition!
+}
+
+"""
+A paginated list of extension challenge conditionParticipants.
+"""
+type ExtensionChallengeConditionParticipantConnection {
+  """
+  The elements of the paginated list.
+  """
+  edges: [ExtensionChallengeConditionParticipantEdge!]!
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An element in a paginated list of extension challenge conditionParticipants.
+"""
+type ExtensionChallengeConditionParticipantEdge {
+  """
+  An opaque cursor identifying the edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  The element node.
+  """
+  node: ChallengeConditionParticipant!
+}
+
+"""
+ExtensionClient is the authorization component of an extension.
+"""
+type ExtensionClient {
+  """
+  A organization member assigned as a billing manager for this extension. Null
+  when extension is not an organization or the extension is not monetized.
+  """
+  assignedBillingManager: OrganizationMember
+
+  """
+  CreatedAt is the timestamp at which this client was created.
+  """
+  createdAt: Time!
+
+  """
+  ID is the OAuth ID representing the extension.
+  """
+  id: ID!
+
+  """
+  Name is the name of the extension.
+  """
+  name: String!
+
+  """
+  Organization is the Organization entity of the extension, it means which organization the extension belongs to.
+  """
+  organization: Organization
+
+  """
+  RedirectURI is the URI used for client redirect on OAuth login.
+  """
+  redirectURI: String!
+}
+
+"""
+A paginated list of extension clients.
+"""
+type ExtensionClientConnection {
+  """
+  The list of extension clients in this page.
+  """
+  edges: [ExtensionClientEdge!]!
+
+  """
+  Information about this page of extension clients.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An element in a paginated list of extension clients.
+"""
+type ExtensionClientEdge {
+  """
+  Cursor represents the position of the current edge/node.
+  """
+  cursor: Cursor!
+
+  """
+  Node represents the extension client for the current edge.
+  """
+  node: ExtensionClient!
+}
+
+"""
+ExtensionComment contains the data for the comment of an extension review.
+"""
+type ExtensionComment {
+  """
+  The review comment text provided by the user.
+  """
+  content: String!
+
+  """
+  The ID of the recorded comment.
+  """
+  id: ID!
+}
+
+"""
+The hosted configuration for an extension that comes from config service.
+"""
+type ExtensionConfiguration {
+  """
+  The broadcaster-set, per-channel segment of the extension configuration.
+  """
+  broadcaster: ExtensionConfigurationRecord
+
+  """
+  The developer-set, per-channel segment of the extension configuration.
+  """
+  developer: ExtensionConfigurationRecord
+
+  """
+  The id of the extension that this configuration document belongs to.
+  """
+  extensionID: ID!
+
+  """
+  The developer-set segment of the extension configuration that affects all
+  installs of the extension.
+  """
+  global: ExtensionConfigurationRecord
+}
+
+"""
+A single segment from the extensions configuration service.
+"""
+type ExtensionConfigurationRecord {
+  """
+  The content of the configuration segment.
+  """
+  content: String!
+
+  """
+  The version of the configuration segment.
+  """
+  version: String!
+}
+
+"""
+A paginated list of extensions, and its metadata.
+"""
+type ExtensionConnection {
+  """
+  The list of extensions in this page.
+  """
+  edges: [ExtensionEdge!]!
+
+  """
+  Information about this page of extensions.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of extensions in the larger collection.
+  """
+  totalCount: Int!
+}
+
+"""
+ExtensionDeveloperManifest is the developer specific extension data.
+"""
+type ExtensionDeveloperManifest {
+  """
+  Author email.
+  """
+  authorEmail: String!
+
+  """
+  Time when an extension was created.
+  """
+  createdAt: String!
+
+  """
+  Time when an extensions version was last transitioned.
+  """
+  lastTransitionedAt: Time
+
+  """
+  Testing uri for extension development.
+  """
+  testingBaseURI: String!
+
+  """
+  Current state of this version in the development timeline.
+  """
+  versionState: ExtensionState!
+}
+
+"""
+Extension metadata used for discovery.
+"""
+type ExtensionDiscoveryManifest {
+  """
+  Name of the extension author.
+  """
+  authorName: String!
+
+  """
+  Extension categories.
+  """
+  categories: [ExtensionCategory!]!
+
+  """
+  Games that an extension is content-matched to. This list is managed internally by Twitch.
+  """
+  contentMatchedGames: [Game!]
+
+  """
+  Extension descriprion. 1024 character limit.
+  """
+  description: String!
+
+  """
+  Games that an extension is associated to. This list is managed by the extension developer.
+  """
+  games: [Game!]!
+
+  """
+  Icon urls for extensions.
+  """
+  iconURLs: ExtensionIcons
+
+  """
+  name of the extension.
+  """
+  name: String!
+
+  """
+  Url to an extensions privacy policy.
+  """
+  privacyPolicyURL: String!
+
+  """
+  Extension screenshot urls.
+  """
+  screenshotURLs: [String!]!
+
+  """
+  Extension summary. 140 character limit.
+  """
+  summary: String!
+
+  """
+  Extension developers support email.
+  """
+  supportEmail: String!
+
+  """
+  Extension eula/tos url.
+  """
+  termsURL: String!
+
+  """
+  Extension viewer summary.
+  """
+  viewerSummary: String!
+}
+
+"""
+An element in a paginated extensions of videos, and its metadata.
+"""
+type ExtensionEdge {
+  """
+  Cursor represents the position of the current edge/node.
+  """
+  cursor: Cursor!
+
+  """
+  Node represents the extension for the current edge.
+  """
+  node: Extension!
+}
+
+"""
+The complete set of potential icons provided by a developer to represent their Extension on the site.
+"""
+type ExtensionIcons {
+  """
+  300x200 splash image used in extension discovery & management.
+  """
+  discoverySplash: String!
+
+  """
+  Square 100x100 icon used in extension discovery & management.
+  """
+  square100: String!
+
+  """
+  Square 24x24 icon used in video player taskbar.
+  """
+  square24: String!
+}
+
+"""
+Url and UploadId provided by Upload Service.
+"""
+type ExtensionImageUploadResponse {
+  """
+  Upload ID.
+  """
+  uploadID: ID!
+
+  """
+  Upload URL.
+  """
+  url: String!
+}
+
+"""
+Extension Installation are models which contain an Extension and it's associated installation metadata.
+"""
+type ExtensionInstallation {
+  """
+  The abilities this extension can use for the channel it is installed on.
+  """
+  abilities: ExtensionInstallationAbilities!
+
+  """
+  The current activation metadata for the extension.
+  """
+  activationConfig: ExtensionActivationConfig!
+
+  """
+  The extension which the installation record is for.
+  """
+  extension: Extension!
+
+  """
+  The the composite extension installation ID in the form of <clientID>:<version>:<channelID>.
+  """
+  id: ID!
+
+  """
+  The installer's decision whether to allow an extension to use a particular feature.
+  """
+  permittedFeatures: ExtensionInstallationFeatureFlags!
+
+  """
+  The required, if any, for the installed extension after an activation.
+  """
+  requiredActions: [ExtensionRequiredAction!]
+
+  """
+  The self connection of the extension installation.
+  """
+  self: ExtensionInstallationSelfConnection
+}
+
+"""
+The set of abilities an extension is authorized to use.
+"""
+type ExtensionInstallationAbilities {
+  """
+  Whether the extension can use bits in the current context.
+  """
+  isBitsEnabled: Boolean!
+
+  """
+  Whether the extension can send chat messages in the current context.
+  """
+  isChatEnabled: Boolean!
+
+  """
+  Whether the extension has access to subscription status in the current context.
+  """
+  isSubscriptionStatusAvailable: Boolean!
+}
+
+"""
+The dynamic management setting for a content-matched game on an extension installation.
+"""
+type ExtensionInstallationDynamicManagement {
+  """
+  The game that the setting is for.
+  """
+  game: Game
+
+  """
+  Whether or not dynamic management is turned on for this extensions.
+  """
+  isManaged: Boolean!
+}
+
+"""
+The set of extension features an installer can opt in or out of.
+"""
+type ExtensionInstallationFeatureFlags {
+  """
+  Whether the installer has granted the extension access to their subscriptions list.
+  """
+  canRetrieveSubscriptionStatus: Boolean!
+
+  """
+  Whether the installer has opted in or out of chat capabilities in extensions.
+  """
+  canSendChat: Boolean!
+
+  """
+  Whether the installer has opted in or out of bit capabilities in extensions.
+  """
+  canUseBits: Boolean!
+
+  """
+  The dynamic management settings for the extension installation.
+  """
+  dynamicManagement: [ExtensionInstallationDynamicManagement!]
+}
+
+"""
+The connection a user has to an Installed Extension.
+"""
+type ExtensionInstallationSelfConnection {
+  """
+  Represents whether the requesting user can activate the extension.
+  """
+  canActivate: Boolean!
+}
+
+"""
+The data that links the active user with a particular extension
+installation on a channel.
+"""
+type ExtensionInstallationSelfEdge {
+  """
+  The extension installation.
+  """
+  installation: ExtensionInstallation
+
+  """
+  Authentication information that links the active user and the installation.
+  """
+  token: ExtensionToken
+
+  """
+  Configurations set for this extension/user pair.
+  """
+  configuration: ExtensionConfiguration
+
+  """
+  The time this response was issuedAt, so the client can set a timer for when
+  the token needs to be refreshed.
+  """
+  issuedAt: Time
+}
+
+"""
+Extension Link User Error.
+"""
+type ExtensionLinkUserError {
+  """
+  The error code.
+  """
+  code: ExtensionLinkUserErrorCode
+}
+
+"""
+The result of a ExtensionLinkUser mutation.
+"""
+type ExtensionLinkUserPayload {
+  """
+  Error from an Extension Link User Call.
+  """
+  error: ExtensionLinkUserError
+
+  """
+  The user's new token reflecting their now linked/unlinked status.
+  """
+  token: ExtensionToken
+}
+
+"""
+ExtensionManifest is the data that represents an entire extension manfiest.
+"""
+type ExtensionManifest {
+  """
+  ExtensionAssetManifest is data related to the assets of an extension.
+  """
+  assetManifest: ExtensionAssetManifest!
+
+  """
+  Data about what an Extension can do, in general, and at the time of interaction.
+  """
+  capabilities: ExtensionCapabilities!
+
+  """
+  ExtensionDeveloperManifest is the developer specific extension data.
+  """
+  developerManifest: ExtensionDeveloperManifest!
+
+  """
+  Extension metadata used for discovery.
+  """
+  discoveryManifest: ExtensionDiscoveryManifest!
+
+  """
+  Extension id.
+  """
+  id: ID!
+
+  """
+  Extension version.
+  """
+  version: String!
+
+  """
+  Extension views.
+  """
+  views: ExtensionViews!
+}
+
+"""
+A paginated list of extension manifests.
+"""
+type ExtensionManifestConnection {
+  """
+  The list of extension manifests in this page.
+  """
+  edges: [ExtensionManifestEdge!]!
+
+  """
+  Information about this page of extension manifests.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An element in a paginated list of extension manifests.
+"""
+type ExtensionManifestEdge {
+  """
+  Cursor represents the position of the current edge/node.
+  """
+  cursor: Cursor!
+
+  """
+  Node represents the extension manifest for the current edge.
+  """
+  node: ExtensionManifest
+}
+
+"""
+A summary of extension state and the associated manifests.
+"""
+type ExtensionManifestsSummary {
+  """
+  The global deleted state of the extension.
+  """
+  isDeleted: Boolean!
+
+  """
+  The list of extension manifests.
+  """
+  manifests: ExtensionManifestConnection
+}
+
+"""
+ExtensionPanel is a placeholder in the panel list for arbitrary iframed content.
+"""
+type ExtensionPanel implements Panel {
+  """
+  id is a unique identifier for the panel.
+  """
+  id: ID!
+
+  """
+  slotID is an identifier to map extensions content from `User.extensions` to the proper place in the `User.panels` list.
+  """
+  slotID: ID!
+
+  """
+  type is `PanelType.EXTENSION`.
+  """
+  type: PanelType!
+}
+
+"""
+ExtensionRating contains the information of a user's rating of a Twitch extension.
+"""
+type ExtensionRating {
+  """
+  The ID of the recorded rating.
+  """
+  id: ID!
+
+  """
+  Whether the user recommended the extension or not.
+  """
+  isRecommended: Boolean!
+
+  """
+  Where the user submitted the rating.
+  """
+  location: ExtensionRatingLocation!
+}
+
+"""
+A holder for the presigned S3 URL for an extension ratings report.
+"""
+type ExtensionRatingsCSVReportPresignedURL {
+  """
+  The presigned URL, if one is ready.  Otherwise empty string.
+  """
+  presignedURL: String
+}
+
+"""
+Extension recommendation.
+"""
+type ExtensionRecommendation {
+  """
+  The recommended extension.
+  """
+  extension: Extension
+}
+
+"""
+The action a user must take to complete an activation of an extension installation.
+"""
+type ExtensionRequiredAction {
+  """
+  On PROMPT_FOR_PERMISSIONS the redirectURI to load for OAuth.
+  """
+  redirectURI: String
+    @deprecated(reason: "PROMPT_FOR_PERMISSIONS is no longer a valid required action")
+
+  """
+  The action the user must take in order to complete the activation.
+  """
+  type: ExtensionRequiredActionType!
+}
+
+"""
+The shared secret between the extension and the extension validator service.
+"""
+type ExtensionSecret {
+  """
+  When the secret was activated.
+  """
+  activeAt: Time!
+
+  """
+  The actual content of the secret.
+  """
+  content: String!
+
+  """
+  When the secret expires.
+  """
+  expiresAt: Time!
+}
+
+"""
+The extensions secrets information.
+"""
+type ExtensionSecretsInfo {
+  """
+  A user-friendly error, should one occur.
+  """
+  error: GetExtensionSecretsError
+
+  """
+  A list of secrets.
+  """
+  secrets: [ExtensionSecret!]
+}
+
+"""
+The connection a user has to an Extension object.
+"""
+type ExtensionSelfConnection {
+  """
+  Represents whether the requesting user is able to install extensions.
+  """
+  canInstall: Boolean!
+}
+
+"""
+The user-specific token for an installed extension on a channel.
+"""
+type ExtensionToken {
+  """
+  The ID of the extension associated with this token.
+  """
+  extensionID: ID!
+
+  """
+  The JWT token for the requesting user.
+  """
+  jwt: String!
+}
+
+"""
+ExtensionVersionDiscoveryManifest is the data that represents an extension discovery manifest.
+"""
+type ExtensionVersionDiscoveryManifest {
+  """
+  Extension metadata used for discovery.
+  """
+  discoveryManifest: ExtensionDiscoveryManifest!
+
+  """
+  Extension id.
+  """
+  id: ID!
+
+  """
+  Extension version.
+  """
+  version: String!
+}
+
+"""
+The potential anchor-specific configurations and extension can have.
+"""
+type ExtensionViews {
+  """
+  The developer configuration of the extension as a component extension, if supported.
+  """
+  component: ComponentView
+
+  """
+  The developer configuration of the extension's configuration view, if supported.
+  """
+  config: ConfigView
+
+  """
+  The configuration for a hidden extension. The only hidden extension is used for load testing.
+  """
+  hidden: HiddenView
+
+  """
+  The developer configuration of the extension's live configuration dashboard view, if supported.
+  """
+  liveConfig: LiveConfigView
+
+  """
+  The developer configuration of the extension as a mobile extension, if supported.
+  """
+  mobile: MobileView
+
+  """
+  The developer configuration of the extension as a panel extension, if supported.
+  """
+  panel: PanelView
+
+  """
+  The developer configuration of the extension as a video overlay extension, if supported.
+  """
+  videoOverlay: VideoOverlayView
+}
+
+"""
+Whitelists for restricting extension access and behavior.
+"""
+type ExtensionWhitelists {
+  """
+  List of broadcaster account IDs allowed to install an extension after release.
+  If this is empty or missing, all broadcasters can use this extension.
+  """
+  broadcasters: [ID!]!
+
+  """
+  URLs which are permitted to be opened from the configuration dialog.
+  """
+  configURLs: [String!]!
+
+  """
+  URLs which are permitted to be opened from an extension set as a panel.
+  """
+  panelURLs: [String!]!
+
+  """
+  List of account IDs which should have access to a version of an extension.
+  Users in this list are ignored by the broadcaster whitelist check.
+  """
+  testers: [ID!]!
+}
+
+"""
+Url and UploadId provided by Upload Service.
+"""
+type ExtensionZipUploadResponse {
+  """
+  Upload ID.
+  """
+  uploadID: ID!
+
+  """
+  Upload URL.
+  """
+  url: String!
+}
+
+"""
+ExternalChargeModel defines a 3P managed SKU for a given offer.
+"""
+type ExternalChargeModel {
+  """
+  Externally managed default/static SKU identifier. This is specifically for
+  discovery and preview flows. Use `self -> checkoutSKU` for purchase flows.
+  """
+  previewSKU: String!
+
+  """
+  The provider for this externally managed SKU.
+  """
+  provider: String!
+
+  """
+  Externally managed default/static SKU identifier. For mobile checkouts, use
+  `self` for dynamically vended SKU for the user.
+  """
+  sku: String! @deprecated(reason: "Use 'previewSKU' instead")
+
+  """
+  The authenticated user's relationship with the external charge model.
+  """
+  self: ExternalChargeModelSelfEdge
+}
+
+"""
+The authenticated user's relationship with the internal charge model.
+"""
+type ExternalChargeModelSelfEdge {
+  """
+  The final checkout SKU of this offer available for the authenticated user.
+  """
+  checkoutSKU: String!
+}

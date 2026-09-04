@@ -1,0 +1,2492 @@
+"""
+PageInfo is a special field which contains information about the page,
+specifically the cursors which the page starts and ends, and whether or
+not the client can forward-paginate or backward-paginate.
+
+This is part of the Relay Cursor Connections Specification:
+https://facebook.github.io/relay/graphql/connections.htm.
+"""
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+"""
+Data about a paid upgrade for a subscription.
+ie. a user upgrades a 1-month gift to a recurring subscription.
+"""
+type PaidUpgrade {
+  """
+  The id of the paid upgrade purchase. Used to cancel the paid upgrade.
+  """
+  originID: ID!
+
+  """
+  The formatted price of the paid upgrade in USD.
+  """
+  price: String! @deprecated(reason: "Transitioning to priceInfo instead")
+
+  """
+  PriceInfo holds the paid upgrade's pricing information such as currency, cost, and tax information.
+  """
+  priceInfo(taxCountry: String): PriceInfo!
+
+  """
+  The date the paid upgrade begins.
+  """
+  startsAt: Time!
+
+  """
+  Tier of upgraded product.
+  """
+  tier: String!
+}
+
+"""
+PanelView holds the view configuration of an extension if the panel anchor is supported.
+"""
+type PanelView implements ExtensionView {
+  """
+  Specifies whether or not the extension has the ability to link to external websites.
+  """
+  canLinkExternalContent: Boolean!
+
+  """
+  The extension developer configured height of the panel extension.
+  """
+  height: Int!
+
+  """
+  Relative path of the HTML file to load for this view, used by devsite to specify the layout of assets.
+  """
+  viewerPath: String!
+
+  """
+  The URL which should be loaded in for the extension.
+  """
+  viewerURL: String!
+}
+
+"""
+DEPRECATED.
+"""
+type Partnership {
+  isPartner: Boolean @deprecated
+}
+
+"""
+PartnershipApplication is a submitted partnership application.
+"""
+type PartnershipApplication {
+  """
+  ID of the user that submitted the application,
+  provided purely for the convenience of invalidating GraphQL client caches.
+  """
+  id: ID!
+
+  """
+  A submitted application currently can only be unresolved or resolved:
+
+  - A null resolvedAt timestamp means that the application is unresolved and may be under review.
+
+  - A non-null resolvedAt means that the application has been resolved, either approved or rejected.
+    A user with an approved application may now start the partnership on-boarding flow.
+  """
+  resolvedAt: Time
+}
+
+"""
+Associated metrics for the "Path to Affiliate" quest.
+"""
+type PathToAffiliate {
+  """
+  Average viewers needed to complete the quest.
+  """
+  averageViewers: QuestGoalFloat
+
+  """
+  Image URL for the quest's badge.
+  """
+  badgeURL: String
+
+  """
+  Time that this quest was completed.
+  """
+  completedAt: Time
+
+  """
+  Number of followers needed to complete the quest. Evaluated at a 6 month
+  period. All other metrics are evaluated in 30 day periods.
+  """
+  followers: QuestGoalInt
+
+  """
+  Number of hours streamed needed to complete the quest.
+  """
+  hoursStreamed: QuestGoalFloat
+
+  """
+  Number of unique days needed to complete the quest.
+  """
+  uniqueDaysStreamed: QuestGoalInt
+
+  """
+  Current state of the user's affiliate invitation.
+  """
+  affiliateInvitationStatus: AffiliateInvitationStatus
+}
+
+"""
+Associated metrics for the "Path to Partner" quest.
+"""
+type PathToPartner {
+  """
+  Average viewers needed to complete the quest.
+  """
+  averageViewers: QuestGoalFloat
+
+  """
+  Image URL for the quest's badge.
+  """
+  badgeURL: String
+
+  """
+  Time that this quest was completed.
+  """
+  completedAt: Time
+
+  """
+  Number of hours streamed needed to complete the quest.
+  """
+  hoursStreamed: QuestGoalFloat
+
+  """
+  Time period that's being evaluated for the metrics/goals.
+  """
+  questEvaluationInterval: QuestEvaluationInterval
+
+  """
+  Number of unique days needed to complete the quest.
+  """
+  uniqueDaysStreamed: QuestGoalInt
+}
+
+"""
+Payout Status is the payout status of the creator for all non-earnings related issues.
+"""
+type PayableStatus {
+  """
+  Whether or not the user is able to be paid out.
+  """
+  isPayable: Boolean!
+}
+
+"""
+A monthly rollup of metrics that are relevant to incentive-based contracts for
+some partnered streamers.
+"""
+type PaymentIncentiveMetricsRollup {
+  """
+  A measure of how much advertising time broadcasters have during their live
+  streams.
+  """
+  advertisingDensity: Float!
+
+  """
+  The number of live hours the user streamed for the month.
+  """
+  liveHoursBroadcast: Float!
+
+  """
+  The number of live minutes watched for the month.
+  """
+  liveMinutesWatched: Float!
+
+  """
+  The start time for the monthly rollup. These times are in the Pacific Time
+  Zone and the monthly rollups begin in this time zone. Rather than
+  converting to local time, clients should inform end users of this timing
+  quirk and perform custom parsing on these values to show the current year
+  and month in Pacific Time.
+  """
+  timestamp: Time
+
+  """
+  The number of VOD minutes watched the user has for the month.
+  """
+  vodMinutesWatched: Float!
+}
+
+"""
+Type of payment method a user has used to buy products on Twitch, such as subs.
+"""
+type PaymentMethod {
+  """
+  Country (ISO-3166) associated to the billing info for the customer's payment method.
+  """
+  billingCountry: String
+
+  """
+  Email associated with customer's Amazon/Paypal account.
+  """
+  billingEmail: String
+
+  """
+  If payment type is card, then the type of card used is shown here.
+  """
+  cardType: PaymentCardType
+
+  """
+  ID of the payment method that can be referenced by other systems.
+  """
+  chargeInstrumentID: ID!
+
+  """
+  Credit card expiration month, if paymentType is CREDIT_CARD.
+  """
+  expirationMonth: Int
+
+  """
+  Credit card expiration year, if paymentType is CREDIT_CARD.
+  """
+  expirationYear: Int
+
+  """
+  External payment method ID (the ID recorded by the payment provider)
+  We can guarantee its uniqueness since it is external from our systems.
+  """
+  extMethodID: ID
+
+  """
+  Whether or not payment method has restrictions.
+  """
+  isRestricted: Boolean!
+
+  """
+  Credit card last four digits, if paymentType is CREDIT_CARD.
+  """
+  lastFour: String
+
+  """
+  The payment scheme used by this payment method.
+  """
+  paymentScheme: PaymentScheme
+
+  """
+  Payment type used via the payment provider.
+  """
+  paymentType: PaymentInstrumentType!
+
+  """
+  One of the payment providers that Twitch currently supports.
+  """
+  provider: PaymentProvider!
+
+  """
+  List of purchase profiles associated with this payment method.
+  """
+  purchaseProfiles: [PurchaseProfile!]
+
+  """
+  List of recurring payments associated with this payment method.
+  New schema to eventually replace purchase profiles.
+  """
+  recurringPaymentDetails: [RecurringPaymentDetail!]
+}
+
+type PaymentProviderConfigs {
+  """
+  Configs to initiate Recurly library for the user for purchase checkout or payment method update.
+  """
+  recurly: RecurlyConfigs!
+
+  """
+  Xsolla configs include the iframe URL for purchase checkout or payment method update.
+  """
+  xsolla: XsollaConfigs!
+
+  """
+  Configs for initiating Zuora credit card payments or payment method update.
+  """
+  zuora: ZuoraConfigs!
+}
+
+"""
+There are legacy and new data sources that contain similar payment transaction data. This type aims to merge several
+data sources into one to expose a consistent payment history for each Twitch user.
+"""
+type PaymentTransaction {
+  """
+  Currency for the price.
+  """
+  currency: String
+
+  """
+  Price in smallest subunit for the currency, such as 499.
+  """
+  grossAmount: Int
+
+  """
+  The divisor used to derive the gross amount.
+  """
+  grossAmountDivisor: Int
+
+  """
+  Payment ID such as PPT321281 or POPT3278183712.
+  """
+  id: ID!
+
+  """
+  Whether this payment transaction was made to purchase a gift for someone else or not.
+  """
+  isGift: Boolean!
+
+  """
+  The payment method that was used to generate this payment transaction.
+  """
+  paymentMethod: PaymentMethod!
+
+  """
+  Payment transaction purchased product details.
+  """
+  product: PaymentTransactionProduct!
+
+  """
+  PurchaseOrderID for the payment.
+  """
+  purchaseOrderID: ID
+
+  """
+  Time the purchase payment was recognized at.
+  """
+  purchasedAt: Time!
+
+  """
+  Quantity of the purchase.
+  """
+  quantity: Int!
+
+  """
+  The recipient Twitch user of the product purchased by the payment transaction, if applicable.
+  """
+  recipient: User
+}
+
+"""
+A paginated list of payment transactions, and its metadata.
+"""
+type PaymentTransactionConnection {
+  """
+  The list of payment transactions on this page.
+  """
+  edges: [PaymentTransactionEdge!]
+
+  """
+  The payment date of the earliest PaymentTransaction among all possible pages.
+  """
+  firstPurchasedAt: Time
+
+  """
+  The payment date of the latest PaymentTransaction among all possible pages.
+  """
+  lastPurchasedAt: Time
+
+  """
+  Information about this page of payment transactions.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of payment transactions in the overall collection.
+  """
+  totalCount: Int
+}
+
+"""
+An element in a paginated list of payment transactions, and its metadata.
+"""
+type PaymentTransactionEdge {
+  """
+  Offset acting as a cursor.
+  """
+  cursor: Cursor!
+
+  """
+  The element node.
+  """
+  node: PaymentTransaction
+}
+
+"""
+Payment transaction purchased product details.
+"""
+type PaymentTransactionProduct {
+  """
+  Number of digital goods wrapped into a product.
+  """
+  bundleSize: Int!
+
+  """
+  The name of the product.
+  """
+  name: String!
+
+  """
+  Some products have owners. For example, the owner of the `Lirik - Tier 1 Subscription` product is Lirik.
+  """
+  owner: User
+
+  """
+  Some products have tiers, such as subs.
+  """
+  tier: String
+
+  """
+  What type of product the payment was made for.
+  """
+  type: PaymentTransactionType!
+}
+
+"""
+Payout Information.
+"""
+type Payout {
+  """
+  Payout History Information.
+  """
+  history: PayoutHistory
+}
+
+"""
+Payout Balance is the amount accrued by the user since their last Payout.
+"""
+type PayoutBalance {
+  """
+  Currency for the user.
+  """
+  currency: String!
+
+  """
+  Amount of total earnings accrued since last payout for user.
+  """
+  currentPayoutBalanceAmount: Float!
+
+  """
+  Month for the current payout balance.
+  """
+  month: Int!
+
+  """
+  Year for the current payout balance.
+  """
+  year: Int!
+}
+
+"""
+Payout History Information.
+"""
+type PayoutHistory {
+  """
+  Url for Tipalti payout history iframe.
+  """
+  iframeURL: String
+}
+
+"""
+PayoutInvite describes a user's invite to a payout program.
+"""
+type PayoutInvite {
+  """
+  The payout program category the user has been invited to.
+  """
+  category: PayoutOnboardingCategory
+
+  """
+  A PayoutInvite's unique ID.
+  """
+  id: ID!
+
+  """
+  Whether or not this payout invite is for the affiliate program.
+  """
+  isForAffiliate: Boolean!
+
+  """
+  Whether or not this payout invite is for the extensions developer program.
+  """
+  isForExtensionsDeveloper: Boolean!
+
+  """
+  Whether or not this payout invite is for the partner program.
+  """
+  isForPartner: Boolean!
+
+  """
+  Whether or not the payout invite was created through the legacy onboarding flow.
+  """
+  isLegacy: Boolean!
+
+  """
+  The payout onboarding workflow for this payout invite.
+  """
+  workflow: PayoutOnboardingWorkflow
+}
+
+"""
+PayoutOnboardingWorkflow describes the workflow details while a user is onboarding into a payout program.
+"""
+type PayoutOnboardingWorkflow {
+  """
+  The current step at which this workflow is at.
+  """
+  currentStep: PayoutOnboardingStep!
+
+  """
+  A PayoutOnboardingWorkflow's unique ID.
+  """
+  id: ID!
+
+  """
+  The URL for a user to update their payout settings. A redirectURL is the URL
+  where the user will be redirected to after updating their payout settings.
+  """
+  payoutSettingsURL(redirectURL: String): String!
+
+  """
+  The registration information submitted by the user for this workflow.
+  """
+  registration: PayoutRegistration
+
+  """
+  Describes a user's tax interview information while completing their payout onboarding.
+  """
+  taxInterview(type: TaxInterviewType!, returnURL: String!): TaxInterview
+
+  """
+  Lists the fields that were mismatched during the registration and tax interview steps.
+  """
+  taxMismatchErrors: [TaxMismatchError!]
+
+  """
+  The timestamp when the workflow was most recently updated.
+  """
+  timestamp: Time!
+}
+
+"""
+Describes the payout plan a user has when enrolled into a payout program.
+"""
+type PayoutPlan {
+  """
+  The category applied for this payout plan.
+  """
+  category: PayoutCategory!
+
+  """
+  Describes whether or not this payout plan is receiving revenue.
+  """
+  isReceivingRevenue: Boolean!
+
+  """
+  Lists tags to further describe this type of payout plan.
+  """
+  tags: [PayoutPlanTag!]
+}
+
+"""
+PayoutRegistration describes the personal information a user submitted while onboarding into a payout program.
+"""
+type PayoutRegistration {
+  """
+  Birthdate submitted by the user while registering into a payout program.
+  """
+  birthdate: Time!
+
+  """
+  City submitted by the user while registering into a payout program.
+  """
+  city: String!
+
+  """
+  Company Name submitted by the user while registering into a payout program.
+  """
+  companyName: String
+
+  """
+  Country Code (ISO-3166) submitted by the user while registering into a payout program.
+  """
+  countryCode: String!
+
+  """
+  Email submitted by the user while registering into a payout program.
+  """
+  email: String!
+
+  """
+  First Name submitted by the user while registering into a payout program.
+  """
+  firstName: String!
+
+  """
+  Last Name submitted by the user while registering into a payout program.
+  """
+  lastName: String!
+
+  """
+  Middle Name submitted by the user while registering into a payout program.
+  """
+  middleName: String
+
+  """
+  Parent Email submitted by the under age user while registering into a payout program.
+  """
+  parentEmail: String
+
+  """
+  Parent Name submitted by the under age user while registering into a payout program.
+  """
+  parentName: String
+
+  """
+  Postal submitted by the user while registering into a payout program.
+  """
+  postal: String
+
+  """
+  State Code submitted by the user while registering into a payout program.
+  """
+  stateCode: String
+
+  """
+  Primary Address submitted by the user while registering into a payout program.
+  """
+  streetAddress: String!
+
+  """
+  Secondary Address submitted by the user while registering into a payout program.
+  """
+  streetAddress2: String
+}
+
+type PayWithAmazonConfigs {
+  """
+  Used to configure PWA gateway and identify requests to Amazon.
+  """
+  clientID: ID!
+
+  """
+  Frontend only has access to production PWA environment so this helps QA.
+  """
+  isProduction: Boolean!
+
+  """
+  Also known as merchant ID, which identifies the account accepting payments.
+  """
+  sellerID: ID!
+}
+
+"""
+Data about a pending future subscription.
+ie. a user turns a 1-month gift into a recurring subscription.
+"""
+type PendingSubscription {
+  """
+  Whether the pending sub is cancelable.
+  """
+  isCancelable: Boolean!
+
+  """
+  The id of the pending subscription purchase. Used to cancel the paid upgrade.
+  """
+  originID: ID!
+
+  """
+  The formatted price of the pending subscription in USD.
+  """
+  price: String! @deprecated(reason: "Transitioning to priceInfo instead")
+
+  """
+  PriceInfo holds the pending subscription's pricing information such as currency, cost, and tax information.
+  """
+  priceInfo(taxCountry: String): PriceInfo!
+
+  """
+  The date the pending subscription begins.
+  """
+  startsAt: Time!
+
+  """
+  Tier of pending subscription.
+  """
+  tier: String!
+
+  """
+  The type of pending subscription. Ie GIFT_TO_PAID for a gift to paid conversion.
+  """
+  type: PendingSubType!
+}
+
+"""
+Describes the section(follows, recommendation ...) for a current user in the navigation bar.
+"""
+type PersonalSection {
+  """
+  Returns the list of contents in this section, nil if there is an error.
+  """
+  items: [PersonalSectionItem!]
+
+  """
+  The localized title for the personal section.
+  """
+  title: PersonalSectionTitle!
+
+  """
+  Describes the section (FOLLOWED, RECOMMENDED, POPULAR ...).
+  """
+  type: PersonalSectionType!
+}
+
+"""
+Describes the personal channel for the current user.
+"""
+type PersonalSectionChannel {
+  """
+  Either live stream or vod depending on whether the stream in live.
+  """
+  content: PersonalSectionChannelContent
+
+  """
+  Describes how to label channels, if a label is necessary.
+  """
+  label: PersonalSectionChannelLabel!
+
+  """
+  Unique id per channel used in client tracking.
+  """
+  trackingID: ID!
+
+  """
+  The channel (user object of channel).
+  """
+  user: User
+}
+
+"""
+A personal section token type that contains text.
+"""
+type PersonalSectionTextToken {
+  """
+  The text to display for this token.
+  """
+  value: String!
+}
+
+"""
+The title for the personal section.
+"""
+type PersonalSectionTitle {
+  """
+  The localizedFallback title, only to be used if localizedTokens is nil.
+  """
+  localizedFallback: String!
+
+  """
+  The localized section title in the form of a list of tokens. [Maximum of 2 tokens].
+  """
+  localizedTokens: [PersonalSectionTitleToken!]
+}
+
+type PhotoOEmbed implements OEmbed {
+  authorName: String
+  authorURL: String
+  cacheAge: Int
+  height: Int!
+  inputURL: String!
+  providerName: String
+  providerURL: String
+  thumbnail: ThumbnailOEmbed
+  title: String
+  type: String!
+  url: String!
+  version: String!
+  width: Int!
+}
+
+type PinnedChatMessage {
+  id: ID!
+  startsAt: Time!
+  endsAt: Time
+  updatedAt: Time
+  pinnedBy: User!
+  pinnedMessage: Message!
+}
+
+type PinnedChatMessageConnection {
+  """
+  The list of pinned chat messages.
+  """
+  edges: [PinnedChatMessageEdge!]
+
+  """
+  Information about this page of pinned chat messages.
+  """
+  pageInfo: PageInfo!
+}
+
+type PinnedChatMessageEdge {
+  node: PinnedChatMessage!
+}
+
+type PlatformEventSetting {
+  """
+  Whether the setting is enabled for the given platform.
+  """
+  isEnabled: Boolean!
+
+  """
+  The name of the platform. ("email", "push", etc..).
+  """
+  platformName: String!
+
+  """
+  The exact state of the setting. ("on", "off", "friends_only", etc).
+  """
+  settingState: String!
+}
+
+"""
+Access token that determines playback experience for a video.
+"""
+type PlaybackAccessToken {
+  """
+  The signature of the token.
+  """
+  signature: String!
+
+  """
+  Token that encodes information about the user's access to a video.
+  """
+  value: String!
+}
+
+type Playing implements Activity {
+  """
+  The game being played.
+  """
+  game: Game
+
+  """
+  This activity's type, i.e. "PLAYING".
+  """
+  type: ActivityType
+}
+
+"""
+Stream metadata for PlayStation.
+"""
+type PlayStation {
+  platform: String
+  title: SCETitle
+  updatedAt: Time
+  user: SCEUser
+}
+
+"""
+A poll users can vote in.
+"""
+type Poll {
+  """
+  A choice specified by a choice id.
+  """
+  choice(id: ID!): PollChoice
+
+  """
+  A list of choices users can vote for.
+  """
+  choices: [PollChoice!]!
+
+  """
+  User that created the poll.
+  Mods and editors can make polls on behalf of a broadcaster.
+  """
+  createdBy: User
+
+  """
+  Amount of seconds from when the poll starts to when it ends.
+  Since a broadcaster can end a poll early ("terminate a poll"), it may be possible for endedAt - startedAt != duration.
+  """
+  durationSeconds: Int!
+
+  """
+  Time when the poll ended.
+  Null if the poll is still active.
+  """
+  endedAt: Time
+
+  """
+  User that ended the poll. Mods and editors can end polls on behalf of a broadcaster.
+  Null if no user manually ended the poll.
+  """
+  endedBy: User
+
+  """
+  ID of poll.
+  """
+  id: ID!
+
+  """
+  Whether the poll is viewable by other users.
+  """
+  isViewable: Boolean!
+
+  """
+  User who owns this poll. The poll will appear on their channel.
+  """
+  ownedBy: User
+
+  """
+  Amount of milliseconds before the poll ends.
+  0 when the polls is ended.
+  """
+  remainingDurationMilliseconds: Int!
+
+  """
+  The authenticated user's relationship with this poll.
+  Main use case is to check if the user has voted in the poll already.
+  Null if un-authenticated user is making this query.
+  """
+  self: PollSelfEdge
+
+  """
+  A map of poll settings.
+  """
+  settings: PollSettings!
+
+  """
+  Time when poll started.
+  """
+  startedAt: Time!
+
+  """
+  The status of the poll.
+  """
+  status: PollStatus!
+
+  """
+  Title of poll.
+  """
+  title: String!
+
+  """
+  A breakdown of the different tokens used in this poll.
+  """
+  tokens: PollTokenBreakdown!
+
+  """
+  The top Bits contributor for the poll.
+  """
+  topBitsContributor: PollTopBitsContributor
+
+  """
+  The top Community Points contributor for the poll.
+  """
+  topCommunityPointsContributor: PollTopCommunityPointsContributor
+
+  """
+  The top Bits contributor for the poll.
+  """
+  topContributor: PollTopContributor @deprecated(reason: "Use topBitsContributor instead.")
+
+  """
+  Total number of unique voters that have voted in this poll.
+  """
+  totalVoters: Int!
+
+  """
+  A breakdown of the different votes cast in this poll.
+  """
+  votes: PollVoteBreakdown!
+}
+
+"""
+A choice in a poll that users can vote for.
+"""
+type PollChoice {
+  """
+  ID of choice.
+  """
+  id: ID!
+
+  """
+  The authenticated user's relationship with this choice.
+  """
+  self: PollChoiceSelfEdge!
+
+  """
+  The title of the choice.
+  """
+  title: String!
+
+  """
+  A breakdown of the different tokens used for this choice.
+  """
+  tokens: PollTokenBreakdown!
+
+  """
+  Total number of unique voters that have voted for this choice.
+  """
+  totalVoters: Int!
+
+  """
+  A list of voters for this choice.
+  Only the poll's ownerID and their mods/editors can search for this.
+  """
+  voters(
+    first: Int = 15
+    after: Cursor
+    sort: PollVoterConnectionSort = VOTES
+    direction: PollVoterConnectionSortDirection = DESC
+  ): PollChoiceVoterConnection
+
+  """
+  A breakdown of the different votes cast for this choice.
+  """
+  votes: PollVoteBreakdown!
+}
+
+"""
+A connection between poll choice and the authenticated user.
+"""
+type PollChoiceSelfEdge {
+  """
+  The voter object pertaining to the authenticated user.
+  """
+  voter: PollVoter
+}
+
+"""
+A connection between poll and voters and metadata.
+"""
+type PollChoiceVoterConnection {
+  """
+  The list of voters in this poll / choice.
+  """
+  nodes: [PollVoterConnectionEdge!]!
+}
+
+"""
+A connection between poll and metadata.
+"""
+type PollConnection {
+  """
+  The list of polls for the user.
+  """
+  edges: [PollEdge!]
+
+  """
+  Information about pagination in this connection.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+A page entry, that contains the Poll item and a cursor to return from the query to allow pagination.
+"""
+type PollEdge {
+  """
+  Cursor used for next query.
+  """
+  cursor: Cursor!
+
+  """
+  The underlying poll voter.
+  """
+  node: Poll!
+}
+
+"""
+A connection between a poll and the authenticated user.
+"""
+type PollSelfEdge {
+  """
+  The voter object pertaining to the authenticated user.
+  """
+  voter: PollVoter
+}
+
+"""
+Poll Settings.
+"""
+type PollSettings {
+  """
+  Bits votes poll settings.
+  """
+  bitsVotes: PollSettingsBitsVotes!
+
+  """
+  Channel Points votes poll settings.
+  """
+  communityPointsVotes: PollSettingsCommunityPointsVotes!
+
+  """
+  ID of poll settings.
+  """
+  id: ID!
+
+  """
+  Multichoice voting poll settings.
+  """
+  multichoice: PollSettingsMultichoice!
+
+  """
+  Subscriber multiplier poll settings.
+  """
+  subscriberMultiplier: PollSettingsSubscriberMultiplier!
+    @deprecated(reason: "Subscriber multipliers are no longer supported.")
+
+  """
+  Subscriber only poll settings.
+  """
+  subscriberOnly: PollSettingsSubscriberOnly!
+    @deprecated(reason: "Subscriber-only polls are no longer supported.")
+}
+
+"""
+Bits votes poll settings.
+"""
+type PollSettingsBitsVotes {
+  """
+  Cost of bits for a vote.
+  """
+  cost: Int!
+
+  """
+  Whether the poll allows for users to use bits for votes.
+  """
+  isEnabled: Boolean!
+}
+
+"""
+Channel Points votes poll settings.
+"""
+type PollSettingsCommunityPointsVotes {
+  """
+  Cost of channel points for a vote.
+  """
+  cost: Int!
+
+  """
+  Whether the poll allows for users to use channel points for votes.
+  """
+  isEnabled: Boolean!
+}
+
+"""
+Multichoice voting enabled poll setting.
+"""
+type PollSettingsMultichoice {
+  """
+  Whether the poll has multichoice voting enabled.
+  """
+  isEnabled: Boolean!
+}
+
+"""
+Subscriber multiplier poll settings.
+Deprecated: subscriber multipliers are no longer supported.
+"""
+type PollSettingsSubscriberMultiplier {
+  """
+  Whether the poll has a subscriber multipler.
+  """
+  isEnabled: Boolean!
+}
+
+"""
+Subscriber only poll settings.
+Deprecated: subscriber-only polls are no longer supported.
+"""
+type PollSettingsSubscriberOnly {
+  """
+  Whether the poll is subscriber only.
+  """
+  isEnabled: Boolean!
+}
+
+"""
+A breakdown of tokens used/by for this poll/choice/user.
+"""
+type PollTokenBreakdown {
+  """
+  Total number of bits used.
+  """
+  bits: Int!
+
+  """
+  Total number of community points used.
+  """
+  communityPoints: Int!
+
+  """
+  ID of token breakdown.
+  """
+  id: ID!
+}
+
+"""
+Top contributor to the poll and the bits they contributed.
+"""
+type PollTopBitsContributor {
+  """
+  Bits amount contributed.
+  """
+  bitsAmount: Int!
+
+  """
+  Top contributor to the poll.
+  """
+  user: User
+}
+
+"""
+Top contributor to the poll and the community points they contributed.
+"""
+type PollTopCommunityPointsContributor {
+  """
+  Community Points amount contributed.
+  """
+  communityPointsAmount: Int!
+
+  """
+  Top contributor to the poll.
+  """
+  user: User
+}
+
+"""
+Top contributor to the poll and the bits they contributed.
+Deprecated: use PollTopBitsContributor instead.
+"""
+type PollTopContributor {
+  """
+  Bits amount contributed.
+  """
+  bitsAmount: Int!
+
+  """
+  Top contributor to the poll.
+  """
+  user: User
+}
+
+"""
+A breakdown of votes cast for/by this poll/choice/user.
+"""
+type PollVoteBreakdown {
+  """
+  Total number of base votes.
+  """
+  base: Int!
+
+  """
+  Total number of votes due to bits contributions.
+  """
+  bits: Int!
+
+  """
+  Total number of votes due to Community Points contributions.
+  """
+  communityPoints: Int!
+
+  """
+  ID of vote breakdown.
+  """
+  id: ID!
+
+  """
+  Total number of votes across all different vote types.
+  """
+  total: Int!
+}
+
+"""
+A voter taking part in a poll and associated information.
+"""
+type PollVoter {
+  """
+  The Choices this voter voted for.
+  """
+  choices: [PollVoterChoice!]!
+
+  """
+  id of the voter in the poll.
+  """
+  id: ID!
+
+  """
+  The Poll this voter voted in.
+  """
+  poll: Poll
+
+  """
+  A breakdown of the different tokens used by the voter in the poll.
+  """
+  tokens: PollTokenBreakdown!
+
+  """
+  The User object relating to this voter.
+  """
+  user: User
+
+  """
+  A breakdown of the different votes this voter used in the poll.
+  """
+  votes: PollVoteBreakdown!
+}
+
+"""
+A choice a voter made taking part in a poll.
+"""
+type PollVoterChoice {
+  """
+  The id of the PollVoterChoice.
+  """
+  id: ID!
+
+  """
+  The poll choice.
+  """
+  pollChoice: PollChoice
+
+  """
+  A breakdown of the different tokens used by the voter.
+  """
+  tokens: PollTokenBreakdown!
+
+  """
+  A breakdown of the different votes this voter used.
+  """
+  votes: PollVoteBreakdown!
+}
+
+"""
+A connection between poll and voters and metadata.
+"""
+type PollVoterConnection {
+  """
+  The list of voters in this poll / choice.
+  """
+  nodes: [PollVoterConnectionEdge!]!
+}
+
+"""
+A page entry, that contains the PollVoter item and a cursor to return from the query to allow pagination.
+"""
+type PollVoterConnectionEdge {
+  """
+  Cursor used for next query.
+  """
+  cursor: Cursor!
+
+  """
+  The underlying poll voter.
+  """
+  node: PollVoter!
+}
+
+type Post {
+  """
+  The user that created this post.
+  """
+  author: User
+
+  """
+  The content of the post as entered by the user and annotated with links and emotes.
+  """
+  body: MessageBody
+
+  """
+  Time the post was created by the user.
+  """
+  createdAt: Time
+
+  """
+  Collection of embedable content attached to this post.
+  """
+  embeds: [PostEmbed]
+
+  """
+  This Post's unique feeds ID.
+  """
+  id: ID!
+
+  """
+  Is this post deleted.
+  """
+  isDeleted: Boolean
+
+  """
+  The reactions associated with this post.
+  """
+  reactions: [Reaction]
+
+  """
+  Data related to the current user.
+  """
+  self: PostSelfConnection
+}
+
+type PostPermissionSet {
+  """
+  True if the current user is allowed to delete this post.
+  """
+  canDelete: Boolean!
+}
+
+type PostSelfConnection {
+  """
+  Permissions that the current user has on this post.
+  """
+  permissions: PostPermissionSet
+}
+
+"""
+A single Prediction made by a user on a Prediction Event.
+"""
+type Prediction {
+  """
+  The Event that this Prediction relates to.
+  """
+  event: PredictionEvent
+
+  """
+  The unique identifier of the Prediction.
+  """
+  id: ID!
+
+  """
+  Whether the Prediction's results have been acknowledged by the user. Null if the Prediction has not been resolved yet.
+  """
+  isResultAcknowledged: Boolean
+
+  """
+  The Outcome that was Predicted.
+  """
+  outcome: PredictionOutcome
+
+  """
+  The number of points that the user spent on this Prediction.
+  """
+  points: Int!
+
+  """
+  The number of points won by the user for this Prediction. Null if the Prediction has not been resolved yet.
+  """
+  pointsWon: Int
+
+  """
+  The timestamp of when the user initially made this Prediction.
+  """
+  predictedAt: Time!
+
+  """
+  The result of this Prediction. Null if the Prediction has not been resolved or refunded yet.
+  """
+  result: PredictionResult
+
+  """
+  The timestamp of when the user most recently updated this Prediction.
+  """
+  updatedAt: Time!
+
+  """
+  The user that made this Prediction.
+  """
+  user: User
+}
+
+"""
+An Event that users can make Predictions on.
+"""
+type PredictionEvent {
+  """
+  The channel that the Prediction Event belongs to. Null if this is Event is not tied to a channel.
+  """
+  channel: Channel
+
+  """
+  The timestamp of when the Event was created.
+  """
+  createdAt: Time!
+
+  """
+  The creator of the Event. Null if the Event was created by an automatic process or an admin.
+  """
+  createdBy: PredictionEventActor
+
+  """
+  The timestamp of when the Event was resolved or canceled. Null if the Event is not resolved or canceled yet.
+  """
+  endedAt: Time
+
+  """
+  The user or extension that resolved or canceled the Event. Null if this was triggered by an automatic process or
+  by an admin, or if the Event is not resolved or canceled yet.
+  """
+  endedBy: PredictionEventActor
+
+  """
+  Unique identifier of the Prediction Event.
+  """
+  id: ID!
+
+  """
+  The timestamp of when the Event was locked. Null if the Event is still active.
+  """
+  lockedAt: Time
+
+  """
+  The user or extension that locked the Event. Null if this was triggered by an automatic process or by an admin,
+  or if the Event is stillactive.
+  """
+  lockedBy: PredictionEventActor
+
+  """
+  The Outcomes available for predicting in this Event.
+  """
+  outcomes: [PredictionOutcome!]!
+
+  """
+  The length of the prediction window (the duration that the Event accepts predictions) in seconds.
+  """
+  predictionWindowSeconds: Int!
+
+  """
+  The relationship between this Prediction Event and the logged in user.
+  """
+  self: PredictionEventSelfEdge
+
+  """
+  The current status of the Event.
+  """
+  status: PredictionEventStatus!
+
+  """
+  The title of the Event.
+  """
+  title: String!
+
+  """
+  The Outcome that ended up being selected as the "correct" Outcome. Null if the Event has not been resolved yet.
+  This Outcome will also be present as one of the outcomes in the "outcomes" field.
+  """
+  winningOutcome: PredictionOutcome
+}
+
+"""
+Paginated list of Prediction Events for a channel.
+"""
+type PredictionEventConnection {
+  """
+  The elements in the list.
+  """
+  edges: [PredictionEventEdge!]!
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+Element in a list of Prediction Events.
+"""
+type PredictionEventEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  The Prediction Event.
+  """
+  node: PredictionEvent!
+}
+
+"""
+The relationship between a Prediction Event and the logged in user.
+"""
+type PredictionEventSelfEdge {
+  """
+  The user's Prediction on the Event. Null if the user does not have a Prediction on the Event.
+  """
+  prediction: Prediction
+
+  """
+  A restriction on the user participating in this Event. Null if there are no
+  restrictions. If non-null, the user can only participate in Spectator Mode.
+  """
+  restriction: UserPredictionEventRestriction
+}
+
+"""
+A single Outcome that users can choose in a Prediction Event.
+"""
+type PredictionOutcome {
+  """
+  The color of this Outcome.
+  """
+  color: PredictionOutcomeColor!
+
+  """
+  The unique identifier of the Prediction Outcome.
+  """
+  id: ID!
+
+  """
+  The title of the Event.
+  """
+  title: String!
+
+  """
+  The top predictors (sorted by most points spent) of this Outcome. Empty if no users have predicted this Outcome.
+  """
+  topPredictors: [Prediction!]!
+
+  """
+  The total number of points that have been spent predicting this Outcome.
+  """
+  totalPoints: Int!
+
+  """
+  The total number of users that have predicted this Outcome.
+  """
+  totalUsers: Int!
+}
+
+"""
+DEPRECATED.
+"""
+type Premiere {
+  """
+  The Premiere’s identifier.
+  """
+  id: ID! @deprecated(reason: "Premieres as a product has been deprecated")
+
+  """
+  The paginated items in the premiere. At this time, they will all be VoDs.
+  A maximum of 100 items will be returned per request.
+  """
+  items(first: Int = 10, after: Cursor): PremiereConnection
+    @deprecated(reason: "Premieres as a product has been deprecated")
+
+  """
+  The archived video. Only populated if the premiere is in state SUCCESS.
+  """
+  pastPremiere: Video @deprecated(reason: "Premieres as a product has been deprecated")
+
+  """
+  Status of the premiere.
+  """
+  status: PremiereStatus! @deprecated(reason: "Premieres as a product has been deprecated")
+
+  """
+  The user who this premiere belongs to.
+  """
+  user: User @deprecated(reason: "Premieres as a product has been deprecated")
+}
+
+"""
+DEPRECATED.
+Paginated list of videos.
+"""
+type PremiereConnection {
+  """
+  The list of items in this page.
+  """
+  edges: [PremiereItemEdge] @deprecated(reason: "Premieres as a product has been deprecated")
+
+  """
+  Information about this page of videos.
+  """
+  pageInfo: PageInfo @deprecated(reason: "Premieres as a product has been deprecated")
+
+  """
+  The total number of items in the premiere.
+  """
+  totalCount: Int @deprecated(reason: "Premieres as a product has been deprecated")
+}
+
+"""
+DEPRECATED.
+A page entry, that contains a premiere item and a cursor to return
+from the query to allow pagination.
+NOTE: this should have been named PremiereEdge.
+"""
+type PremiereItemEdge {
+  """
+  Cursor is a cursor.
+  """
+  cursor: Cursor! @deprecated(reason: "Premieres as a product has been deprecated")
+
+  """
+  Node is a node.
+  """
+  node: PremiereItem! @deprecated(reason: "Premieres as a product has been deprecated")
+}
+
+"""
+URL info that can be used to upload the image.
+"""
+type PresignDevInsightsReportURLPayload {
+  """
+  URL to be used by the client to download the CSV report.
+  Expires in 5 minutes.
+  """
+  url: String
+}
+
+"""
+Generic Price Information that supports taxing and multi region pricing.
+LONG-TERM NOTE: using Int (32 bit) as a price field can cause issue when we sell products locally
+e.g. 2147483648 (2^31) Lao Att = 253132 USD cent
+Therefor, if we sell product which price more than $2500 in Laos currency. We will need to fix this.
+"""
+type PriceInfo {
+  """
+  The currency associated with the price of a subscription product.
+  """
+  currency: Currency!
+
+  """
+  The description associated with pricing information.
+  """
+  description: String!
+
+  """
+  The discounted total also broken down by price and tax.
+  """
+  discount: DiscountBreakdown
+
+  """
+  The ISO-4217 wording of deriving price.
+  """
+  exponent: Int!
+
+  """
+  Identifier used for caching.
+  """
+  id: ID!
+
+  """
+  If the tax is already included in price.
+  """
+  isTaxInclusive: Boolean!
+
+  """
+  The numerical price of a subscription product.
+  """
+  price: Int!
+
+  """
+  The tax rate of localized product.
+  """
+  tax: Int!
+
+  """
+  The total price given price and tax.
+  """
+  total: Int!
+}
+
+"""
+Wrapper around standard Emoticons for Prime Smilies Emoticons.
+"""
+type PrimeEmoticons {
+  """
+  Name for the currently enabled Emoticon set selected by the user.
+  """
+  currentSetName: PrimeEmoticonsSetName!
+
+  """
+  All Prime Emoticon Sets of emote values (id, token, setId).
+  """
+  emoticonSets: [SmiliesSet!]
+}
+
+"""
+Prime Digital Content Offers are displayed to users on Twitch via Offers in the top nav.
+"""
+type PrimeOffer {
+  """
+  Unique Identifier for an offer used by the Catalog service.
+  """
+  catalogOfferID: ID!
+
+  """
+  Hint describing the current availability state of the claim for the user.
+  """
+  claimHint: ClaimHint!
+
+  """
+  Instructions string in Markdown displayed after offer is claimed to use or redeem.
+  """
+  claimInstructions: String!
+
+  """
+  Content metadata for the given offer.
+  """
+  content: PrimeOfferContent
+
+  """
+  The method of offer entitlement.
+  """
+  deliveryMethod: OfferDeliveryMethod!
+
+  """
+  Description string in Markdown used in info block for Offer.
+  """
+  description: String!
+
+  """
+  Unique Identifier for an offer.
+  """
+  id: ID!
+
+  """
+  Offer image asset URL.
+  """
+  imageURL: String!
+
+  """
+  Ranking for which the offer should be displayed, ordered ASC -1 through 99 where -1 value indicates top priority.
+  """
+  priority: Int!
+
+  """
+  The connection for whether the user is entitled to the offer.
+  """
+  self: PrimeOfferSelfConnection
+
+  """
+  Tags related to the offer such as Free Games with Prime (FGWP).
+  """
+  tags: [String!]!
+
+  """
+  Primary Title for Offer.
+  """
+  title: String!
+}
+
+"""
+An Object containing metadata for Digital Content.
+"""
+type PrimeOfferContent {
+  """
+  Content Categories for the game, displayed in info.
+  """
+  categories: [String!]!
+
+  """
+  If the content has an external marketing page (Blizzard, Retail, etc), some offers will have no external URL.
+  """
+  externalURL: String
+
+  """
+  The Game metadata.
+  """
+  game: Game
+
+  """
+  The publisher of the content.
+  """
+  publisher: String!
+
+  """
+  Content SKU list for the offer.
+  """
+  skus: [String!]!
+}
+
+"""
+The requesting user's eligibility for a given Prime Gaming content offer.
+These fields map directly to eligibility rules used by SCES to calculate eligibility.
+They are true if the user is eligible under the specified rule.
+"""
+type PrimeOfferEligibility {
+  """
+  Boolean indicating if the user can claim the offer, determined by the included eligibility rules.
+  """
+  canClaim: Boolean!
+
+  """
+  LinkedAccountRule
+  True if the user has the required account link, if applicable.
+  """
+  hasRequiredAccount: Boolean!
+
+  """
+  Boolean indicating if the user has already claimed the offer.
+  """
+  isClaimed: Boolean!
+
+  """
+  MarketplaceRule
+  True if the user is in one of the offer's eligible marketplaces.
+  """
+  isInEligibleMarketplace: Boolean!
+
+  """
+  PrimeGamingRule
+  True if the user is Prime Gaming enabled.
+  """
+  isPrimeGaming: Boolean!
+
+  """
+  ClaimLimitRule
+  True if the user has not exceeded the claim limit for the offer.
+  """
+  isUnderClaimLimit: Boolean!
+
+  """
+  OfferWindowRule
+  True if the time is within the offer's available window.
+  """
+  isWithinOfferWindow: Boolean!
+
+  """
+  State of the offer: EXPIRED, LIVE, FUTURE.
+  """
+  offerState: OfferState!
+
+  """
+  The visual status of the offer to the user, UNSEEN, SEEN, CLAIMED, DISMISSED, OVERRIDDEN, ERROR.
+  """
+  status: OfferStatus!
+}
+
+"""
+The connection between the user and their offer entitlement state.
+"""
+type PrimeOfferSelfConnection {
+  """
+  The data (link, text, or claim code) for the entitlement that was created.
+  """
+  claimData: String!
+
+  """
+  Indicates whether the user has the entitlement to the offer.
+  """
+  hasEntitlement: Boolean!
+
+  """
+  The visual status of the offer to the user, UNSEEN, SEEN, CLAIMED, DISMISSED, OVERRIDDEN.
+  """
+  status: String!
+}
+
+"""
+Represents a Prime Gaming content offer with the requesting user's eligibility information.
+These offers are displayed on the Crown menu on Twitch.tv.
+"""
+type PrimeOfferWithEligibility {
+  """
+  Unique Identifier for an offer used by the Catalog service.
+  """
+  catalogOfferID: ID!
+
+  """
+  Instructions string in Markdown displayed after offer is claimed to use or redeem.
+  """
+  claimInstructions: String!
+
+  """
+  Content metadata for the given offer.
+  """
+  content: PrimeOfferContent
+
+  """
+  The method of offer entitlement.
+  """
+  deliveryMethod: OfferDeliveryMethod!
+
+  """
+  Description string in Markdown used in info block for Offer.
+  """
+  description: String!
+
+  """
+  Unique Identifier for an offer.
+  """
+  id: ID!
+
+  """
+  Offer image asset URL.
+  """
+  imageURL: String!
+
+  """
+  Describes the user's eligibility for the requested offer.
+  """
+  offerEligibility: PrimeOfferEligibility
+
+  """
+  Ranking for which the offer should be displayed, ordered ASC -1 through 99 where -1 value indicates top priority.
+  """
+  priority: Int!
+
+  """
+  Tags related to the offer such as Free Games with Prime (FGWP).
+  """
+  tags: [String!]!
+
+  """
+  Primary Title for Offer.
+  """
+  title: String!
+}
+
+"""
+PrimePayoutDetail shows the detailed breakdown of the prime payouts for a given user.
+"""
+type PrimePayoutDetail {
+  """
+  currency for the payout number above.
+  """
+  currency: Currency!
+
+  """
+  currentPrimePayout is the payout that will be made in this specific payout cycle.
+  """
+  currentPrimePayout: CurrentPrimePayout!
+
+  """
+  deferredPrimePayout is part of the earning that was earned this month but will not be paid out this month.
+  """
+  deferredPrimePayout: DeferredPrimePayout!
+
+  """
+  month when this payout will be made.
+  """
+  month: Int!
+
+  """
+  year when this payout will be made.
+  """
+  year: Int!
+}
+
+"""
+PrimePayoutDetails shows the history of prime payout detail.
+"""
+type PrimePayoutDetails {
+  """
+  primePayoutHistory is the history of prime payout details for a user.
+  """
+  primePayoutHistory: [PrimePayoutDetail!]!
+}
+
+"""
+Metadata relevant to Prime copy or marketing that needs to be scheduled.
+"""
+type PrimePromotion {
+  """
+  externalURL is a string with the destination URL.
+  """
+  externalURL: String
+
+  """
+  id is the unique identifier for the PrimePromotion.
+  """
+  id: ID!
+
+  """
+  isExternalLink is boolean that indicates whether the text should be a link.
+  """
+  isExternalLink: Boolean!
+
+  """
+  text is a string field containing the user visible text for a dynamic/changing string.
+  """
+  text: String!
+}
+
+"""
+Prime Settings related data for a given user.
+"""
+type PrimeSettings {
+  """
+  This type's unique identifier.
+  """
+  id: ID!
+
+  """
+  If true, chat notifications will be sent on Prime Credit Token Channel Subscriptions.
+  """
+  isSubCreditChatNotificationEnabled: Boolean!
+
+  """
+  The currently chosen Emoticon Set for the Prime User that are Smilies.
+  """
+  primeEmoticons: PrimeEmoticons
+}
+
+"""
+Information about the authenticated user's Prime subscription credit benefit.
+"""
+type PrimeSubCreditBenefit {
+  """
+  Checks when the authenticated user's Prime subscription credit will renew.
+  """
+  renewalDate: Time
+
+  """
+  Checks if the authenticated user has the Prime benefit for 30-day subscription credit renewals.
+  """
+  willRenew: Boolean
+}
+
+"""
+Information about the Amazon user's Prime Video benefit.
+"""
+type PrimeVideoBenefit {
+  """
+  Error when the authentication token is expired.
+  """
+  error: WatchPartyError
+
+  """
+  True if the user has valid access.
+  """
+  isValid: Boolean
+}
+
+"""
+Contains rating information for Prime Video content.
+"""
+type PrimeVideoRating {
+  """
+  Number of votes.
+  """
+  count: Int!
+
+  """
+  Fractional number of stars.
+  """
+  stars: Float!
+}
+
+"""
+ProcessAndroidPaymentPayload returns the order created for the purchase.
+"""
+type ProcessAndroidPaymentPayload {
+  """
+  Reason why a Purchase Order failed to be created if an error occurred.
+  """
+  error: ProcessAndroidPaymentErrorCode
+
+  """
+  The Purchase Order created for this txn process attempt.
+  """
+  purchaseOrder: PurchaseOrder
+}
+
+"""
+ProcessIOSPaymentPayload returns the order created for the purchase.
+"""
+type ProcessIOSPaymentPayload {
+  """
+  The error code representing the reason why the requested Purchase Order failed
+  to be created. Populated only if an error occurred, nil otherwise.
+  """
+  error: ProcessIOSPaymentErrorCode
+
+  """
+  The Purchase Order record created for this transaction attempt.
+  """
+  purchaseOrder: PurchaseOrder
+}
+
+"""
+Contains the product's checkout price and tax info for a purchase and error if a final price cannot be determined.
+"""
+type ProductPurchase {
+  """
+  The price and tax breakdown for the purchase.
+  """
+  checkoutPriceSummary: CheckoutPriceSummary
+
+  """
+  Error when the final price could not be retrieved for a product.
+  """
+  errorCode: ProductPurchaseErrorCode
+
+  """
+  The region from which the tax was calculated.
+  """
+  taxRegion: TaxRegion
+}
+
+"""
+ProgramAgreement describes the End User License Agreement associated with a user's current payout plan.
+"""
+type ProgramAgreement {
+  """
+  Agreement body in HTML.
+  """
+  body: String!
+
+  """
+  Agreement type accepted by the user.
+  """
+  type: PayoutOnboardingCategory!
+
+  """
+  Agreement version (e.g. "v1").
+  """
+  version: String!
+}
+
+"""
+Data used to display promotional discounts to the client.
+"""
+type PromotionDisplay {
+  """
+  Describes the discount percent to display to the client.
+  """
+  discountPercent: Float
+
+  """
+  Describes the type of discount that will be applied to the client.
+  """
+  discountType: PromoDiscountType!
+}
+
+"""
+Moment Details specific to the PUBG game.
+"""
+type PUBGMomentDetails {
+  """
+  bucket is the player count bucket for aggregations.
+  """
+  bucket: Int!
+
+  """
+  One of "game_start" or "player_count".
+  """
+  event: String!
+
+  """
+  The game mode for the moment.
+  """
+  gameMode: String!
+
+  """
+  The maximum player count in this period.
+  """
+  maxPlayerCount: Int!
+
+  """
+  The minimum player count in this period.
+  """
+  minPlayerCount: Int!
+}
+
+"""
+PublishClipError is an error associated with the publishClip mutation.
+"""
+type PublishClipError {
+  message: String
+}
+
+"""
+PublishClipPayload returns the edited clip or an error.
+"""
+type PublishClipPayload {
+  """
+  The clip with its updated properties.
+  """
+  clip: Clip
+
+  """
+  The error when the clip fails to publish.
+  """
+  error: PublishClipError
+}
+
+"""
+Data that was mutated after the competition was updated.
+"""
+type PublishCompetitionPayload {
+  """
+  The competition which was updated.
+  """
+  competition: Competition
+}
+
+"""
+Errors for publishing subscription emotes.
+"""
+type PublishSubscriptionEmoteError {
+  """
+  The associated error code.
+  """
+  code: PublishSubscriptionEmoteErrorCode!
+}
+
+"""
+Results of the subscription emote publish.
+"""
+type PublishSubscriptionEmotePayload {
+  """
+  The newly created emote if successful.
+  """
+  emote: Emote
+
+  """
+  Service error, if any.
+  """
+  error: PublishSubscriptionEmoteError
+}
+
+"""
+PurchaseOfferPayload returns the order created for the purchase.
+"""
+type PurchaseOfferPayload {
+  """
+  Reason why a Purchase Order failed to be created if an error occurred.
+  """
+  error: PurchaseOfferErrorCode
+
+  """
+  The Purchase Order created for this purchase attempt.
+  """
+  purchaseOrder: PurchaseOrder
+}
+
+"""
+PurchaseOrder is the record of a purchase made by a user.
+"""
+type PurchaseOrder {
+  """
+  The action token ID used to facilitate the 3D Secure flow.
+  """
+  actionTokenID: ID
+
+  """
+  The reason for a purchase order failure, if it failed.
+  """
+  failureReason: PurchaseOrderFailureReason
+
+  """
+  The ID of the Purchase Order.
+  """
+  id: ID!
+
+  """
+  The state of the Purchase Order.
+  """
+  state: PurchaseOrderState!
+}
+
+"""
+Purchase profile of a recurring or non-recurring subscription that a user bought.
+"""
+type PurchaseProfile {
+  """
+  Cancels the entitled benefit and refunds if isRefundable is true.
+  """
+  cancelledAt: Time
+
+  """
+  Date this purchase profile was created.
+  """
+  createdAt: Time!
+  expiresAt: Time
+
+  """
+  Usually the Twitch user's ID, but recorded by the payment provider.
+  """
+  extPurchaserID: ID
+
+  """
+  The external subscription ID recorded by the payment provider.
+  """
+  extSubscriptionID: ID
+
+  """
+  ID of the Purchase Profile in Payments team database.
+  """
+  id: ID!
+  isExpired: Boolean
+
+  """
+  Whether this purchase profile was gifted.
+  """
+  isGift: Boolean
+
+  """
+  Whether this purchase profile is being paid for.
+  """
+  isPaying: Boolean!
+  isRecurring: Boolean!
+  isRefundable: Boolean
+  paidAt: Time
+
+  """
+  Product type of the purchase.
+  """
+  productType: SubscriptionProductType!
+  purchasedAt: Time
+
+  """
+  Twitch purchaser's email.
+  """
+  purchaserEmail: String!
+
+  """
+  Twitch purchaser's user ID.
+  """
+  purchaserID: ID!
+
+  """
+  Twitch purchaser's real name.
+  """
+  purchaserName: String
+
+  """
+  Currency for the renewalPrice, e.g. "USD".
+  """
+  renewalCurrency: String
+
+  """
+  Expected renewal price of the product in the smallest subunit of the currency, e.g. "499".
+  """
+  renewalPrice: Int
+
+  """
+  Different from cancellation in that it stops renewal but let's user keep the benefit until it expires.
+  """
+  renewalStoppedAt: Time
+
+  """
+  State of the purchase profile. i.e. cancelling the purchase profile can set state to 'cancelled'.
+  """
+  state: PurchaseProfileState!
+
+  """
+  Subscription benefit associated with this purchase profile, if still active.
+  """
+  subscriptionBenefit: SubscriptionBenefit
+
+  """
+  Date this purchase profile was last updated.
+  """
+  updatedAt: Time
+
+  """
+  Whether this purchase profile will renew in the future and charge the user's payment method.
+  """
+  willRenew: Boolean!
+}

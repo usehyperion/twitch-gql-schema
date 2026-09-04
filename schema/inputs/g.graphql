@@ -1,0 +1,265 @@
+"""
+Filtering criteria for paginated game clips results.
+"""
+input GameClipsInput {
+  """
+  The ID of the broadcaster to filter results by.
+  """
+  broadcasterID: ID
+
+  """
+  The ID of the curator to filter results by.
+  """
+  curatorID: ID
+
+  """
+  Overrides the period. if startAt is provided, but endAt isn't, the endAt value will be the day when the query was made.
+  """
+  endAt: Time
+
+  """
+  DEPRECATED: `filter` should no longer be used. Prefer `period` and `sort` instead.
+  A filter which restricts results.
+  """
+  filter: ClipsFilter
+
+  """
+  Clip results will be filtered by this language.
+  Omit this input field to get results by all languages.
+  """
+  languages: [Language!]
+
+  """
+  The time period to restrict clips based on creation time.
+  """
+  period: ClipsPeriod = LAST_WEEK
+
+  """
+  The sort order for the clips results.
+  """
+  sort: ClipsSort = VIEWS_DESC
+
+  """
+  Overrides the period param. If endAt is provided, but startAt isn't, 2015-01-01 will be used for it.
+  """
+  startAt: Time
+}
+
+"""
+Optional input to filter categories.
+Add any additional optional fields to this input.
+"""
+input GameOptions {
+  """
+  The locale of the user.
+  """
+  locale: String
+
+  """
+  If sorted by relevance, this provides additional context used to influence recommendations.
+  """
+  recommendationsContext: RecommendationsContext
+
+  """
+  A GUID that is created by the caller for tracking. This should be globally
+  unique per request and is required if sort=RELEVANCE.
+  """
+  requestID: ID
+
+  """
+  The sort param can be used to change the default sorting of results.
+  """
+  sort: GameSort = VIEWER_COUNT
+
+  """
+  Tags are an array of tag IDs as optional filters for categories.
+  """
+  tags: [String!]
+}
+
+"""
+Optional input to filter game specific streams.
+add additional optional fields to this input.
+"""
+input GameStreamOptions {
+  """
+  Filter streams based on restriction types.
+  """
+  includeRestricted: [StreamRestrictionType!]
+
+  """
+  Broadcaster languages to filter streams by.
+  Deprecated: use language tags instead.
+  """
+  languages: [String!]
+
+  """
+  The locale of the user.
+  """
+  locale: String
+
+  """
+  If sorted by relevance, this provides additional context used to influence recommendations.
+  """
+  recommendationsContext: RecommendationsContext
+
+  """
+  RequestID must be specified if sort=RELEVANCE.
+  """
+  requestID: ID
+
+  """
+  The sort param can be used to change the default sorting, which sometimes is specific to specific games.
+  """
+  sort: StreamSort = VIEWER_COUNT
+
+  """
+  The tags param are an array of tag ID as optional filters for streams.
+  """
+  tags: [String!]
+}
+
+"""
+GDPR Consent contains user consent on different tracking vendors.
+"""
+input GDPRConsent {
+  """
+  Whether Amazon has user GDPR consent.
+  """
+  allowAmazon: Boolean
+
+  """
+  Whether Comscore has user GDPR consent.
+  """
+  allowComscore: Boolean
+
+  """
+  Whether Google has user GDPR consent.
+  """
+  allowGoogle: Boolean
+
+  """
+  Whether Nielson has user GDPR consent.
+  """
+  allowNielsen: Boolean
+
+  """
+  Whether Salesforce has user GDPR consent.
+  """
+  allowSalesforce: Boolean
+}
+
+"""
+Input to the animateEmote mutation.
+"""
+input GenerateAnimatedEmoteInput {
+  """
+  The ID for the input image. Must be the 4x size.
+  """
+  image4xID: ID!
+
+  """
+  The preset animation to apply on the provided static emote.
+  """
+  preset: AnimatedEmotePreset!
+}
+
+"""
+GenerateExtensionRatingsCSVInput takes an extensionID and some time range info for generating a CSV of extension ratings
+data for an extension developer.
+Authenticated on UserID via oauth token and OWL (via the ExtensionRatings backend).
+"""
+input GenerateExtensionRatingsCSVReportInput {
+  """
+  endAt is expected to be RFC3339 UTC and is inclusive in the results when truncated to YYYY-MM-DD.
+  """
+  endAt: Time!
+
+  """
+  extensionID to generate a CSV of ratings data for.
+  """
+  extensionID: ID!
+
+  """
+  startAt is expected to be RFC3339 UTC and is inclusive in the results when truncated to YYYY-MM-DD.
+  """
+  startAt: Time!
+}
+
+"""
+The required input for a generateSecondFactorQRCode mutation.
+"""
+input GenerateSecondFactorQRCodeInput {
+  """
+  The ID of the user that is requesting a new second factor QR code.
+  """
+  userID: ID!
+}
+
+"""
+GenerateSubscribersCSVInput takes a channelID to generate a CSV of subscribers for.
+Authenticated on channelID.
+"""
+input GenerateSubscribersCSVInput {
+  """
+  channelID to generate a CSV of subscribers for.
+  """
+  channelID: String!
+}
+
+"""
+The input for getting upload config.
+"""
+input GetEmoteUploadConfigInput {
+  """
+  The type of asset to be uploaded.
+  """
+  assetType: EmoteAssetType
+
+  """
+  If the asset type is "animated", whether to generate the static versions from the first frame.
+  """
+  generateStaticVersionOfAnimatedAssets: Boolean
+
+  """
+  Resizing plan to use.
+  """
+  resizePlan: EmoteResizePlan!
+
+  """
+  Sizes to provide upload URLs for.
+  """
+  sizes: [EmoteImageSize!]
+}
+
+"""
+Inputs to the goRaid mutation.
+"""
+input GoRaidInput {
+  """
+  Source ID.
+  """
+  sourceID: ID!
+}
+
+"""
+GrantVIPInput contains the parameters to grant the VIP status to a user for a channel.
+"""
+input GrantVIPInput {
+  """
+  The channel for which the VIP status of a user will be granted.
+  """
+  channelID: ID!
+
+  """
+  The ID of the user who will be granted the VIP status.
+  Either granteeID or granteeLogin must be provided.
+  """
+  granteeID: ID
+
+  """
+  The login of the user who will be granted the VIP status.
+  Either granteeID or granteeLogin must be provided.
+  """
+  granteeLogin: String
+}

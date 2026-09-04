@@ -1,0 +1,666 @@
+"""
+Error types for verification.
+"""
+enum ValidateVerificationCodeErrorCode {
+  """
+  Verification failed because provided code does not match.
+  """
+  INCORRECT_CODE
+
+  """
+  Validation code was incorrect and the code has been regenerated and resent due to too many failed attempts.
+  """
+  TOO_MANY_FAILED_ATTEMPTS
+
+  """
+  Verification failed due to being rate limited.
+  """
+  RATE_LIMITED
+
+  """
+  Verification failed due to some unknown, unclassified error.
+  """
+  UNKNOWN
+}
+
+"""
+VendorName is the name of the cookie vendor.
+"""
+enum VendorName {
+  """
+  AMAZON is Amazon.
+  DEPRECATED vendor.
+  """
+  AMAZON
+
+  """
+  TWITCH_AMAZON is a vendor replacement for Amazon.
+  This should be the vendor used to get consent on Amazon.
+  """
+  TWITCH_AMAZON
+
+  """
+  BRANCH is Branch.
+  """
+  BRANCH
+
+  """
+  COMSCORE is ComScore.
+  """
+  COMSCORE
+
+  """
+  GOOGLE is Google.
+  """
+  GOOGLE
+
+  """
+  NIELSEN is Nielsen.
+  """
+  NIELSEN
+
+  """
+  SALESFORCE_DMP is Salesforce_DMP.
+  """
+  SALESFORCE_DMP
+
+  """
+  BEESWAX is Beeswax.
+  """
+  BEESWAX
+
+  """
+  BEESWAX is Truex.
+  """
+  TRUEX
+
+  """
+  THE_TRADE_DESK is The Trade Desk.
+  """
+  THE_TRADE_DESK
+
+  """
+  FLASHTALKING is Flashtalking.
+  """
+  FLASHTALKING
+
+  """
+  GAMESITE is Gamesite.
+  """
+  GAMESITE
+
+  """
+  KANTAR is Kantar.
+  """
+  KANTAR
+
+  """
+  SPOTX is Spotx.
+  """
+  SPOTX
+
+  """
+  SIZMEK is Sizmek.
+  """
+  SIZMEK
+
+  """
+  GOOGLE_ANALYTICS_DEVELOPER_EXTENSIONS is Google analytics developer Extensions.
+  """
+  GOOGLE_ANALYTICS_DEVELOPER_EXTENSIONS
+}
+
+"""
+Status of a given verification request.
+"""
+enum VerificationStatus {
+  """
+  Unknown is used as a safe fallback status.
+  """
+  UNKNOWN
+
+  """
+  Pending indicates not yet successfully verified.
+  """
+  PENDING
+
+  """
+  Verified indicates successfully verified.
+  """
+  VERIFIED
+
+  """
+  Rejected indicates we were unable to send a verification request to the given
+  address, for example if we received a hard bounce from SES.
+  """
+  REJECTED
+}
+
+"""
+The possible error enums returned while trying to verify a one time password.
+"""
+enum VerifyOneTimePasswordErrorCode {
+  """
+  The user needs to re-authenticate to perform this operation.
+  """
+  REAUTH_NEEDED
+
+  """
+  The one time password submitted is invalid.
+  """
+  INVALID_OTP
+
+  """
+  The user does not have two factor enabled and cannot verify a one time password.
+  """
+  NO_TWO_FACTOR
+
+  """
+  Something unexpected occured.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+Error types for captcha verification.
+"""
+enum VerifyRewardedVideoEligibilityCaptchaErrorCode {
+  """
+  The input provided by the user was rejected.
+  """
+  INVALID_PARAMETER
+
+  """
+  The service had an issue unrelated to your input.
+  """
+  INTERNAL_ERROR
+}
+
+"""
+The types of vertical shelves supported.
+"""
+enum VerticalShelfType {
+  """
+  A list of categories to be selected.
+  """
+  CATEGORY_SELECTOR
+
+  """
+  Live matches.
+  """
+  LIVE_MATCHES
+
+  """
+  Live professionals.
+  """
+  LIVE_PROS
+
+  """
+  Replays.
+  """
+  REPLAYS
+
+  """
+  Collection.
+  """
+  COLLECTION
+}
+
+"""
+VideoBookmarkConnectionErrorCode are the possible errors that this query returns.
+"""
+enum VideoBookmarkConnectionErrorCode {
+  """
+  An unexpected internal server error occurred.
+  """
+  INTERNAL_SERVER_ERROR
+
+  """
+  The user is unauthorized to fetch bookmarks for the channel.
+  """
+  USER_UNAUTHORIZED
+}
+
+"""
+Where a video comment originated.
+"""
+enum VideoCommentSource {
+  """
+  The comment originated from the live broadcast.
+  """
+  CHAT
+
+  """
+  The comment was manually created by a commenter.
+  """
+  COMMENT
+
+  """
+  The comment source is unknown.
+  """
+  UNKNOWN
+}
+
+"""
+Represents the state of a video comment.
+"""
+enum VideoCommentState {
+  """
+  The comment is published.
+  """
+  PUBLISHED
+
+  """
+  The comment was manually unpublished by a mod or the channel owner.
+  """
+  UNPUBLISHED
+
+  """
+  The comment was automatically flagged for review (AutoMod).
+  """
+  PENDING_REVIEW
+
+  """
+  The comment is possibly spam and has to be reviewed by a moderator.
+  """
+  PENDING_REVIEW_SPAM
+
+  """
+  The comment has been soft-deleted.
+  """
+  DELETED
+}
+
+"""
+List of possible video download statuses.
+"""
+enum VideoDownloadStatus {
+  """
+  The video download is created.
+  """
+  CREATED
+
+  """
+  The video download is submitted.
+  """
+  SUBMITTED
+
+  """
+  The video download is downloading.
+  """
+  DOWNLOADING
+
+  """
+  The video download is transmuxing.
+  """
+  TRANSMUXING
+
+  """
+  The video download failed to create.
+  """
+  FAILED
+
+  """
+  The video download is completed.
+  """
+  COMPLETE
+
+  """
+  The video download status is unknown.
+  """
+  UNKNOWN
+}
+
+"""
+These request types allow the client to request the backend to do
+some analysis and suggest markers that are relevant.
+"""
+enum VideoMomentRequestType {
+  """
+  Moments most likely to be highlighted. Shown to creators.
+  """
+  HIGHLIGHTER_SUGGESTIONS
+
+  """
+  Chapter markers shown in the video to viewers.
+  """
+  VIDEO_CHAPTER_MARKERS
+}
+
+"""
+Marker types present in momentum.
+"""
+enum VideoMomentType {
+  """
+  Creator/editor selected moment.
+  """
+  STREAM_MARKER
+
+  """
+  GAME_CHANGE is when the streamer changes the game during their stream.
+  """
+  GAME_CHANGE
+
+  """
+  Hearthstone video content analysis markers.
+  """
+  HEARTHSTONE_VCA
+
+  """
+  Overwatch video content analysis markers.
+  """
+  OVERWATCH_VCA
+
+  """
+  PUBG video content analysis markers.
+  """
+  PUBG_VCA
+
+  """
+  VCA generic VCA analysis markers.
+  """
+  VCA
+}
+
+enum VideoPrivacyScope {
+  """
+  The video is only viewable by the owner.
+  """
+  PRIVATE
+
+  """
+  The video is listed in search and anyone can view the video.
+  """
+  PUBLIC
+}
+
+"""
+The type of item returned in the video shelf.
+"""
+enum VideoShelfType {
+  """
+  Broadcasts sorted by recency.
+  """
+  LATEST_BROADCASTS
+
+  """
+  Non broadcasts sorted by recency.
+  """
+  LATEST_NON_BROADCASTS
+
+  """
+  Clips created within 30 days sorted by views.
+  """
+  TOP_CLIPS
+
+  """
+  Videos under 30 minutes sorted by recency.
+  """
+  SHORT_VIDEOS
+
+  """
+  Videos over 30 minutes sorted by recency.
+  """
+  LONG_VIDEOS
+
+  """
+  Videos marked with a specified game sorted by recency.
+  """
+  GAME
+
+  """
+  Videos from a specified collection.
+  """
+  COLLECTION
+
+  """
+  All videos.
+  """
+  ALL_VIDEOS
+}
+
+"""
+Possible sort orders for lists of videos.
+"""
+enum VideoSort {
+  """
+  Sort the videos descending by time (publishedAt if available or createdAt).
+  """
+  TIME
+
+  """
+  Sort the videos ascending by time (publishedAt if available or createdAt).
+  """
+  TIME_ASC
+
+  """
+  Sort the videos descending by views.
+  """
+  VIEWS
+}
+
+enum VideoStatus {
+  """
+  The video is being recorded from a live broadcast.
+  """
+  RECORDING
+
+  """
+  The video needs to be processed.
+  """
+  UNPROCESSED
+
+  """
+  The upload job is ready to begin.
+  """
+  CREATED
+
+  """
+  The video is being uploaded.
+  """
+  UPLOADING
+
+  """
+  The video is being transcoded.
+  """
+  PENDING_TRANSCODE
+
+  """
+  The video is currently transcoding.
+  """
+  TRANSCODING
+
+  """
+  Something went wrong.
+  """
+  FAILED
+
+  """
+  The video is ready to watch.
+  """
+  RECORDED
+}
+
+"""
+Describes what type of content this originated from.
+NOTE: There is already an enum named BroadcastType which should have been named VideoBroadcastType.
+"""
+enum VideoType {
+  """
+  The video type is live.
+  """
+  LIVE
+
+  """
+  The video is a vod.
+  """
+  VOD
+}
+
+"""
+The user's shared availability while online.
+A value of ONLINE (typically called invisibility) additionally means that the user's activity will not be shared
+regardless of the isSharingActivity setting.
+NOTE: Should have been named UserOnlineVisibility.
+"""
+enum Visibility {
+  ONLINE
+  AWAY
+  BUSY
+  OFFLINE
+}
+
+"""
+A visibility type for the user.
+"""
+enum VisibilityInput {
+  """
+  An ONLINE visibility (default) will cause the user's availability to be inherited from their sessions -- Online if
+  they have at least one non-idle session, Away if they have only idle sessions, or Offline if they have no sessions.
+  """
+  ONLINE
+
+  """
+  An AWAY visibility will cause the user to appear as Away if they have any sessions, regardless of idleness, or
+  Offline if they have no sessions.
+  """
+  AWAY
+
+  """
+  A BUSY visibility will cause the user to appear as Busy if they have any sessions, regardless of idleness, or
+  Offline if they have no sessions.
+  """
+  BUSY
+
+  """
+  An OFFLINE visibility (also called "invisible") will cause the user to appear as Offline always. It will also
+  implicitly turn off activity sharing.
+  """
+  OFFLINE
+}
+
+"""
+Vote in poll error code.
+"""
+enum VoteInAdPollErrorCode {
+  """
+  User tried to vote in a poll that doesn't exist i.e. there is no poll running at all).
+  """
+  POLL_NOT_FOUND
+
+  """
+  User tried to vote in a poll that is not active.
+  """
+  POLL_NOT_ACTIVE
+
+  """
+  Request has a vote ID that is in progress or has already been submitted.
+  """
+  VOTE_ID_CONFLICT
+
+  """
+  Voter is trying to vote more times than the maximum number of times that the poll allows.
+  """
+  MAX_VOTE_LIMIT_ERROR
+
+  """
+  User is trying to vote for another choice in a poll that only allows one choice.
+  """
+  MULTI_CHOICE_VOTE_FORBIDDEN
+
+  """
+  Request is for a choice ID that invalid.
+  """
+  INVALID_CHOICE_ID
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+Vote in poll error code.
+"""
+enum VoteInPollErrorCode {
+  """
+  User tried to vote in a poll that doesn't exist i.e. there is no poll running at all).
+  """
+  POLL_NOT_FOUND
+
+  """
+  User tried to vote in a poll that is not active.
+  """
+  POLL_NOT_ACTIVE
+
+  """
+  Request has a vote ID that is in progress or has already been submitted.
+  """
+  VOTE_ID_CONFLICT
+
+  """
+  User is trying to vote for another choice in a poll that only allows one choice.
+  """
+  MULTI_CHOICE_VOTE_FORBIDDEN
+
+  """
+  Request is for a channel ID that is invalid (e.g. banned channel, channel doesn't exist).
+  """
+  INVALID_CHANNEL_ID
+
+  """
+  Request is for a choice index that is invalid (e.g. there are 3 choices and the request is for index 10).
+  """
+  INVALID_CHOICE_INDEX
+
+  """
+  Request is for a choice ID that invalid.
+  """
+  INVALID_CHOICE_ID
+
+  """
+  Request is for an invalid bits amount (e.g. -100 bits, or request is not for a multiple of the Bits cost).
+  """
+  INVALID_BITS_AMOUNT
+
+  """
+  Request is for an invalid Community Points amount (e.g. -100 Points, or request is not for a multiple of the Points cost).
+  """
+  INVALID_COMMUNITY_POINTS_AMOUNT
+
+  """
+  User's bits balance is too low to perform request (e.g. they only have 10 bits and they request to spend 100).
+  """
+  INSUFFICIENT_BITS_BALANCE
+
+  """
+  Users's Community Points balance is too low to perform request (e.g. they only
+  have 10 points and they request to spend 100).
+  """
+  INSUFFICIENT_COMMUNITY_POINTS_BALANCE
+
+  """
+  User has already used their base votes, so in order to continue voting, they must use tokens (bits or channel points).
+  """
+  TOKENS_REQUIRED
+
+  """
+  User is not allowed to vote in poll (e.g. they're banned in the channel).
+  """
+  USER_FORBIDDEN
+
+  """
+  User is not allowed to vote in their own poll with bits.
+  """
+  SELF_BITS_VOTE_NOT_ALLOWED
+
+  """
+  User cannot vote because they have hit a per-user or per-poll rate limit. The user can try again later.
+  """
+  RATE_LIMITED
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}

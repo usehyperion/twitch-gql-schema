@@ -1,0 +1,15 @@
+"""
+Options for querying for catalog items. These fields are mutually exclusive
+and parentID will take precedent if both are specified.
+"""
+input WatchPartyItemSearchOptions {
+  """
+  Parameter to query for a parent's children items.
+  """
+  parentID: ID
+
+  """
+  Search for content based on the input string.
+  """
+  searchQuery: String
+}

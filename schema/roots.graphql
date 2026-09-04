@@ -1,0 +1,3396 @@
+"""
+Operations to update data in the Twitch API.
+"""
+type Mutation {
+  """
+  acceptFriendRequest accepts a friend request from the target user to the
+  authenticated user, creating a new Friend relationship.
+  """
+  acceptFriendRequest(input: AcceptFriendRequestInput!): AcceptFriendRequestPayload
+
+  """
+  AcceptOrganizationInvite accepts an invite to an organization and the user is added as member to that organization.
+  """
+  acceptOrganizationInvite(input: AcceptOrganizationInviteInput!): AcceptOrganizationInvitePayload
+
+  """
+  Accept program agreement during payout onboarding.
+  """
+  acceptProgramAgreement(input: AcceptProgramAgreementInput!): AcceptProgramAgreementPayload
+
+  """
+  acceptSquadStreamInvitation allows a user that has recieved a squad stream invitation to accept and join
+  the squad stream.
+  """
+  acceptSquadStreamInvitation(
+    input: AcceptSquadStreamInvitationInput!
+  ): AcceptSquadStreamInvitationPayload
+
+  """
+  Acknowledge the result of a Prediction. Only the user who made the Prediction can acknowledge the result.
+  This should be triggered automatically when the result of a Prediction is displayed on screen, either from a
+  User Notice or by viewing the Channel Points panel. Because this has the potential to trigger a thundering herd, as
+  every participant in a Prediction Event will see the results at the same time, clients should automatically jitter
+  this call by waiting a random duration between 0-60 seconds before making this mutation.
+  """
+  acknowledgePredictionResult(
+    input: AcknowledgePredictionResultInput!
+  ): AcknowledgePredictionResultPayload
+
+  """
+  acknowledgeSubscriptionState allow to apply Acknowledged status to the provided subscription.
+  """
+  acknowledgeSubscriptionState(
+    input: AcknowledgeSubscriptionStateInput!
+  ): AcknowledgeSubscriptionStatePayload
+
+  """
+  acknowledgeUnbanRequest allows a user to acknowledge their unban request has been approved, and can now
+  rejoin a channel's chat after being unbanned.
+  """
+  acknowledgeUnbanRequest(input: AcknowledgeUnbanRequestInput!): AcknowledgeUnbanRequestPayload
+
+  """
+  Activate an extension which has been installed on a channel.
+  """
+  activateExtension(input: ActivateExtensionInput!): ActivateExtensionPayload
+    @deprecated(reason: "Should use applyExtensionActivations instead")
+
+  """
+  Adds to a user's list of channelIDs to autohost.
+  """
+  addAutohostChannels(input: AddAutohostChannelsInput!): AddAutohostChannelsPayload
+
+  """
+  addBrowserPushSubscription adds a browser push subscription for receiving browser (desktop) push notifications.
+  The client must retrieve the input fields from the browser's push notification API. Client's will
+  call this when the user opts-in. A browser push subscription is tied to a user's browser (device).
+  Twitch will use these push subscriptions to send browser push notifications.
+
+  Spec: https://www.w3.org/TR/push-api/#push-subscription.
+  """
+  addBrowserPushSubscription(
+    input: AddBrowserPushSubscriptionInput!
+  ): AddBrowserPushSubscriptionPayload
+
+  """
+  Adds a blocked term to a channel.
+  """
+  addChannelBlockedTerm(input: AddChannelBlockedTermInput!): AddChannelBlockedTermPayload
+
+  """
+  Adds a permitted term to a channel.
+  """
+  addChannelPermittedTerm(input: AddChannelPermittedTermInput!): AddChannelPermittedTermPayload
+
+  """
+  addCollectionItem adds an item to a collection.
+  """
+  addCollectionItem(input: AddCollectionItemInput!): AddCollectionItemPayload
+
+  """
+  Add CompetitionPhase to a competition.
+  """
+  addCompetitionPhase(input: AddCompetitionPhaseInput!): AddCompetitionPhasePayload
+
+  """
+  Add CompetitionPlayer to a competition.
+  """
+  addCompetitionPlayer(input: AddCompetitionPlayerInput!): AddCompetitionPlayerPayload
+
+  """
+  Add CompetitionTeam to a competition.
+  """
+  addCompetitionTeam(input: AddCompetitionTeamInput!): AddCompetitionTeamPayload
+
+  """
+  addDeviceToken associates a new push notification token to the given user.
+  """
+  addDeviceToken(input: AddDeviceTokenInput!): AddDeviceTokenPayload
+
+  """
+  addDropToCampaign allows an organization to add a new drop record to an existing campaign.
+  """
+  addDropToCampaign(input: AddDropToCampaignInput!): AddDropToCampaignPayload
+
+  """
+  Grant a user the editor status for a given channel.
+  """
+  addEditor(input: AddEditorInput!): AddEditorPayload
+
+  """
+  Register a radio content play start.
+  """
+  addRadioRecentlyPlayed(input: AddRadioRecentlyPlayedInput!): AddRadioRecentlyPlayedPayload
+
+  """
+  addReaction allows a user to create a reaction for any reactable item in a feed.
+  """
+  addReaction(input: AddReactionInput!): AddReactionPayload @deprecated
+
+  """
+  addRecommendationFeedback allows a user to add feedback about a recommendation they've received.
+  """
+  addRecommendationFeedback(
+    input: AddRecommendationFeedbackInput!
+  ): AddRecommendationFeedbackPayload
+
+  """
+  Adds a user to stream on behalf of broadcaster.
+  """
+  addStreamAuthorizedUser(input: AddStreamAuthorizedUserInput!): AddStreamAuthorizedUserPayload
+
+  """
+  Allocates product keys that a broadcaster may need to complete the bounty.
+  """
+  allocateKeysForBounty(input: AllocateKeysForBountyInput!): AllocateKeysForBountyPayload
+
+  """
+  Allows a message rejected on a channel chat.
+  """
+  allowRejectedChatMessage(input: AllowRejectedChatMessageInput!): AllowRejectedChatMessagePayload
+
+  """
+  Allows a cheer rejected on a channel chat.
+  """
+  allowRejectedCheer(input: AllowRejectedCheerInput!): AllowRejectedCheerPayload
+    @deprecated(reason: "logic handled by allowRejectedChatMessage")
+
+  """
+  Apply activation state to a subset of installed extensions. In order to deactivate an installed extension,
+  simply pass a null value in the anchor.
+  """
+  applyExtensionActivations(
+    input: ApplyExtensionActivationsInput!
+  ): ApplyExtensionActivationsPayload
+
+  """
+  Approve a request to be unbanned from a channel-banned user.
+  """
+  approveUnbanRequest(input: ApproveUnbanRequestInput!): ApproveUnbanRequestPayload
+
+  """
+  Archives a chanlet to remove the chanlet from the parent channel.
+  """
+  archiveChanlet(input: ArchiveChanletInput!): ArchiveChanletPayload
+
+  """
+  archiveCommunityPointsCommunityGoal archives a Community Points Community Goal.
+  """
+  archiveCommunityPointsCommunityGoal(
+    input: ArchiveCommunityPointsCommunityGoalInput!
+  ): ArchiveCommunityPointsCommunityGoalPayload
+
+  """
+  Archive a poll with the given poll id.
+  """
+  archivePoll(input: ArchivePollInput!): ArchivePollPayload
+
+  """
+  Archive the current poll in a channel.
+  """
+  archivePollInChannel(input: ArchivePollInChannelInput!): ArchivePollInChannelPayload
+
+  """
+  Assign an emote to a bits tier.
+  """
+  assignEmoteToBitsTier(input: AssignEmoteToBitsTierInput!): AssignEmoteToBitsTierPayload
+
+  """
+  Assign an emote to a subscription product.
+  """
+  assignEmoteToSubscriptionProduct(
+    input: AssignEmoteToSubscriptionProductInput!
+  ): AssignEmoteToSubscriptionProductPayload
+
+  """
+  Assign a billing manager to an extension.
+  The billing manager is the organization's Owner or member with Billing_Manager role that is ready to receive
+  payments for the monetized extension within an organization.
+  """
+  assignExtensionBillingManager(
+    input: AssignExtensionBillingManagerInput!
+  ): AssignExtensionBillingManagerPayload
+
+  """
+  Bans a user from chat room permanently or for an specified period of time.
+  """
+  banUserFromChatRoom(input: BanUserFromChatRoomInput!): BanUserFromChatRoomPayload
+
+  """
+  banVideoCommenter bans a user from commenting on a video.
+  """
+  banVideoCommenter(input: BanVideoCommenterInput!): BanVideoCommenterPayload
+
+  """
+  beginUseBitsInExtension starts a bits transaction in an extension.
+  """
+  beginUseBitsInExtension(input: BeginUseBitsInExtensionInput!): BeginUseBitsInExtensionPayload
+
+  """
+  Blocks target user from communicating with the current user.
+  """
+  blockUser(input: BlockUserInput!): BlockUserPayload
+
+  """
+  Approve a list of unban requests on a channel.
+  """
+  bulkApproveUnbanRequest(input: BulkApproveUnbanRequestInput!): BulkApproveUnbanRequestPayload
+
+  """
+  Deny a list of unban requests on a channel.
+  """
+  bulkDenyUnbanRequest(input: BulkDenyUnbanRequestInput!): BulkDenyUnbanRequestPayload
+
+  """
+  Cancel all active boosts on a channel.
+  """
+  cancelActiveBoostOrders(input: CancelActiveBoostOrdersInput!): CancelActiveBoostOrdersPayload
+
+  """
+  cancelBounty allows a user to cancel a claimed bounty.
+  If the user has not met the requirements to cancel the bounty, an error will be returned.
+  """
+  cancelBounty(input: CancelBountyInput!): CancelBountyPayload
+
+  """
+  cancelFriendRequest destroys a friend request relationship from the authenticated user to the target user.
+  """
+  cancelFriendRequest(input: CancelFriendRequestInput!): CancelFriendRequestPayload
+
+  """
+  Cancel a current payout onboarding workflow.
+  """
+  cancelPayoutOnboardingWorkflow(
+    input: CancelPayoutOnboardingWorkflowInput!
+  ): CancelPayoutOnboardingWorkflowPayload
+
+  """
+  Cancel a Prediction Event.
+  """
+  cancelPredictionEvent(input: CancelPredictionEventInput!): CancelPredictionEventPayload
+
+  """
+  Cancel a raid.
+  """
+  cancelRaid(input: CancelRaidInput!): CancelRaidPayload
+
+  """
+  cancelSubscriptionGift allows the current user to cancel their gifted subscription to a channel.
+  """
+  cancelSubscriptionGift(input: CancelSubscriptionGiftInput!): CancelSubscriptionGiftPayload
+
+  """
+  cancelUnbanRequest allows the user to cancel their provided unban request.
+  """
+  cancelUnbanRequest(input: CancelUnbanRequestInput!): CancelUnbanRequestPayload
+
+  """
+  changeUsername allows a user to update their username(login).
+  """
+  changeUsername(input: ChangeUsernameInput!): ChangeUsernamePayload
+
+  """
+  claimBounty allows a user to claim a bounty from a campaign (e.g. Stream a Game Campaign).
+  If the user has not met the requirements to claim it, an error will be returned.
+  """
+  claimBounty(input: ClaimBountyInput!): ClaimBountyPayload
+
+  """
+  claimCommunityPoints allows a user to claim community points that they have available in a channel.
+  If the user does not have a claim available, an error will be returned.
+  """
+  claimCommunityPoints(input: ClaimCommunityPointsInput!): ClaimCommunityPointsPayload
+
+  """
+  claimDropRewards allows a user to attempt to claim their rewards from a Drops 2.0 drop.
+  """
+  claimDropRewards(input: ClaimDropRewardsInput!): ClaimDropRewardsPayload
+
+  """
+  claimPrimeOffer allows a user to create their entitlement to the given offer/content.
+  """
+  claimPrimeOffer(input: ClaimPrimeOfferInput!): ClaimPrimeOfferPayload
+
+  """
+  clearUnreadFriendRequests marks all friend requests for the authenticated user as read.
+  """
+  clearUnreadFriendRequests: ClearUnreadFriendRequestsPayload
+
+  """
+  cloneExtensionDiscoveryData copies the discovery data of an extension from one version to another.
+  """
+  cloneExtensionDiscoveryData(
+    input: CloneExtensionDiscoveryDataInput!
+  ): CloneExtensionDiscoveryDataPayload
+
+  """
+  cloneExtensionManifest creates a new version of an extension that is a clone of a previous version.
+  """
+  cloneExtensionManifest(input: CloneExtensionManifestInput!): CloneExtensionManifestPayload
+
+  """
+  connectAdIdentity creates an Amazon ad identity for the authenticated user.
+  """
+  connectAdIdentity(input: ConnectAdIdentityInput!): ConnectAdIdentityPayload
+
+  """
+  contributeCommunityPointsCommunityGoal contributes Community Points towards a Community Goal.
+  """
+  contributeCommunityPointsCommunityGoal(
+    input: ContributeCommunityPointsCommunityGoalInput!
+  ): ContributeCommunityPointsCommunityGoalPayload
+
+  """
+  contributeToChallenge allows the user to contribute Bits towards a Challenge.
+  """
+  contributeToChallenge(input: ContributeToChallengeInput!): ContributeToChallengePayload
+
+  """
+  createArchivedEmote creates an archived emote object, which is not associated
+  with any products, and associates that emote with a set of image assets.
+  """
+  createArchivedEmote(input: CreateArchivedEmoteInput!): CreateArchivedEmotePayload
+
+  """
+  createBadgeFlair creates a custom badge flair asset for a creator's channel and specified tier.
+  """
+  createBadgeFlair(input: CreateBadgeFlairInput!): CreateBadgeFlairPayload
+
+  """
+  createBitsChallengeConditionForExtension creates a Bits condition on behalf of a user by an extension.
+  """
+  createBitsChallengeConditionForExtension(
+    input: CreateBitsChallengeConditionForExtensionInput!
+  ): CreateBitsChallengeConditionForExtensionPayload
+
+  """
+  createBitsChallengeConditionParticipantForExtension creates a Bits condition
+  participant on behalf of a user by an extension.
+  """
+  createBitsChallengeConditionParticipantForExtension(
+    input: CreateBitsChallengeConditionParticipantForExtensionInput!
+  ): CreateBitsChallengeConditionParticipantForExtensionPayload
+
+  """
+  createBountyCampaign creates a campaign for Bounty Board.
+  """
+  createBountyCampaign(input: CreateBountyCampaignInput!): CreateBountyCampaignPayload
+
+  """
+  createBountyCampaignUploadConfig creates a upload configuration for assets for bounty campaigns.
+  """
+  createBountyCampaignUploadConfig(
+    input: CreateBountyCampaignUploadConfigInput!
+  ): CreateBountyCampaignUploadConfigPayload
+
+  """
+  createCelebration creates a new celebration for a channel.
+  """
+  createCelebration(input: CreateCelebrationInput!): CreateCelebrationPayload
+
+  """
+  createChanlet creates a new chanlet for a Channel.
+  """
+  createChanlet(input: CreateChanletInput!): CreateChanletPayload
+
+  """
+  createClip creates a new clip with the authenticated user as the curator.
+  """
+  createClip(input: CreateClipInput!): CreateClipPayload
+
+  """
+  createCollection creates a collection with a provided collection name.
+  """
+  createCollection(input: CreateCollectionInput!): CreateCollectionPayload
+
+  """
+  createCommunityPointsCommunityGoal creates a Community Points Community Goal.
+  """
+  createCommunityPointsCommunityGoal(
+    input: CreateCommunityPointsCommunityGoalInput!
+  ): CreateCommunityPointsCommunityGoalPayload
+
+  """
+  Create a custom Community Points reward in a channel.
+  """
+  createCommunityPointsCustomReward(
+    input: CreateCommunityPointsCustomRewardInput!
+  ): CreateCommunityPointsCustomRewardPayload
+
+  """
+  Generate image upload information (URL and upload ID) for uploading a Community Points image.
+  Can upoload a new Community Points icon, an automatic reward icon, or a custom reward icon.
+  """
+  createCommunityPointsImageUploadInfo(
+    input: CreateCommunityPointsImageUploadInfoInput!
+  ): CreateCommunityPointsImageUploadInfoPayload
+
+  """
+  Create a Competition.
+  """
+  createCompetition(input: CreateCompetitionInput!): CreateCompetitionPayload
+
+  """
+  createContentTags creates the tags specified and associates it with the piece of content specified.
+  """
+  createContentTags(input: CreateContentTagsInput!): CreateContentTagsPayload
+
+  """
+  createDropBenefit creates a benefit that can be used within a drop campaign.
+  """
+  createDropBenefit(input: CreateDropBenefitInput!): CreateDropBenefitPayload
+
+  """
+  createDropCampaign creates a Drop Campaign owned by an organization.
+  """
+  createDropCampaign(input: CreateDropCampaignInput!): CreateDropCampaignPayload
+
+  """
+  createDropImageUploadURL creates and returns a url to use on the client side to upload drops images.
+  """
+  createDropImageUploadURL(input: CreateDropImageUploadURLInput!): CreateDropImageUploadURLPayload
+    @deprecated(reason: "use dropImageUpload")
+
+  """
+  createExtensionClient creates an extension with a provided name.
+  """
+  createExtensionClient(input: CreateExtensionClientInput!): CreateExtensionClientPayload
+
+  """
+  createExtensionImageUploadInfo creates and returns a url and uploadId to use
+  on the client side to upload extension logo, taskbar, discovery and screenshot images.
+  """
+  createExtensionImageUploadInfo(
+    input: CreateExtensionImageUploadInfoInput!
+  ): CreateExtensionImageUploadInfoPayload
+
+  """
+  createExtensionZipUploadInfo creates and returns a url and uploadId to use on the client side to upload zip files.
+  """
+  createExtensionZipUploadInfo(
+    input: CreateExtensionZipUploadInfoInput!
+  ): CreateExtensionZipUploadInfoPayload
+
+  """
+  createFriendRequest creates a friend request relationship between the authenticated user and the target user.
+  """
+  createFriendRequest(input: CreateFriendRequestInput!): CreateFriendRequestPayload
+
+  """
+  createGameApplication creates an application request to add game to a certain organization.
+  """
+  createGameApplication(input: CreateGameApplicationInput!): CreateGameApplicationPayload
+
+  """
+  createGameBoxArtUploadURL returns a URL that can be used to upload the game
+  box art asset, for developers with access to the game box art image.
+  """
+  createGameBoxArtUploadURL(
+    input: CreateGameBoxArtUploadURLInput!
+  ): CreateGameBoxArtUploadURLPayload
+
+  """
+  CreateLoyaltyBadge creates a new badge with these settings.
+  """
+  createLoyaltyBadge(input: CreateLoyaltyBadgeInput!): CreateLoyaltyBadgePayload
+
+  """
+  createLoyaltyBadgeUploadConfig creates a config with URL to upload the badge image to.
+  """
+  createLoyaltyBadgeUploadConfig(
+    input: CreateLoyaltyBadgeUploadConfigInput!
+  ): CreateLoyaltyBadgeUploadConfigPayload
+
+  """
+  createModeratorComment creates and returns a comment on the target user in the given channel.
+  Requester must be a moderator or higher in the channel.
+  """
+  createModeratorComment(input: CreateModeratorCommentInput!): CreateModeratorCommentPayload
+
+  """
+  Creates a new custom Mosaic layout with the specified properties for the current user.
+  """
+  createDashboardViewMosaicLayout(
+    input: CreateDashboardViewMosaicLayoutInput!
+  ): CreateDashboardViewMosaicLayoutPayload
+
+  """
+  createMultiVideoHighlight creates a video of type Highlight with multi-segment support from an Archive type video.
+  """
+  createMultiVideoHighlight(
+    input: CreateMultiVideoHighlightInput!
+  ): CreateMultiVideoHighlightPayload
+
+  """
+  createMultiviewContentAttributeImageUploadConfig creates and returns a upload
+  configuration for uploading and retrieving content attribute images.
+  """
+  createMultiviewContentAttributeImageUploadConfig(
+    input: CreateMultiviewContentAttributeImageUploadConfigInput!
+  ): CreateMultiviewContentAttributeImageUploadConfigPayload
+
+  """
+  createMultiviewContentAttributes creates new content attributes with server assigned IDs.
+  """
+  createMultiviewContentAttributes(
+    input: CreateMultiviewContentAttributesInput!
+  ): CreateMultiviewContentAttributesPayload
+
+  """
+  CreateOrganizationApplicaton creates a new Twitch Developer Organization
+  application with the authenticated user as the submitter.
+  """
+  createOrganizationApplication(
+    input: CreateOrganizationApplicationInput!
+  ): CreateOrganizationApplicationPayload
+
+  """
+  CreateOrganizationInvite creates a new invitation to join an existing Twitch Developer Organization.
+  """
+  createOrganizationInvite(input: CreateOrganizationInviteInput!): CreateOrganizationInvitePayload
+
+  """
+  Creates JWT to be used in subsequent drops calls.
+  """
+  createOrganizationJWT(input: CreateOrganizationJWTInput!): CreateOrganizationJWTPayload
+
+  """
+  Adds a user to a developer organization.
+  """
+  createOrganizationMember(input: CreateOrganizationMemberInput!): CreateOrganizationMemberPayload
+
+  """
+  createPanel removes a panel.
+  """
+  createPanel(input: CreatePanelInput!): CreatePanelPayload
+
+  """
+  Creates the url that a panel image gets uploaded to.
+  """
+  createPanelImageUploadInfo(
+    input: CreatePanelImageUploadInfoInput!
+  ): CreatePanelImageUploadInfoPayload
+
+  """
+  createPartnershipApplication allows a user to create partnership application.
+  """
+  createPartnershipApplication(
+    input: CreatePartnershipApplicationInput!
+  ): CreatePartnershipApplicationPayload
+
+  """
+  createPoll creates a poll.
+  """
+  createPoll(input: CreatePollInput!): CreatePollPayload
+
+  """
+  createPost creates a new post.
+  """
+  createPost(input: CreatePostInput!): CreatePostPayload @deprecated
+
+  """
+  Create a new Prediction Event.
+  """
+  createPredictionEvent(input: CreatePredictionEventInput!): CreatePredictionEventPayload
+
+  """
+  Create a raid.
+  """
+  createRaid(input: CreateRaidInput!): CreateRaidPayload
+
+  """
+  createRewardedVideoToken creates a token used to initialize the truex client application.
+  """
+  createRewardedVideoToken(input: CreateRewardedVideoTokenInput!): CreateRewardedVideoTokenPayload
+
+  """
+  Creates a new chatroom.
+  """
+  createRoom(input: CreateRoomInput!): CreateRoomPayload @deprecated
+
+  """
+  Create a new schedule.
+  """
+  createSchedule(input: CreateScheduleInput!): CreateSchedulePayload
+
+  """
+  Create a new schedule segment.
+  """
+  createScheduleSegment(input: CreateScheduleSegmentInput!): CreateScheduleSegmentPayload
+
+  """
+  createSocialMedia creates new social media items for a Channel.
+  """
+  createSocialMedia(input: CreateSocialMediaInput!): CreateSocialMediaPayload
+
+  """
+  Creates an invitation to a new or existing squad stream.
+  """
+  createSquadStreamInvitation(
+    input: CreateSquadStreamInvitationInput!
+  ): CreateSquadStreamInvitationPayload
+
+  """
+  createStucco allows a user to create a stucco.
+  """
+  createStucco(input: CreateStuccoInput!): CreateStuccoPayload
+
+  """
+  createStuccoPack allows the creation a new stucco pack for the channel.
+  """
+  createStuccoPack(input: CreateStuccoPackInput!): CreateStuccoPackPayload
+
+  """
+  createUnbanRequest allows a channel-banned user to submit a request to channel moderators to be unbanned.
+  """
+  createUnbanRequest(input: CreateUnbanRequestInput!): CreateUnbanRequestPayload
+
+  """
+  createVideoAppeal creates an appeal for the tracks that have been flagged for copyrighted music in the video.
+  """
+  createVideoAppeal(input: CreateVideoAppealInput!): CreateVideoAppealPayload
+
+  """
+  createVideoBookmark creates a video bookmark.
+  """
+  createVideoBookmark(input: CreateVideoBookmarkInput!): CreateVideoBookmarkPayload
+
+  """
+  createVideoComment creates a video comment.
+  """
+  createVideoComment(input: CreateVideoCommentInput!): CreateVideoCommentPayload
+
+  """
+  createVideoHighlight creates a video of type Highlight from an Archive type video.
+  """
+  createVideoHighlight(input: CreateVideoHighlightInput!): CreateVideoHighlightPayload
+
+  """
+  createVideoThumbnailUploadRequest creates a thumbnail upload request url.
+  """
+  createVideoThumbnailUploadRequest(
+    input: CreateVideoThumbnailUploadRequestInput!
+  ): CreateVideoThumbnailUploadRequestPayload
+
+  """
+  Deactivate an extension which has been installed on a channel.
+  """
+  deactivateExtension(input: DeactivateExtensionInput!): DeactivateExtensionPayload
+    @deprecated(reason: "Should use applyExtensionActivations instead")
+
+  """
+  DeclineOrganizationInvite declines an invite to an organization and the invitation is deleted.
+  """
+  declineOrganizationInvite(
+    input: DeclineOrganizationInviteInput!
+  ): DeclineOrganizationInvitePayload
+
+  """
+  deleteAllChannelVideos deletes all videos for a given channel id for the authenticated users.
+  """
+  deleteAllChannelVideos(input: DeleteAllChannelVideosInput): DeleteAllChannelVideosPayload
+
+  """
+  Deletes a bits badge tier emoticon.
+  """
+  deleteBitsBadgeTierEmoticon(
+    input: DeleteBitsBadgeTierEmoticonInput!
+  ): DeleteBitsBadgeTierEmoticonPayload
+
+  """
+  Deletes a celebration from the channel.
+  """
+  deleteCelebration(input: DeleteCelebrationInput!): DeleteCelebrationPayload
+
+  """
+  Deletes a blocked term from a channel.
+  """
+  deleteChannelBlockedTerm(input: DeleteChannelBlockedTermInput!): DeleteChannelBlockedTermPayload
+
+  """
+  Deletes clips from a channel.
+  """
+  deleteChannelClips(input: DeleteChannelClipsInput!): DeleteChannelClipsPayload
+
+  """
+  Deletes a permitted term from a channel.
+  """
+  deleteChannelPermittedTerm(
+    input: DeleteChannelPermittedTermInput!
+  ): DeleteChannelPermittedTermPayload
+
+  """
+  deleteChatMessage deletes a single message from stream chat.
+  """
+  deleteChatMessage(input: DeleteChatMessageInput!): DeleteChatMessagePayload
+
+  """
+  Deletes a custom cheermote tier from a channel.
+  """
+  deleteCheermoteTier(input: DeleteCheermoteTierInput!): DeleteCheermoteTierPayload
+
+  """
+  deleteClips allows a user to delete clips by slugs, video id, or broadcast id.
+  Only the slug and id can be accessed from the list of deleted clips.
+  """
+  deleteClips(input: DeleteClipsInput!): DeleteClipsPayload
+
+  """
+  deleteCollection performs a delete on the collection with the provided ID.
+  """
+  deleteCollection(input: DeleteCollectionInput!): DeleteCollectionPayload
+
+  """
+  deleteCommunityPointsCommunityGoal deletes a Community Points Community Goal.
+  """
+  deleteCommunityPointsCommunityGoal(
+    input: DeleteCommunityPointsCommunityGoalInput!
+  ): DeleteCommunityPointsCommunityGoalPayload
+
+  """
+  Deletes a custom Community Points reward from a channel.
+  """
+  deleteCommunityPointsCustomReward(
+    input: DeleteCommunityPointsCustomRewardInput
+  ): DeleteCommunityPointsCustomRewardPayload
+
+  """
+  Delete a Competition.
+  """
+  deleteCompetition(input: DeleteCompetitionInput!): DeleteCompetitionPayload
+
+  """
+  deleteContentTags removes the tags specified and associates it with the piece of content specified.
+  """
+  deleteContentTags(input: DeleteContentTagsInput!): DeleteContentTagsPayload
+
+  """
+  Deletes the default payment method for a user.
+  Currently supports the Zuora (credit card) and Recurly (credit card, Pay-with-Amazon, PayPal) payment providers.
+  """
+  deleteDefaultPaymentMethod(
+    input: DeleteDefaultPaymentMethodInput!
+  ): DeleteDefaultPaymentMethodPayload
+
+  """
+  deleteDeviceToken deletes a previously added device token by user and device token ID.
+  """
+  deleteDeviceToken(input: DeleteDeviceTokenInput!): DeleteDeviceTokenPayload
+
+  """
+  deleteDrop allows a drop organization owner to delete a drop from their organization.
+  """
+  deleteDrop(input: DeleteDropInput!): DeleteDropPayload
+
+  """
+  deleteDropCampaign allows a drop campaign owner to delete a drop campaign.
+  """
+  deleteDropCampaign(input: DeleteDropCampaignInput!): DeleteDropCampaignPayload
+
+  """
+  Deletes a specified emote.
+  """
+  deleteEmote(input: DeleteEmoteInput!): DeleteEmotePayload
+
+  """
+  deleteExtension allows an extension owner to delete an extension.
+  """
+  deleteExtension(input: DeleteExtensionInput!): DeleteExtensionPayload
+
+  """
+  deleteExtensionImage delete extension image assets of the given urls.
+  """
+  deleteExtensionImage(input: DeleteExtensionImageInput!): DeleteExtensionImagePayload
+
+  """
+  Delete all secrets associated with an extension; this will immediately break all clients until
+  both a new secret rotate is executed and the clients manually refresh themselves. Only use this
+  if a secret is compromised and must be immediately removed from circulation.
+  """
+  deleteExtensionSecrets(input: DeleteExtensionSecretsInput!): DeleteExtensionSecretsPayload
+
+  """
+  Deletes a Loyalty Badge of a Channel.
+  """
+  deleteLoyaltyBadge(input: DeleteLoyaltyBadgeInput!): DeleteLoyaltyBadgePayload
+
+  """
+  deleteModeratorComment deletes a moderator comment with the given ID.
+  The comment must have been created on the requester's channel.
+  """
+  deleteModeratorComment(input: DeleteModeratorCommentInput!): DeleteModeratorCommentPayload
+
+  """
+  deleteMultiviewContentAttributes deletes content attributes with the provided IDs.
+  """
+  deleteMultiviewContentAttributes(
+    input: DeleteMultiviewContentAttributesInput!
+  ): DeleteMultiviewContentAttributesPayload
+
+  """
+  deleteNotification deletes an onsite notification of the authenticated user.
+  """
+  deleteNotification(input: DeleteNotificationInput!): DeleteNotificationPayload
+
+  """
+  deletePanel removes a panel.
+  """
+  deletePanel(input: DeletePanelInput!): DeletePanelPayload
+
+  """
+  deletePost deletes a old post.
+  """
+  deletePost(input: DeletePostInput!): DeletePostPayload @deprecated
+
+  """
+  deleteRecommendationFeedback deletes all the recommendation feedback that matches the given input.
+  """
+  deleteRecommendationFeedback(
+    input: DeleteRecommendationFeedbackInput!
+  ): DeleteRecommendationFeedbackPayload
+
+  """
+  Deletes a chatroom.
+  """
+  deleteRoom(input: DeleteRoomInput!): DeleteRoomPayload @deprecated
+
+  """
+  Deletes an existing message in a chatroom.
+  """
+  deleteRoomMessage(input: DeleteRoomMessageInput!): DeleteRoomMessagePayload
+
+  """
+  Delete the entire schedule of a user.
+  """
+  deleteSchedule(input: DeleteScheduleInput!): DeleteSchedulePayload
+
+  """
+  Delete a segment of a schedule of a user.
+  """
+  deleteScheduleSegment(input: DeleteScheduleSegmentInput!): DeleteScheduleSegmentPayload
+
+  """
+  deleteSocialMedia deletes a social media item for a Channel.
+  """
+  deleteSocialMedia(input: DeleteSocialMediaInput!): DeleteSocialMediaPayload
+
+  """
+  deleteSquadStreamInvitation allows a squad stream member to delete a squad stream invitation.
+  """
+  deleteSquadStreamInvitation(
+    input: DeleteSquadStreamInvitationInput!
+  ): DeleteSquadStreamInvitationPayload
+
+  """
+  Deletes an authorized user who was allowed to stream on behalf of broadcaster.
+  """
+  deleteStreamAuthorizedUser(
+    input: DeleteStreamAuthorizedUserInput!
+  ): DeleteStreamAuthorizedUserPayload
+
+  """
+  Deletes clips made by user.
+  """
+  deleteUserClips(input: DeleteUserClipsInput!): DeleteUserClipsPayload
+
+  """
+  Deletes a user's creator colors.
+  """
+  deleteUserColors(input: DeleteUserColorsInput!): DeleteUserColorsPayload
+
+  """
+  deleteVideoComment performs a delete on the video comment with the provided comment ID.
+  NOTE: this should use an input argument, not define the commentID right here.
+  """
+  deleteVideoComment(commentID: ID!): DeleteVideoCommentPayload
+
+  """
+  deleteVideos performs a delete on the list of video ids.
+  """
+  deleteVideos(input: DeleteVideosInput!): DeleteVideosPayload
+
+  """
+  deleteVideoThumbnail deletes a thumbnail from a video.
+  """
+  deleteVideoThumbnail(input: DeleteVideoThumbnailInput!): DeleteVideoThumbnailPayload
+
+  """
+  Denies a message rejected on a channel chat.
+  """
+  denyRejectedChatMessage(input: DenyRejectedChatMessageInput!): DenyRejectedChatMessagePayload
+
+  """
+  Denies a cheer rejected on a channel chat.
+  """
+  denyRejectedCheer(input: DenyRejectedCheerInput!): DenyRejectedCheerPayload
+    @deprecated(reason: "logic handled by denyRejectedChatMessage")
+
+  """
+  Deny an unban request from a channel-banned user.
+  """
+  denyUnbanRequest(input: DenyUnbanRequestInput!): DenyUnbanRequestPayload
+
+  """
+  Deselect channel badge (default to global badge).
+  """
+  deselectChannelBadge(input: DeselectChannelBadgeInput!): DeselectChannelBadgePayload
+
+  """
+  Deselect global badge (default to no badge).
+  """
+  deselectGlobalBadge: DeselectGlobalBadgePayload
+
+  """
+  Disables Two Factor Authentication for a Twitch user. Requires sudo authentication.
+  """
+  disableTwoFactor(input: DisableTwoFactorInput!): DisableTwoFactorPayload
+
+  """
+  Allows the current user to disable or permanently delete their own account.
+  """
+  disableUserAccount(input: DisableUserAccountInput!): DisableUserAccountPayload
+
+  """
+  dismissFriendRecommendation removes a friend recommendation to the authenticated user without creating a friend
+  request.
+  """
+  dismissFriendRecommendation(
+    input: DismissFriendRecommendationInput!
+  ): DismissFriendRecommendationPayload
+
+  """
+  Permanently dismiss a ritual token without redeeming it.
+  """
+  dismissRitualToken(input: DismissRitualTokenInput!): DismissRitualTokenPayload
+
+  """
+  dismissVideoSuggestedHighlight dismisses the automated highlight suggestion for a video.
+  """
+  dismissVideoSuggestedHighlight(
+    input: DismissVideoSuggestedHighlightInput!
+  ): DismissVideoSuggestedHighlightPayload
+
+  """
+  dropImageUpload makes a request for a url to upload an image to. The caller can then use the URL to upload an image
+  of their choice for either a drop or a benefit.
+  """
+  dropImageUpload(input: DropImageUploadInput!): DropImageUploadPayload
+
+  """
+  Edits an existing message in a chatroom.
+  """
+  editRoomMessage(input: EditRoomMessageInput!): EditRoomMessagePayload @deprecated
+
+  """
+  emitCampaignDiscoveryEvent updates a user's progress towards a discovery objective in applicable campaigns.
+  """
+  emitCampaignDiscoveryEvent(
+    input: EmitCampaignDiscoveryEventInput!
+  ): EmitCampaignDiscoveryEventPayload @deprecated
+
+  """
+  endUseBitsInExtension completes the bit usage transaction in an extension.
+  """
+  endUseBitsInExtension(input: EndUseBitsInExtensionInput!): EndUseBitsInExtensionPayload
+
+  """
+  equipHeroAssets adds the specified assets to a user's hero.
+  """
+  equipHeroAssets(input: EquipHeroAssetsInput!): EquipHeroAssetsPayload
+
+  """
+  exportVideoToYoutube allows a user to export a video to Youtube.
+  """
+  exportVideoToYoutube(input: ExportVideoToYoutubeInput!): ExportVideoToYoutubePayload
+
+  """
+  extensionLinkUser enables or disables the user's identity sharing with an extension.
+  """
+  extensionLinkUser(input: ExtensionLinkUserInput!): ExtensionLinkUserPayload
+
+  """
+  finalizeCompetitionLobby update's a lobby's state to DONE and progresses the competition.
+  """
+  finalizeCompetitionLobby(input: FinalizeCompetitionLobbyInput!): FinalizeCompetitionLobbyPayload
+
+  """
+  followGame allows a user to follow a game.
+  """
+  followGame(input: FollowGameInput!): FollowGamePayload
+
+  """
+  followUser creates a follow relationship between the authenticated user and
+  the target user.
+  """
+  followUser(input: FollowUserInput!): FollowUserPayload
+
+  """
+  generateAnimatedEmote kicks off the generation of animated .gif assets from a given animation preset and static image ids.
+  The user will be notified of success or failure on pubsub.
+  """
+  generateAnimatedEmote(input: GenerateAnimatedEmoteInput!): GenerateAnimatedEmotePayload
+
+  """
+  generateExtensionRatingsCSVReport  asks the ExtensionRatings backend to generate a report and return a filename
+  for that report.  The filename can then be used in follow-up calls to getReportPresignedURL to poll for its
+  completion.  Authenticated on userID:extensionID via OWL in the ExtensionRatings backend.
+  """
+  generateExtensionRatingsCSVReport(
+    input: GenerateExtensionRatingsCSVReportInput!
+  ): GenerateExtensionRatingsCSVReportPayload
+
+  """
+  generateSecondFactorQRCode generates a new second factor QR code so it can be used to generate OTP for authentication.
+  The mutation requires sudo privilege to be successful.
+  """
+  generateSecondFactorQRCode(
+    input: GenerateSecondFactorQRCodeInput!
+  ): GenerateSecondFactorQRCodePayload
+
+  """
+  generateSubscribersCSV kicks off a background job that will generate a csv containing a list
+  of the channel's subscribers and then will alert the frontend that the csv is ready to
+  download using pubsub. Authenticated on the channelID.
+  """
+  generateSubscribersCSV(input: GenerateSubscribersCSVInput!): GenerateSubscribersCSVPayload
+
+  """
+  getEmoteUploadConfig makes a request to mako to get emote upload configuration for a user to upload a new emote with.
+  """
+  getEmoteUploadConfig(input: GetEmoteUploadConfigInput!): GetEmoteUploadConfigPayload
+
+  """
+  Start a raid.
+  """
+  goRaid(input: GoRaidInput!): GoRaidPayload
+
+  """
+  Grant the VIP status to a user for a channel.
+  """
+  grantVIP(input: GrantVIPInput!): GrantVIPPayload
+
+  """
+  Host a target channel from a channel.
+  """
+  hostTargetChannel(input: HostTargetChannelInput!): HostTargetChannelPayload
+
+  """
+  Install an extension onto a specific channel.
+  """
+  installExtension(input: InstallExtensionInput!): InstallExtensionPayload
+
+  """
+  Disable the schedule of a user.
+  """
+  interruptSchedule(input: InterruptScheduleInput!): InterruptSchedulePayload
+
+  """
+  Invalidates authenticated sessions.
+  """
+  invalidateAuthenticatedSessions(
+    input: InvalidateAuthenticatedSessionsInput!
+  ): InvalidateAuthenticatedSessionsPayload
+
+  """
+  Invalidates an association to an email.
+  """
+  invalidateEmailAssociation(
+    input: InvalidateEmailAssociationInput!
+  ): InvalidateEmailAssociationPayload
+
+  """
+  Joins the channel's chatrooms.
+  """
+  joinChannelRooms(input: JoinChannelRoomsInput!): JoinChannelRoomsPayload @deprecated
+
+  """
+  Add a viewer to a source channel's raid. The viewer will be redirected to the target channel when the raid starts.
+  """
+  joinRaid(input: JoinRaidInput!): JoinRaidPayload
+
+  """
+  Leaves the channel's chatrooms.
+  """
+  leaveChannelRooms(input: LeaveChannelRoomsInput!): LeaveChannelRoomsPayload @deprecated
+
+  """
+  Leave a raid for a viewer.
+  """
+  leaveRaid(input: LeaveRaidInput!): LeaveRaidPayload
+
+  """
+  leaveSquadStream allows a member of a squad stream to leave the squad.  Their stream will be
+  removed from the viewer experience, and they will be free to start/join another squad stream.
+  """
+  leaveSquadStream(input: LeaveSquadStreamInput!): LeaveSquadStreamPayload
+
+  """
+  Link a single sign-on (SSO) app to a user's account.
+  """
+  linkSSO(input: LinkSSOInput!): LinkSSOPayload @deprecated(reason: "Service has been shutdown")
+
+  """
+  Update a Prediction Event from ACTIVE to LOCKED, so that users can no longer make predictions on it.
+  """
+  lockPredictionEvent(input: LockPredictionEventInput!): LockPredictionEventPayload
+
+  """
+  Makes a download URL for an authorized user to download a batch of keys.
+  """
+  makeKeyBatchDownloadURL(input: MakeKeyBatchDownloadURLInput!): MakeKeyBatchDownloadURLPayload
+
+  """
+  Make a prediction on an active Prediction Event.
+  """
+  makePrediction(input: MakePredictionInput!): MakePredictionPayload
+
+  """
+  Manually triggers drop in Drops 2.0 system.
+  """
+  manuallyTriggerDrop(input: ManuallyTriggerDropInput!): ManuallyTriggerDropPayload
+
+  """
+  ReadAllCreatorNotifications marks all creator notifications as read.
+  """
+  markAllCreatorNotificationsAsRead(
+    input: MarkAllCreatorNotificationsAsReadInput!
+  ): MarkAllCreatorNotificationsAsReadPayload
+
+  """
+  ReadAllViewerNotifications marks all viewer notifications as read.
+  """
+  markAllViewerNotificationsAsRead(
+    input: MarkAllViewerNotificationsAsReadInput
+  ): MarkAllViewerNotificationsAsReadPayload
+
+  """
+  Make a user a moderator for a channel.
+  """
+  modUser(input: ModUserInput!): ModUserPayload
+
+  """
+  orderPanels updates the sort order of the provided panels, the input must be a list of panel ids
+  all of which are owned by the acting user otherwise the request will fail and a generic GraphQL
+  error will be returned.
+  """
+  orderPanels(input: OrderPanelsInput!): OrderPanelsPayload
+
+  """
+  Presign and return a secure S3 URL to download a CSV report for a GAME or EXTENSION.
+  The generated CSV report contains rows for every day after 2018-01-31.
+  """
+  presignDevInsightsReportURL(
+    input: PresignDevInsightsReportURLInput!
+  ): PresignDevInsightsReportURLPayload
+
+  """
+  processAndroidPayment processes an off-platform Android payment (user was charged outside the Twitch platform).
+  See also: processIOSPayment (iOS purchases) and purchaseOffer (on-platform purchases).
+  """
+  processAndroidPayment(input: ProcessAndroidPaymentInput!): ProcessAndroidPaymentPayload
+
+  """
+  processIOSPayment processes an off-platform iOS payment (user was charged outside the Twitch platform).
+  See also: processAndroidPayment (Android purchases) and purchaseOffer (on-platform purchases).
+  """
+  processIOSPayment(input: ProcessIOSPaymentInput!): ProcessIOSPaymentPayload
+
+  """
+  publishClip allows a user to permanently edit and update their default clip, viewable to the public.
+  """
+  publishClip(input: PublishClipInput!): PublishClipPayload
+
+  """
+  Publishes a competition to make it visible on the esports page.
+  """
+  publishCompetition(input: PublishCompetitionInput!): PublishCompetitionPayload
+
+  """
+  Publishes a subscription emote to become available with a subscription product.
+  """
+  publishSubscriptionEmote(input: PublishSubscriptionEmoteInput!): PublishSubscriptionEmotePayload
+
+  """
+  purchaseOffer completes the purchase of an offer made inside the Twitch platform.
+  See also: processAndroidPayment (Android purchases) and processIOSPayment.
+  """
+  purchaseOffer(input: PurchaseOfferInput!): PurchaseOfferPayload
+
+  """
+  Submit a rating for a Twitch extension.
+  """
+  rateExtension(input: RateExtensionInput!): RateExtensionPayload
+
+  """
+  readNotifications sets the read state to true for one or more onsite notifications of the authenticated user.
+  """
+  readNotifications(input: ReadNotificationsInput!): ReadNotificationsPayload
+
+  """
+  Record an ad event.
+  """
+  recordAdEvent(input: RecordAdEventInput!): RecordAdEventPayload
+
+  """
+  Redeem a claimable code, like a bits key code to add bits to your account, etc.
+  """
+  redeemClaimable(input: RedeemClaimableInput!): RedeemClaimablePayload
+
+  """
+  Redeem a Community Points custom reward in a channel.
+  """
+  redeemCommunityPointsCustomReward(
+    input: RedeemCommunityPointsCustomRewardInput!
+  ): RedeemCommunityPointsCustomRewardPayload
+
+  """
+  Redeem a set of creator gift subscriptions.
+  """
+  redeemCreatorGifts(input: RedeemCreatorGiftsInput!): RedeemCreatorGiftsPayload
+
+  """
+  Redeem an available ritual token. Currently, tokens are redeemed by sending
+  a special message to a channel's chat.
+  """
+  redeemRitualToken(input: RedeemRitualTokenInput!): RedeemRitualTokenPayload
+
+  """
+  Submit a Subscription Redemption.
+  """
+  redeemSubscription(input: RedeemSubscriptionInput!): RedeemSubscriptionPayload
+
+  """
+  redeemTrueXAd processes the result of watching an ad to earn bits.
+  This action can only be taken if an OAuth token is supplied with the request.
+  """
+  redeemTrueXAd(input: RedeemTrueXAdInput!): RedeemTrueXAdPayload
+
+  """
+  refreshExtensionToken is used by our client on a timer to ensure the token
+  doesn't expire while the user is using the site.
+  """
+  refreshExtensionToken(input: RefreshExtensionTokenInput!): RefreshExtensionTokenPayload
+
+  """
+  regenerateStreamKey generates a new stream key for the broadcaster and returns the newly generated stream key.
+  """
+  regenerateStreamKey(input: RegenerateStreamKeyInput!): RegenerateStreamKeyPayload
+
+  """
+  regenerateVerificationCode generates a new verification code and resends the verification message with the new code.
+  """
+  regenerateVerificationCode(
+    input: RegenerateVerificationCodeInput!
+  ): RegenerateVerificationCodePayload
+
+  """
+  Register payout information during payout onboarding.
+  """
+  registerPayoutInformation(
+    input: RegisterPayoutInformationInput!
+  ): RegisterPayoutInformationPayload
+
+  """
+  Starts the registration for second factor authentication for a twitch user. Requires sudo authentication.
+  """
+  registerTwoFactor(input: RegisterTwoFactorInput!): RegisterTwoFactorPayload
+
+  """
+  Finishes the registration for second factor authentication for a twitch user. Requires sudo authentication.
+  """
+  registerTwoFactorConfirmation(
+    input: RegisterTwoFactorConfirmationInput!
+  ): RegisterTwoFactorConfirmationPayload
+
+  """
+  rejectFriendRequest destroys a friend request relationship from the target user to the authenticated user.
+  """
+  rejectFriendRequest(input: RejectFriendRequestInput!): RejectFriendRequestPayload
+
+  """
+  rejectSquadStreamInvitation allows a user to decline an invitation to join a squad stream.
+  """
+  rejectSquadStreamInvitation(
+    input: RejectSquadStreamInvitationInput!
+  ): RejectSquadStreamInvitationPayload
+
+  """
+  rejectSquadStreamOutOfNetworkInvitations allows a user to decline all out-of-network invitations to join a squad stream.
+  """
+  rejectSquadStreamOutOfNetworkInvitations(
+    input: RejectSquadStreamOutOfNetworkInvitationsInput!
+  ): RejectSquadStreamOutOfNetworkInvitationsPayload
+
+  """
+  Removes channels from a user's AutoHost list.
+  """
+  removeAutohostChannels(input: RemoveAutohostChannelsInput!): RemoveAutohostChannelsPayload
+
+  """
+  removeCollectionItem removes an item from a collection.
+  """
+  removeCollectionItem(input: RemoveCollectionItemInput!): RemoveCollectionItemPayload
+
+  """
+  Remove a phase from a Competition.
+  """
+  removeCompetitionPhase(input: RemoveCompetitionPhaseInput!): RemoveCompetitionPhasePayload
+
+  """
+  Remove CompetitionPlayer from a competition.
+  """
+  removeCompetitionPlayer(input: RemoveCompetitionPlayerInput!): RemoveCompetitionPlayerPayload
+
+  """
+  Remove a competition team from a Competition.
+  """
+  removeCompetitionTeam(input: RemoveCompetitionTeamInput!): RemoveCompetitionTeamPayload
+
+  """
+  Revoke the editor status from a user for a given channel.
+  """
+  removeEditor(input: RemoveEditorInput!): RemoveEditorPayload
+
+  """
+  Remove an emote from its assigned group.
+  """
+  removeEmoteFromGroup(input: RemoveEmoteFromGroupInput!): RemoveEmoteFromGroupPayload
+
+  """
+  Removes a rbac user from a developer organization.
+  """
+  removeOrganizationMember(input: RemoveOrganizationMemberInput!): RemoveOrganizationMemberPayload
+
+  """
+  removeReaction removes a reaction created with addReaction.
+  """
+  removeReaction(input: RemoveReactionInput!): RemoveReactionPayload @deprecated
+
+  """
+  removeSquadStreamMember allows the owner of a squad stream to remove a member from the squad stream.
+  """
+  removeSquadStreamMember(input: RemoveSquadStreamMemberInput!): RemoveSquadStreamMemberPayload
+
+  """
+  removeStucco allows the owner of a stucco to remove an inactive stucco from their library.
+  """
+  removeStucco(input: RemoveStuccoInput!): RemoveStuccoPayload
+
+  """
+  reorderCollectionItem reorders an item's position in a collection.
+  """
+  reorderCollectionItem(input: ReorderCollectionItemInput!): ReorderCollectionItemPayload
+
+  """
+  reportContent allows a user to report content on the site as infringing of our terms of service.
+  """
+  reportContent(input: ReportContentInput!): ReportContentPayload
+
+  """
+  Reports a user for bad behavior in a whisper thread.
+  """
+  reportWhisper(input: ReportWhisperInput!): ReportWhisperPayload
+
+  """
+  Reports a whisper thread as spam.
+  """
+  reportWhisperThread(input: ReportWhisperThreadInput!): ReportWhisperThreadPayload
+    @deprecated(reason: "Use reportWhisper")
+
+  """
+  Request a ritual token to be issued to the user.
+  """
+  requestRitualToken(input: RequestRitualTokenInput!): RequestRitualTokenPayload
+
+  """
+  resendVerificationEmail resends a verification email to the current user.
+  """
+  resendVerificationEmail(input: ResendVerificationEmailInput!): ResendVerificationEmailPayload
+
+  """
+  resetUsername allows a user to update their flagged username.
+  """
+  resetUsername(input: ResetUsernameInput!): ResetUsernamePayload
+
+  """
+  Resolve a Prediction Event by specifying the winning option.
+  """
+  resolvePredictionEvent(input: ResolvePredictionEventInput!): ResolvePredictionEventPayload
+
+  """
+  Respond to a team invitation by accepting or declining.
+  """
+  respondToTeamInvitation(input: RespondToTeamInvitationInput!): RespondToTeamInvitationPayload
+
+  """
+  Enable the schedule of a user.
+  """
+  resumeSchedule(input: ResumeScheduleInput!): ResumeSchedulePayload
+
+  """
+  Revoke the VIP status of a user from a channel.
+  """
+  revokeVIP(input: RevokeVIPInput!): RevokeVIPPayload
+
+  """
+  Request a new extension secret; automatically rotates any current secrets out of service
+  with enough time for extension clients to gracefully switch over.  This function should
+  only be called when you are ready to install the new set of secrets it will return; use
+  GET to view secrets without rotating them.
+  """
+  rotateExtensionSecrets(input: RotateExtensionSecretsInput!): RotateExtensionSecretsPayload
+
+  """
+  Runs multiplayer ads on a channel.
+  """
+  runMultiplayerAds(input: RunMultiplayerAdsInput!): RunMultiplayerAdsPayload
+
+  """
+  saveExtensionManifest allows a user to update the manifest for an extension in development.
+  """
+  saveExtensionManifest(input: SaveExtensionManifestInput!): SaveExtensionManifestPayload
+
+  """
+  Give a competition participant a seed value.
+  """
+  seedCompetitionParticipant(
+    input: SeedCompetitionParticipantInput!
+  ): SeedCompetitionParticipantPayload
+
+  """
+  Select a user's channel badge for a channel.
+  """
+  selectChannelBadge(input: SelectChannelBadgeInput!): SelectChannelBadgePayload
+
+  """
+  Select a user's global badge.
+  """
+  selectGlobalBadge(input: SelectGlobalBadgeInput!): SelectGlobalBadgePayload
+
+  """
+  Send a chat message through subscribers-only mode with Channel Points.
+  """
+  sendChatMessageThroughSubscriberMode(
+    input: SendChatMessageThroughSubscriberModeInput!
+  ): SendChatMessageThroughSubscriberModePayload
+
+  """
+  sendCheer sends a chat message that contains cheermotes. The message will
+  be processed, bits deducted from the authenticated user's balance, and then the
+  message will be passed on to the chat service (client shouldn't send the message itself).
+  This action can only be taken if an OAuth token is supplied with the request.
+  """
+  sendCheer(input: SendCheerInput!): SendCheerPayload
+
+  """
+  Sends a pubsub message on behalf of an Extension.
+  """
+  sendExtensionMessage(input: SendExtensionMessageInput!): SendExtensionMessagePayload
+
+  """
+  Send a highlighted chat message with Channel Points.
+  """
+  sendHighlightedChatMessage(
+    input: SendHighlightedChatMessageInput!
+  ): SendHighlightedChatMessagePayload
+
+  """
+  Sends a message to a chatroom.
+  """
+  sendRoomMessage(input: SendRoomMessageInput!): SendRoomMessagePayload @deprecated
+
+  """
+  Sends a whisper message to the target user.
+  """
+  sendWhisper(input: SendWhisperInput!): SendWhisperPayload
+
+  """
+  Set values for length and period of ads for channel ads management.
+  """
+  setAutoAdDensity(input: SetAutoAdDensityInput!): SetAutoAdDensityPayload
+
+  """
+  Sets the user's auto refill settings.
+  """
+  setAutoRefillSettings(input: SetAutoRefillSettingsInput!): SetAutoRefillSettingsPayload
+
+  """
+  Sets the user's list of channelIDs to autohost.
+  """
+  setAutohostChannels(input: SetAutohostChannelsInput!): SetAutohostChannelsPayload
+
+  """
+  setBitsUserSettings sets a Bits users settings such as skipping the tutorial.
+  """
+  setBitsUserSettings(input: SetBitsUserSettingsInput!): SetBitsUserSettingsPayload
+
+  """
+  Set value for channel_feed_enabled.
+  """
+  setChannelFeedEnabled(input: SetChannelFeedEnabledInput!): SetChannelFeedEnabledPayload
+    @deprecated
+
+  """
+  setChannelNotificationSetting allows a user to set a notification setting.
+  """
+  setChannelNotificationSetting(
+    input: SetChannelNotificationSettingInput!
+  ): SetChannelNotificationSettingPayload
+
+  """
+  Set a channel's trailer.
+  A channel trailer can only be modified by its corresponding user, a channel editor, or a Twitch admin.
+  """
+  setChannelTrailer(input: SetChannelTrailerInput!): SetChannelTrailerPayload
+
+  """
+  Set a user's Chat Pause setting.
+  """
+  setChatPauseSetting(input: SetChatPauseSettingInput!): SetChatPauseSettingPayload
+
+  """
+  setContentTags updates the tags specified and associates it with the piece of content specified.
+  """
+  setContentTags(input: SetContentTagsInput!): SetContentTagsPayload
+
+  """
+  setCreatorBadgeFlair updates the channel-wide setting for a user that determines what
+  type of subscriber badge flair is available to eligible subscribers to that channel.
+  """
+  setCreatorBadgeFlair(input: SetCreatorBadgeFlairInput!): SetCreatorBadgeFlairPayload
+
+  """
+  setDashboardAlertQueueActivityStatus updates the specified activity's status for the dashboard alert queue.
+  """
+  setDashboardAlertQueueActivityStatus(
+    input: SetDashboardAlertQueueActivityStatusInput!
+  ): SetDashboardAlertQueueActivityStatusPayload
+
+  """
+  setDashboardAlertQueuePreference updates the preference specified for the dashboard alert queue.
+  """
+  setDashboardAlertQueuePreference(
+    input: SetDashboardAlertQueuePreferenceInput!
+  ): SetDashboardAlertQueuePreferencePayload
+
+  """
+  Sets the default payment method for a user.
+  Currently supports the Zuora (credit card) and Recurly (credit card, Pay-with-Amazon, PayPal) payment providers
+  This is the final step of the payment method management flow.
+  (User.paymentMethods -> User.paymentMethodConfigs -> this mutation).
+  """
+  setDefaultPaymentMethod(input: SetDefaultPaymentMethodInput!): SetDefaultPaymentMethodPayload
+
+  """
+  Set a user's Deleted Message Display Chat UI setting.
+  """
+  setDeletedMessageDisplaySetting(
+    input: SetDeletedMessageDisplaySettingInput!
+  ): SetDeletedMessageDisplaySettingPayload
+
+  """
+  SetDropBenefitOnDrop adds a benefit to a drop within a drop campaign.
+  """
+  setDropBenefitsOnDrop(input: SetDropBenefitsOnDropInput!): SetDropBenefitsOnDropPayload
+
+  """
+  setDropCampaignAccess updates who can or cannot access a campaign's drops.
+  """
+  setDropCampaignAccess(input: SetDropCampaignAccessInput!): SetDropCampaignAccessPayload
+
+  """
+  setDropCampaignStatus transitions a campaign between states.
+  """
+  setDropCampaignStatus(input: SetDropCampaignStatusInput!): SetDropCampaignStatusPayload
+
+  """
+  setDropCampaignSummary allows organizations in the devconsole to update a previously created campaign's summary.
+  """
+  setDropCampaignSummary(input: SetDropCampaignSummaryInput!): SetDropCampaignSummaryPayload
+
+  """
+  setDropEventRule updates a drops's rule to be an event based rule.
+  """
+  setDropEventRule(input: SetDropEventRuleInput!): SetDropEventRulePayload
+
+  """
+  setDropSummary allows organizations to update a drop's summary data.
+  """
+  setDropSummary(input: SetDropSummaryInput!): SetDropSummaryPayload
+
+  """
+  setDropTimeBasedRule updates a drops's rule to be a minutes watched based rule.
+  """
+  setDropTimeBasedRule(input: SetDropTimeBasedRuleInput!): SetDropTimeBasedRulePayload
+
+  """
+  Set a user's emote animations UI setting.
+  """
+  setEmoteAnimationsEnabled(
+    input: SetEmoteAnimationsEnabledInput!
+  ): SetEmoteAnimationsEnabledPayload
+
+  """
+  Set a user's emote animations callout dismissed setting.
+  """
+  setEmoteAnimationsSettingCalloutDismissed(
+    input: SetEmoteAnimationsSettingCalloutDismissedInput!
+  ): SetEmoteAnimationsSettingCalloutDismissedPayload
+
+  """
+  Sets the emote modifier groups for a user.
+  """
+  setEmoteModifierGroups(input: SetEmoteModifierGroupsInput!): SetEmoteModifierGroupsPayload
+
+  """
+  Sets the configuration for an extension version.
+  """
+  setExtensionConfiguration(
+    input: SetExtensionConfigurationInput!
+  ): SetExtensionConfigurationPayload
+
+  """
+  Sets the feature flag options on a specified extension installation.
+  """
+  setExtensionFeatureFlags(input: SetExtensionFeatureFlagsInput!): SetExtensionFeatureFlagsPayload
+
+  """
+  Set the OAuth token for an installation which is retrieved and used for Helix requests from extensions.
+  """
+  setExtensionInstallationOAuth(
+    input: SetExtensionInstallationOAuthInput!
+  ): SetExtensionInstallationOAuthPayload
+
+  """
+  SetGameDropAccountLinkClient sets the client ID on a game which is used to
+  verify that users have connected their game accounts.
+  """
+  setGameDropAccountLinkClient(
+    input: SetGameDropAccountLinkClientInput!
+  ): SetGameDropAccountLinkClientPayload
+
+  """
+  Sets the user's current hero to their profile picture.
+  """
+  setHeroAsAvatar(input: SetHeroAsAvatarInput!): SetHeroAsAvatarPayload
+
+  """
+  Set access permission to the channel's moderator logs for a given role.
+  """
+  setModLogsAccess(input: SetModLogsAccessInput!): SetModLogsAccessPayload
+
+  """
+  Set a user's mod view page tutorial seen state & time.
+  """
+  setModViewSettings(input: SetModViewSettingsInput!): SetModViewSettingsPayload
+
+  """
+  setNotificationSetting allows a user to set a notification setting.
+  """
+  setNotificationSetting(input: SetNotificationSettingInput!): SetNotificationSettingPayload
+
+  """
+  setOverwatchLeagueTeamPreference allows a user to set their preferred Overwatch team.
+  """
+  setOverwatchLeagueTeamPreference(
+    input: SetOverwatchLeagueTeamPreferenceInput!
+  ): SetOverwatchLeagueTeamPreferencePayload
+
+  """
+  Set a user's preferred language tag.
+  """
+  setPreferredLanguageTag(input: SetPreferredLanguageTagInput!): SetPreferredLanguageTagPayload
+
+  """
+  Set radio track information currently being played.
+  """
+  setRadioCurrentlyPlaying(input: SetRadioCurrentlyPlayingInput!): SetRadioCurrentlyPlayingPayload
+
+  """
+  Set a user's readable chat colors UI setting.
+  """
+  setReadableChatColorsEnabled(
+    input: SetReadableChatColorsEnabledInput!
+  ): SetReadableChatColorsEnabledPayload
+
+  """
+  setResourceRestriction can create or update a restriction on a resource.
+  """
+  setResourceRestriction(input: SetResourceRestrictionInput!): SetResourceRestrictionPayload
+
+  """
+  setScheduleReminder toggles on or off a user's set reminder for a given scheduled event.
+  """
+  setScheduleReminder(input: SetScheduleReminderInput!): SetScheduleReminderPayload
+
+  """
+  setSessionStatus sets the user's status for this session, which influences how they appear ("online", "idle",
+  "watching SnarfyBobo") to friends and related users. To maintain a session status, setSessionStatus needs to be sent
+  periodically. The amount of time your application should wait between these status heartbeats is included in the
+  response payload.
+  """
+  setSessionStatus(input: SetSessionStatusInput!): SetSessionStatusPayload
+
+  """
+  Set the ID of the primary player in a squad stream that the user currently has in the primary position.
+  """
+  setSquadStreamPrimaryPlayer(
+    input: SetSquadStreamPrimaryPlayerInput!
+  ): SetSquadStreamPrimaryPlayerPayload
+
+  """
+  setUnbanRequestsSettings allows a user to set their channel's unban requests settings.
+  """
+  setUnbanRequestsSettings(input: SetUnbanRequestsSettingsInput!): SetUnbanRequestsSettingsPayload
+
+  """
+  Set user's country of residence.
+  """
+  setUserResidence(input: SetUserResidenceInput!): SetUserResidencePayload
+
+  """
+  Spend Twitch Prime monthly subscription credit.
+  """
+  spendSubscriptionCredit(input: SpendSubscriptionCreditInput!): SpendSubscriptionCreditPayload
+
+  """
+  Start a new ad break.
+  """
+  startAd(input: StartAdInput!): StartAdPayload
+
+  """
+  startBounty allows a user to start a bounty for tracking (e.g. track the
+  viewers CCU for meeting the bounty's requirements).
+  If the user has not provided a title or met the other requirements to start the bounty, it will return an error.
+  """
+  startBounty(input: StartBountyInput!): StartBountyPayload
+
+  """
+  Starts a cloud broadcast.
+  """
+  startCloudBroadcast(input: StartCloudBroadcastInput!): StartCloudBroadcastPayload
+
+  """
+  Start a new payout onboarding workflow.
+  """
+  startPayoutOnboardingWorkflow(
+    input: StartPayoutOnboardingWorkflowInput!
+  ): StartPayoutOnboardingWorkflowPayload
+
+  """
+  Start a Prime Video Watch Party.
+  """
+  startWatchParty(input: StartWatchPartyInput!): StartWatchPartyPayload
+
+  """
+  stopBounty allows a user to stop tracking progress for a bounty.
+  """
+  stopBounty(input: StopBountyInput!): StopBountyPayload
+
+  """
+  Stops a cloud broadcast.
+  """
+  stopCloudBroadcast(input: StopCloudBroadcastInput!): StopCloudBroadcastPayload
+
+  """
+  Stop a Prime Video Watch Party.
+  """
+  stopWatchParty(input: StopWatchPartyInput!): StopWatchPartyPayload
+
+  """
+  Submit CSAT (customer satisfaction) feedback.
+  """
+  submitCSATFeedback(input: SubmitCSATFeedbackInput!): SubmitCSATFeedbackPayload
+
+  """
+  Submit a new emote prefix for a given channel. Each channel has a single prefix.
+  Submitting more than once overrides the previously set prefix.
+  """
+  submitEmotePrefix(input: SubmitEmotePrefixInput!): SubmitEmotePrefixPayload
+
+  """
+  Submit a new emoticon prefix for a given channel. Each channel has a single prefix. Submitting
+  more than once simply overrides the previously set prefix and putting it in a pending state.
+  """
+  submitEmoticonPrefix(input: SubmitEmoticonPrefixInput!): SubmitEmoticonPrefixPayload
+    @deprecated(reason: "Use 'submitEmotePrefix' instead")
+
+  """
+  Submit feedback for a Twitch extension.
+  """
+  submitExtensionFeedback(input: SubmitExtensionFeedbackInput!): SubmitExtensionFeedbackPayload
+
+  """
+  Swap competition lobby participants within a competition phase.
+  """
+  swapCompetitionLobbyParticipants(
+    input: SwapCompetitionLobbyParticipantsInput!
+  ): SwapCompetitionLobbyParticipantsPayload
+
+  """
+  Syncs the current game data with the game data stored by the DropsManagementService. The DropsManagementService
+  purposefully does not autosync when a Game is updated so that a change to the Game's account link client ID
+  doesn't get overwritten without running this command.
+  """
+  syncGameOnDropCampaign(input: SyncGameOnDropCampaignInput!): SyncGameOnDropCampaignPayload
+
+  """
+  Terminates the poll with the given poll id.
+  """
+  terminatePoll(input: TerminatePollInput!): TerminatePollPayload
+
+  """
+  Terminates the current poll in a channel.
+  """
+  terminatePollInChannel(input: TerminatePollInChannelInput!): TerminatePollInChannelPayload
+
+  """
+  toggleRitualsEnabled allows a user to toggle the rituals feature for their channel.
+  """
+  toggleRitualsEnabled(input: ToggleRitualsEnabledInput!): ToggleRitualsEnabledPayload
+
+  """
+  Transitions the state for an existing extension.
+  Only allowed for the owner of the extension.
+  """
+  transitionExtensionState(input: TransitionExtensionStateInput!): TransitionExtensionStatePayload
+
+  """
+  Removes a ban imposed on a user for a specified chat room.
+  """
+  unbanUserFromChatRoom(input: UnbanUserFromChatRoomInput!): UnbanUserFromChatRoomPayload
+
+  """
+  Removes block from target user.
+  """
+  unblockUser(input: UnblockUserInput!): UnblockUserPayload
+
+  """
+  undoRecommendationFeedback allows a user to removes a single piece of feedback.
+  """
+  undoRecommendationFeedback(
+    input: UndoRecommendationFeedbackInput!
+  ): UndoRecommendationFeedbackPayload
+
+  """
+  unfollowGame allows a user to unfollow a game.
+  """
+  unfollowGame(input: UnfollowGameInput!): UnfollowGamePayload
+
+  """
+  unfollowUser destroys the follow relationship between the authenticated user and
+  the target user.
+  """
+  unfollowUser(input: UnfollowUserInput!): UnfollowUserPayload
+
+  """
+  unfriendUser destroys a friend relationship from the target user to the authenticated user.
+  """
+  unfriendUser(input: UnfriendUserInput!): UnfriendUserPayload
+
+  """
+  Unhost from a channel.
+  """
+  unhost(input: UnhostInput!): UnhostPayload
+
+  """
+  Uninstall an extension from a specific channel.
+  """
+  uninstallExtension(input: UninstallExtensionInput!): UninstallExtensionPayload
+
+  """
+  Unlink an authenticated user's amazon connection.
+  """
+  unlinkAmazonConnection(input: UnlinkAmazonConnectionInput!): UnlinkAmazonConnectionPayload
+
+  """
+  Unlink a user's account connection to Riot.
+  """
+  unlinkRiotConnection(input: UnlinkRiotConnectionInput!): UnlinkRiotConnectionPayload
+
+  """
+  Unlink an SSO app from a user's account.
+  """
+  unlinkSSO(input: UnlinkSSOInput!): UnlinkSSOPayload
+    @deprecated(reason: "Service has been shutdown")
+
+  """
+  Unlock a chosen modified subscriber emote using Community Points.
+  """
+  unlockChosenModifiedSubscriberEmote(
+    input: UnlockChosenModifiedSubscriberEmoteInput!
+  ): UnlockChosenModifiedSubscriberEmotePayload
+
+  """
+  Unlock a chosen subscriber emote using Community Points.
+  """
+  unlockChosenSubscriberEmote(
+    input: UnlockChosenSubscriberEmoteInput!
+  ): UnlockChosenSubscriberEmotePayload
+
+  """
+  Unlock a random subscriber emote using Community Points.
+  """
+  unlockRandomSubscriberEmote(
+    input: UnlockRandomSubscriberEmoteInput!
+  ): UnlockRandomSubscriberEmotePayload
+
+  """
+  Remove moderator status from a user in a channel.
+  """
+  unmodUser(input: UnmodUserInput!): UnmodUserPayload
+
+  """
+  unsetHypeTrainConfig allows a user to unset the channel's custom hype train configurations.
+  """
+  unsetHypeTrainConfig(input: UnsetHypeTrainConfigInput!): UnsetHypeTrainConfigPayload
+
+  """
+  unsubscribeEmail unsubscribes a given user from a given email campaign.
+  """
+  unsubscribeEmail(input: UnsubscribeEmailInput!): UnsubscribeEmailPayload
+
+  """
+  Updates a user's ad settings for their channel.
+  """
+  updateAdProperties(input: UpdateAdPropertiesInput!): UpdateAdPropertiesPayload
+
+  """
+  Updates all a channels vidoes to the provided viewability.
+  """
+  updateAllChannelVideosViewability(
+    input: UpdateAllChannelVideosViewabilityInput!
+  ): UpdateAllChannelVideosViewabilityPayload
+
+  """
+  Updates all of a user's whisper threads.
+  """
+  updateAllWhisperThreads(input: UpdateAllWhisperThreadsInput!): UpdateAllWhisperThreadsPayload
+
+  """
+  Set individual automod categories (i.e. set identity to level 3 but profanity to 0).
+  """
+  updateAutoModLevels(input: UpdateAutoModLevelsInput!): UpdateAutoModLevelsPayload
+
+  """
+  Set individual automod categories (i.e. set identity to level 3 but profanity
+  to 0) - based on Sift categories, to be deprecated.
+  """
+  updateAutoModProperties(input: UpdateAutoModPropertiesInput!): UpdateAutoModPropertiesPayload
+
+  """
+  Update a user's autohost settings.
+  """
+  updateAutohostSettings(input: UpdateAutohostSettingsInput!): UpdateAutohostSettingsPayload
+
+  """
+  Updates bits badge tier notification.
+  """
+  updateBitsBadgeTierNotification(
+    input: UpdateBitsBadgeTierNotificationInput!
+  ): UpdateBitsBadgeTierNotificationPayload
+
+  """
+  Updates bits badge tiers.
+  """
+  updateBitsBadgeTiers(input: UpdateBitsBadgeTiersInput!): UpdateBitsBadgeTiersPayload
+
+  """
+  Updates boost settings.
+  """
+  updateBoostSettings(input: UpdateBoostSettingsInput!): UpdateBoostSettingsPayload
+
+  """
+  updateBroadcastSettings allows the user to update their broadcast setting.
+  """
+  updateBroadcastSettings(input: UpdateBroadcastSettingsInput!): UpdateBroadcastSettingsPayload
+
+  """
+  Update a channels celebration.
+  """
+  updateCelebration(input: UpdateCelebrationInput!): UpdateCelebrationPayload
+
+  """
+  Update a channels celebration config.
+  """
+  updateCelebrationConfig(input: UpdateCelebrationConfigInput!): UpdateCelebrationConfigPayload
+
+  """
+  Update a channel's celebration product config.
+  """
+  updateCelebrationProductConfig(
+    input: UpdateCelebrationProductConfigInput!
+  ): UpdateCelebrationProductConfigPayload
+
+  """
+  Update a user's celebration user settings.
+  """
+  updateCelebrationUserSettings(
+    input: UpdateCelebrationUserSettingsInput!
+  ): UpdateCelebrationUserSettingsPayload
+
+  """
+  updateChangelogReadTime marks the changelog as read for a user.
+  """
+  updateChangelogReadTime: UpdateChangelogReadTimePayload
+
+  """
+  updateChanletContentAttributes allows users to make changes to the multi-view content attributes on a chanlet.
+  """
+  updateChanletContentAttributes(
+    input: UpdateChanletContentAttributesInput!
+  ): UpdateChanletContentAttributesPayload
+
+  """
+  updateChannelClipsSetting allows a channel owner to enable/disable creation
+  of Clips on their channel.
+  """
+  updateChannelClipsSetting(
+    input: UpdateChannelClipsSettingInput!
+  ): UpdateChannelClipsSettingPayload
+
+  """
+  updateChannelHomePreferences updates a streamer's channel home preferences.
+  """
+  updateChannelHomePreferences(
+    input: UpdateChannelHomePreferencesInput!
+  ): UpdateChannelHomePreferencesPayload
+
+  """
+  Update a channel's Prediction Settings.
+  """
+  updateChannelPredictionSettings(
+    input: UpdateChannelPredictionSettingsInput!
+  ): UpdateChannelPredictionSettingsPayload
+
+  """
+  Updates a user's chat color.
+  """
+  updateChatColor(input: UpdateChatColorInput!): UpdateChatColorPayload
+
+  """
+  Set different chat settings (i.e. disable globalBannedWordsOptOut).
+  """
+  updateChatSettings(input: UpdateChatSettingsInput!): UpdateChatSettingsPayload
+
+  """
+  Update the user's partner settings regarding bits.
+  """
+  updateCheerPartnerSettings(
+    input: UpdateCheerPartnerSettingsInput!
+  ): UpdateCheerPartnerSettingsPayload
+
+  """
+  Updates the image assets for a broadcaster's particular cheermote tier.
+  """
+  updateCheermoteTier(input: UpdateCheermoteTierInput!): UpdateCheermoteTierPayload
+
+  """
+  updateClip allows a user to update the metadata of a clip.
+  """
+  updateClip(input: UpdateClipInput!): UpdateClipPayload
+
+  """
+  updateClipViewCount allows a user to increment the viewcount of a clip.
+  """
+  updateClipViewCount(input: UpdateClipViewCountInput!): UpdateClipViewCountPayload
+    @deprecated(reason: "Will eventually be replaced by different viewcounting method")
+
+  """
+  updateCollection performs an update on the collection with the provided ID and updated attributes.
+  """
+  updateCollection(input: UpdateCollectionInput!): UpdateCollectionPayload
+
+  """
+  Update an automatic Community Points reward in a channel.
+  """
+  updateCommunityPointsAutomaticReward(
+    input: UpdateCommunityPointsAutomaticRewardInput!
+  ): UpdateCommunityPointsAutomaticRewardPayload
+
+  """
+  Update a channel's Community Points channel settings.
+  """
+  updateCommunityPointsChannelSettings(
+    input: UpdateCommunityPointsChannelSettingsInput!
+  ): UpdateCommunityPointsChannelSettingsPayload
+
+  """
+  updateCommunityPointsCommunityGoal updates a Community Points Community Goal.
+  """
+  updateCommunityPointsCommunityGoal(
+    input: UpdateCommunityPointsCommunityGoalInput!
+  ): UpdateCommunityPointsCommunityGoalPayload
+
+  """
+  Update a custom Community Points reward in a channel.
+  """
+  updateCommunityPointsCustomReward(
+    input: UpdateCommunityPointsCustomRewardInput!
+  ): UpdateCommunityPointsCustomRewardPayload
+
+  """
+  Update the status of a Community Points redemption (for example, from unfulfilled to fulfilled).
+  """
+  updateCommunityPointsCustomRewardRedemptionStatus(
+    input: UpdateCommunityPointsCustomRewardRedemptionStatusInput!
+  ): UpdateCommunityPointsCustomRewardRedemptionStatusPayload
+
+  """
+  Update the status of all Community Points redemptions for a channel.
+  """
+  updateCommunityPointsCustomRewardRedemptionStatusesByChannel(
+    input: UpdateCommunityPointsCustomRewardRedemptionStatusesByChannelInput!
+  ): UpdateCommunityPointsCustomRewardRedemptionStatusesByChannelPayload
+
+  """
+  Update the status of the Community Points redemptions from the provided list.
+  """
+  updateCommunityPointsCustomRewardRedemptionStatusesByRedemptions(
+    input: UpdateCommunityPointsCustomRewardRedemptionStatusesByRedemptionsInput!
+  ): UpdateCommunityPointsCustomRewardRedemptionStatusesByRedemptionsPayload
+
+  """
+  Update the status of all Community Points redemptions for a reward.
+  """
+  updateCommunityPointsCustomRewardRedemptionStatusesByReward(
+    input: UpdateCommunityPointsCustomRewardRedemptionStatusesByRewardInput!
+  ): UpdateCommunityPointsCustomRewardRedemptionStatusesByRewardPayload
+
+  """
+  Allows users to sign up for or remove themselves from the Community Points early access program.
+  """
+  updateCommunityPointsEarlyAccessSettings(
+    input: UpdateCommunityPointsEarlyAccessSettingsInput!
+  ): UpdateCommunityPointsEarlyAccessSettingsPayload
+    @deprecated(reason: "Early access period is over.")
+
+  """
+  Update the last viewed timestamp of a user for Community Points content.
+  """
+  updateCommunityPointsLastViewedContent(
+    input: UpdateCommunityPointsLastViewedContentInput!
+  ): UpdateCommunityPointsLastViewedContentPayload
+
+  """
+  Update an automatic Community Points reward cost acknowledgements.
+  """
+  updateCommunityPointsSmartCostsAcknowledgements(
+    input: UpdateCommunityPointsSmartCostsAcknowledgementsInput!
+  ): UpdateCommunityPointsSmartCostsAcknowledgementsPayload
+
+  """
+  Update Competition.
+  """
+  updateCompetition(input: UpdateCompetitionInput!): UpdateCompetitionPayload
+
+  """
+  Update CompetitionPlayer in a competition.
+  """
+  updateCompetitionPlayer(input: UpdateCompetitionPlayerInput!): UpdateCompetitionPlayerPayload
+
+  """
+  Update  a Team in a Competition.
+  """
+  updateCompetitionTeam(input: UpdateCompetitionTeamInput!): UpdateCompetitionTeamPayload
+
+  """
+  Update a consent status or create a new consent status.
+  """
+  updateConsent(input: UpdateConsentInput!): UpdateConsentPayload
+
+  """
+  updateContentTags updates the tags specified and associates it with the piece of content specified.
+  """
+  updateContentTags(input: UpdateContentTagsInput!): UpdateContentTagsPayload
+    @deprecated(reason: "Use setContentTags instead")
+
+  """
+  updateDropBenefit updates a benefit owned by an organization. The benefit can be used in drop campaigns.
+  """
+  updateDropBenefit(input: UpdateDropBenefitInput!): UpdateDropBenefitPayload
+
+  """
+  updateDropBenefitOnDrop sets a benefit on a drop and how often that benefit can be claimed.
+  """
+  updateDropBenefitOnDrop(input: UpdateDropBenefitOnDropInput!): UpdateDropBenefitOnDropPayload
+
+  """
+  updateDropPreconditions updates the drops that must be claimed before a drop can be claimed.
+  """
+  updateDropPreconditions(input: UpdateDropPreconditionsInput!): UpdateDropPreconditionsPayload
+
+  """
+  updateDropsOptOutStatus allows the user to update their drops opt-out status.
+  """
+  updateDropsOptOutStatus(input: UpdateDropsOptOutStatusInput!): UpdateDropsOptOutStatusPayload
+
+  """
+  updateEmoteOrders allows a broadcaster to reorder the emotes within the emote groups they own.
+  """
+  updateEmoteOrders(input: UpdateEmoteOrdersInput!): UpdateEmoteOrdersPayload
+
+  """
+  updateExtensionDiscoveryData allows a user to update the discovery data for an extension.
+  """
+  updateExtensionDiscoveryData(
+    input: UpdateExtensionDiscoveryDataInput!
+  ): UpdateExtensionDiscoveryDataPayload
+
+  """
+  updateExtensionManifest allows a user to update the manifest for an extension in development.
+  """
+  updateExtensionManifest(input: UpdateExtensionManifestInput!): UpdateExtensionManifestPayload
+    @deprecated(reason: "Switching to saveExtensionManifest")
+
+  """
+  updateHypeTrainConfig allows a user to update the channel's hype train configurations.
+  """
+  updateHypeTrainConfig(input: UpdateHypeTrainConfigInput!): UpdateHypeTrainConfigPayload
+
+  """
+  Changes the user's activity sharing setting. A user's activity is one part of their status.
+  """
+  updateIsSharingActivity(input: UpdateIsSharingActivityInput!): UpdateIsSharingActivityPayload
+
+  """
+  Exchanges an LWA token for an Amazon OAuth token.
+  """
+  updateLWAToken(input: UpdateLWATokenInput!): UpdateLWATokenPayload
+
+  """
+  Update the user's partner settings regarding leaderboards.
+  """
+  updateLeaderboardSettings(
+    input: UpdateLeaderboardSettingsInput!
+  ): UpdateLeaderboardSettingsPayload
+
+  """
+  Changes the user's activity sharing setting. A user's activity is one part of their status.
+  """
+  updateLiveUpNotification(input: UpdateLiveUpNotificationInput!): UpdateLiveUpNotificationPayload
+
+  """
+  Updates a lobby participant who is a competition player's or competition team's score.
+  """
+  updateLobbyParticipantScore(
+    input: UpdateLobbyParticipantScoreInput!
+  ): UpdateLobbyParticipantScorePayload
+
+  """
+  Updates a Mosaic layout with the specified id for the current user.
+  """
+  updateDashboardViewMosaicLayout(
+    input: UpdateDashboardViewMosaicLayoutInput!
+  ): UpdateDashboardViewMosaicLayoutPayload
+
+  """
+  Modifies multi-view content attributes.
+  """
+  updateMultiviewContentAttributes(
+    input: UpdateMultiviewContentAttributesInput!
+  ): UpdateMultiviewContentAttributesPayload
+
+  """
+  updateOnboardingSkippedChannels updates skipped channel IDs during onboarding for a given user.
+  """
+  updateOnboardingSkippedChannels(
+    input: UpdateOnboardingSkippedChannelsInput!
+  ): UpdateOnboardingSkippedChannelsPayload @deprecated(reason: "This feature is retired")
+
+  """
+  updateOrganizationMemberRole updates the role of an organization member (Twitch Developers).
+  """
+  updateOrganizationMemberRole(
+    input: UpdateOrganizationMemberRoleInput!
+  ): UpdateOrganizationMemberRolePayload
+
+  """
+  updateOwnerChanletAttributes updates/creates a new set of owner chanlet attributes for a Channel.
+  """
+  updateOwnerChanletAttributes(
+    input: UpdateOwnerChanletAttributesInput!
+  ): UpdateOwnerChanletAttributesPayload
+
+  """
+  updatePanel updates the data for a given panel.
+  """
+  updatePanel(input: UpdatePanelInput!): UpdatePanelPayload
+
+  """
+  Starts the process for associating a phone number to a twitch account. Requires sudo authentication.
+  A one time password (valid for 10 minutes) will be sent via SMS to the phone
+  number provided. The one time password will need to be verified via
+  updatePhoneNumberConfirmation to complete the update.
+  """
+  updatePhoneNumber(input: UpdatePhoneNumberInput!): UpdatePhoneNumberPayload
+
+  """
+  Completes the process for associating a phone number to a twitch account. Requires sudo authentication.
+  The one time password issued using updatePhoneNumber will be verified to make sure user contols the phone number.
+  """
+  updatePhoneNumberConfirmation(
+    input: UpdatePhoneNumberConfirmationInput!
+  ): UpdatePhoneNumberConfirmationPayload
+
+  """
+  updatePrimeOfferStatus allows a user to update their status in respect to an offer. (e.g. UNSEEN, SEEN, CLAIMED).
+  """
+  updatePrimeOfferStatus(input: UpdatePrimeOfferStatusInput!): UpdatePrimeOfferStatusPayload
+
+  """
+  updatePrimeSettings allows the user to enable or disable chat notifications when spending a Prime Credit,
+  and allows the user to set the type of Smilies (Turbos, Robots, or Monkeys) they want for Prime/Turbo Emoticons.
+  """
+  updatePrimeSettings(input: UpdatePrimeSettingsInput!): UpdatePrimeSettingsPayload
+
+  """
+  Update a user's raid settings.
+  """
+  updateRaidSettings(input: UpdateRaidSettingsInput!): UpdateRaidSettingsPayload
+
+  """
+  Updates an existing chatroom.
+  """
+  updateRoom(input: UpdateRoomInput!): UpdateRoomPayload @deprecated
+
+  """
+  Updates the room modes (slow mode, emotes only mode, etc.) for the room.
+  """
+  updateRoomModes(input: UpdateRoomModesInput!): UpdateRoomModesPayload @deprecated
+
+  """
+  Update's a user's room view for a chatroom.
+  """
+  updateRoomView(input: UpdateRoomViewInput!): UpdateRoomViewPayload @deprecated
+
+  """
+  Update a schedule segment.
+  """
+  updateScheduleSegment(input: UpdateScheduleSegmentInput!): UpdateScheduleSegmentPayload
+
+  """
+  UpdateSeenCreatorOnboardingContent updates the list of streamer onboarding content that a user has seen.
+  """
+  updateSeenCreatorOnboardingContent(
+    input: UpdateSeenCreatorOnboardingContentInput!
+  ): UpdateSeenCreatorOnboardingContentPayload
+
+  """
+  updateSocialMedia updates an existing social media item for a Channel.
+  """
+  updateSocialMedia(input: UpdateSocialMediaInput!): UpdateSocialMediaPayload
+
+  """
+  updateSquadInvitePolicy allows a broadcaster to update their squad stream invite policy.
+  """
+  updateSquadInvitePolicy(input: UpdateSquadInvitePolicyInput!): UpdateSquadInvitePolicyPayload
+
+  """
+  updateSquadStream allows an owner of a squad stream to update the squad stream.
+  """
+  updateSquadStream(input: UpdateSquadStreamInput!): UpdateSquadStreamPayload
+
+  """
+  updateStucco allows a user to update a stucco (that is currently not active).
+  """
+  updateStucco(input: UpdateStuccoInput!): UpdateStuccoPayload
+
+  """
+  updateStuccoPack allows the updating of a channel's stucco pack. (activating stuccos).
+  """
+  updateStuccoPack(input: UpdateStuccoPackInput!): UpdateStuccoPackPayload
+
+  """
+  updateSubscriptionProduct allows a user to update their subscription product settings.
+  """
+  updateSubscriptionProduct(
+    input: UpdateSubscriptionProductInput!
+  ): UpdateSubscriptionProductPayload
+
+  """
+  updateUser updates a user's displayname, description, email or delete a phone number.
+  """
+  updateUser(input: UpdateUserInput!): UpdateUserPayload
+
+  """
+  Updates a user's creator colors.
+  """
+  updateUserColors(input: UpdateUserColorsInput!): UpdateUserColorsPayload
+
+  """
+  Set a user's privacy preference for registration date.
+  """
+  updateUserCreateDateHidden(
+    input: UpdateUserCreateDateHiddenInput!
+  ): UpdateUserCreateDateHiddenPayload
+
+  """
+  Set a user's directory hidden field.
+  """
+  updateUserDirectoryHidden(
+    input: UpdateUserDirectoryHiddenInput!
+  ): UpdateUserDirectoryHiddenPayload
+
+  """
+  Set a user's email reuse field.
+  """
+  updateUserEmailReusable(input: UpdateUserEmailReusableInput!): UpdateUserEmailReusablePayload
+
+  """
+  updateUserIsEmailRevertSuccess sets/resets a user's Email revert success flag.
+  """
+  updateUserIsEmailRevertSuccess(
+    input: UpdateUserIsEmailRevertSuccessInput!
+  ): UpdateUserIsEmailRevertSuccessPayload
+
+  """
+  Update a user's Prediction Settings.
+  """
+  updateUserPredictionSettings(
+    input: UpdateUserPredictionSettingsInput!
+  ): UpdateUserPredictionSettingsPayload
+
+  """
+  updateUserSubscriptionSettings updates the subscription preferences for the authenticated user.
+  """
+  updateUserSubscriptionSettings(
+    input: UpdateUserSubscriptionSettingsInput!
+  ): UpdateUserSubscriptionSettingsPayload
+
+  """
+  updateUserTeamMembership updates the team membership preferences for target user.
+  """
+  updateUserTeamMembership(input: UpdateUserTeamMembershipInput!): UpdateUserTeamMembershipPayload
+
+  """
+  updateUserVideoShelves adds/removes/reorders for a user's video shelves.
+  """
+  updateUserVideoShelves(input: UpdateUserVideoShelvesInput!): UpdateUserVideoShelvesPayload
+
+  """
+  updateUserViewedVideo updates a resume watching entry for a specified user and video.
+  """
+  updateUserViewedVideo(input: UpdateUserViewedVideoInput!): UpdateUserViewedVideoPayload
+
+  """
+  updateVideo updates a video identified by provided video ID.
+  """
+  updateVideo(input: UpdateVideoInput!): UpdateVideoPayload
+
+  """
+  updateVideoComment updates a video comment identified by provided comment ID.
+  """
+  updateVideoComment(input: UpdateVideoCommentInput!): UpdateVideoCommentPayload
+
+  """
+  updateVideoStreamSettings updates the broadcaster's video stream settings such as latency mode.
+  """
+  updateVideoStreamSettings(
+    input: UpdateVideoStreamSettingsInput!
+  ): UpdateVideoStreamSettingsPayload
+
+  """
+  UpdateVideosViewability updates videos to being published or unpublished.
+  """
+  updateVideosViewability(input: UpdateVideosViewabilityInput!): UpdateVideosViewabilityPayload
+
+  """
+  Changes the user's visibility setting. This is an account-level setting that will cause the user's availability to
+  appear differently to other users, despite what sessions are reporting. See the VisibilityInput enum for details on
+  the effects of each value.
+
+  Because this is an account-level setting, it should only be used in response to the user expressing clear intention
+  to change their visibility. Setting a status for an individual session should be done using setSessionStatus.
+  """
+  updateVisibility(input: UpdateVisibilityInput!): UpdateVisibilityPayload
+
+  """
+  Updates Whisper settings for the authenticated user.
+  """
+  updateWhisperSettings(input: UpdateWhisperSettingsInput!): UpdateWhisperSettingsPayload
+
+  """
+  Updates a whisper thread.
+  """
+  updateWhisperThread(input: UpdateWhisperThreadInput!): UpdateWhisperThreadPayload
+
+  """
+  uploadCompetitionImage generates a url for a user to upload an image to for a competition.
+  """
+  uploadCompetitionImage(input: UploadCompetitionImageInput!): UploadCompetitionImagePayload
+
+  """
+  Uses a chat notification token.
+  """
+  useChatNotificationToken(input: UseChatNotificationTokenInput!): UseChatNotificationTokenPayload
+
+  """
+  validateVerificationCode validates a given code and sets the address to verified if it matches.
+  """
+  validateVerificationCode(input: ValidateVerificationCodeInput!): ValidateVerificationCodePayload
+
+  """
+  verifyContactMethod verifies a user contact method from an opaque ID.
+  """
+  verifyContactMethod(input: VerifyContactMethodInput!): VerifyContactMethodPayload
+
+  """
+  verifyOneTimePassword verifies a one time password for a user for authentication. Requires sudo authentication.
+  """
+  verifyOneTimePassword(input: VerifyOneTimePasswordInput!): VerifyOneTimePasswordPayload
+
+  """
+  verifyRewardedVideoEligibilityCaptcha verifies a users captcha with the rewarded video system.
+  """
+  verifyRewardedVideoEligibilityCaptcha(
+    input: VerifyRewardedVideoEligibilityCaptchaInput!
+  ): VerifyRewardedVideoEligibilityCaptchaPayload
+
+  """
+  viewedNotifications updates when the authenticated user last saw onsite notifications.
+  """
+  viewedNotifications: ViewedNotificationsPayload
+
+  """
+  visitStreamManager updates when the authenticated user visits their stream manager for the first time.
+  """
+  visitStreamManager(input: VisitStreamManagerInput!): VisitStreamManagerPayload
+
+  """
+  Casts a vote for a specific choice in an ad poll.
+  """
+  voteInAdPoll(input: VoteInAdPollInput!): VoteInAdPollPayload
+
+  """
+  Casts a vote for a specific choice in a poll.
+  """
+  voteInPoll(input: VoteInPollInput!): VoteInPollPayload
+
+  """
+  Casts a vote for a specific choice in a poll, by index and channelID.
+  """
+  voteInPollByChoiceIndex(input: VoteInPollByChoiceIndexInput!): VoteInPollByChoiceIndexPayload
+}
+
+"""
+Root fields to access the Twitch API.
+"""
+type Query {
+  """
+  Get the context that corresponds to an upcoming ad request made client side.
+  """
+  adContext(context: AdRequestContext!): AdContext
+
+  """
+  Get a single AdCreative.
+  """
+  adCreative(adSystem: String!, creativeID: ID!): AdCreative
+
+  """
+  Get all tags.
+  """
+  allTags(first: Int = 5, after: Cursor, tagScope: TagScope): TagConnection
+
+  """
+  Get AutoMod evaluation of text using AutoMod rule.
+  """
+  automodContent(input: AutoModContentInput!): AutoModContent
+
+  """
+  A list of global chat badges.
+  """
+  badges: [Badge]
+
+  """
+  Gets a list of Bits offers for a logged out user, for use on the Bits landing page.
+  """
+  bitsOffers: [BitsOffer!]
+
+  """
+  Returns a challenge by its ID.
+  """
+  challenge(id: ID!): ChannelChallenge
+
+  """
+  Get a list of the most recent changelog items.
+  """
+  changelogEntries(limit: Int = 15): [ChangelogEntry!]
+
+  """
+  Get a channel by ID or name.
+  """
+  channel(id: ID, name: String): Channel
+
+  """
+  Get a channel/viewer pair by login.
+  """
+  channelViewer(userLogin: String!, channelLogin: String!): ChannelViewer
+
+  """
+  Get a list of channels, either by IDs or by their names.
+  """
+  channels(ids: [ID!], names: [String!]): [Channel]
+
+  """
+  Get the ban status of a usser with respect to a channel's chat room.
+  """
+  chatRoomBanStatus(channelID: ID!, userID: ID!): ChatRoomBanStatus
+
+  """
+  GlobalCheerConfig contains information about (1) How to display Cheers and (2) What Cheermotes are globally available.
+  """
+  cheerConfig: GlobalCheerConfig!
+
+  """
+  Get the logged-in user's authorizations for a client ID.
+  """
+  clientAuthorization(id: ID!): ClientAuthorization
+
+  """
+  Get a clip by slug.
+  """
+  clip(slug: ID!): Clip
+
+  """
+  Get the state of a cloud broadcast for the given broadcastID.
+  """
+  cloudBroadcast(id: ID!): CloudBroadcast
+
+  """
+  Get the capabilities of a single cloud broadcast provider.
+  """
+  cloudBroadcastProvider(id: ID!): CloudBroadcastProvider
+
+  """
+  Get a single collection (playlist) item by its ID.
+  """
+  collection(id: ID!, options: CollectionOptions): Collection
+
+  """
+  Gets competition by ID.
+  """
+  competition(id: ID!): Competition
+
+  """
+  The features the user has access to when organizing competitions with the Versus product.
+  """
+  competitionOrganizerCapabilities: CompetitionOrganizerCapability
+
+  """
+  Gets a paginated list of competitions, commonly by its state. If state is
+  UNKNOWN, the query will default to LIVE competitions.
+  """
+  competitions(
+    first: Int = 10
+    after: Cursor
+    state: CompetitionState = UPCOMING
+  ): CompetitionConnection
+
+  """
+  Get a privacy consent status from a user, e.g. GDPR or CCPA.
+  """
+  consent(consentSessionID: ID!): Consent
+
+  """
+  Get a content tag by tag ID.
+  """
+  contentTag(id: ID!): Tag
+
+  """
+  Get content tags by tag IDs.
+  """
+  contentTags(ids: [ID!]): [Tag!]
+
+  """
+  Get a Creator Camp article.
+  """
+  creatorCampArticle(id: ID!, category: String!): CreatorCampArticle
+
+  """
+  Get a Creator Camp category.
+  """
+  creatorCampCategory(id: ID!): CreatorCampCategory
+
+  """
+  Get information populated in the Creator Dashboard.
+  """
+  creatorDashboard(startAt: Time!, endAt: Time!, period: TimeSeriesPeriod!): CreatorDashboard
+
+  """
+  Get information for the Creator Home page.
+  """
+  creatorHome: CreatorHome
+
+  """
+  Get the chanel/viewer pair with the current user and the channelID.
+  """
+  currentChannelViewer(channelID: ID!): ChannelViewer
+
+  """
+  The currently authenticated user.
+  Returns null if the user is not authenticated.
+  """
+  currentUser: User
+
+  """
+  Fetch a single directory by name and type.
+  """
+  directory(name: String!, type: DirectoryType!): Directory
+
+  """
+  Fetch a single drop by ID. This could be either an event or time based drop.
+  """
+  drop(id: ID!): DropType
+
+  """
+  Fetch a single drop benefit by ID.
+  """
+  dropBenefit(id: ID!, ownerID: ID!): DropBenefit
+
+  """
+  Fetch a single drop campaign by ID.
+  """
+  dropCampaign(id: ID!): DropCampaign
+
+  """
+  Determine the currently logged in users eligibility for the specified drop.
+  """
+  dropEligibility(dropInstanceID: ID!): DropEligibility
+
+  """
+  Get an emote by ID.
+  """
+  emote(id: ID!): Emote
+
+  """
+  Get the current set of emote modifiers.
+  """
+  emoteModifiers: [CommunityPointsEmoteModifier!]
+
+  """
+  Get an emote set by ID.
+  """
+  emoteSet(id: ID!): EmoteSet
+
+  """
+  Experiment properties for temporary use.
+  """
+  experiment: Experiment
+
+  """
+  Get an Extension by ID. Optionally, provide a specific version. If no version is provided,
+  the released version of that extension is returned.
+  """
+  extension(id: ID!, version: String): Extension
+
+  """
+  Get an ExtensionCarousel by ID. The default carousel can be loaded by providing the ID: "default".
+  """
+  extensionCarousel(id: ID!): ExtensionCarousel
+
+  """
+  Fetch a paginated list of Extension Categories. Each Category will provide the first ten
+  extensions sorted by popularity in that category.
+  """
+  extensionCategories(first: Int = 10, after: Cursor): ExtensionCategoryConnection
+
+  """
+  Fetch a single category. Both slugs and ids are valid inputs for getting a category.
+  """
+  extensionCategory(id: ID!): ExtensionCategory
+
+  """
+  Fetch a single Extension Client by ID.
+  An ExtensionClient is the authorization component of an extension.
+  Returns Null if the current user doesn't have access to the extension.
+  """
+  extensionClient(id: ID!): ExtensionClient
+
+  """
+  Fetch a paginated list of Extension Clients.
+  """
+  extensionClients(organizationID: ID, after: Cursor): ExtensionClientConnection
+
+  """
+  Fetch an ExtensionManifest by ID and version.
+  """
+  extensionManifest(id: ID!, version: String!): ExtensionManifest
+
+  """
+  Fetch a paginated list of ExtensionManifests.
+  """
+  extensionManifests(id: ID!, after: Cursor): ExtensionManifestConnection
+
+  """
+  Fetch a Summary of the state of an extension. The Cursor is used to page extension manifests.
+  """
+  extensionManifestsSummary(id: ID!, after: Cursor): ExtensionManifestsSummary
+
+  """
+  extensionRatingsCSVReportPresignedURL asks the ExtensionRatings backend if the given report is completed, and if
+  so, to generate and return a presigned S3 URL that the devsite can use to allow the user to download it.
+  If the URL is not ready yet, the response will be an empty string.
+  """
+  extensionRatingsCSVReportPresignedURL(
+    reportFilename: String!
+  ): ExtensionRatingsCSVReportPresignedURL
+
+  """
+  Fetch the authentication settings for a particular extension.
+  """
+  extensionSecrets(extensionID: ID!): ExtensionSecretsInfo
+
+  """
+  Fetch an ExtensionVersionDiscoveryManifest by ID and version.
+  """
+  extensionVersionDiscoveryManifest(id: ID!, version: String!): ExtensionVersionDiscoveryManifest
+
+  """
+  Search extensions by text found in the Extension name, description or summary. The results are
+  always returned in order of popularity. By default, all RELEASED and IN_TEST extensions are returned.
+  Pass RELEASED as the value of 'state' to only return extensions in the RELEASED state.
+  """
+  extensions(
+    first: Int = 10
+    after: Cursor
+    search: String
+    state: ExtensionStateFilter
+  ): ExtensionConnection
+
+  """
+  Fetch the sections & content that should be featured on mobile
+  `language` is a letter code for the language the requesting user speaks (e.g. "en").
+  """
+  featuredContentSections(language: String!): [FeaturedContentSection!]
+
+  """
+  Fetch streams that are featured on the front page, ordered by featurePriority ascending.
+  DEPRECATED: `geolocation` is computed based on GeoIP with a fallback value of "US" and should be omitted
+  `language` is a letter code for the language the requesting user speaks (ex. "en")
+  By default returns 6 streams.
+  """
+  featuredStreams(
+    first: Int = 6
+    geolocation: String
+    language: String
+    acceptedMature: Boolean = true
+  ): [FeaturedStream]
+
+  """
+  Fetch VODs that should be featured on the homepage
+  `language` is a letter code for the language the requesting user speaks (e.g. "en").
+  """
+  featuredVideos(first: Int = 2, language: String!): [FeaturedVideo]
+    @deprecated(reason: "Subject to change")
+
+  """
+  Get a Feed by ID.
+  """
+  feed(id: ID!): Feed @deprecated
+
+  """
+  Convert a URL to an object that can be embedded into Twitch feeds.
+  """
+  feedEmbed(url: String!): FeedEmbed @deprecated
+
+  """
+  Get a feed item by ID.
+  """
+  feedItemContent(id: ID!): FeedItemContent @deprecated
+
+  """
+  Get a single game as identified by its name or ID. At least one parameter must be provided.
+  """
+  game(name: String, id: ID): Game
+
+  """
+  Fetch games based on a variety of sorting options.
+  By default returns 10 games, sorted by highest ccu.
+  DEPRECATED field arguments: locale, tags
+  Use GameOptions instead.
+  """
+  games(
+    first: Int = 10
+    after: Cursor
+    options: GameOptions
+    locale: String
+    tags: [String!]
+  ): GameConnection
+
+  """
+  Get whether a username is available for registration.
+  """
+  isUsernameAvailable(username: String!): Boolean
+
+  """
+  Get key code information given a key code.
+  """
+  key(code: String!, countryOfResidence: String): Claimable
+
+  """
+  Get a chat message by its id.
+  """
+  message(id: ID!): Message
+
+  moderatedChannels(first: Int = 10, after: Cursor): ModeratedChannelConnection
+
+  """
+  Get a list of the most recent Mod View Newsfeed items.
+  """
+  modViewNewsfeedEntries(first: Int = 10): [ModViewNewsfeedEntry!]
+
+  """
+  Returns a developer organization by ID.
+  User must be apart of the organization.
+  """
+  organization(id: ID!): Organization
+
+  """
+  Gets a pending Twitch Developer Organization application of the currently authenticated user.
+  This is deprecated due to multi-org and ability to have multiple applications.
+  """
+  pendingOrganizationApplication: OrganizationApplication
+    @deprecated(reason: "Use pendingOrganizationApplications instead.")
+
+  """
+  Gets a pending Twitch Developer Organization applications of the currently authenticated user.
+  """
+  pendingOrganizationApplications: [OrganizationApplication!]
+
+  """
+  Get a list of sections(follows, recommendation) for the current user
+  may not return all the requested section e.g requesting following section for logged out user.
+  """
+  personalSections(input: PersonalSectionInput!): [PersonalSection!]
+
+  """
+  Returns a poll by its ID.
+  """
+  poll(id: ID!): Poll
+
+  """
+  Returns a Prediction Event by its ID.
+  """
+  predictionEvent(id: ID!): PredictionEvent
+
+  """
+  Get Current PrimeOffers for a given region based on country code (request info or query param)
+  optional dateOverride to provide offers that would be displayed on that date
+  optional countryCode to provide offers that are displayed for that country
+  optional locale to provide offers displayed for the supplied locale.
+  """
+  primeOffers(dateOverride: Time, countryCode: String, locale: String): [PrimeOffer!]!
+
+  """
+  Retrieve currently live Prime Gaming offers for a given region using the new eligibility architecture.
+  If provided, dateOverride is used to specify offers that would be live on the given date.
+  If provided, countryCode is used to specify offers that would be live in the given region.
+  If provided, locale is used to specify the offer content language for the given locale.
+  """
+  primeOffersWithEligibility(
+    dateOverride: Time
+    countryCode: String
+    locale: String
+  ): [PrimeOfferWithEligibility!]!
+
+  """
+  Retrieve currently live Prime Gaming offers for a given region.
+  This query retrieves offer data without eligibility or entitlement information.
+  If provided, dateOverride is used to specify offers that would be live on the given date.
+  If provided, countryCode is used to specify offers that would be live in the given region.
+  If provided, locale is used to specify the offer content language for the given locale.
+  """
+  primeOffersWithoutEligibility(
+    dateOverride: Time
+    countryCode: String
+    locale: String
+  ): [PrimeOffer!]!
+
+  """
+  PrimePromotions data - query supports optional identifiers for promotion strings but default behavior will use
+  countryCode and userID to find available marketing promotions. For whitelisted QA users dateOverride can be provided.
+  """
+  primePromotions(ids: [ID!], dateOverride: Time): [PrimePromotion]!
+
+  """
+  PrimeVideoBenefit returns a user's prime video benefits from Amazon. Requires an LWA token.
+  """
+  primeVideoBenefit(accessToken: String!): PrimeVideoBenefit
+
+  """
+  Get details about a purchasable offer for the current logged in user.
+  This field can only be requested if an OAuth token is supplied with the request.
+  If the OAuth token is not supplied or if the offer does not exist, this will return null.
+  """
+  purchasableOffer(params: PurchasableOfferParams!): Offer
+
+  """
+  Fetch radio content based on the content type, optionally filtered by an Amazon Standard Identification Number.
+  """
+  radioContent(contentType: RadioContentType!, id: ID): RadioContent
+    @deprecated(reason: "Use specific user.radio queries instead.")
+
+  """
+  Fetch a group of recommended games.
+  `recRequestID` is a tracking id created by the caller. This should be unique per request.
+  `location` defines the source location of the recommended streams request (e.g. "TV_APPS").
+  `context` contains parameters that are used to personalize recommendations (e.g. "Platform").
+  """
+  recommendedGames(
+    first: Int = 6
+    recRequestID: ID!
+    location: String!
+    context: RecommendationsContext!
+  ): RecommendedGamesConnection
+
+  """
+  Fetch a group of recommended streams.
+  `recRequestID` is a tracking id created by the caller. This should be unique per request.
+  `location` defines the source location of the recommended streams request (e.g. "LEFT_NAV").
+  `context` contains parameters that are used to personalize recommendations (e.g. "Platform").
+  `filters` is an optional parameter that can be used to filter recommendation results.
+  """
+  recommendedStreams(
+    first: Int = 6
+    recRequestID: ID!
+    location: String!
+    context: RecommendationsContext!
+    filters: StreamRecommendationsFilters
+  ): RecommendedStreamsConnection
+
+  """
+  Holds configuration necessary for calling Recurly.
+  """
+  recurlyConfigs(paymentSession: PaymentSession): RecurlyConfigs
+
+  """
+  Get a message rejected by chat.
+  """
+  rejectedChatMessage(id: ID!): RejectedChatMessage
+
+  """
+  Get a list of valid reasons for a content type.
+  """
+  reportReasons(content: ReportContentType!): [ReportReason!]
+
+  """
+  Get a list of valid country and ToS reasons for a content types.
+  """
+  reportToSAndCountryReasons(content: ReportContentType!): ReportToSAndCountryReasons
+
+  """
+  Metadata about the request to the API.
+  """
+  requestInfo: RequestInfo!
+
+  """
+  Get a room by its ID.
+  """
+  room(id: ID!): Room
+
+  """
+  Get a schedule segment by ID. Additional options can be provided to get the segment relative to a
+  different time or timezone.
+  """
+  scheduleSegment(id: ID!, options: ScheduleSegmentOptions): ScheduleSegment
+
+  """
+  Get search results for a user's query.
+  """
+  search(userQuery: String!, platform: String!, options: SearchOptions): SearchResult
+    @deprecated(reason: "Use the 'searchFor' query instead.")
+
+  """
+  Search for tags to apply to a channel.
+  """
+  searchApplicableTags(userQuery: String!, limit: Int = 15): [Tag!]
+
+  """
+  Get search results for categories/games.
+  """
+  searchCategories(query: String!, first: Int = 25, after: Cursor): SearchCategoriesConnection
+
+  """
+  Search for category tags to filter categories in Browse.
+  """
+  searchCategoryTags(userQuery: String!, limit: Int = 15): [Tag!]
+
+  """
+  Get gql search results for a user's query.
+  """
+  searchFor(
+    userQuery: String!
+    platform: String!
+    options: SearchForOptions
+    target: SearchForTarget
+    requestID: ID
+  ): SearchFor
+
+  """
+  Search for tags to filter live channels in Browse.
+  """
+  searchLiveTags(userQuery: String!, categoryID: ID, limit: Int = 15): [Tag!]
+
+  """
+  Get Live Streams in search by user query.
+  """
+  searchStreams(userQuery: String!, first: Int = 25, after: Cursor): SearchStreamConnection
+
+  """
+  Get search suggestions for a user's query.
+  """
+  searchSuggestions(
+    queryFragment: String!
+    withOfflineChannelContent: Boolean = false
+    requestID: ID
+  ): SearchSuggestionConnection
+
+  """
+  Get users by query in search. for search page product use searchFor instead.
+  """
+  searchUsers(userQuery: String!, first: Int = 25, after: Cursor): SearchUserConnection
+
+  """
+  Fetch shelves to display on the homepage.
+  DEPRECATED field arguments: platform (use context.platform), langWeightedCCU.
+  """
+  shelves(
+    requestID: String!
+    platform: String!
+    langWeightedCCU: Boolean
+    first: Int
+    itemsPerRow: Int = 12
+    context: RecommendationsContext
+  ): ShelfConnection
+
+  """
+  Get paginated short video feed.
+  """
+  shortVideoFeed(
+    first: Int = 3
+    after: Cursor
+    options: ShortVideoFeedOptions
+  ): ShortVideoFeedConnection @deprecated
+
+  """
+  Whether or not the Twitch Developers CSAT callout should appear for the currently authenticated user.
+  """
+  shouldShowDevsiteCSAT: Boolean
+
+  """
+  Get a squad stream by ID.
+  """
+  squadStream(id: ID!): SquadStream
+
+  """
+  The playback access token that determines whether the user can watch the live stream
+  Fetched for both authed and unauthed users.
+  """
+  streamPlaybackAccessToken(
+    channelName: String!
+    params: PlaybackAccessTokenParams!
+  ): PlaybackAccessToken
+
+  """
+  Fetch live streams, ordered by the number of viewers descending.
+  languages can be empty or null, which will imply all the languages are included on the results.
+  tags are an array of tag ID as optional filters for streams.
+  DEPRECATED field arguments: platformType, languageTags, tags
+  Use StreamOptions instead.
+  """
+  streams(
+    first: Int = 10
+    after: Cursor
+    options: StreamOptions
+    platformType: PlatformType = all
+    languages: [Language!]
+    input: StreamMetadataFilterInput
+    tags: [String!]
+  ): StreamConnection
+
+  """
+  Get a subscription product by its name. See product name examples below. The productName uniquely identifies a product.
+
+  e.g. "meclipse", "meclipse_2000", "meclipse_3000", these are respectively, the tier 1, 2, and 3 subscription product
+  names for the user with login "shroud".
+  """
+  subscriptionProduct(productName: String!): SubscriptionProduct
+
+  """
+  Get all avaialble token bundle products available for the user.
+  CountryCode will need to be in ISO 3166 Alpha-2 format(e.g. "US", "BR", "HK").
+  """
+  subscriptionTokenBundleProducts(
+    countryCode: String
+    channelID: ID
+  ): [SubscriptionTokenBundleProduct!]
+
+  """
+  Gets the Token Product Config.
+  """
+  subscriptionTokenProductConfig: SubscriptionTokenProductConfig
+
+  """
+  Gets a list of cloud broadcast providers that can be used by clients to start a broadcast via the provider.
+  """
+  supportedCloudBroadcastProviders: [CloudBroadcastProviderKey!]
+
+  """
+  Get the logged in user's available hero assets.
+  """
+  supportedHeroAssets: [HeroAsset!]!
+
+  """
+  Get the verticals available for a particular user.
+  """
+  supportedVerticals(recommendationsContext: RecommendationsContext!): [VerticalDirectory!]
+
+  """
+  Gets a team by its Twitch name.
+  """
+  team(name: String!): Team
+
+  """
+  Gets a list of sorted top tags aggregated from all tags applied to current live channels.
+  """
+  topTags(limit: Int = 5): [Tag!]
+
+  """
+  Get localized metadata for any twitch's website url.
+  """
+  urlMetadata(url: String!): URLMetadata
+
+  """
+  Get a user by their ID or login.
+  If no ID or login is provided, null is returned.
+  Lookup type can tell the resolver to include all users (inclusing deleted and
+  suspended accounts) on the lookup, defaults to only retrieve active users.
+  """
+  user(id: ID, login: String, lookupType: UserLookupType = ACTIVE): User
+
+  """
+  Fetch the user by a specific attribute.
+  """
+  userByAttribute(input: UserByAttribute!): User
+
+  """
+  Fetch a user by their ID, or receive a reason indicating
+  why the user could not be retrieved.
+  """
+  userResultByID(id: ID!): UserResult
+
+  """
+  Fetch a user by their login, or receive a reason indicating
+  why the user could not be retrieved.
+  """
+  userResultByLogin(login: String!): UserResult
+
+  """
+  Get a list of users, either by their logins or by their IDs.
+  """
+  users(ids: [ID!], logins: [String!]): [User]
+
+  """
+  Get a verification request given an opaqueID.
+  These are generally email verification requests, but could be phone-numbers in the future.
+  """
+  verificationRequest(opaqueID: ID!): VerificationRequest
+
+  """
+  Get content for a vertical directory by its ID.
+  """
+  verticalDirectory(
+    id: ID!
+    recommendationsContext: RecommendationsContext!
+    contentMin: Int!
+    contentMax: Int!
+  ): VerticalDirectory
+
+  """
+  Get content for a vertical subdirectory filtered by one or more context IDs (ex: category ID, tag ID).
+  """
+  verticalSubDirectory(
+    id: ID!
+    contentContext: VerticalSubDirectoryContentContext
+    recommendationsContext: RecommendationsContext!
+    contentMin: Int!
+    contentMax: Int!
+  ): VerticalSubDirectory
+
+  """
+  Get a video by its ID.
+  By default, Video queries only return public videos.
+  If the owner should also see their own private videos, set includePrivate flag in the `options` input.
+  This flag does not include other people's private videos.
+  """
+  video(id: ID, options: VideoOptions): Video
+
+  """
+  A paginated list of comments against id, videoID, or channelID.
+  """
+  videoComments(
+    first: Int
+    after: Cursor
+    last: Int
+    Before: Cursor
+    id: String
+    videoID: String
+    channelID: String
+  ): VideoCommentConnection
+
+  """
+  Get the current or past video ingest metadata such as bitrates and codecs by its ID and channelID.
+  Optional customerID for staffs.
+  """
+  videoIngestSession(id: ID!, channelID: ID!, customerID: ID): VideoIngestSession
+
+  """
+  Get the current video ingest metadata such as bitrates and codecs starting a
+  specified number of seconds ago by channelID. Optional customerID for staffs.
+  """
+  videoIngestSessionLatest(channelID: ID!, customerID: ID, secondsAgo: Int!): VideoIngestSession
+
+  """
+  Get the current or past video ingest metadata such as bitrates and codecs by
+  time range and channelID. Optional customerID for staffs.
+  """
+  videoIngestSessions(
+    channelID: ID!
+    customerID: ID
+    startedAt: Time!
+    endedAt: Time!
+  ): [VideoIngestSession!]
+
+  """
+  The playback access token that determines whether the user can watch the video.
+  Fetched for both authed and unauthed users.
+  """
+  videoPlaybackAccessToken(id: ID!, params: PlaybackAccessTokenParams!): PlaybackAccessToken
+
+  """
+  Get a list of videos in order of descending popularity.
+  """
+  videos(
+    first: Int = 10
+    after: Cursor
+    broadcastType: BroadcastType
+    language: Language
+  ): VideoConnection
+
+  """
+  Get a list of Prime Video items for Watch Parties.
+  """
+  watchPartyItems(
+    first: Int = 20
+    after: Cursor
+    accessToken: String
+    options: WatchPartyItemSearchOptions
+  ): WatchPartyItemConnection
+
+  """
+  Get a whisper thread by ID.
+  """
+  whisperThread(id: ID): WhisperThread
+}

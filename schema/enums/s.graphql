@@ -1,0 +1,1704 @@
+"""
+SaveExtensionManifestError is an error associated with the saveExtensionManifest mutation.
+"""
+enum SaveExtensionManifestError {
+  """
+  User is unable to make modifications to the extension.
+  """
+  UNAUTHORIZED
+
+  """
+  Version specified is invalid.
+  """
+  INVALID_VERSION
+
+  """
+  At least one anchor must be specified.
+  """
+  ANCHOR_REQUIRED
+
+  """
+  HasZoom was specified but ZoomPixels is missing.
+  """
+  INVALID_ZOOM
+
+  """
+  The number of whitelisted broadcasters exceeds the limit.
+  """
+  MAX_BROADCASTERS
+
+  """
+  The number of whitelisted testing users exceeds the limit.
+  """
+  MAX_TESTERS
+
+  """
+  The number of whitelisted config URLs exceeds the limit.
+  """
+  MAX_WHITELISTED_CONFIG_URLS
+
+  """
+  The number of whitelisted panel URLs exceeds the limit.
+  """
+  MAX_WHITELISTED_PANEL_URLS
+
+  """
+  Extension names must be shorter than 40 characters.
+  """
+  INVALID_NAME_LENGTH
+
+  """
+  Extension description must be shorter than 1024 characters.
+  """
+  INVALID_DESCRIPTION_LENGTH
+
+  """
+  Extension summary must be shorter than 140 characters.
+  """
+  INVALID_SUMMARY_LENGTH
+
+  """
+  Extension author email must not be nil. Lenght must be < 254, Parses a single RFC 5322 address.
+  """
+  INVALID_AUTHOR_EMAIL
+
+  """
+  Extension support email must not be nil. Lenght must be < 254, Parses a single RFC 5322 address.
+  """
+  INVALID_SUPPORT_EMAIL
+
+  """
+  Extension author name length must be > 40.
+  """
+  INVALID_AUTHOR_NAME_LENGTH
+
+  """
+  Extension testing base uri must not be nil and empty scheme. Scheme should be http or https. User should not be nil.
+  """
+  INVALID_TESTING_BASE_URI
+
+  """
+  Extension terms uri must not be nil and empty scheme. Scheme should be http or https. User should not be nil.
+  """
+  INVALID_TERMS_URI
+
+  """
+  Extension privacy uri must not be nil and empty scheme. Scheme should be http or https. User should not be nil.
+  """
+  INVALID_PRIVACY_URI
+
+  """
+  Extension component viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_COMPONENT_VIEWER_PATH
+
+  """
+  Extension panel viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_PANEL_VIEWER_PATH
+
+  """
+  Extension video overlay viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_VIDEO_OVERLAY_VIEWER_PATH
+
+  """
+  Extension config viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_CONFIG_VIEWER_PATH
+
+  """
+  Extension live config viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_LIVE_CONFIG_VIEWER_PATH
+
+  """
+  Extension mobile viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_MOBILE_VIEWER_PATH
+
+  """
+  Extension component aspect width must be < 50 or > 1.
+  """
+  INVALID_COMPONENT_ASPECT_WIDTH
+
+  """
+  Extension component aspect height must be < 50 or > 1.
+  """
+  INVALID_COMPONENT_ASPECT_HEIGHT
+
+  """
+  Extension panel hiehgt must be < 500 or > 100.
+  """
+  INVALID_PANEL_HEIGHT
+
+  """
+  Extension Bits Support Level must ba valid member of the BitsSupportLevelEnum.
+  """
+  INVALID_BITS_SUPPORT_LEVEL
+
+  """
+  Scale pixels must be set to a positive integer when autoscale is true.
+  """
+  INVALID_SCALING_PIXELS
+
+  """
+  Aspect Ratio X must be set to a positive integer.
+  """
+  INVALID_COMPONENT_ASPECT_RATIO_X
+
+  """
+  Aspect Ratio Y must be set to a positive integer.
+  """
+  INVALID_COMPONENT_ASPECT_RATIO_Y
+
+  """
+  Target Height must be set to a positve integer.
+  """
+  INVALID_COMPONENT_TARGET_HEIGHT
+
+  """
+  Extension viewer summary must be shorter than 140 characters.
+  """
+  INVALID_VIEWER_SUMMARY_LENGTH
+}
+
+"""
+The reason of an interruption of a schedule.
+"""
+enum ScheduleInterruptionReason {
+  """
+  The user is on vacation.
+  """
+  VACATION
+
+  """
+  Fallback value for reason unknown to the GQL schema.
+  """
+  OTHER
+}
+
+"""
+The days.
+"""
+enum ScheduleSegmentDay {
+  """
+  SUNDAY.
+  """
+  SUNDAY
+
+  """
+  MONDAY.
+  """
+  MONDAY
+
+  """
+  TUESDAY.
+  """
+  TUESDAY
+
+  """
+  WEDNESDAY.
+  """
+  WEDNESDAY
+
+  """
+  THURSDAY.
+  """
+  THURSDAY
+
+  """
+  FRIDAY.
+  """
+  FRIDAY
+
+  """
+  SATURDAY.
+  """
+  SATURDAY
+}
+
+"""
+Whether the image should be set on a benefit or campaign.
+"""
+enum Scope {
+  """
+  Image is for a benefit.
+  """
+  BENEFIT
+
+  """
+  Image is for a campaign.
+  """
+  CAMPAIGN
+}
+
+"""
+Enumeration of indexes a search query can target.
+"""
+enum SearchIndex {
+  """
+  Game index.
+  """
+  GAME
+
+  """
+  User index.
+  """
+  USER
+
+  """
+  Video on demand index.
+  """
+  VOD
+
+  """
+  Live channel index.
+  """
+  LIVE
+
+  """
+  Channel index.
+  """
+  CHANNEL
+}
+
+"""
+An enumeration of the statuses of suggested segments.
+"""
+enum SegmentsStatusType {
+  """
+  The suggested segments have successfully been created.
+  """
+  COMPLETED
+
+  """
+  There wasn't enough data to generate suggested segments.
+  """
+  NOT_ENOUGH_DATA
+
+  """
+  The vod is currently being processed for suggested segments.
+  """
+  IN_PROGRESS
+
+  """
+  The backend failed to generate suggested segments.
+  """
+  FAILED
+}
+
+"""
+Validation error status codes.
+"""
+enum SendCheerValidationErrorCode {
+  """
+  Bits amount is below the minimum.
+  """
+  AMOUNT_BELOW_MIN_BITS
+
+  """
+  The message was auto modded.
+  """
+  AUTO_MOD_MESSAGE
+
+  """
+  The channel was ineligible for receiving bits.
+  """
+  CHANNEL_INELIGIBLE
+
+  """
+  The emote amount was below the minimum bits emote amount.
+  """
+  EMOTE_AMOUNT_BELOW_MIN_BITS
+
+  """
+  The user has insufficient balance.
+  """
+  INSUFFICIENT_BALANCE
+
+  """
+  The bits amount is invalid.
+  """
+  INVALID_BITS_AMOUNT
+
+  """
+  The bits message is invalid.
+  """
+  INVALID_BITS_MESSAGE
+
+  """
+  The event ID is invalid, probably because it's been used.
+  """
+  INVALID_EVENT_ID
+
+  """
+  The message length is greater than the max message length.
+  """
+  MESSAGE_LENGTH_EXCEEDED
+
+  """
+  The request has been throttled.
+  """
+  REQUEST_THROTTLED
+
+  """
+  The bits emotes that were sent were greater than the max allowed.
+  """
+  TOO_LARGE_BITS_EMOTE
+
+  """
+  The cheer was over the maximum cheer limit.
+  """
+  TOO_LARGE_CHEER
+
+  """
+  An unknown error has occurred, but it was a validation error.
+  """
+  UNKNOWN
+
+  """
+  The user is banned from bits.
+  """
+  USER_BANNED
+
+  """
+  The user is ineligible to send bits.
+  """
+  USER_INELIGIBLE
+
+  """
+  The use is suspended from sending bits.
+  """
+  USER_SUSPENDED
+
+  """
+  The message contained Zalgo text.
+  """
+  ZALGO_MESSAGE
+
+  """
+  The message was not processed due to an automodded pending cheer.
+  """
+  AUTO_MOD_PENDING
+
+  """
+  The message contained term(s) blocked by the channel.
+  """
+  CHANNEL_BLOCKED_TERMS
+
+  """
+  The anonymous message contained text that is invalid.
+  """
+  INVALID_ANONYMOUS_MESSAGE
+
+  """
+  The bits message contained an anonymous cheermote when it's not allowed (ex: in public cheers).
+  """
+  ANONYMOUS_CHEERMOTE_NOT_ALLOWED
+}
+
+"""
+Possible errors from redeeming a chat message Channel Points reward.
+"""
+enum SendCopoMessageErrorCode {
+  """
+  User has previously sent an identical message.
+  """
+  MSG_DUPLICATE
+
+  """
+  The user is suspended from Twitch.
+  """
+  USER_SUSPENDED
+
+  """
+  The user is banned in the channel.
+  """
+  USER_BANNED
+
+  """
+  The user is timed out in the channel.
+  """
+  USER_TIMED_OUT
+
+  """
+  The chat is emote-only mode and the message contained text.
+  """
+  EMOTE_ONLY
+
+  """
+  The chat is in slow mode and the user has recently sent a message.
+  """
+  SLOW_MODE
+
+  """
+  The chat is in followers-only mode and the user has not been following long enough.
+  """
+  FOLLOWERS_ONLY
+
+  """
+  The chat is in followers-only mode and the user is not following.
+  """
+  FOLLOWERS_ONLY_ZERO
+
+  """
+  The chat is in subs-only mode and the user is not subbed.
+  """
+  SUBS_ONLY
+
+  """
+  The chat is in r9k-only mode (relatively unique messages) and the message was not unique.
+  """
+  R9K_MODE
+
+  """
+  The chat is in Blizzard connect mode and the user does not have their Blizzard account connected.
+  """
+  BLIZZARD_CONNECT_MODE
+
+  """
+  The chat is in verified account mode and the user's account is not verified.
+  """
+  VERIFIED_ACCOUNT
+
+  """
+  The user's message contained a blocked phrase.
+  """
+  CHANNEL_SETTINGS
+
+  """
+  The user's message was flagged by Automod and is being reviewed.
+  """
+  AUTOMOD_HELD @deprecated(reason: "use isHeldByAutomod on the payload instead")
+
+  """
+  The user's message was rejected for another reason- possibly intentionally hidden, such as IP block.
+  """
+  MESSAGE_REJECTED
+
+  """
+  The request failed due to an underlying server error.
+  """
+  SERVER_ERROR
+
+  """
+  The user does not have sufficient points to redeem the reward.
+  """
+  INSUFFICIENT_POINTS
+
+  """
+  The client is retrying a redemption with a transaction id that has already been redeemed.
+  """
+  TRANSACTION_ALREADY_COMMITTED
+
+  """
+  The client is retrying a redemption with a transaction id that is currently being redeemed in another request.
+  """
+  TRANSACTION_IN_PROGRESS
+
+  """
+  The reward cost has changed since the user has tried to redeem it.
+  """
+  REWARD_COST_MISMATCH
+
+  """
+  The reward is currently disabled.
+  """
+  REWARD_DISABLED
+
+  """
+  The user is not allowed to redeem this reward on this channel.
+  """
+  REWARD_FORBIDDEN
+
+  """
+  The user's message starts with a '/' like a chat command.
+  """
+  MESSAGE_IS_COMMAND
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+Possible error reasons returned by sendExtensionMessage mutation.
+"""
+enum SendExtensionMessageErrorCode {
+  """
+  Unauthorized.
+  """
+  UNAUTHORIZED
+
+  """
+  Unknown error.
+  """
+  UNKNOWN
+}
+
+enum SendRoomMessageErrorCode {
+  """
+  User not allowed to chat in room.
+  """
+  FORBIDDEN
+
+  """
+  Message failed automod check.
+  """
+  AUTO_MOD_ENFORCEMENT_FAILED
+
+  """
+  Room is in emotes only mode and message contained non-emote text.
+  """
+  EMOTE_ONLY_MODE_ENFORCEMENT_FAILED
+
+  """
+  Room is in R9K mode and message was not unique.
+  """
+  R9K_MODE_ENFORCEMENT_FAILED
+
+  """
+  User is rate limited.
+  """
+  RATE_LIMIT_FAILED
+
+  """
+  Room is in slow mode and user tried to send a message to quickly.
+  """
+  SLOW_MODE_ENFORCEMENT_FAILED
+
+  """
+  Message failed spam check.
+  """
+  SPAM_ENFORCEMENT_FAILED
+
+  """
+  Message contained zalgo characters.
+  """
+  ZALGO_ENFORCEMENT_FAILED
+
+  """
+  User is banned in the channel.
+  """
+  USER_CHAT_BANNED
+
+  """
+  User is timed out in the channel.
+  """
+  USER_CHAT_TIMED_OUT
+
+  """
+  User is suspended from Twitch.
+  """
+  USER_SUSPENDED
+}
+
+"""
+Possible errors returned by the sendWhisper mutation.
+"""
+enum SendWhisperErrorCode {
+  """
+  Target is banned.
+  """
+  TARGET_BANNED
+
+  """
+  Message body is empty.
+  """
+  BODY_EMPTY
+
+  """
+  Target's settings prevent them from receiving message.
+  """
+  TARGET_RESTRICTED
+
+  """
+  Sender does not have a verified account.
+  """
+  SENDER_NOT_VERIFIED
+
+  """
+  Whisper was not delivered for an unspecified reason.
+  """
+  NOT_DELIVERED
+}
+
+"""
+SetChannelTrailerErrorCode are the types of errors that the setChannelTrailer mutation may return.
+"""
+enum SetChannelTrailerErrorCode {
+  """
+  The caller is not authorized to update the user's trailer settings.
+  """
+  UNAUTHORIZED
+
+  """
+  The vod is longer than 60 seconds (max time for channel trailers).
+  """
+  VOD_TOO_LONG
+}
+
+"""
+SetDashboardAlertQueueActivityStatusErrorCode are the possible errors that this mutation returns.
+"""
+enum SetDashboardAlertQueueActivityStatusErrorCode {
+  """
+  The input activity ID is invalid.
+  """
+  INVALID_ACTIVITY_ID
+
+  """
+  The input alert status is invalid.
+  """
+  INVALID_ALERT_STATUS
+
+  """
+  The input channel ID is invalid.
+  """
+  INVALID_CHANNEL_ID
+
+  """
+  The alert is not found.
+  """
+  NOT_FOUND
+}
+
+"""
+SetDashboardAlertQueuePreferenceErrorCode are the possible errors that this mutation returns.
+"""
+enum SetDashboardAlertQueuePreferenceErrorCode {
+  """
+  The input channel ID is invalid.
+  """
+  INVALID_CHANNEL_ID
+}
+
+"""
+Enumerates possible errors when setting a default payment method.
+"""
+enum SetDefaultPaymentMethodErrorCode {
+  """
+  Must have auth credentials to set default payment method.
+  """
+  UNAUTHENTICATED
+
+  """
+  User does not have permission to set default payment method for the targeted user.
+  """
+  FORBIDDEN
+
+  """
+  One or more fields are invalid or missing.
+  """
+  INVALID_REQUEST
+
+  """
+  An internal error has occurred.
+  """
+  INTERNAL_ERROR
+}
+
+"""
+Possible error codes from this mutation.
+"""
+enum SetEmoteModifierGroupsErrorCode {
+  """
+  An unexpected internal server error occurred.
+  """
+  INTERNAL_SERVER_ERROR
+
+  """
+  The provided input is invalid.
+  """
+  INVALID_ARGUMENT
+
+  """
+  The user is not authorized to set emote modifiers.
+  """
+  USER_UNAUTHORIZED
+
+  """
+  Unknown error returned from service.
+  """
+  UNKNOWN
+}
+
+"""
+The standardized codes used by the frontend.
+"""
+enum SetExtensionConfigurationErrorCode {
+  """
+  User is unable to set the configuration.
+  """
+  UNAUTHORIZED
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+SetExtensionFeatureFlagsErrorCode is an error code associated with SetExtensionFeatureFlagsError.
+"""
+enum SetExtensionFeatureFlagsErrorCode {
+  """
+  User is unable to make modifications to the extension.
+  """
+  UNAUTHORIZED
+
+  """
+  Channel id is invalid, for example, is empty.
+  """
+  INVALID_CHANNEL_ID
+
+  """
+  The extension is not installed on the channel.
+  """
+  EXTENSION_NOT_INSTALLED
+}
+
+"""
+SetHeroAsAvatarErrorCode defines a client error that occured while copying the hero to an avatar.
+"""
+enum SetHeroAsAvatarErrorCode {
+  """
+  The requesting user did not have permission to update the avatar.
+  """
+  FORBIDDEN
+
+  """
+  Some other unexpected error occured.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+Error types recognized by the SetOverwatchLeagueTeamPreference mutation.
+"""
+enum SetOverwatchTeamPreferenceErrorCode {
+  """
+  Unknown error being returned from service.
+  """
+  UNKNOWN
+}
+
+"""
+Currently playing error codes.
+"""
+enum SetRadioCurrentlyPlayingErrorCode {
+  """
+  The ID provided was malformed.
+  """
+  INVALID_ID
+
+  """
+  Permission denied to add/update a currently playing item.
+  """
+  PERMISSION_DENIED
+
+  """
+  No record found for the request params.
+  """
+  NO_RECORD
+}
+
+"""
+Enum for set schedule reminders errors.
+"""
+enum SetScheduleReminderErrorCode {
+  """
+  The error code is unknown.
+  """
+  UNKNOWN
+
+  """
+  The request for setting a reminder was invalid.
+  """
+  INVALID_ARGUMENT
+
+  """
+  The schedule segment you're attempting to set a reminder for was not found.
+  """
+  NOT_FOUND
+
+  """
+  The schedule segment you're attempting to set a reminder for was cancelled.
+  """
+  FAILED_PRECONDITION
+}
+
+"""
+Error codes for from set unban requests settings mutation.
+"""
+enum SetUnbanRequestsSettingsErrorCode {
+  """
+  Unknown error.
+  """
+  UNKNOWN
+
+  """
+  User is not authorized to set unban request settings on the channel.
+  """
+  UNAUTHORIZED
+
+  """
+  User attempted to set with an invalid value.
+  """
+  INVALID_VALUE
+}
+
+"""
+The platform from which the short video feed is requested.
+"""
+enum ShortVideoFeedPlatform {
+  """
+  The mobile web site.
+  """
+  MOBILE_WEB
+
+  """
+  The iOS app.
+  """
+  IOS
+
+  """
+  The Android app.
+  """
+  ANDROID
+}
+
+"""
+The type of short form video feed.
+"""
+enum ShortVideoFeedType {
+  """
+  Return a video feed based off the channels the user is following.
+  """
+  FOLLOWING
+
+  """
+  Return a video feed based off an recommendations model.
+  """
+  RECOMMENDED
+}
+
+"""
+Sort direction.
+"""
+enum SortOrder {
+  """
+  Ascending (A-Z, 1-9).
+  """
+  ASC
+
+  """
+  Descending (Z-A, 9-1).
+  """
+  DESC
+}
+
+"""
+The type of source the shelf content is coming from.
+"""
+enum SourceType {
+  """
+  The target source is from promotional campaign that is free.
+  """
+  PROMOTION
+
+  """
+  The target source is from recommendations.
+  """
+  RECOMMENDED
+
+  """
+  The target source is from a promotional campaign that is paid.
+  """
+  SPONSORED
+
+  """
+  The target source is from a fallback candidate.
+  """
+  POPULAR
+
+  """
+  The target source is from a boost promotional campaign.
+  """
+  COMMUNITY_BOOST
+
+  """
+  The target source is unknown so we default to UNKNOWN.
+  """
+  UNKNOWN_SOURCE_TYPE
+}
+
+"""
+Possible error codes returned when attempting to spend subscription credit.
+"""
+enum SpendSubscriptionCreditErrorCode {
+  """
+  Occurs if a Twitch Prime user attempts to spend subscription credit that is (still) unavailable.
+  """
+  UNABLE_TO_SPEND
+
+  """
+  Occurs if a Twitch Prime user attempts to spend multiple times, acting as a flag for fraud.
+  """
+  TOO_MANY_RECENT_SPENDS
+}
+
+"""
+Determines who can send the user invitations to join a squad stream.
+"""
+enum SquadStreamIncomingInvitePolicy {
+  """
+  This user should never receive invitations.
+  """
+  NONE
+
+  """
+  This user can receive invitations from friends, teammates and followed channels.
+  """
+  NETWORK
+
+  """
+  This user can receive invitations from anyone.
+  """
+  ALL
+}
+
+"""
+Describes the network type of a squad stream invitation.
+"""
+enum SquadStreamInvitationNetworkType {
+  """
+  The invitation is from within the recipient's network (friends, teammates and followed channels).
+  """
+  IN_NETWORK
+
+  """
+  The invitation is from outside of the recipient's network.
+  """
+  OUT_OF_NETWORK
+}
+
+"""
+Describes the reason a squad stream invitation was rejected.
+"""
+enum SquadStreamInvitationRejectedReason {
+  """
+  The recipient rejected the invitation.
+  """
+  RECIPIENT_REJECTED
+
+  """
+  The recipient cannot access the squad stream product (e.g. due to missing transcode, partner-only launch).
+  """
+  RECIPIENT_CANNOT_ACCESS_SQUAD_STREAM
+
+  """
+  The recipient does not allow the sender of the invitation to invite them (e.g. due to their squad stream settings).
+  """
+  RECIPIENT_CANNOT_BE_INVITED
+}
+
+"""
+Describes the current state of a squad stream invitation.
+"""
+enum SquadStreamInvitationStatus {
+  """
+  The recipient has accepted the invitation.
+  """
+  ACCEPTED
+
+  """
+  A squad stream owner has deleted the invitation.
+  """
+  DELETED
+
+  """
+  The invitation has been sent to the recipient and the sender is waiting for a response.
+  """
+  PENDING
+
+  """
+  The recipient has rejected the invitation.
+  """
+  REJECTED
+
+  """
+  The invitation has an unknown status.
+  """
+  UNKNOWN
+}
+
+"""
+Describes the status of a squad stream.
+"""
+enum SquadStreamStatus {
+  """
+  The squad stream is live and is being broadcast to viewers.
+  """
+  LIVE
+
+  """
+  The squad stream is being set up, and should not be shown to viewers.
+  """
+  PENDING
+
+  """
+  The squad stream has ended.
+  """
+  ENDED
+
+  """
+  The squad stream has an unknown status.
+  """
+  UNKNOWN
+}
+
+"""
+StartAdErrorCode ...
+"""
+enum StartAdErrorCode {
+  """
+  The user has requested an ad break before the rate limit timer has expired.
+  """
+  RATE_LIMITED
+
+  """
+  The user is not authorized to run an ad break on the requested channel.
+  """
+  USER_NOT_AUTHORIZED
+
+  """
+  An unknown error occured while trying to run an ad break.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+Error types recognized.
+"""
+enum StartBountyErrorCode {
+  """
+  Invalid parameter in the request.
+  """
+  INVALID_PARAMETER
+
+  """
+  The bounty cannot be started because it is not live.
+  """
+  BOUNTY_NOT_LIVE
+
+  """
+  The stream title contains banned words.
+  """
+  STREAM_TITLE_BANNED_WORDS
+
+  """
+  The stream title is too long.
+  """
+  STREAM_TITLE_TOO_LONG
+
+  """
+  The user is not authorized to start the bounty.
+  """
+  UNAUTHORIZED
+
+  """
+  Unknown error being returned from service.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+Errors returned by attempting to start a cloud broadcast.
+"""
+enum StartCloudBroadcastErrorCause {
+  """
+  No subscription was found for the given channel and provider.
+  """
+  NO_SUBSCRIPTION
+
+  """
+  An unknown error occurred, use message for more information.
+  """
+  UNKNOWN
+}
+
+"""
+Error types recognized.
+"""
+enum StopBountyErrorCode {
+  """
+  Invalid parameter in the request.
+  """
+  INVALID_PARAMETER
+
+  """
+  The user is not authorized to stop the bounty.
+  """
+  UNAUTHORIZED
+
+  """
+  Unknown error being returned from service.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+Errors returned by attempting to stop a cloud broadcast.
+"""
+enum StopCloudBroadcastErrorCause {
+  """
+  No broadcast was found for the given channel and provider.
+  Either because the broadcast is stopped or because the provider did not know about the user.
+  """
+  BROADCAST_NOT_FOUND
+
+  """
+  An unknown error message occurred, see message for more information.
+  """
+  UNKNOWN
+}
+
+"""
+The type of streamer shelf to display.
+"""
+enum StreamerShelfType {
+  """
+  Shows the streamer's autohost list.
+  """
+  AUTOHOST
+
+  """
+  Shows the streamer's team members.
+  """
+  TEAM
+
+  """
+  Disables the shelf.
+  """
+  DISABLED
+}
+
+enum StreamRecommendationType {
+  """
+  A SocialStream.
+  """
+  SOCIAL
+}
+
+"""
+Type of restricted stream. Currently used as inputs for user.followedLiveUsers, StreamOptions, and GameStreamOptions.
+"""
+enum StreamRestrictionType {
+  """
+  Represents streams that are restricted by OWL all-access pass.
+  """
+  OWL_ALL_ACCESS_PASS
+
+  """
+  Represents streams that are restricted to sub-only.
+  """
+  SUB_ONLY_LIVE
+}
+
+"""
+Possible ways of sorting collections of live streams.
+"""
+enum StreamSort {
+  """
+  Sort streams by number of concurrent viewers, descending (most viewers first).
+  This is the default if StreamSort is not set or is a deprecated field.
+  """
+  VIEWER_COUNT
+
+  """
+  Sort streams by number of concurrent viewers, ascending (least viewers first).
+  """
+  VIEWER_COUNT_ASC
+
+  """
+  Sort by stream creation time, most recently started streams first.
+  """
+  RECENT
+
+  """
+  Sort by relevance to the current user.
+  """
+  RELEVANCE
+
+  """
+  Sort streams for the game "Counter-Strike: Global Offensive" by skill, descending (highest skill first).
+  Other streams are included last, sorted at random.
+  Deprecated: this sort option no longer exists.
+  """
+  CSGO_SKILL
+
+  """
+  Sort streams for the game "League of Legends" by summoner rank, descending (highest rank first).
+  Other streams are included last, sorted at random.
+  Deprecated: this sort option no longer exists.
+  """
+  LOL_SUMMONER_RANK
+}
+
+"""
+The state a stucco can be in.
+"""
+enum StuccoState {
+  """
+  - Active: part of a stucco pack.
+  """
+  ACTIVE
+
+  """
+  - Inactive: available in the library.
+  """
+  INACTIVE
+
+  """
+  - Moderated: stucco was moderated and is no longer available to the broadcaster or viewers.
+  """
+  MODERATED
+
+  """
+  - Pending: stucco is currently going through moderation.
+  """
+  PENDING
+
+  """
+  - Archived: Archived stucco, no longer visible.
+  """
+  ARCHIVED
+}
+
+"""
+Possible error codes returned by the submitCSATFeedback mutation.
+"""
+enum SubmitCSATFeedbackErrorCode {
+  """
+  Unkown backend error.
+  """
+  UNKNOWN
+
+  """
+  Invalid argument error, such as exceeding max characters in feedback or providing an invalid GUID.
+  """
+  INVALID_ARGUMENT
+}
+
+"""
+A code indicating why the prefix submit failed, if it did.
+"""
+enum SubmitEmotePrefixResponseCode {
+  """
+  Only eligible users can update their emoticon prefix.
+  """
+  ERR_INVALID_USER
+
+  """
+  The prefix submitted was not the correct length.
+  """
+  ERR_INVALID_PREFIX_LENGTH
+
+  """
+  The prefix submitted does not meet the regular expression requirements.
+  """
+  ERR_INVALID_PREFIX_REGEX
+
+  """
+  The prefix is not in a state that it can be updated.
+  """
+  ERR_INVALID_PREFIX_STATE
+
+  """
+  Emote prefixes must be unique across the website.
+  """
+  ERR_PREFIX_NOT_UNIQUE
+
+  """
+  The prefix was updated recently and can't be updated again for a while.
+  """
+  ERR_PREFIX_UPDATE_TOO_SOON
+
+  """
+  The user is not in good standing and therefore cannot update their emoticon prefix.
+  """
+  ERR_NOT_IN_GOOD_STANDING
+
+  """
+  Something unexpected happened when submitting the emote prefix.
+  """
+  ERR_UNKNOWN
+
+  """
+  The prefix for the affiliate can not be updated. Affiliates can update prefix once every name change.
+  """
+  ERR_AFFILIATE_PREFIX_UPDATE_TOO_SOON
+
+  """
+  The prefix submitted for the affiliate does not match the auto generated prefix.
+  """
+  ERR_SUBMITTED_PREFIX_DOES_NOT_MATCH_AUTO_GENERATED_PREFIX
+}
+
+"""
+Possible errors returned by the SubmitExtensionFeedback mutation.
+"""
+enum SubmitExtensionFeedbackError {
+  """
+  Internal service error eg. database timeout.
+  """
+  INTERNAL_ERROR
+}
+
+"""
+Set of ways to filter subscription benefit paginated results.
+"""
+enum SubscriptionBenefitFilter {
+  """
+  Only subscriptions purchased on a platform, specified in the input as platform.
+  """
+  PLATFORM
+
+  """
+  Only Subscriptions received through gifts from another Twitch user.
+  """
+  GIFT
+
+  """
+  All active subscriptions.
+  """
+  ALL
+}
+
+"""
+The logic state of the Subscription Benefit.
+"""
+enum SubscriptionBenefitState {
+  """
+  Unknown (0-value) state.
+  """
+  UNKNOWN
+
+  """
+  Active (recurring) state.
+  """
+  ACTIVE
+
+  """
+  State when a user has initiated a DNR request.
+  """
+  DNR_INITIATED
+
+  """
+  State for when Twitch has completed a DNR request.
+  """
+  WILL_NOT_RENEW
+
+  """
+  State for when Twitch has initiated a refund request.
+  """
+  CANCEL_INITIATED
+
+  """
+  State for when Twitch has completed a refund request.
+  """
+  CANCELLED
+
+  """
+  State for when a Subscription has been paused (used to support Android account hold feature).
+  """
+  ON_HOLD
+}
+
+"""
+Describes the type of community gifting Offer that is being resolved.
+"""
+enum SubscriptionCommunityGiftingType {
+  """
+  An unknown gifting type.
+  """
+  UNKNOWN
+
+  """
+  A preset bundle of fixed-quantity community gift subscriptions.
+  """
+  BUNDLE
+
+  """
+  An offer that allows the user to choose how many gift subscriptions they would like to purchase.
+  """
+  CUSTOM
+}
+
+"""
+The different types of platforms available for gift offers.
+"""
+enum SubscriptionGiftOfferPlatform {
+  """
+  Gift offers available for the web clients.
+  """
+  WEB
+
+  """
+  Gift offers available for the Android clients.
+  """
+  ANDROID
+}
+
+"""
+The different types of subscription gifting.
+"""
+enum SubscriptionGiftType {
+  """
+  Unknown or no gift type.
+  """
+  NONE
+
+  """
+  Standard gifts are gifts to a specific user given by a user.
+  """
+  STANDARD
+
+  """
+  Community gifts are one or more gifts given to one or more users by a user.
+  """
+  COMMUNITY
+}
+
+"""
+Denotes the unit of the period of a subscription product.
+"""
+enum SubscriptionIntervalUnit {
+  """
+  This subscription product length is unknown.
+  """
+  UNKNOWN
+
+  """
+  This subscription product lasts X weeks.
+  """
+  WEEK
+
+  """
+  This subscription product lasts X months.
+  """
+  MONTH
+
+  """
+  This subscription product lasts X years.
+  """
+  YEAR
+
+  """
+  This subscription product lasts forever.
+  """
+  ONE_TIME
+}
+
+"""
+SubscriptionPlatform enumerates platform options such as WEB, IOS, ANDROID.
+"""
+enum SubscriptionPlatform {
+  """
+  Unknown or no platform.
+  """
+  NONE
+
+  """
+  Access from the browser.                                           ).
+  """
+  WEB
+
+  """
+  Access from the Twitch iOS application.
+  """
+  IOS
+
+  """
+  Access from the Twitch Android application.
+  """
+  ANDROID
+
+  """
+  Access from all Twitch Mobile applications (ANDROID + IOS).
+  """
+  MOBILE_ALL
+}
+
+"""
+Codes representing subscription products error states clients can respond to.
+"""
+enum SubscriptionProductsErrorCode {
+  """
+  Default code.
+  """
+  UNKNOWN
+
+  """
+  Code indicating server error occurred while retrieving subscription products.
+  """
+  ERROR
+
+  """
+  Code indicating subscription products could not be found.
+  """
+  MISSING
+}
+
+"""
+The types of subscription products that can be purchased.
+"""
+enum SubscriptionProductType {
+  """
+  Channel sub.
+  """
+  CHANSUB
+
+  """
+  Team sub.
+  """
+  TEAMSUB
+
+  """
+  Turbo sub.
+  """
+  TURBO
+}
+
+"""
+Valid discount types for Subscription promotion.
+"""
+enum SubscriptionPromotionDiscountType {
+  """
+  No discount on subscription product.
+  """
+  NONE
+
+  """
+  Percent off discount on subscription product.
+  """
+  PERCENT_OFF
+
+  """
+  Fixed price discount on subscription product.
+  """
+  FIXED_VALUE_OFF
+}
+
+"""
+The various states of the subscription purchase receipt.
+"""
+enum SubscriptionPurchaseState {
+  """
+  Active subscription purchase. It could be non-renewing or renewing.
+  """
+  ACTIVE
+
+  """
+  Cancelled subscription purchase.
+  """
+  CANCELLED
+
+  """
+  Inactive subscription purchase. User's subscription benefit from the original purchase has ended
+  and has not renewed.
+  """
+  INACTIVE
+}
+
+"""
+The availability state of a subscription product.
+"""
+enum SubscriptionState {
+  """
+  Active state.
+  """
+  ACTIVE
+
+  """
+  Inactive state.
+  """
+  INACTIVE
+
+  """
+  Unknown state.
+  """
+  UNKNOWN
+}
+
+"""
+Tier of subscription.
+"""
+enum SubscriptionSummaryTier {
+  """
+  First tier, $4.99 for US market.
+  """
+  TIER_1
+
+  """
+  Second tier, $9.99 for US market.
+  """
+  TIER_2
+
+  """
+  Third tier, $24.99 for US market.
+  """
+  TIER_3
+}
+
+"""
+A type of tenure to a subscription product.
+"""
+enum SubscriptionTenureMethod {
+  """
+  Tenure data calculated cumulatively.
+  """
+  CUMULATIVE
+
+  """
+  Tenure data calculated streak-based.
+  """
+  STREAK
+}
+
+"""
+A channel could have multiple subscription products at varying tiers.
+Each value will always map to the respective tier for every channel that has the given tier available as a product.
+
+Example:
+A channel with a "tier 2" subscription product will always have the tier represented as T_2000.
+"""
+enum SubscriptionTier {
+  """
+  Custom tier.
+  """
+  CUSTOM
+
+  """
+  Subscribed with Twitch Prime.
+  """
+  PRIME
+
+  """
+  Tier "1000".
+  """
+  T_1000
+
+  """
+  Tier "2000".
+  """
+  T_2000
+
+  """
+  Tier "3000".
+  """
+  T_3000
+}

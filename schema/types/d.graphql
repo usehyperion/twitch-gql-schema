@@ -1,0 +1,2429 @@
+"""
+When a user AutoHosts a channel.
+"""
+type DashboardActivityFeedActivityAutoHosting implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  User/Channel who is now AutoHosting the channel.
+  """
+  host: User
+
+  """
+  Unique identifier for this AutoHosting action.
+  """
+  id: ID!
+
+  """
+  When the host initiated the AutoHosting session.
+  """
+  timestamp: Time!
+
+  """
+  Number of viewers from the host channel.
+  """
+  viewerCount: Int!
+}
+
+"""
+When a user uses Bits for or sends Bits to a channel.
+"""
+type DashboardActivityFeedActivityBitsUsage implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  Bits spent.
+  """
+  amount: Int!
+
+  """
+  Unique identifier for this Bits usage.
+  """
+  id: ID!
+
+  """
+  Whether the Cheer was anonymized to other users.
+  If true, then `user` is guaranteed to be null.
+  """
+  isAnonymous: Boolean!
+
+  """
+  When the Bits were used.
+  """
+  timestamp: Time!
+
+  """
+  Bits spender.
+  """
+  user: User
+}
+
+"""
+When a Boost completes for the given user.
+"""
+type DashboardActivityFeedActivityBoostComplete implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  The progress made toward the goalTarget.
+  """
+  goalProgress: Int!
+
+  """
+  The target size for the boost order.
+  """
+  goalTarget: Int!
+
+  """
+  Unique identifier for this Boost event.
+  """
+  id: ID!
+
+  """
+  The user who purchased the boost order.
+  """
+  purchaser: User
+
+  """
+  The number of boosts in the order.
+  """
+  quantity: Int!
+
+  """
+  When this Boost event occurred.
+  """
+  timestamp: Time!
+}
+
+"""
+When a Boost starts for the given user.
+"""
+type DashboardActivityFeedActivityBoostStart implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  The progress made toward the goalTarget.
+  """
+  goalProgress: Int!
+
+  """
+  The target size for the boost order.
+  """
+  goalTarget: Int!
+
+  """
+  Unique identifier for this Boost event.
+  """
+  id: ID!
+
+  """
+  The user who purchased the boost order.
+  """
+  purchaser: User
+
+  """
+  The number of boosts in the order.
+  """
+  quantity: Int!
+
+  """
+  When this Boost event occurred.
+  """
+  timestamp: Time!
+}
+
+"""
+When a Celebration event occurs for the given user.
+"""
+type DashboardActivityFeedActivityCelebrationPurchaseEvent implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  The effect used for the celebration.
+  """
+  effect: CelebrationEffect!
+
+  """
+  Unique identifier for this Celebration event.
+  """
+  id: ID!
+
+  """
+  The intensity of the celebration.
+  """
+  intensity: CelebrationIntensity!
+
+  """
+  The user who purchased the celebration.
+  """
+  purchasingUser: User
+
+  """
+  When this Celebration event occurred.
+  """
+  timestamp: Time!
+}
+
+"""
+When a user redeems a community points reward on a channel.
+"""
+type DashboardActivityFeedActivityCommunityPointsReward implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  Unique identifier for this redemption.
+  """
+  id: ID!
+
+  """
+  The user that redeemed the reward.
+  """
+  redeemingUser: User
+
+  """
+  The redemption object itself.
+  """
+  redemption: CommunityPointsCustomRewardRedemption
+
+  """
+  When the reward was redeemed.
+  """
+  timestamp: Time!
+
+  """
+  The title of the reward.
+  """
+  title: String!
+
+  """
+  The user's text input, if provided.
+  """
+  userInput: String
+}
+
+"""
+When a user gifts subscriptions to a community for a channel.
+"""
+type DashboardActivityFeedActivityCommunitySubscriptionGifting implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  Total subscriptions gifted by the gifter.
+  """
+  giftQuantity: Int!
+
+  """
+  Total number of months the gifted subscription lasts for.
+  """
+  giftedMonths: Int!
+
+  """
+  Subscription purchaser & gifter.
+  """
+  gifter: User
+
+  """
+  Unique identifier for this gifting action.
+  """
+  id: ID!
+
+  """
+  Whether the subscription gifting was anonymized to other users.
+  If true, then `gifter` is guaranteed to be null.
+  """
+  isAnonymous: Boolean!
+
+  """
+  Users who received the gift.
+  Maximum count is currently 100.
+  """
+  recipients: [User!] @deprecated(reason: "Use giftQuantity for total subscriptions")
+
+  """
+  The gifted subscription's tier.
+  """
+  tier: SubscriptionTier!
+
+  """
+  When the subscriptions were gifted.
+  """
+  timestamp: Time!
+}
+
+"""
+Paginated list of past activities for a channel's Dashboard Activity Feed.
+"""
+type DashboardActivityFeedActivityConnection {
+  """
+  Activity elements of the list.
+  """
+  edges: [DashboardActivityFeedActivityEdge!]!
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+When a Community Goal ends for the channel.
+"""
+type DashboardActivityFeedActivityCopoGoalEnd implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  The target number of points for the goal that has ended.
+  """
+  goalAmount: Int!
+
+  """
+  The id of the goal that has ended.
+  """
+  goalID: ID!
+
+  """
+  The current status of the goal that has ended.
+  """
+  goalStatus: CommunityPointsCommunityGoalStatus!
+
+  """
+  The title of the goal that has ended.
+  """
+  goalTitle: String!
+
+  """
+  The type of the goal that has ended.
+  """
+  goalType: CommunityPointsCommunityGoalType!
+
+  """
+  Unique identifier for this goal end event.
+  """
+  id: ID!
+
+  """
+  The number of points contributed towards the goal.
+  """
+  pointsContributed: Int!
+
+  """
+  The name of the community points on the channel.
+  """
+  pointsName: String
+
+  """
+  When this goal end event occurred.
+  """
+  timestamp: Time!
+}
+
+"""
+When a creator completes a drop quest and a drop can now be claimed by users/viewers.
+"""
+type DashboardActivityFeedActivityDropClaimWindowOpen implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  The community claimable drop which has been activated.
+  """
+  drop: DropObject!
+
+  """
+  Unique identifier for this drop activity.
+  """
+  id: ID!
+
+  """
+  When the quest was completed.
+  """
+  timestamp: Time!
+}
+
+"""
+Activity element in a list of past activities of a channel's Dashboard Activity Feed.
+"""
+type DashboardActivityFeedActivityEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  Activity that occurred.
+  """
+  node: DashboardActivityFeedActivity!
+}
+
+"""
+When a user newly follows or refollows a channel.
+"""
+type DashboardActivityFeedActivityFollowing implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  User who is now following the channel.
+  """
+  follower: User
+
+  """
+  Unique identifier for this follow action.
+  """
+  id: ID!
+
+  """
+  When the user followed the channel.
+  """
+  timestamp: Time!
+}
+
+"""
+When a user hosts a channel.
+"""
+type DashboardActivityFeedActivityHosting implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  User/Channel who is now hosting the channel.
+  """
+  host: User
+
+  """
+  Unique identifier for this hosting action.
+  """
+  id: ID!
+
+  """
+  When the host initiated the hosting session.
+  """
+  timestamp: Time!
+
+  """
+  Number of viewers from the host channel.
+  """
+  viewerCount: Int
+}
+
+"""
+When a HypeTrain event occurs for the given user.
+"""
+type DashboardActivityFeedActivityHypeTrainEvent implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  The highest level completed on this HypeTrain.
+  """
+  completedLevel: Int
+
+  """
+  Unique identifier of the Hype Train.
+  """
+  hypeTrainID: ID!
+
+  """
+  Unique identifier for this HypeTrain event.
+  """
+  id: ID!
+
+  """
+  When this HypeTrain event occurred.
+  """
+  timestamp: Time!
+
+  """
+  The total amount of Bits contributed on this HypeTrain.
+  """
+  totalBitsAmount: Int
+
+  """
+  The total count of subs and sub gifts contributed on this HypeTrain.
+  """
+  totalSubsCount: Int
+
+  """
+  The type of this HypeTrain event.
+  """
+  type: HypeTrainEventType!
+}
+
+"""
+When a user gifts a single subscription to another individual user for a channel.
+"""
+type DashboardActivityFeedActivityIndividualSubscriptionGifting implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  Total number of months the gifted subscription lasts for.
+  """
+  giftedMonths: Int!
+
+  """
+  Subscription purchaser & gifter.
+  """
+  gifter: User
+
+  """
+  Unique identifier for this gifting action.
+  """
+  id: ID!
+
+  """
+  Whether the subscription gifting was anonymized to other users.
+  If true, then `gifter` is guaranteed to be null.
+  """
+  isAnonymous: Boolean!
+
+  """
+  User that received the gift.
+  """
+  recipient: User
+
+  """
+  The gifted subscription's tier.
+  """
+  tier: SubscriptionTier!
+
+  """
+  When the subscription was gifted.
+  """
+  timestamp: Time!
+}
+
+"""
+When an ingest session begins.
+Deprecated type: no longer exists in activity feed.
+"""
+type DashboardActivityFeedActivityIngestSessionStarting implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+    @deprecated(reason: "ingest start has been removed from activity feed")
+
+  """
+  Unique identifier for the start of this ingest session.
+  """
+  id: ID! @deprecated(reason: "ingest start has been removed from activity feed")
+
+  """
+  Start time of the ingest session.
+  """
+  timestamp: Time! @deprecated(reason: "ingest start has been removed from activity feed")
+}
+
+"""
+When a user resubscribes via Twitch Prime to a channel.
+"""
+type DashboardActivityFeedActivityPrimeResubscribing implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  Duration of the subscription.
+  """
+  durationMonths: Int!
+
+  """
+  Unique identifier for the act of renewing the subscription.
+  """
+  id: ID!
+
+  """
+  Custom message submitted by the resubscribing user to share in chat.
+  """
+  message: String @deprecated(reason: "Use messageContent's fragments for enriching the text")
+
+  """
+  Custom message submitted by the resubscribing user to share in chat.
+  Message is filtered for moderation and emotes are extracted as message fragments.
+  """
+  messageContent: MessageContent
+
+  """
+  User who is renewing the subscription.
+  """
+  resubscriber: User
+
+  """
+  When the subscription was renewed.
+  """
+  timestamp: Time!
+}
+
+"""
+When a user subscribes for the first time via Twitch Prime to a channel.
+"""
+type DashboardActivityFeedActivityPrimeSubscribing implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  Unique identifier for the act of subscribing.
+  """
+  id: ID!
+
+  """
+  User who made the subscription.
+  """
+  subscriber: User
+
+  """
+  When the subscription was made.
+  """
+  timestamp: Time!
+}
+
+"""
+When a user raids a channel.
+"""
+type DashboardActivityFeedActivityRaiding implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  Unique identifier for this raiding action.
+  """
+  id: ID!
+
+  """
+  Number of users who participated in the raid.
+  """
+  partySize: Int! @deprecated(reason: "Renamed to viewerCount")
+
+  """
+  User/Channel who is now raiding the channel.
+  """
+  raider: User
+
+  """
+  When the raid was initiated.
+  """
+  timestamp: Time!
+
+  """
+  Number of users who participated in the raid.
+  """
+  viewerCount: Int!
+}
+
+"""
+When a user resubscribes (NOT via Twitch Prime) to a channel.
+"""
+type DashboardActivityFeedActivityResubscribing implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  Duration of the subscription.
+  """
+  durationMonths: Int!
+
+  """
+  Unique identifier for the act of renewing the subscription.
+  """
+  id: ID!
+
+  """
+  Custom message submitted by the resubscribing user to share in chat.
+  """
+  message: String @deprecated(reason: "Use messageContent's fragments for enriching the text")
+
+  """
+  Custom message submitted by the resubscribing user to share in chat.
+  Message is filtered for moderation and emotes are extracted as message fragments.
+  """
+  messageContent: MessageContent
+
+  """
+  Duration of the multi month subscription.
+  """
+  multiMonthDuration: Int!
+
+  """
+  Tenure of the user's current multi month subscription.
+  """
+  multiMonthTenure: Int!
+
+  """
+  User who is renewing the subscription.
+  """
+  resubscriber: User
+
+  """
+  Subscription tier.
+  """
+  tier: SubscriptionTier!
+
+  """
+  When the subscription was renewed.
+  """
+  timestamp: Time!
+}
+
+"""
+When a user subscribes for the first time (NOT via Twitch Prime) to a channel.
+"""
+type DashboardActivityFeedActivitySubscribing implements DashboardActivityFeedActivity {
+  """
+  Status of the corresponding alert.
+  """
+  alertStatus: DashboardActivityFeedActivityAlertStatus
+
+  """
+  Unique identifier for the act of subscribing.
+  """
+  id: ID!
+
+  """
+  Duration of the multi month subscription.
+  """
+  multiMonthDuration: Int!
+
+  """
+  Tenure of the user's current multi month subscription.
+  """
+  multiMonthTenure: Int!
+
+  """
+  User who made the subscription.
+  """
+  subscriber: User
+
+  """
+  Subscription tier.
+  """
+  tier: SubscriptionTier!
+
+  """
+  When the subscription was made.
+  """
+  timestamp: Time!
+}
+
+"""
+Paginated list of past activities for a channel's Dashboard Alert Queue.
+"""
+type DashboardAlertQueueActivityConnection {
+  """
+  Activity elements of the list.
+  """
+  edges: [DashboardAlertQueueActivityEdge!]!
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+Activity element in a list of past activities of a channel's Dashboard Alert Queue.
+"""
+type DashboardAlertQueueActivityEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  Activity that occurred.
+  """
+  node: DashboardActivityFeedActivity!
+}
+
+"""
+Preferences of a user controlling the types of dashboard alerts to be published.
+"""
+type DashboardAlertQueuePreferences {
+  """
+  If true, cannot publish alerts to the user.
+  """
+  isDNDModeEnabled: Boolean!
+
+  """
+  When the preferences were last modified.
+  """
+  lastModified: Time
+
+  """
+  If true, cannot publish bits alerts to the user.
+  """
+  shouldHideBits: Boolean!
+
+  """
+  If true, cannot publish follows alerts to the user.
+  """
+  shouldHideFollows: Boolean!
+
+  """
+  If true, cannot publish subscription gift alerts to the user.
+  """
+  shouldHideGiftSubscriptions: Boolean!
+
+  """
+  If true, cannot publish hosts alerts to the user.
+  """
+  shouldHideHosts: Boolean!
+
+  """
+  If true, cannot publish raids alerts to the user.
+  """
+  shouldHideRaids: Boolean!
+
+  """
+  If true, cannot publish regular subscriptions alerts to the user (gift subs are still shown).
+  """
+  shouldHideSubscriptions: Boolean!
+}
+
+"""
+A shelf title token type that contains a date with various formatters.
+"""
+type DateToken {
+  """
+  The date to display for this token.
+  """
+  time: Time!
+}
+
+"""
+The resulting payload after a deactivateExtension mutation.
+"""
+type DeactivateExtensionPayload {
+  """
+  The resulting extension installation record from the deactivate.
+  """
+  installedExtension: ExtensionInstallation!
+}
+
+"""
+Error associated with mutation DeclineOrganizationInvite.
+"""
+type DeclineOrganizationInviteError {
+  """
+  Error code.
+  """
+  code: DeclineOrganizationInviteErrorCode!
+}
+
+"""
+Output from the DeclineOrganizationInvite mutation.
+"""
+type DeclineOrganizationInvitePayload {
+  """
+  The possible error returned from service.
+  """
+  error: DeclineOrganizationInviteError
+}
+
+"""
+DefaultPanel is the normal panel type that displays text and images.
+"""
+type DefaultPanel implements Panel {
+  """
+  description is markdown-formatted text to be displayed below the title and image.
+  If the panel doesn't have a description this will be null.
+  """
+  description: String
+
+  """
+  id is a unique identifier for the panel.
+  """
+  id: ID!
+
+  """
+  imageURL is a URL to an image to be displayed at the top of the panel (but below the header).
+  If the panel doesn't use an image this will be null.
+  """
+  imageURL: String
+
+  """
+  linkURL is the URL to navigate to when a user clicks on the image.
+  If the panel's image doesn't link anywhere this will be null.
+  """
+  linkURL: String
+
+  """
+  title is the header text to display in the panel.
+  If the panel doesn't have a title this will return null.
+  """
+  title: String
+
+  """
+  type is `PanelType.DEFAULT`.
+  """
+  type: PanelType!
+}
+
+"""
+DeferredPrimePayout is the earning that has been deferred to future payout cycles.
+"""
+type DeferredPrimePayout {
+  """
+  totalPayoutAmount is the total amount for this payout.
+  """
+  totalPayoutAmount: Int!
+}
+
+"""
+The returned payload from the DeleteAllChannelVideos mutation.
+"""
+type DeleteAllChannelVideosPayload {
+  """
+  The status for this mutation.
+  """
+  status: DeleteAllChannelVideosStatus
+}
+
+"""
+Status associated with mutation DeleteAllChannelVideos.
+"""
+type DeleteAllChannelVideosStatus {
+  """
+  Error code.
+  """
+  code: DeleteAllChannelVideosStatusCode!
+}
+
+"""
+Result of delete bits badge tier emoticon.
+"""
+type DeleteBitsBadgeTierEmoticonPayload {
+  """
+  Time that the emoticon got deleted.
+  """
+  deletedAt: Time
+}
+
+"""
+Outputs from the create celebration mutation.
+"""
+type DeleteCelebrationPayload {
+  """
+  If present, there was an error with the request.
+  """
+  error: CelebrationError
+}
+
+"""
+Errors that the mutation returns.
+"""
+type DeleteChannelBlockedTermError {
+  """
+  The error code that the mutation returned.
+  """
+  code: DeleteChannelBlockedTermErrorCode!
+}
+
+"""
+The returned payload from the mutation.
+"""
+type DeleteChannelBlockedTermPayload {
+  """
+  The time term was deleted.
+  """
+  deletedAt: Time
+
+  """
+  Mutation error caused by the user input.
+  """
+  error: DeleteChannelBlockedTermError
+
+  """
+  The phrases that were deleted.
+  """
+  phrases: [String!]!
+}
+
+"""
+The returned payload from the mutation.
+"""
+type DeleteChannelClipsPayload {
+  """
+  channelID is the channel's ID.
+  """
+  channelID: ID!
+}
+
+"""
+The errors returned from this mutation.
+"""
+type DeleteChannelPermittedTermError {
+  """
+  Error code that was returned.
+  """
+  code: DeleteChannelPermittedTermErrorCode!
+}
+
+"""
+Returned payload of the mutation.
+"""
+type DeleteChannelPermittedTermPayload {
+  """
+  The time term was deleted.
+  """
+  deletedAt: Time
+
+  """
+  Mutation error caused by the user input.
+  """
+  error: DeleteChannelPermittedTermError
+
+  """
+  The phrases that were deleted.
+  """
+  phrases: [String!]!
+}
+
+"""
+The returned payload for deleteChatMessage.
+"""
+type DeleteChatMessagePayload {
+  """
+  The returned message.
+  """
+  message: DeletedMessage
+
+  """
+  The response codes for this mutation.
+  """
+  responseCode: DeleteChatMessageStatusCode!
+}
+
+"""
+Error returned after attempting to delete a cheermote tier.
+"""
+type DeleteCheermoteTierError {
+  """
+  The error code associated with this error.
+  """
+  code: DeleteCheermoteTierErrorCode!
+}
+
+"""
+Result of delete cheermote tier.
+"""
+type DeleteCheermoteTierPayload {
+  """
+  Time that the cheermote tier got deleted.
+  """
+  deletedAt: Time
+
+  """
+  Error returned after attempting to delete a cheermote tier.
+  """
+  error: DeleteCheermoteTierError
+}
+
+"""
+DeleteClipsPayload returns the deleted clips. Only the slug and id can be accessed
+from the returned list of deleted clips.
+"""
+type DeleteClipsPayload {
+  """
+  The clips that were deleted. Only Slug and ID can be accessed.
+  """
+  clips: [Clip]!
+
+  """
+  The amount of clips that were deleted.
+  """
+  count: Int!
+}
+
+"""
+DeleteCollectionPayload resolves the deleted collection.
+"""
+type DeleteCollectionPayload {
+  """
+  The collection that was just deleted.
+  """
+  collection: Collection!
+}
+
+"""
+Delete community goal error.
+"""
+type DeleteCommunityPointsCommunityGoalError {
+  """
+  The error code.
+  """
+  code: DeleteCommunityPointsCommunityGoalErrorCode!
+}
+
+"""
+Delete community goal payload.
+"""
+type DeleteCommunityPointsCommunityGoalPayload {
+  """
+  The error, if any.
+  """
+  error: DeleteCommunityPointsCommunityGoalError
+
+  """
+  The community goal that was deleted.
+  """
+  goal: CommunityPointsCommunityGoal
+}
+
+"""
+An error from deleting a custom Community Points reward in a channel.
+"""
+type DeleteCommunityPointsCustomRewardError {
+  """
+  An identifier for the error that occurred.
+  """
+  code: DeleteCommunityPointsCustomRewardErrorCode!
+}
+
+"""
+The response from deleting a custom Community Points reward in a channel.
+"""
+type DeleteCommunityPointsCustomRewardPayload {
+  """
+  An error that occurred while deleting a custom Community Points reward in a channel.
+  """
+  error: DeleteCommunityPointsCustomRewardError
+
+  """
+  The now deleted reward.
+  """
+  reward: CommunityPointsCustomReward
+}
+
+"""
+Result of the remove operation.
+"""
+type DeleteCompetitionPayload {
+  """
+  The deleted competition.
+  """
+  competition: Competition
+
+  """
+  Used for competition mutation errors.
+  """
+  error: CompetitionError
+}
+
+"""
+Result of mutation is the contentID.
+"""
+type DeleteContentTagsPayload {
+  """
+  Content which tags have been deleted from.
+  """
+  content: TaggedContent
+}
+
+"""
+Payload returned after deleting a default payment method for a given provider.
+"""
+type DeleteDefaultPaymentMethodPayload {
+  """
+  Time when payment method was deleted.
+  """
+  updatedAt: Time
+
+  """
+  User who had their default payment method deleted.
+  """
+  user: User
+}
+
+"""
+The response from deleting a push notification token from a user.
+"""
+type DeleteDeviceTokenPayload {
+  """
+  The ID of the token that was deleted.
+  """
+  deviceToken: ID!
+}
+
+"""
+A deleted message sent by a user to a stream chat.
+"""
+type DeletedMessage {
+  """
+  Content of the deleted message.
+  """
+  content: RoomMessageContent!
+
+  """
+  UUID of the deleted message.
+  """
+  id: ID!
+
+  """
+  Sender of the message.
+  """
+  sender: User
+}
+
+"""
+DeleteDropCampaignPayload returns the result of the deletion.
+"""
+type DeleteDropCampaignPayload {
+  """
+  A potential error being thrown.
+  A mapped error returned by the drops management service.
+  """
+  error: DropsError
+}
+
+"""
+DeleteDropPayload returns the result of the deletion.
+"""
+type DeleteDropPayload {
+  """
+  A potential error being thrown.
+  A mapped error returned by the drops management service.
+  """
+  error: DropsError
+}
+
+"""
+Error returned after attempting to delete an emote.
+"""
+type DeleteEmoteError {
+  """
+  The error code associated with this error.
+  """
+  code: DeleteEmoteErrorCode!
+}
+
+"""
+Result of delete emote.
+"""
+type DeleteEmotePayload {
+  """
+  Error returned after attempting to delete an emote.
+  """
+  error: DeleteEmoteError
+}
+
+"""
+DeleteExtensionImagePayload returns the update Extension manifest.
+"""
+type DeleteExtensionImagePayload {
+  """
+  The error when the mutation fails to update an extension.
+  """
+  error: DeleteExtensionImageError
+
+  """
+  The updated extension manifest.
+  """
+  manifest: ExtensionManifest
+}
+
+"""
+The returned payload from the deleteExtension mutation.
+"""
+type DeleteExtensionPayload {
+  """
+  Error response from the deleteExtension mutation.
+  null if the delete was successful.
+  """
+  error: DeleteExtensionError
+}
+
+"""
+Returns nothing but an error, should one occur.
+"""
+type DeleteExtensionSecretsPayload {
+  """
+  An useful error for the user.
+  """
+  error: DeleteExtensionSecretsError
+}
+
+"""
+The returned payload from the mutation for Deleting a Loyalty Badge.
+"""
+type DeleteLoyaltyBadgePayload {
+  """
+  LoyaltyBadge object that was deleted.
+  """
+  badge: LoyaltyBadge
+}
+
+"""
+Output from the DeleteModeratorComment mutation.
+"""
+type DeleteModeratorCommentPayload {
+  """
+  The deleted comment.
+  """
+  comment: ModLogsComment
+}
+
+"""
+Contains the results from the delete request.
+"""
+type DeleteMultiviewContentAttributesPayload {
+  """
+  Unprocessed content attributes.
+  """
+  failedDeletes: [MultiviewContentAttribute!]!
+
+  """
+  Processed content attributes.
+  """
+  succeededDeletes: [MultiviewContentAttribute!]!
+}
+
+type DeleteNotificationPayload {
+  """
+  The notification that was deleted. Only the ID is accessible.
+  """
+  notification: OnsiteNotification!
+}
+
+type DeletePanelPayload {
+  panel: Panel!
+}
+
+type DeletePostPayload {
+  post: Post
+}
+
+"""
+Returns the created feedback item back to the client.
+"""
+type DeleteRecommendationFeedbackPayload {
+  """
+  The id of the feedback you just deleted.
+  """
+  feedbackID: ID!
+}
+
+type DeleteRoomMessagePayload {
+  message: RoomMessage
+}
+
+type DeleteRoomPayload {
+  room: Room
+}
+
+"""
+The payload returned after deleting a schedule.
+"""
+type DeleteSchedulePayload {
+  """
+  The channel with the deleted schedule.
+  """
+  channel: Channel
+
+  """
+  The possible error.
+  """
+  error: DeleteScheduleError
+}
+
+"""
+The returned payload when deleting a schedule segment.
+"""
+type DeleteScheduleSegmentPayload {
+  """
+  The possible error.
+  """
+  error: DeleteScheduleSegmentError
+
+  """
+  The updated schedule without the deleted segment.
+  """
+  schedule: Schedule
+}
+
+"""
+DeleteSocialMediaPayload returns an error, if any.
+"""
+type DeleteSocialMediaPayload {
+  """
+  The channel of the social media that was deleted.
+  """
+  channel: Channel
+}
+
+"""
+Errors from deleteSquadStreamInvitation mutation.
+"""
+type DeleteSquadStreamInvitationError {
+  """
+  Error from request to delete invitation.
+  """
+  code: DeleteSquadStreamInvitationErrorCode!
+}
+
+"""
+Outputs from the deleteSquadStreamInvitation mutation.
+"""
+type DeleteSquadStreamInvitationPayload {
+  """
+  Error from mutation if exists.
+  """
+  error: DeleteSquadStreamInvitationError
+
+  """
+  The deleted invitation.
+  """
+  invitation: SquadStreamInvitation
+}
+
+"""
+Error that may be returned by the DeleteStreamAuthorizedUser mutation.
+"""
+type DeleteStreamAuthorizedUserError {
+  """
+  Type of mutation error.
+  """
+  code: DeleteStreamAuthorizedUserErrorCode!
+}
+
+"""
+DeleteStreamAuthorizedUserPayload contains the VideoStreamSettings with updated authorized users.
+"""
+type DeleteStreamAuthorizedUserPayload {
+  """
+  The updated channel of broadcaster.
+  """
+  channel: Channel
+
+  """
+  Error code.
+  """
+  error: AddStreamAuthorizedUserError
+}
+
+"""
+The returned payload from the mutation.
+"""
+type DeleteUserClipsPayload {
+  """
+  userID is the user's ID.
+  """
+  userID: ID!
+}
+
+"""
+The returned payload from the DeleteUserColors mutation.
+"""
+type DeleteUserColorsPayload {
+  """
+  The modified user.
+  """
+  user: User
+}
+
+type DeleteVideoCommentPayload {
+  """
+  The comment that was deleted.
+  """
+  comment: VideoComment!
+}
+
+"""
+The returned payload from the DeleteVideos mutation.
+"""
+type DeleteVideosPayload {
+  """
+  The list of videos deleted.
+  """
+  videos: [Video!]
+}
+
+"""
+Response to a request to delete a video thumbnail.
+"""
+type DeleteVideoThumbnailPayload {
+  """
+  Video representing the video from which a thumbnail was deleted.
+  """
+  video: Video
+}
+
+"""
+Defines ads management attributes for channel.
+"""
+type Density {
+  """
+  Ad schedule for ads management.
+  """
+  adSchedule: [AdSlot!]
+
+  """
+  Duration of auto ads.
+  """
+  autoAdLengthSeconds: Int
+
+  """
+  Period inbetween each auto ad.
+  """
+  autoAdPeriodMinutes: Int
+
+  """
+  If channel is a custom contract partner.
+  """
+  isCCP: Boolean!
+
+  """
+  Minutes elapsed since stream started.
+  """
+  minutesElapsed: Int
+
+  """
+  If contract is enforced on this channel.
+  """
+  shouldEnforceContract: Boolean!
+
+  """
+  Ad density target for a specific channel.
+  """
+  targetAdMinutes: Int
+
+  """
+  Total amount of ad time.
+  """
+  totalAdSeconds: Int
+}
+
+type DenyRejectedChatMessagePayload {
+  message: RejectedChatMessage
+}
+
+"""
+Payload from the denyRejectedCheer mutation.
+"""
+type DenyRejectedCheerPayload {
+  """
+  Client-generated unique ID used to prevent a cheer from being re-sent (thus spending double bits).
+  The server will reject any request with an ID that has already been used.
+  """
+  id: ID!
+}
+
+"""
+Result of denying an unban request.
+"""
+type DenyUnbanRequestPayload {
+  """
+  Used for errors arising from resolving unban request.
+  """
+  error: UnbanRequestError
+
+  """
+  The resolved unban request.
+  """
+  unbanRequest: UnbanRequest
+}
+
+"""
+The output for the deselect channel badge mutation.
+"""
+type DeselectChannelBadgePayload {
+  """
+  The channel (user object of channel) this badge is deselected on.
+  """
+  user: User
+}
+
+"""
+The output for the deselect global badge mutation.
+"""
+type DeselectGlobalBadgePayload {
+  """
+  The user (contains the badge status).
+  """
+  user: User
+}
+
+"""
+Defines AutoMod category levels for a Channel.
+"""
+type DetailedAutoModConfiguration {
+  """
+  This field will be a value between 0 and 4, inclusive.
+  """
+  ableismLevel: Int
+
+  """
+  This field will be a value between 0 and 4, inclusive.
+  """
+  aggressionLevel: Int
+
+  """
+  This field will be a value between 0 and 4, inclusive.
+  """
+  homophobiaLevel: Int
+
+  """
+  This field will be a value between 0 and 4, inclusive.
+  """
+  misogynyLevel: Int
+
+  """
+  This field will be a value between 0 and 4, inclusive.
+  """
+  nameCallingLevel: Int
+
+  """
+  This field will be a value between 0 and 4, inclusive.
+  """
+  profanityLevel: Int
+
+  """
+  This field will be a value between 0 and 4, inclusive.
+  """
+  racismLevel: Int
+
+  """
+  This field will be a value between 0 and 4, inclusive.
+  """
+  sexualityLevel: Int
+
+  """
+  DEPRECATED: nWordLevel is the level of "nWord" category. Will be deprecated when inference is upgraded to V4.
+  """
+  nWordLevel: Int @deprecated
+
+  """
+  DEPRECATED: whiteNationalistLevel is the level of "whiteNationalist" category.
+  Will be deprecated when inference is upgraded to V4.
+  """
+  whiteNationalistLevel: Int @deprecated
+}
+
+"""
+Paginated list of Directories.
+Implements the Relay cursor connections specification.
+See: https://facebook.github.io/relay/graphql/connections.htm.
+"""
+type DirectoryConnection {
+  edges: [DirectoryEdge]!
+  pageInfo: PageInfo!
+}
+
+"""
+Contains information about a Directory's relationship to a given page (connection),
+and the Directory itself.
+"""
+type DirectoryEdge {
+  cursor: Cursor
+  node: Directory
+}
+
+"""
+Disable Prerolls Ability contains the properties used by the Disable Prerolls Feature.
+"""
+type DisablePrerollsAbility {
+  """
+  DisablePrerollsFreeTime define relation of midroll-length:preroll-free-time-earned on this channel.
+  """
+  disablePrerollsTimeEarned: [DisablePrerollsFreeTime!]
+
+  """
+  If "disable prerolls for midrolls" feature is accessible on this channel.
+  """
+  hasDisablePrerollsAbilityAccess: Boolean
+
+  """
+  If "disable prerolls for midrolls" feature is enabled on this channel.
+  """
+  hasDisablePrerollsAbilityEnabled: Boolean
+
+  """
+  If disable preroll notifications are enabled on this channel.
+  """
+  hasDisablePrerollsNotificationsEnabled: Boolean
+
+  """
+  Maximum amount of preroll-free time (in seconds) that can be accumulated on this channel.
+  """
+  maxDisablePrerollsCapacity: Int
+}
+
+"""
+Disable Prerolls Free Time maps the relationship between a specific midroll
+length and amount of preroll-free time earned for a channel.
+"""
+type DisablePrerollsFreeTime {
+  """
+  The length (in seconds) of a midroll ad.
+  """
+  midrollLengthSeconds: Int!
+
+  """
+  The amount of preroll-free time (in seconds) earned on this channel for running midroll of related length.
+  """
+  prerollFreeTimeSeconds: Int!
+}
+
+"""
+Error returned during a invalid user request.
+"""
+type DisableTwoFactorError {
+  """
+  Error code returned by the backend.
+  """
+  code: DisableTwoFactorErrorCode!
+
+  """
+  The localized external error message.
+  """
+  message: String!
+}
+
+"""
+The result of a disableTwoFactorPayload mutation.
+"""
+type DisableTwoFactorPayload {
+  """
+  error code and localized error.
+  """
+  error: DisableTwoFactorError
+}
+
+"""
+Error type that DisableUserAccountPayload returns.
+"""
+type DisableUserAccountError {
+  """
+  Error Code, see DisableUserAccountErrorCode.
+  """
+  code: DisableUserAccountErrorCode!
+}
+
+"""
+Output from the disableUserAccount mutation.
+"""
+type DisableUserAccountPayload {
+  """
+  Error if operation failed from user error.
+  """
+  error: DisableUserAccountError
+
+  """
+  User that has been deleted or disabled.
+  """
+  user: User
+}
+
+"""
+DiscountBreakdown shows discounted pricing for a promotional offer.
+"""
+type DiscountBreakdown {
+  """
+  The numerical price of a discounted offer.
+  """
+  price: Int!
+
+  """
+  The localized tax rate of a offer.
+  """
+  tax: Int!
+
+  """
+  The total discounted price given price and tax.
+  """
+  total: Int!
+}
+
+type DismissFriendRecommendationPayload {
+  """
+  The user who was previously a friend recommendation to the target user.
+  """
+  user: User
+}
+
+type DismissRitualTokenError {
+  code: DismissRitualTokenErrorCode!
+}
+
+"""
+DismissRitualTokenPayload is the response when dismissing a ritual token.
+"""
+type DismissRitualTokenPayload {
+  error: DismissRitualTokenError
+  token: RitualToken
+}
+
+"""
+Ouput for dismissing a video's suggested highlight.
+"""
+type DismissVideoSuggestedHighlightPayload {
+  """
+  Video whos automated highlight suggestions were dismissed.
+  """
+  video: Video
+}
+
+"""
+Contains all of the information about a Drop awarded to a user.
+"""
+type Drop {
+  """
+  The game that awarded the Drop.
+  """
+  game: Game @deprecated
+
+  """
+  The assigned ID of this drop.
+  """
+  id: ID! @deprecated
+
+  """
+  The image URL of the Drop. Images are 80x80 pixels.
+  """
+  imageURL: String! @deprecated
+
+  """
+  The developer-provided name of the Drop.
+  """
+  name: String! @deprecated
+}
+
+"""
+A mapping of the client ID set to determine whether a user has set up account linking for the game.
+"""
+type DropAccountLink {
+  """
+  The associated clientID for a game used to determine if users have an account link
+  created between tuid and in-game userID.
+  """
+  clientID: ID!
+
+  """
+  The date when this clientID was first added.
+  """
+  updatedAt: Time!
+}
+
+"""
+Contains all of the information about a Drop's action stating what happens when a drop is triggered. //To be deprecated.
+"""
+type DropAction {
+  """
+  The time in seconds a user has to claim a drop after occurence.
+  """
+  claimDurationSeconds: Int! @deprecated
+
+  """
+  The description of this drop's action.
+  """
+  description: String! @deprecated
+
+  """
+  The Action ID.
+  """
+  id: ID! @deprecated
+
+  """
+  The type of action happening when a drop is triggered.
+  """
+  type: DropActionType! @deprecated
+}
+
+"""
+Data about the award of a drop to a user. // deprecated.
+"""
+type DropAward {
+  """
+  The timestamp when the Drop was awarded to the user.
+  """
+  awardedAt: Time @deprecated
+
+  """
+  The drop that was awarded to the user.
+  """
+  node: Drop @deprecated
+
+  """
+  The reason the Drop was awarded.
+  """
+  reason: String @deprecated
+}
+
+"""
+Contains all of the information about a Drop awarded to a user.
+"""
+type DropBenefit {
+  """
+  The redirect URL where a user can link their account.
+  """
+  accountLinkURL: String!
+
+  """
+  The time the benefit was created.
+  """
+  createdAt: Time!
+
+  """
+  The display description of this award object. //To be deprecated.
+  """
+  description: String! @deprecated
+
+  """
+  The limit of how often this benefit can globally be awarded to a user. Set to
+  -1 if the drop can be entitled unlimited amounts.
+  The per drop entitlementLimit of a reward is on DropObject.Drop2BenefitObject.
+  """
+  entitlementLimit: Int!
+
+  """
+  The game that awarded the Drop.
+  """
+  game: Game
+
+  """
+  The ID of this reward object.
+  """
+  id: ID!
+
+  """
+  An image asset for this reward object.
+  """
+  imageAssetURL: String!
+
+  """
+  Specifies if this benefit is considered for a game that is available on iOS.
+  """
+  isIosAvailable: Boolean!
+
+  """
+  The display name of this award object.
+  """
+  name: String!
+
+  """
+  The ID of the owner of the item for this reward.
+  """
+  owner: User! @deprecated(reason: "Use DropBenefit.ownerOrganization instead")
+
+  """
+  The (RBAC) Organization that owns the drop benefit.
+  """
+  ownerOrganization: Organization
+}
+
+"""
+The DropBenefitEdge links a drop with a benefit and describes how many times that benefit
+can be granted by this drop. A benefit can be granted multiple times by event based drops.
+For example, a benefit could be granted every time the broadcaster gets a kill streak, up to
+3 times.
+"""
+type DropBenefitEdge {
+  """
+  The benefit description.
+  """
+  benefit: DropBenefit!
+
+  """
+  The number of times a benefit has been claimed.
+  """
+  claimCount: Int
+
+  """
+  A restriction of the benefit on how often it can be claimed within a drop.
+  """
+  entitlementLimit: Int!
+}
+
+"""
+A campaign a developer is running to give drops away to viewers of their game
+To be considered live, a campaign must be enabled with the current time
+being after the start but before the end times
+To apply to a particular channel a campaign must be live and additionally
+the channel must be playing an applicable game and either must be one of the
+applicable channels or the campaign must have an empty applicable channel list
+(where an empty list specifically means all channels are eligible).
+"""
+type DropCampaign {
+  """
+  The URL users who aren't linked should click on to create a link that will
+  allow them create an account link for the developer of the game(s)
+  this campaign is for.
+  """
+  accountLinkURL: String!
+
+  """
+  The only channels allowed to be eligible for the drop campaign.
+  """
+  allow: DropCampaignACL
+
+  """
+  If isAvailableToAllChannels is false, applicableChannels is the list of
+  what channels this campaign is targeted to.  If the flag is true but the
+  list is empty, that means that all whitelisted users cannot be loaded.
+  An applicable channel must also be playing an applicable game for the
+  campaign to apply to the channel.
+  """
+  applicableChannels: [User!] @deprecated
+
+  """
+  The games that this campaign is enabled on
+  A channel playing one of these games must be in the applicable channels
+  list or list must be empty for the campaign to apply to the channel.
+  """
+  applicableGames: [Game!] @deprecated
+
+  """
+  The drops this campaign can award.
+  """
+  awardableDrops: [Drop!] @deprecated
+
+  """
+  The channels blocked from being eligible for the drop campaign.
+  """
+  block: DropCampaignACL
+
+  """
+  The URL users who aren't linked should click on to create a link that will
+  allow them create an account link for the developer of the game(s)
+  this campaign is for.
+  """
+  connectionURL: String! @deprecated(reason: "Use accountLinkURL instead")
+
+  """
+  The description contains the full details about the campaign.
+  """
+  description: String!
+
+  """
+  The URL that links to the details / marketing page for this campaign.
+  """
+  detailsURL: String!
+
+  """
+  The time this campaign ends
+  To be considered live, a campaign must be enabled with the current time
+  being after the start but before the end times.
+  """
+  endAt: Time!
+
+  """
+  Drops triggered by in-game events.
+  """
+  eventBasedDrops: [EventBasedDrop!]
+
+  """
+  The Game associated with this campaign.
+  """
+  game: Game
+
+  """
+  GUID identifying this campaign.
+  """
+  id: ID!
+
+  """
+  An image asset for this campaign no larger than 160 x 160 pixels.
+  """
+  imageURL: String!
+
+  """
+  Indicates if this campaign is available to all channels or if only some.
+  If false, applicableChannels should contain the channels where the campaign
+  is available.
+  """
+  isAvailableToAllChannels: Boolean! @deprecated
+
+  """
+  If this campaign is enabled
+  To be considered live, a campaign must be enabled with the current time
+  being after the start but before the end times.
+  """
+  isEnabled: Boolean! @deprecated
+
+  """
+  Drops that can be triggered by manual events.
+  """
+  manualTriggerBasedDrops: [ManualTriggerBasedDrop!]
+
+  """
+  The name of the campaign.
+  """
+  name: String!
+
+  """
+  This is the Organization (RBAC) that has ownership of the campaign and attached drops.
+  """
+  owner: Organization
+
+  """
+  User specific data for the campaign.
+  """
+  self: DropCampaignSelfEdge!
+
+  """
+  The time this campaign starts
+  To be considered live, a campaign must be enabled with the current time
+  being after the start but before the end times.
+  """
+  startAt: Time!
+
+  """
+  The current status of the campaign.
+  """
+  status: DropCampaignStatus!
+
+  """
+  Test viewers can participate in campaigns while the campaign is in the test status.
+  """
+  testViewers: [User!]
+
+  """
+  Drops triggered by accumulating minutes watched on a game.
+  """
+  timeBasedDrops: [TimeBasedDrop!]
+
+  """
+  The type of a campaign defines what type of drops are allowed to be added to the campaign.
+  """
+  type: CampaignType!
+}
+
+"""
+A toggleable access control list of channels given certain access to drop campaigns.
+"""
+type DropCampaignACL {
+  """
+  The channels that are either granted or denied access.
+  """
+  channels: [Channel!]
+
+  """
+  Whether the access list is currently in use.
+  """
+  isEnabled: Boolean!
+}
+
+"""
+DropCampaignSelfEdge returns user specific information about the drops campaign.
+"""
+type DropCampaignSelfEdge {
+  """
+  Has the user linked their game account with the campaign.
+  """
+  isAccountConnected: Boolean!
+}
+
+"""
+Contains all of the information about the channel seetings for a Drop.
+"""
+type DropChannelSetting {
+  """
+  UserAccountConnected is a boolean specifying if a streamer has a connected
+  account link to the game required for the game developers to send drop related
+  game data for this user.
+  """
+  isUserAccountConnected: Boolean!
+}
+
+"""
+The drop that is closest to completing for the current user that is actively earning progress.
+"""
+type DropCurrentSession {
+  """
+  The channelID where Progresso is currently tracking progress.
+  """
+  channel: Channel
+
+  """
+  The number of minutes that the user has accrued toward completing the drop.
+  """
+  currentMinutesWatched: Int!
+
+  """
+  The ID for the Drop that we're currently tracking (not surfaced; used for fulfillment).
+  """
+  dropID: ID!
+
+  """
+  The Game name that we're tracking for the currently-tracked drop.
+  """
+  game: Game
+
+  """
+  The total number of minutes required in order to complete the drop.
+  """
+  requiredMinutesWatched: Int!
+}
+
+"""
+Contains all of the information about a Drop awarded to a user.
+"""
+type DropEligibility {
+  """
+  The remaining time in which this reward can be claimed.
+  """
+  claimSecondsRemaining: Int!
+
+  """
+  Summary information for the drop the reward is claimed of.
+  """
+  drop: DropObject! @deprecated(reason: "No longer supported. Use dropType instead.")
+
+  """
+  The unique ID of this drop instance.
+  """
+  dropInstanceID: ID!
+
+  """
+  A single Drop. This could be either an event or time based drop.
+  """
+  dropType: DropType!
+
+  """
+  Rewards available to the user for this drop and their statuses.
+  """
+  rewards: [DropReward!]!
+
+  """
+  User eligibility for this drop instance.
+  """
+  status: DropInstanceEligibilityStatus!
+}
+
+"""
+Defines a condition that must be met for an in game event to trigger a drop.
+"""
+type DropEventCondition {
+  """
+  Specifies the event to look for in the event payload.
+  """
+  key: String!
+
+  """
+  The comparator of the value to the event payload.
+  """
+  operator: DropEventConditionOperator!
+
+  """
+  Specifies the value to compare the event payload to.
+  """
+  value: String!
+}
+
+"""
+SetDropCampaignStatusPayload returns the result of the creation/update.
+"""
+type DropImageUploadPayload {
+  """
+  The ID of the image once uploaded.
+  """
+  uploadID: ID
+
+  """
+  The URL to upload the image to.
+  """
+  uploadURL: String
+}
+
+"""
+Contains all of the information about a Drop awardable to a user. // deprecated
+in favor of EventBasedDrop and TimeBasedDrop.
+"""
+type DropObject {
+  """
+  The redirect URL where a user can link their account.
+  """
+  accountLinkURL: String! @deprecated
+
+  """
+  The actions defining what happens after a drop is triggered.
+  """
+  actions: [DropAction!]! @deprecated
+
+  """
+  The description of this drop.
+  """
+  description: String! @deprecated
+
+  """
+  The URL that links to the details / marketing page for this drop.
+  """
+  detailsURL: String! @deprecated
+
+  """
+  The date at which this drop can no longer occur.
+  """
+  endDate: Time! @deprecated
+
+  """
+  The game associated with this drop.
+  """
+  game: Game! @deprecated
+
+  """
+  The Drops ID.
+  """
+  id: ID! @deprecated
+
+  """
+  An image asset for this drop.
+  """
+  imageURL: String! @deprecated
+
+  """
+  The friendly name of this drop.
+  """
+  name: String! @deprecated
+
+  """
+  The OrganizationID of the owner of this drop.
+  """
+  ownerID: ID! @deprecated
+
+  """
+  The friendly name of the owner of this drop.
+  """
+  ownerName: String! @deprecated
+
+  """
+  The Quest name for this specific Drop.
+  """
+  questName: String! @deprecated
+
+  """
+  The rules defining what needs to happen to trigger this drop.
+  """
+  rules: [DropRule!]! @deprecated
+
+  """
+  The date at which this drop can start to occur.
+  """
+  startDate: Time! @deprecated
+}
+
+"""
+Contains all of the information about a Drop awarded to a user.
+"""
+type DropReward {
+  """
+  The URL where a user can link their account for this reward.
+  """
+  accountLinkURL: String! @deprecated(reason: "use benefit.accountLinkURL")
+
+  """
+  An availability enum for this reward.
+  """
+  availability: DropRewardAvailability!
+
+  """
+  The DropBenefit that a user is claiming or get verified to.
+  """
+  benefit: DropBenefit!
+
+  """
+  The display description of this award object.
+  """
+  description: String! @deprecated(reason: "no longer used")
+
+  """
+  The ID of this reward object.
+  """
+  id: ID! @deprecated(reason: "use benefit.id")
+
+  """
+  An image asset for this reward object.
+  """
+  imageAssetURL: String! @deprecated(reason: "use benefit.imageAssetURL")
+
+  """
+  Specifies if this reward is considered for a game that is available on iOS.
+  """
+  isIosAvailable: Boolean! @deprecated(reason: "use benefit.isIosAvailable")
+
+  """
+  The display name of this award object.
+  """
+  name: String! @deprecated(reason: "use benefit.name")
+
+  """
+  The ID of the owner of the item for this reward.
+  """
+  ownerID: ID! @deprecated(reason: "use benefit.ownerOrganization.id")
+
+  """
+  The display name of item owner for this drop.
+  """
+  ownerName: String! @deprecated(reason: "use benefit.ownerOrganization.name")
+}
+
+"""
+Contains all of the information about a Drop's rule stating what a broadcaster
+has to do to trigger a drop. //To be deprecated.
+"""
+type DropRule {
+  """
+  The description of this drop's rule.
+  """
+  description: String! @deprecated
+
+  """
+  The Rule ID.
+  """
+  id: ID! @deprecated
+}
+
+"""
+An error that has been mapped from a DropsManagementService twirp error. Can sometimes include messages.
+"""
+type DropsError {
+  """
+  The error code.
+  """
+  code: DropsErrorCode!
+
+  """
+  The error message string.
+  """
+  message: String
+}

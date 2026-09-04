@@ -1,0 +1,971 @@
+"""
+Information about a registered developer OAuth application.
+"""
+type OAuthApp {
+  """
+  The category that describes the app's type.
+  """
+  category: OAuthAppCategory
+
+  """
+  The timestamp when the app was created.
+  """
+  createdAt: Time!
+
+  """
+  The ID of the app. It is the value of the `Client-ID` header when the app makes API requests.
+  """
+  id: ID!
+
+  """
+  The name of the app.
+  """
+  name: String!
+
+  """
+  The user-provided description of the app's type. Used if `Category` is Other.
+  """
+  otherDescription: String
+
+  """
+  Owner is the user that owns this app.
+  """
+  owner: User
+
+  """
+  The URI to which users should be redirected after authorizing the app.
+  """
+  redirectURI: String!
+
+  """
+  The client secret of the app.
+  """
+  secret: String!
+
+  """
+  The timestamp when the app was last updated.
+  """
+  updatedAt: Time!
+
+  """
+  Whether the app's OAuth tokens expire.
+  """
+  willTokensExpire: Boolean!
+}
+
+"""
+A list of applications.
+"""
+type OAuthAppConnection {
+  """
+  The applications.
+  """
+  edges: [OAuthAppEdge!]!
+
+  """
+  Pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+A broadcaster user with cursor.
+"""
+type OAuthAppEdge {
+  """
+  Cursor represents the position of the current edge/node.
+  """
+  cursor: Cursor!
+
+  """
+  Node represents the app for the current edge.
+  """
+  node: OAuthApp!
+}
+
+"""
+Offer describes something that is purchasable.
+"""
+type Offer {
+  """
+  Details of the user's eligibility to purchase the Offer.
+  """
+  eligibility: OfferEligibility!
+
+  """
+  The time at which this Offer ceases to be valid for purchase. If null, this Offer will never expire.
+  """
+  endAt: Time
+
+  """
+  The type of the gift offer (will be omitted if the Offer is not a gift).
+  """
+  giftType: GiftType
+
+  """
+  Unique identifier for an Offer.
+  """
+  id: ID!
+
+  """
+  A listing describing the charge model and cancellation policy for the Offer.
+  """
+  listing: OfferListing
+
+  """
+  The platform on which the Offer is eligible for purchase.
+  """
+  platform: OfferPlatform!
+
+  """
+  A Promotion object describes the promotion to be applied on an Offer (if any).
+  """
+  promotion: OfferPromotion
+
+  """
+  Quantity is the configured purchase quantity restrictions.
+  """
+  quantity: Range
+
+  """
+  The authenticated user's relationship with the Offer.
+  """
+  self: OfferSelfEdge
+
+  """
+  The time at which this Offer becomes valid for purchase.
+  """
+  startAt: Time!
+
+  """
+  Tag bindings provide static and dynamic bindings of the attributes on an Offer.
+  """
+  tagBindings: [OfferTagBinding!]!
+
+  """
+  Tenant product line registry to which this Offer belongs.
+  """
+  tplr: String!
+}
+
+"""
+OfferEligibility describes user's eligibility to purchase an Offer.
+"""
+type OfferEligibility {
+  """
+  If the user is eligible for the Offer, then this is set to the
+  time at which the user's benefits would expire if the
+  Offer is purchased. If null, the benefits never expire.
+  """
+  benefitsEndAt: Time
+
+  """
+  If the user is eligible for the Offer, then this is set to the
+  time at which the user's benefits would become available if the
+  Offer is purchased.
+  """
+  benefitsStartAt: Time
+
+  """
+  A boolean that is true when the user is eligible for the Offer.
+  """
+  isEligible: Boolean!
+
+  """
+  Allows tenants to override the maximum purchasable quantity for an offer
+  within a checkout session (used in purchase velocity cases).
+  """
+  maxQuantityOverride: Int
+
+  """
+  Provides extra contextual details for the type of purchase.
+  """
+  purchaseType: OfferPurchaseType!
+
+  """
+  If the user is ineligible for the Offer, then this code is set
+  as the reason why the user is ineligible.
+  """
+  reasonCode: OfferIneligibilityReasonCode
+}
+
+"""
+OfferListing defines the charge model for a given listing.
+"""
+type OfferListing {
+  """
+  The conditions around a user's cancellation of their purchase (e.g. refund policy).
+  """
+  cancellationPolicy: CancellationPolicyType!
+
+  """
+  FIAT/non-FIAT based charge model OR 3P managed SKU.
+  """
+  chargeModel: ChargeModel!
+}
+
+"""
+Promotion is a modifier to an Offer.
+"""
+type OfferPromotion {
+  """
+  End time of a promotion (empty if evergreen promotion).
+  """
+  endAt: Time
+
+  """
+  Unique identifier for a Promotion.
+  """
+  id: ID!
+
+  """
+  The OfferListing associated with this Promotion.
+  """
+  listing: OfferListing!
+    @deprecated(reason: "No longer used, currently left for backwards compatibility")
+
+  """
+  Unique name for a Promotion.
+  """
+  name: String!
+
+  """
+  Describes the priority of the Promotion (the higher the priorty, the more important the promo).
+  """
+  priority: Int!
+
+  """
+  Describe the Promotions metadata to display to the client.
+  """
+  promoDisplay: PromotionDisplay!
+
+  """
+  Start time of a promotion.
+  """
+  startAt: Time!
+}
+
+"""
+The authenticated user's relationship with the offer.
+"""
+type OfferSelfEdge {
+  """
+  Returns any fraud-related checkout actions that the client must invoke.
+  """
+  checkoutActions(quantity: Int!, paymentSession: PaymentSession): [CheckoutAction!]
+
+  """
+  Configs that initiate the user's checkout flow for this Offer.
+  """
+  checkoutConfiguration: CheckoutConfiguration
+
+  """
+  Provides a list of eligible payment methods that the user can select for this offer.
+  """
+  eligiblePaymentMethods: [EligiblePaymentMethod!]
+}
+
+"""
+OfferTagBinding defines a key-value pair.
+"""
+type OfferTagBinding {
+  """
+  The key of the tag.
+  """
+  key: String!
+
+  """
+  The value of the tag.
+  """
+  value: String!
+}
+
+"""
+Current state of the user in the onboarding process.
+"""
+type Onboarding {
+  """
+  Retrieves a list of streams that have been selected for onboarding based on a user's followed games.
+  `first` is the number of streams PER FOLLOWED GAME to fetch.
+  `locale` is a language code that will filter streams by if there are viewers
+  with that language code (ex. "en-US", "es-ES", or "de-AT").
+  `languages` is list of language codes that will be used to filter streams by the broadcaster language. (ex. [EN, KO]).
+  `games` are a list of game ids that would replace the user's followed games for fetching the streams.
+  """
+  onboardingStreams(
+    first: Int = 3
+    locale: String
+    languages: [Language!]
+    games: [String!]
+  ): [Stream] @deprecated(reason: "This feature has been sunset.")
+
+  """
+  List of channel IDs skipped by a user during onboarding.
+  """
+  skippedChannelIDs: [ID!] @deprecated(reason: "This feature is retired")
+}
+
+type OnsiteNotification {
+  """
+  Actions of the notification.
+  """
+  actions: [OnsiteNotificationAction!]!
+
+  """
+  Body of the notification in Markdown format.
+  """
+  body: String!
+
+  """
+  Category of the notification (only for dart ones).
+  """
+  category: String
+
+  """
+  When this notification was created.
+  """
+  createdAt: Time!
+
+  """
+  List of users that created this notification.
+  """
+  creators: [User]!
+
+  """
+  Destination type to route users to when they interact with the notification on non-web clients.
+  Values include Homepage, ChannelPage, NotificationSettingsPage, and BroadcasterDashboard.
+  """
+  destinationType: String
+
+  """
+  Determines where the notification will be displayed at front end.
+  """
+  displayType: OnsiteNotificationDisplayType!
+
+  """
+  Optional extra notification content.
+  When type is "vodupload", extra is Video.
+  When type is "hotclipfollower", extra is Clip.
+  When type is "hotclip", extra is Clip.
+  When type is "subgiftreceived", extra is User.
+  When type is "vodcomment", extra is VideoComment.
+  When type is "vodcommentmod", extra is VideoComment.
+  When type is "vodcommentreply", extra is VideoComment.
+  When destination is "ChannelPage", extra is User.
+  When destination is "BrowseGame", extra is Game.
+  When destination is "ExternalLink", extra is OnsiteNotificationExternalLink.
+  """
+  extra: OnsiteNotificationContent
+
+  """
+  ID of the notification.
+  """
+  id: ID!
+
+  """
+  Whether this notification is read.
+  """
+  isRead: Boolean!
+
+  """
+  Type of onsite render style.
+  """
+  renderStyle: OnsiteNotificationRenderStyle!
+
+  """
+  A URL to a thumbnail image.
+  """
+  thumbnailURL: String!
+
+  """
+  Type of notification.
+  """
+  type: String!
+
+  """
+  When notification was last updated.
+  """
+  updatedAt: Time!
+}
+
+type OnsiteNotificationAction {
+  """
+  Body of the notification action in plain text.
+  """
+  body: String!
+
+  """
+  ID of the action.
+  """
+  id: ID!
+
+  """
+  Label of the action.
+  """
+  label: String!
+
+  """
+  ID of the modal that will open on click, if it is a modal CTA.
+  """
+  modalID: ID!
+
+  """
+  Type of the notification action.
+  """
+  type: String!
+
+  """
+  URL of the notification action.
+  """
+  url: String!
+}
+
+type OnsiteNotificationConnection {
+  """
+  List of notifications.
+  """
+  edges: [OnsiteNotificationEdge!]
+
+  """
+  Information about pagination in this connection.
+  """
+  pageInfo: PageInfo
+
+  """
+  Notifications summary.
+  """
+  summary: OnsiteNotificationsSummary
+}
+
+type OnsiteNotificationEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor
+
+  """
+  The notification.
+  """
+  node: OnsiteNotification!
+}
+
+"""
+Extra onsite notification content returned when the notification links to an external site.
+"""
+type OnsiteNotificationExternalLink {
+  """
+  The link that the notification opens when clicked.
+  """
+  url: String!
+}
+
+type OnsiteNotificationsSummary {
+  """
+  Unread summary for creator display type.
+  """
+  creatorUnreadSummary: OnsiteNotificationsUnreadSummary
+
+  """
+  Last time notifications were seen.
+  """
+  lastSeenAt: Time
+
+  """
+  Number of unseen notifications.
+  """
+  unseenCount: Int!
+
+  """
+  Unread summary for viewer display type.
+  """
+  viewerUnreadSummary: OnsiteNotificationsUnreadSummary
+}
+
+"""
+Contains summary for unread infomation.
+"""
+type OnsiteNotificationsUnreadSummary {
+  """
+  Last time user marked all as read.
+  """
+  lastReadAllAt: Time
+
+  """
+  Number of unread notifications.
+  """
+  unreadCount: Int!
+}
+
+type OrderPanelsPayload {
+  """
+  List of panels in their new order.
+  """
+  panels: [Panel]
+}
+
+"""
+A developer organization.
+"""
+type Organization {
+  """
+  The bounty board campaigns that the company owns.
+  """
+  bountyCampaigns(campaignID: ID, status: BountyCampaignStatus): BountyCampaignConnection
+
+  """
+  The brand portal settings for the company.
+  """
+  brandPortalSettings: BrandPortalSettings
+
+  """
+  ID of the Company in the CurseForge Infrastructure.
+  """
+  curseCompanyID: ID
+
+  """
+  Drop Campaigns developed by the organization.
+  """
+  dropCampaigns: [DropCampaign!] @deprecated(reason: "Use Organization.drops instead")
+
+  """
+  Drop 2.0 Campaigns and Benefits configured for the organization.
+  """
+  drops: OrganizationDrops!
+
+  """
+  The estimated viewer reach for the pool of broadcasters this company is considering targeting.
+  """
+  estimatedBroadcasterViewerReach(
+    gameNames: [String!]!
+    targetAllBroadcasters: Boolean!
+    targetVarietyBroadcasters: Boolean!
+    streamLengthSeconds: Int
+    targetAllCountries: Boolean = false
+    targetAllGames: Boolean = false
+    countries: [String!] = []
+  ): BroadcasterViewerReach
+
+  """
+  The games associated with the company. Optionally include games that a company can use for Bounty Board
+  campaigns (ie. "Just Chatting" for trailer campaigns).
+  """
+  games(includeBountyBoardGames: Boolean = false): [Game!]
+
+  """
+  The company's unique identifier.
+  """
+  id: ID!
+
+  """
+  List of pending invites.
+  """
+  invites(first: Int = 10, after: Cursor): OrganizationInviteConnection
+
+  """
+  Legacy Companies need to agree to the Drops Terms.
+  """
+  isCampaignsEnabled: Boolean!
+
+  """
+  Legacy Companies are required to sign the Contract.
+  """
+  isContractSigned: Boolean!
+
+  """
+  Indicates if the Company is a Legacy Company from the first iteration of the DevSite.
+  """
+  isLegacy: Boolean!
+
+  """
+  A list of rbac users who are apart of an organization.
+  """
+  members(
+    first: Int = 10
+    after: Cursor
+    input: OrganizationMembersInput
+  ): OrganizationMemberConnection
+
+  """
+  The human-readable name of the company.
+  """
+  name: String!
+
+  """
+  Attributes related to the current user.
+  """
+  self: OrganizationSelfEdge
+
+  """
+  Indicates if company is a developer, publisher or other.
+  """
+  type: OrganizationType!
+
+  """
+  The Company URL for their Corporate Website.
+  """
+  url: String!
+}
+
+"""
+OrganizationApplication is the application for requesting an organization be added to Twitch Developer Organizations.
+"""
+type OrganizationApplication {
+  """
+  Email of the person creating the application.
+  Deprecated as we are no longer collecting contact email. Using TwitchID and Dart to send notifications instead.
+  """
+  contactEmail: String @deprecated(reason: "No longer collecting contact email.")
+
+  """
+  The name of applying organization.
+  """
+  organizationName: String!
+
+  """
+  Current status of the company application.
+  """
+  status: OrganizationAppilcationStatus!
+}
+
+"""
+OrganizationDrop links organizations to the campaigns it has configured
+and the benefits that it has created.
+"""
+type OrganizationDrops {
+  """
+  The benefits created for this organization that can be added to the organization's drops.
+  """
+  benefits: [DropBenefit!]
+
+  """
+  The campaigns configued for this organizaiton.
+  """
+  campaigns: [DropCampaign!]
+}
+
+"""
+An invitation to join a developer organization under a given role.
+"""
+type OrganizationInvite {
+  """
+  When the invitation was created.
+  """
+  createdAt: Time!
+
+  """
+  The date and time the invite will expire.
+  """
+  expiresAt: Time!
+
+  """
+  The invites's unique identifier.
+  """
+  id: ID!
+
+  """
+  User the invitation if for.
+  """
+  invitee: User
+
+  """
+  User who created the invitation.
+  """
+  inviter: User
+
+  """
+  ID of the organization the invitation is for.
+  """
+  organizationID: ID!
+
+  """
+  Name of the organization the invitation is for.
+  """
+  organizationName: String!
+
+  """
+  Role the invitation is for.
+  """
+  role: OrganizationMemberRole!
+}
+
+"""
+Paginated list of organization invites in an organization.
+"""
+type OrganizationInviteConnection {
+  """
+  The elements of the paginated list.
+  """
+  edges: [OrganizationInviteEdge!]!
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of Organization invites.
+  """
+  totalCount: Int!
+}
+
+"""
+An element in a paginated list of organization invites.
+Contains metadata about the organization invites.
+"""
+type OrganizationInviteEdge {
+  """
+  An opaque cursor identifying the edge's position in the paginted list.
+  """
+  cursor: Cursor!
+
+  """
+  The organization invite.
+  """
+  node: OrganizationInvite!
+}
+
+"""
+Paginated list of organization invites for in a user.
+"""
+type OrganizationInviteUserConnection {
+  """
+  The elements of the paginated list.
+  """
+  edges: [OrganizationInviteEdge!]!
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of Organization invites.
+  """
+  totalCount: Int!
+
+  """
+  Whether or not the user is under the limit of allowed organization memberships.
+  """
+  isWithinOrganizationMembershipLimit: Boolean
+}
+
+"""
+A RBAC user.
+"""
+type OrganizationMember {
+  """
+  Users email.
+  """
+  email: String!
+
+  """
+  Users first name.
+  """
+  firstName: String!
+
+  """
+  Twitch user id.
+  """
+  id: ID!
+
+  """
+  Users last name.
+  """
+  lastName: String!
+
+  """
+  Users role.
+  """
+  role: OrganizationMemberRole!
+
+  """
+  Users title.
+  """
+  title: String!
+
+  """
+  The Twitch user associated with the RBAC user.
+  """
+  user: User
+}
+
+"""
+A paginated list of organization member relationships.
+"""
+type OrganizationMemberConnection {
+  """
+  The elements of the paginated list.
+  """
+  edges: [OrganizationMemberEdge!]!
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of Organization members.
+  """
+  totalCount: Int!
+}
+
+"""
+An element in a paginated list of organization member relationships.
+Contains metadata about the follow relationship between two users.
+"""
+type OrganizationMemberEdge {
+  """
+  An opaque cursor identifying the edge's position in the paginted list.
+  """
+  cursor: Cursor!
+
+  """
+  Date user joined organization.
+  """
+  joinedAt: Time!
+
+  """
+  The user who is organization members.
+  """
+  node: OrganizationMember!
+}
+
+"""
+The relationship between the authenticated user and a game.
+"""
+type OrganizationSelfEdge {
+  """
+  Whether or not the current user is able to add another to the organization.
+  """
+  canAddMember: Boolean!
+
+  """
+  Whether or not the current user is able to leave the organization.
+  """
+  canLeaveOrganization: Boolean!
+
+  """
+  Whether or not the current user is able to remove a member from the organization.
+  """
+  canRemoveMember: Boolean!
+
+  """
+  Date user joined organization.
+  """
+  joinedAt: Time!
+
+  """
+  The current users role in the organization.
+  """
+  role: OrganizationMemberRole!
+}
+
+"""
+Friend requests sent from this user to other users.
+"""
+type OutgoingFriendRequestConnection {
+  """
+  The friend request elements of this list.
+  """
+  edges: [OutgoingFriendRequestEdge!]
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of outgoing friend requests.
+  """
+  totalCount: Int!
+}
+
+"""
+A friend request sent from this user to another user.
+"""
+type OutgoingFriendRequestEdge {
+  """
+  The time at which the friend request was sent.
+  """
+  createdAt: Time!
+
+  """
+  An opaque cursor identifying the edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  The user to whom the friend request was sent.
+  """
+  node: User
+}
+
+"""
+Contains Overwatch League Team preferences.
+"""
+type OverwatchLeagueTeamPreference {
+  """
+  Set of available teams for selection.
+  """
+  availableTeamsSet: [OverwatchTeamPreferenceOption!]
+
+  """
+  Unique identifier for this set of Overwatch team preferences.
+  """
+  id: ID!
+
+  """
+  The preferred team.
+  """
+  selectedTeam: OverwatchTeamPreferenceOption
+}
+
+"""
+Moment Details specific to the overwatch game.
+"""
+type OverwatchMomentDetails {
+  """
+  One of "game_start" or "hero_change".
+  """
+  event: String!
+
+  """
+  The hero the broadcaster is playing.
+  """
+  heroName: String!
+
+  """
+  The role the broadcaster is playing.
+  """
+  role: String!
+}
+
+"""
+Contains an Overwatch team option to choose as the preferred team.
+"""
+type OverwatchTeamPreferenceOption {
+  """
+  Unique identifier for this Overwatch team preference.
+  """
+  id: ID!
+
+  """
+  The rewards associated with this team preference.
+  """
+  rewards: [TournamentReward!]
+
+  """
+  The name of the team.
+  """
+  teamName: String!
+}
+
+"""
+OwnerChanletAttributes store configuration flags for child chanlets the channel owns.
+"""
+type OwnerChanletAttributes {
+  """
+  Whether to show the child chanlets.
+  """
+  isChanletFeatureEnabled: Boolean!
+}

@@ -1,0 +1,58 @@
+input LeaveChannelRoomsInput {
+  channelID: ID!
+}
+
+"""
+Inputs to the leaveRaid mutation.
+"""
+input LeaveRaidInput {
+  """
+  The raid ID being left by the user.
+  """
+  raidID: ID!
+}
+
+"""
+Inputs to the leaveSquadStream mutation.
+"""
+input LeaveSquadStreamInput {
+  """
+  The optional ID of a squad member that is leaving the squad (defaults to ID from auth token).
+  """
+  memberID: ID!
+
+  """
+  The ID of the squad stream that the caller wants to leave.
+  """
+  squadStreamID: ID!
+}
+
+"""
+LinkSSOInput links an SSO app to the authenticated user's account if the activation code is valid.
+"""
+input LinkSSOInput {
+  """
+  The code that identifies the single sign-on (SSO) app that should be linked to the authenticated user's account.
+  """
+  code: String!
+}
+
+"""
+LiveConfigViewInput holds the view configuration of an extension if the live config dashboard page is supported.
+"""
+input LiveConfigViewInput {
+  """
+  Relative path of the HTML file to load for this view.
+  """
+  viewerPath: String!
+}
+
+"""
+Input for moving a Prediction Event from ACTIVE to LOCKED, so that users can no longer make predictions on it.
+"""
+input LockPredictionEventInput {
+  """
+  The unique identifier of the Prediction Event to move from ACTIVE to LOCKED.
+  """
+  id: ID!
+}

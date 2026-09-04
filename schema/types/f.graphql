@@ -1,0 +1,534 @@
+"""
+FeaturedContentSections contain the a set of FeaturedItems that should be shown
+together in a particular section of Twitch apps.
+"""
+type FeaturedContentSection {
+  """
+  A combination of the type and style for a given section, i.e. spotlight-previews.
+  """
+  id: ID!
+  items: [FeaturedItem!]
+}
+
+type FeaturedItem {
+  """
+  The featured item's content.
+  """
+  content: FeaturedItemContent
+
+  """
+  An markdown description of the item, available when a item is featured.
+  """
+  description: String!
+
+  """
+  ID used for tracking interactions.
+  """
+  id: ID!
+
+  """
+  A URL for a special thumbnail image, when this item is featured.
+  """
+  imageURL: String!
+
+  """
+  Is this item featured because it is scheduled?
+  """
+  isScheduled: Boolean!
+
+  """
+  Is this item featured because it is sponsored?
+  """
+  isSponsored: Boolean!
+
+  """
+  A lower priority level means the item is higher priority.
+  """
+  priorityLevel: Int!
+
+  """
+  When featured, the title of the item.
+  """
+  title: String!
+}
+
+"""
+FeaturedStream contains extra metadata for presenting a featured Stream.
+"""
+type FeaturedStream {
+  """
+  The featured stream's broadcaster.
+  """
+  broadcaster: User
+
+  """
+  The featured channel.
+  """
+  channel: Channel @deprecated(reason: "Use featuredStream.broadcaster instead.")
+
+  """
+  A markdown description of the stream, available when a stream is featured.
+  """
+  description: String
+
+  """
+  An HTML description of the stream, available when a stream is featured.
+  """
+  descriptionHTML: String @deprecated(reason: "Use featuredStream.description instead")
+
+  """
+  A URL for a special thumbnail image, when this stream is featured.
+  """
+  imageURL: String
+
+  """
+  Is this stream featured because it is scheduled?
+  """
+  isScheduled: Boolean
+
+  """
+  Is this stream featured because it is sponsored?
+  """
+  isSponsored: Boolean
+
+  """
+  A lower priority level means the stream is higher priority.
+  """
+  priorityLevel: Int
+
+  """
+  The featured live steam.
+  """
+  stream: Stream
+
+  """
+  When featured, the title of the stream.
+  """
+  title: String
+}
+
+"""
+DEPRECATED: do not use, it is subject to change.
+FeaturedVideo contains extra metadata for presenting a featured video.
+"""
+type FeaturedVideo {
+  """
+  An markdown description of the video, available when a video is featured.
+  """
+  description: String!
+
+  """
+  A URL for a special thumbnail image, when this video is featured.
+  """
+  imageURL: String!
+
+  """
+  Is this video featured because it is scheduled?
+  """
+  isScheduled: Boolean!
+
+  """
+  Is this video featured because it is sponsored?
+  """
+  isSponsored: Boolean!
+
+  """
+  A lower priority level means the stream is higher priority.
+  """
+  priorityLevel: Int!
+
+  """
+  When featured, the title of the video.
+  """
+  title: String!
+
+  """
+  The featured video.
+  """
+  video: Video
+}
+
+type FeatureFlags {
+  isPulseEnabled: Boolean @deprecated(reason: "Enabled for everyone.")
+}
+
+"""
+Feed is twitch's pulse product of content a user may enjoy.
+"""
+type Feed {
+  id: ID!
+  items(first: Int = 5, after: Cursor): FeedItemConnection
+}
+
+"""
+FeedItem is the units of a feed.
+They do not have an identifier because you cannot look them up by identifier.
+"""
+type FeedItem {
+  content: FeedItemContent
+  reasons: [FeedItemReason]
+  tracking: FeedItemTracking
+}
+
+type FeedItemConnection {
+  edges: [FeedItemEdge]
+  pageInfo: PageInfo
+}
+
+type FeedItemEdge {
+  cursor: Cursor
+  node: FeedItem
+}
+
+"""
+FeedItemReason explains why an item is in your feed.
+"""
+type FeedItemReason {
+  reason: String
+}
+
+"""
+FeedItemTracking contains the tracking info of a feeditem.
+"""
+type FeedItemTracking {
+  batchID: String
+  cardImpressionID: String
+  recGenerationID: String
+  recGenerationIndex: Int
+}
+
+"""
+FinalizeCompetitionLobbyPayload is the success response for updating a lobby to done.
+"""
+type FinalizeCompetitionLobbyPayload {
+  """
+  The new state of competition after marking the lobby as done.
+  """
+  competition: Competition
+
+  """
+  Used for competition mutation errors.
+  """
+  error: CompetitionError
+}
+
+"""
+Settings specific to the first cheer tutorial.
+"""
+type FirstCheerTutorial {
+  """
+  Optional field that dictates whether a user has exited out of the first cheer tutorial by clicking out of the experience.
+  """
+  hasAbandoned: Boolean
+
+  """
+  Optional field that dictates whether a user has skipped the first cheer tutorial by clicking the skip button.
+  """
+  hasSkipped: Boolean
+}
+
+"""
+Information about the flagged track of copyrighted music.
+"""
+type FlaggedTrack {
+  """
+  Title of the album of the flagged track.
+  """
+  albumTitle: String!
+
+  """
+  The appeal for track's usage.
+  """
+  appeal: FlaggedTrackAppeal
+
+  """
+  ID of the flagged track.
+  """
+  id: ID!
+
+  """
+  Duration in seconds of the mute. Standard length is 360 (6 mins).
+  This can be null if the flagged track was succesfully appealed.
+  """
+  muteDurationSeconds: Int
+
+  """
+  Offset is how many seconds into the video the mute begins. 0 indicates the beginning of the video is muted.
+  This can be null if the flagged track was succesfully appealed.
+  """
+  muteOffsetSeconds: Int
+
+  """
+  Performer of the flagged track.
+  """
+  performer: String!
+
+  """
+  Title of the flagged track.
+  """
+  title: String!
+}
+
+"""
+The appeal information associated with the flagged track.
+"""
+type FlaggedTrackAppeal {
+  """
+  ID of the track appeal.
+  """
+  id: ID!
+
+  """
+  Reason for the track appeal.
+  """
+  reason: String!
+
+  """
+  Status of the track appeal, ie. PENDING, RESOLVED, UNKNOWN.
+  """
+  status: FlaggedTrackAppealStatus!
+}
+
+"""
+Data about the relationship between one User and a User they are following.
+"""
+type Follow {
+  """
+  Whether to disable notifications for this relationship.
+  """
+  disableNotifications: Boolean
+
+  """
+  Represents when this relationship was established.
+  """
+  followedAt: Time
+
+  """
+  The user who is followed.
+  """
+  user: User
+}
+
+"""
+A paginated list of follows relationships.
+"""
+type FollowConnection {
+  """
+  The elements of the paginated list.
+  """
+  edges: [FollowEdge]
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo
+
+  """
+  The total number of followers.
+  """
+  totalCount: Int
+}
+
+"""
+A list of followed games.
+"""
+type FollowedGameConnection {
+  """
+  The elements of the paginated list.
+  """
+  nodes: [Game!]
+}
+
+"""
+An element in a paginated list of follows relationships.
+Contains metadata about the follow relationship between two users.
+"""
+type FollowEdge {
+  """
+  An opaque cursor identifying the edge's position in the paginted list.
+  """
+  cursor: Cursor!
+
+  """
+  Whether to disable notifications for this relationship.
+  """
+  disableNotifications: Boolean @deprecated(reason: "use notificationSettings.isEnabled instead.")
+
+  """
+  Represents when this relationship was established.
+  """
+  followedAt: Time
+
+  """
+  The user who is followed.
+  """
+  node: User
+
+  """
+  Notification settings for this relationship.
+  """
+  notificationSettings: ChannelNotificationSettings
+}
+
+"""
+A list of broadcasters followed by a user and hosting live broadcasters.
+"""
+type FollowedHostConnection {
+  """
+  The broadcasters.
+  """
+  nodes: [User]
+}
+
+"""
+A list of live-streaming broadcasters followed by a user.
+"""
+type FollowedLiveUserConnection {
+  """
+  The live broadcasters.
+  """
+  edges: [FollowedLiveUserEdge]!
+
+  """
+  The live broadcasters.
+  """
+  nodes: [User]
+    @deprecated(reason: "Use FollowedLiveUserConnection.edges instead for pagination support")
+
+  """
+  Pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+A live streaming broadcaster with cursor.
+"""
+type FollowedLiveUserEdge {
+  cursor: Cursor!
+  node: User
+}
+
+"""
+A paginated list of followers relationships.
+"""
+type FollowerConnection {
+  """
+  The elements of the paginated list.
+  """
+  edges: [FollowerEdge]
+
+  """
+  Metadata about this page.
+  """
+  pageInfo: PageInfo
+
+  """
+  The total number of followers.
+  """
+  totalCount: Int
+}
+
+"""
+An element in a paginated list of followers.
+Contains metadata about the follower relationship between two users.
+"""
+type FollowerEdge {
+  """
+  An opaque cursor identifying the edge's position in the paginted list.
+  """
+  cursor: Cursor!
+
+  """
+  Whether to disable notifications for this relationship.
+  """
+  disableNotifications: Boolean
+
+  """
+  Represents when this relationship was established.
+  """
+  followedAt: Time
+
+  """
+  The user who is a follower.
+  """
+  node: User
+
+  """
+  Notification settings for this relationship.
+  """
+  notificationSettings: ChannelNotificationSettings
+}
+
+type FollowGamePayload {
+  """
+  The game that was followed if the operation was successful.
+  """
+  game: Game
+}
+
+"""
+Information to communicate to the user about an error state.
+"""
+type FollowUserError {
+  """
+  Error code.
+  """
+  code: FollowUserErrorCode!
+}
+
+type FollowUserPayload {
+  """
+  Used for user blocked errors.
+  """
+  error: FollowUserError
+
+  """
+  The new follow relationship.
+  """
+  follow: Follow
+}
+
+type Founder {
+  user: User
+}
+
+"""
+A list of a user's friend relationships.
+"""
+type FriendConnection {
+  """
+  The friend elements of this list.
+  """
+  edges: [FriendEdge]
+
+  """
+  The total number of friends this user has.
+  """
+  totalCount: Int!
+}
+
+"""
+The friendship between the authenticated user and another user.
+"""
+type FriendEdge {
+  """
+  An action that a user or session is performing.
+  """
+  activity: Activity
+
+  """
+  The computed state of a user or session.
+  """
+  availability: Availability!
+
+  """
+  The last time the friend's availability or activity changed.
+  """
+  lastStatusChangeAt: Time
+
+  """
+  The friend user.
+  """
+  node: User
+}

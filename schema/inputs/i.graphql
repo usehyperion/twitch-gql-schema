@@ -1,0 +1,116 @@
+input ImageOptions {
+  """
+  The height of the image in pixels.
+  """
+  height: Int
+
+  """
+  The width of the image in pixels.
+  """
+  width: Int
+}
+
+"""
+The required input for an installExtension mutation.
+"""
+input InstallExtensionInput {
+  """
+  The channelID the user is installing the extension on.
+  """
+  channelID: ID!
+
+  """
+  The composite ID of an extension <extensionID:version>.
+  """
+  extensionID: ID!
+}
+
+"""
+The input to interrupt a schedule.
+"""
+input InterruptScheduleInput {
+  """
+  The end time when the schedule will no longer be disabled.
+  """
+  endAt: Time!
+
+  """
+  The reason the schedule was disabled.
+  """
+  reason: ScheduleInterruptionReason!
+
+  """
+  The id of the schedule.
+  """
+  scheduleID: ID!
+
+  """
+  The start time when the schedule will be disabled.
+  """
+  startAt: Time!
+
+  """
+  The geographic timezone of the new segment defined by IANA; i.e. "America/Los_Angeles".
+  """
+  timezone: String!
+}
+
+"""
+Arguments for the invalidation of all of a user's sessions.
+"""
+input InvalidateAuthenticatedSessionsInput {
+  """
+  Session to keep alive.
+  """
+  keepSession: String
+
+  """
+  Twitch user owner of the sessions.
+  """
+  userID: ID!
+}
+
+"""
+InvalidateEmailAssociationPayload is input required to mark a user as not owning an email address.
+"""
+input InvalidateEmailAssociationInput {
+  """
+  Email address that is incorrectly attributed to a user.
+  """
+  email: String!
+
+  """
+  EmailAssociationOpaqueID is the OpaqueID of the association to the above email.
+  """
+  emailAssociationOpaqueID: ID!
+}
+
+"""
+IOSPaymentTrackingDataInput contains fields to pass in tracking data related to iOS payments.
+"""
+input IOSPaymentTrackingDataInput {
+  """
+  The user's device ID.
+  """
+  deviceID: ID
+
+  """
+  The locale of the user.
+  """
+  locale: String
+}
+
+"""
+IOSReceiptDataInput contains the necessary fields to pass in iOS purchase receipt data.
+"""
+input IOSReceiptDataInput {
+  """
+  The encrypted receipt of an iOS purchase, signed by Apple. Required to process any iOS payment.
+  """
+  signedReceipt: String!
+
+  """
+  The external transaction ID.
+  """
+  extTransactionID: ID!
+}

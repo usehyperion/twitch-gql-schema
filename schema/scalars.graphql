@@ -1,0 +1,26 @@
+"""
+An opaque identifier for a connection edge. Used for pagination.
+
+This is part of the Relay Cursor Connections Specification:
+https://facebook.github.io/relay/graphql/connections.htm.
+"""
+scalar Cursor
+
+"""
+A possibly signed sequence of decimal numbers, each with optional fraction
+and a unit suffix, such as "300ms", "-1.5h" or "2h45m".
+Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
+"""
+scalar Duration
+
+"""
+Data containing a layout definition for the
+Mosaic algorithm. Should only be parsed or modified by Mosaic.
+"""
+scalar MosaicData
+
+"""
+RFC3339 timestamp.
+For example "2015-07-22T21:41:14Z".
+"""
+scalar Time

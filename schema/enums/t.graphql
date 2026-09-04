@@ -1,0 +1,439 @@
+"""
+An enumeration on the different scope of a tag.
+"""
+enum TagScope {
+  """
+  Tags that can be applied to all content types.
+  """
+  ALL
+
+  """
+  Tags that can only be applied to the CATEGORY content type.
+  """
+  CATEGORY
+}
+
+"""
+An enumeration on the different tag types of a category.
+"""
+enum TagType {
+  """
+  Tags applied to the category.
+  """
+  CONTENT
+
+  """
+  The most popular tags used by other channels streaming this game/category.
+  """
+  TOP
+}
+
+"""
+TaxInterviewType enumerates valid Amazon tax interview types.
+"""
+enum TaxInterviewType {
+  """
+  Describes an Amazon tax interview that would allow users to receive royalty income through licensed content.
+  """
+  ROYALTY
+
+  """
+  Describes an Amazon tax interview that would allow users to receive income for their goods and services.
+  """
+  SERVICE
+}
+
+"""
+TaxMismatchError enumerates valid registration and tax interview field names for payout onboarding.
+"""
+enum TaxMismatchError {
+  """
+  Applied when the user submits a name that does not match the name on their registration.
+  If provided, the company name will be compared intead of the user's full legal name.
+  """
+  NAME
+
+  """
+  Applied when the user submits a country that does not match the country on their registration.
+  """
+  COUNTRY
+
+  """
+  Applied when the user submits an email that does not match the email on their registration.
+  """
+  EMAIL
+
+  """
+  Applied when the user submits a street address that does not match the street address on their registration.
+  """
+  STREET_ADDRESS
+
+  """
+  Applied when the user submits a street address 2 that does not match the street address 2 on their registration.
+  """
+  STREET_ADDRESS_2
+
+  """
+  Applied when the user submits a city that does not match the city on their registration.
+  """
+  CITY
+
+  """
+  Applied when the user submits a state that does not match the state on their registration.
+  """
+  STATE
+
+  """
+  Applied when the user submits a postal that does not match the postal on their registration.
+  """
+  POSTAL
+}
+
+"""
+Possible labels for extra points awarded to resolve ties.
+"""
+enum TiebreakerLabel {
+  """
+  Tiebreaker Points are awarded for a kill, useful in BR games.
+  """
+  KILLS
+
+  """
+  Tiebreaker Points are a generic bonus field determined by the CO.
+  """
+  BONUS
+
+  """
+  An unknown label was provided.
+  """
+  UNKNOWN
+}
+
+"""
+The subcount series is able to display each datapoint according to the following durations.
+"""
+enum TimeSeriesPeriod {
+  """
+  Period of one day per datapoint.
+  """
+  DAY
+
+  """
+  Period of one month per datapoint.
+  """
+  MONTH
+}
+
+"""
+The type of the tracking pixel.
+"""
+enum TrackingPixelType {
+  """
+  Digital Ad Ratings, a Nielsen product that provides demographic data.
+  """
+  DAR
+
+  """
+  DoubleClick Campaign Manager, a Google product to track ad performance.
+  """
+  DCM
+
+  """
+  An impression tracking product.
+  """
+  SIZMEK
+}
+
+"""
+TransitionExtensionStateError is an error associated with the transitionExtensionState mutation.
+"""
+enum TransitionExtensionStateError {
+  """
+  User is unable to make modifications to the extension.
+  """
+  UNAUTHORIZED
+
+  """
+  The version does not have an asset hash and it must for the transition.
+  """
+  MISSING_ASSET_HASH
+
+  """
+  Review notes were not specified when transitioning an extension to IN_REVIEW.
+  """
+  MISSING_REVIEW_NOTES
+
+  """
+  Test channel was not specified when transitioning an extension to IN_REVIEW.
+  """
+  MISSING_TEST_CHANNEL
+
+  """
+  Only one version of an Extension can be in a review state (APPROVED, or in IN_REVIEW) at a time.
+  """
+  MULTIPLE_VERSIONS_IN_REVIEW
+
+  """
+  Author email cannot be empty when transit to READY_FOR_REVIEW.
+  """
+  TRANSITION_MISSING_AUTHOR_EMAIL
+
+  """
+  Author name cannot be empty when transit to READY_FOR_REVIEW.
+  """
+  TRANSITION_MISSING_AUTHOR_NAME
+
+  """
+  Category cannot be empty when transit to READY_FOR_REVIEW.
+  """
+  TRANSITION_MISSING_CATEGORY
+
+  """
+  Support email cannot be empty when transit to READY_FOR_REVIEW.
+  """
+  TRANSITION_MISSING_SUPPORT_EMAIL
+
+  """
+  Name cannot be empty when transit to READY_FOR_REVIEW.
+  """
+  TRANSITION_MISSING_NAME
+
+  """
+  Version cannot be empty when transit to READY_FOR_REVIEW.
+  """
+  TRANSITION_MISSING_VERSION
+
+  """
+  Testing base URI cannot be empty when transit to READY_FOR_REVIEW.
+  """
+  TRANSITION_MISSING_TESTING_BASE_URI
+
+  """
+  Summary cannot be empty when transit to READY_FOR_REVIEW.
+  """
+  TRANSITION_MISSING_SUMMARY
+
+  """
+  Description cannot be empty when transit to READY_FOR_REVIEW.
+  """
+  TRANSITION_MISSING_DESCRIPTION
+
+  """
+  Screenshot URLs cannot be empy when transit to READY_FOR_REVIEW.
+  """
+  TRANSITION_MISSING_SCREENSHOT_URLS
+
+  """
+  Invalid state transition.
+  """
+  INVALID_STATE_TRANSITION
+
+  """
+  Version specified is invalid.
+  """
+  INVALID_VERSION
+
+  """
+  At least one anchor must be specified.
+  """
+  ANCHOR_REQUIRED
+
+  """
+  HasZoom was specified but ZoomPixels is missing.
+  """
+  INVALID_ZOOM
+
+  """
+  The number of whitelisted broadcasters exceeds the limit.
+  """
+  MAX_BROADCASTERS
+
+  """
+  The number of whitelisted testing users exceeds the limit.
+  """
+  MAX_TESTERS
+
+  """
+  The number of whitelisted config URLs exceeds the limit.
+  """
+  MAX_WHITELISTED_CONFIG_URLS
+
+  """
+  The number of whitelisted panel URLs exceeds the limit.
+  """
+  MAX_WHITELISTED_PANEL_URLS
+
+  """
+  Extension names must be shorter than 40 characters.
+  """
+  INVALID_NAME_LENGTH
+
+  """
+  Extension description must be shorter than 1024 characters.
+  """
+  INVALID_DESCRIPTION_LENGTH
+
+  """
+  Extension summary must be shorter than 140 characters.
+  """
+  INVALID_SUMMARY_LENGTH
+
+  """
+  Extension author email must not be nil. Lenght must be < 254, Parses a single RFC 5322 address.
+  """
+  INVALID_AUTHOR_EMAIL
+
+  """
+  Extension support email must not be nil. Lenght must be < 254, Parses a single RFC 5322 address.
+  """
+  INVALID_SUPPORT_EMAIL
+
+  """
+  Extension author name length must be > 40.
+  """
+  INVALID_AUTHOR_NAME_LENGTH
+
+  """
+  Extension testing base uri must not be nil and empty scheme. Scheme should be http or https. User should not be nil.
+  """
+  INVALID_TESTING_BASE_URI
+
+  """
+  Extension terms uri must not be nil and empty scheme. Scheme should be http or https. User should not be nil.
+  """
+  INVALID_TERMS_URI
+
+  """
+  Extension privacy uri must not be nil and empty scheme. Scheme should be http or https. User should not be nil.
+  """
+  INVALID_PRIVACY_URI
+
+  """
+  Extension component viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_COMPONENT_VIEWER_PATH
+
+  """
+  Extension panel viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_PANEL_VIEWER_PATH
+
+  """
+  Extension video overlay viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_VIDEO_OVERLAY_VIEWER_PATH
+
+  """
+  Extension config viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_CONFIG_VIEWER_PATH
+
+  """
+  Extension live config viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_LIVE_CONFIG_VIEWER_PATH
+
+  """
+  Extension mobile viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_MOBILE_VIEWER_PATH
+
+  """
+  Extension component aspect width must be < 50 or > 1.
+  """
+  INVALID_COMPONENT_ASPECT_WIDTH
+
+  """
+  Extension component aspect height must be < 50 or > 1.
+  """
+  INVALID_COMPONENT_ASPECT_HEIGHT
+
+  """
+  Extension panel hiehgt must be < 500 or > 100.
+  """
+  INVALID_PANEL_HEIGHT
+
+  """
+  Extension Bits Support Level must ba valid member of the BitsSupportLevelEnum.
+  """
+  INVALID_BITS_SUPPORT_LEVEL
+
+  """
+  Scale pixels must be set to a positive integer when autoscale is true.
+  """
+  INVALID_SCALING_PIXELS
+
+  """
+  Aspect Ratio X must be set to a positive integer.
+  """
+  INVALID_COMPONENT_ASPECT_RATIO_X
+
+  """
+  Aspect Ratio Y must be set to a positive integer.
+  """
+  INVALID_COMPONENT_ASPECT_RATIO_Y
+
+  """
+  Target Height must be set to a positve integer.
+  """
+  INVALID_COMPONENT_TARGET_HEIGHT
+}
+
+"""
+Trigger type determines what type of events activate the trigger.
+"""
+enum TriggerType {
+  """
+  CHEER type trigger is activated by cheer events.
+  """
+  CHEER
+}
+
+"""
+TutorialState represents the possible states of the user's viewing of the mod view tutorial.
+"""
+enum TutorialState {
+  """
+  DISMISSED occurs when a user dismisses the tutorial.
+  """
+  DISMISSED
+
+  """
+  SEEN occurs when a user has seen every step in a tutorial.
+  """
+  SEEN
+
+  """
+  UNSEEN is the initial state, before a user has either dismissed or viewed the tutorial entirely.
+  """
+  UNSEEN
+}
+
+"""
+Two Factor Methods the user can have enabled.
+"""
+enum TwoFactorMethod {
+  """
+  The user has 2fa enabled but does not have the authy app installed. Only way
+  for the user to receive the 2fa verification code is SMS.
+  """
+  AUTHY_SMS
+
+  """
+  The user has 2fa enabled and has the authy app installed. The 2fa verification
+  code can be retreived from the authy app OR SMS.
+  """
+  AUTHY_APP
+
+  """
+  The user has 2fa enabled and has gone through the totp onboarding process
+  successfully. The 2fa verification code can be retreived from the
+  authenticator app the user chose during onboarding.
+  """
+  AUTHY_TOTP
+
+  """
+  unknown 2fa method.
+  """
+  UNKNOWN
+}

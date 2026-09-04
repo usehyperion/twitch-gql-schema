@@ -1,0 +1,1388 @@
+"""
+The different Twitch Radio collection types that can be requested.
+"""
+enum RadioContentType {
+  """
+  Retrieve playlists, can be filtered by ASIN.
+  """
+  PLAYLIST
+
+  """
+  Retrieve the user's recently played playlists.
+  """
+  RECENTLY_PLAYED
+}
+
+"""
+The types of content we can register current plays for.
+"""
+enum RadioCurrentlyPlayingType {
+  """
+  A radio playlist.
+  """
+  PLAYLIST
+
+  """
+  A radio station.
+  """
+  STATION
+}
+
+"""
+Icon Formats for the media service.
+"""
+enum RadioIconFormat {
+  """
+  PNG Icon for the media service.
+  """
+  PNG
+
+  """
+  SVG Icon for the media service.
+  """
+  SVG
+}
+
+"""
+Filters for querying the playlists.
+"""
+enum RadioPlaylistFilter {
+  """
+  Get all playlists.
+  """
+  ALL
+
+  """
+  Get only featured playlists.
+  """
+  FEATURED
+}
+
+"""
+Filter for recentlyPlayed.
+"""
+enum RadioRecentlyPlayedFilter {
+  """
+  Get all recently played items.
+  """
+  ALL
+
+  """
+  Retrieve only playlists.
+  """
+  PLAYLISTS
+}
+
+"""
+The types of content we can register recent plays for.
+"""
+enum RadioRecentlyPlayedType {
+  """
+  A radio playlist.
+  """
+  PLAYLIST
+
+  """
+  A radio station.
+  """
+  STATION
+}
+
+"""
+Possible errors returned by the RateExtension mutation.
+"""
+enum RateExtensionError {
+  """
+  Internal service error eg. database timeout.
+  """
+  INTERNAL_ERROR
+}
+
+"""
+Reason for feedback.
+"""
+enum RecommendationFeedbackCategory {
+  """
+  Only returned when there is an issue. Shouldn't be returned, should not be used for fetching.
+  """
+  UNSPECIFIED
+
+  """
+  The user is not interested in this type of content.
+  """
+  NOT_INTERESTED
+
+  """
+  The user finds this type of content to be offensive.
+  """
+  OFFENSIVE
+
+  """
+  The user has already seen this content.
+  """
+  ALREADY_WATCHED
+
+  """
+  Used when the other reasons do not capture the reason a user is giving feedback.
+  """
+  OTHER
+}
+
+"""
+Feedback target type.
+"""
+enum RecommendationFeedbackType {
+  """
+  Only returned when there is an issue. Shouldn't be returned, should not be used for fetching.
+  """
+  UNSPECIFIED
+
+  """
+  Feedback given about channels.
+  """
+  CHANNEL
+
+  """
+  Feedback given about a game / category.
+  """
+  CATEGORY
+
+  """
+  Feedback given about a shelf.
+  """
+  SHELF
+
+  """
+  Feedback given about a video.
+  """
+  VOD
+}
+
+"""
+Enumeration of RecordAdEvent error status codes.
+"""
+enum RecordAdEventErrorCode {
+  """
+  The RAd token in the request was not valid.
+  """
+  INVALID_TOKEN
+
+  """
+  The event payload was invalid.
+  """
+  INVALID_JSON
+
+  """
+  An internal error has occurred, other than a 500.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+Redeem claimable error status codes.
+"""
+enum RedeemClaimableErrorCode {
+  """
+  The request has been throttled.
+  """
+  REQUEST_THROTTLED
+
+  """
+  The user is not allowed to redeem this key.
+  """
+  UNAUTHORIZED
+
+  """
+  The key has already been claimed.
+  """
+  ALREADY_CLAIMED
+
+  """
+  Unknown error being returned from service.
+  """
+  UNKNOWN
+
+  """
+  Invalid PIN/Claimable.
+  Currently only used for Gift Card PINs.
+  """
+  INVALID_PIN
+
+  """
+  PIN already redeemed.
+  Currently only used for Gift Card PINs.
+  """
+  ALREADY_REDEEMED
+
+  """
+  User can't redeem due to wallet balance limit
+  Currently only used for Gift Card PINs.
+  """
+  EXCEEDED_WALLET_BALANCE
+
+  """
+  Two Factor Auth is required past a certain balance
+  for fraud mitigation. Currently only used for Gift Card PINs.
+  """
+  TWO_FACTOR_REQUIRED
+
+  """
+  Unsupported Country of Residence
+  Currently only used for Gift Card PINs.
+  """
+  INVALID_COUNTRY_OF_RESIDENCE
+
+  """
+  User excedded redemption velocity limit.
+  Currently only used for Gift Card PINs.
+  """
+  EXCEEDED_VELOCITY_LIMIT
+}
+
+"""
+The possible reasons redeeming a custom Community Points reward in a channel could fail.
+"""
+enum RedeemCommunityPointsCustomRewardErrorCode {
+  """
+  The reward was not found.
+  """
+  NOT_FOUND
+
+  """
+  The current user is not allowed to redeem this reward in this channel.
+  """
+  FORBIDDEN
+
+  """
+  The user does not have sufficient points to redeem the reward.
+  """
+  NOT_ENOUGH_POINTS
+
+  """
+  The client-provided properties (title, cost, or prompt) did not match the reward's true properties.
+  """
+  PROPERTIES_MISMATCH
+
+  """
+  The client is retrying a redemption with a transaction id that has already been redeemed.
+  """
+  DUPLICATE_TRANSACTION
+
+  """
+  The client is retrying a redemption with a transaction id that is currently being redeemed in another request.
+  """
+  TRANSACTION_IN_PROGRESS
+
+  """
+  The reward is disabled.
+  """
+  DISABLED
+
+  """
+  The stream is not live.
+  """
+  STREAM_NOT_LIVE
+
+  """
+  The reward has hit its maximum number of redemptions per stream.
+  """
+  MAX_PER_STREAM
+
+  """
+  The user is banned and cannot redeem rewards.
+  """
+  USER_BANNED
+
+  """
+  The redemption message contained a blocked phrase.
+  """
+  CHANNEL_SETTINGS
+
+  """
+  The redemption message starts with a '/' like a chat command.
+  """
+  MESSAGE_IS_COMMAND
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+
+  """
+  The reward has hit its maximum number of redempetions per user per stream.
+  """
+  MAX_PER_USER_PER_STREAM
+
+  """
+  The reward is currently under a cooldown.
+  """
+  GLOBAL_COOLDOWN
+}
+
+enum RedeemRitualTokenErrorCode {
+  """
+  Token is not in a status that can be redeemed.
+  """
+  TOKEN_NOT_AVAILABLE
+
+  """
+  Token does not exist.
+  """
+  TOKEN_NOT_FOUND
+
+  """
+  User is not a follower and tried redeeming the token in a follower-only chat.
+  """
+  FOLLOWER_ONLY_MODE_ENFORCEMENT_FAILED
+
+  """
+  User is not a subscriber and tried redeeming the token in a subs-only chat.
+  """
+  SUB_ONLY_MODE_ENFORCEMENT_FAILED
+
+  """
+  User is banned in the channel.
+  """
+  USER_CHAT_BANNED
+
+  """
+  User is timed out in the channel.
+  """
+  USER_CHAT_TIMED_OUT
+}
+
+"""
+An Error indicating why the submit failed, if it did.
+"""
+enum RedeemSubscriptionResponseErrorCode {
+  """
+  The Channel ID is invalid.
+  """
+  INVALID_CHANNEL
+
+  """
+  The User is not Eligible to Redeem Subscription to this Channel.
+  """
+  NOT_ELIGIBLE
+
+  """
+  Something unexpected occured when Redeeming the Subscription.
+  """
+  UNKNOWN
+
+  """
+  The User has already redeemed the subscription offerd by the channel.
+  """
+  USER_HAS_REDEEMED_SUBSCRIPTION
+
+  """
+  The channel the user is trying to redeem from has not been off-boarded.
+  """
+  CHANNEL_NOT_OFF_BOARDED
+
+  """
+  The user already has an existing subscription to the target channel they are trying to redeem to.
+  """
+  USER_HAS_EXISTING_SUBSCRIPTION
+
+  """
+  The target Channel the user is trying to redeem to is Invalid.
+  """
+  REDEEM_CHANNEL_INVALID
+
+  """
+  The user is not subscribed to the channel that is being off-boarded.
+  """
+  USER_NOT_SUBSCRIBED_TO_OFF_BOARDED_CHANNEL
+}
+
+"""
+How to group the referral sources.
+"""
+enum ReferralsDimension {
+  """
+  Return referrals grouped by platforms.
+  """
+  PLATFORM
+
+  """
+  Return referrals grouped by country.
+  """
+  COUNTRY
+
+  """
+  Return referrals grouped by channel.
+  """
+  CHANNEL
+
+  """
+  Return referrals grouped by internal source.
+  """
+  INTERNAL
+
+  """
+  Return referrals grouped by external source.
+  """
+  EXTERNAL
+}
+
+"""
+Which subset of referrals to return.
+"""
+enum ReferralsFilter {
+  """
+  Return all referral sources.
+  """
+  ALL
+
+  """
+  Return live video play referrals from external sources, filtered by the web platform.
+  """
+  EXTERNAL_LIVE_WEB
+
+  """
+  Return live video play referrals from internal channels, filtered by the web platform.
+  """
+  INTERNAL_CHANNEL_LIVE_WEB
+
+  """
+  Return live video play referrals from internal sources, filtered by the web platform.
+  """
+  INTERNAL_LIVE_WEB
+}
+
+"""
+Enumerates possible errors when registering payout information.
+"""
+enum RegisterPayoutInformationErrorCode {
+  """
+  Must have auth credentials to register payout information.
+  """
+  UNAUTHENTICATED
+
+  """
+  User does not have permission to register payout information for the targeted user.
+  """
+  FORBIDDEN
+
+  """
+  One or more fields have an invalid format.
+  """
+  INVALID_FORMAT
+
+  """
+  An internal error has occurred.
+  """
+  INTERNAL_ERROR
+}
+
+"""
+Enumerates vaid field names when registering payout information.
+"""
+enum RegisterPayoutInformationFieldName {
+  """
+  Assigned if Birthdate is given in invalid format.
+  """
+  BIRTHDATE
+
+  """
+  Assigned if City is given in invalid format.
+  """
+  CITY
+
+  """
+  Assigned if Company Name is given in invalid format.
+  """
+  COMPANY_NAME
+
+  """
+  Assigned if Country Code is given in invalid format.
+  """
+  COUNTRY_CODE
+
+  """
+  Assigned if Email is given in invalid format.
+  """
+  EMAIL
+
+  """
+  Assigned if First Name is given in invalid format.
+  """
+  FIRST_NAME
+
+  """
+  Assigned if Last Name is given in invalid format.
+  """
+  LAST_NAME
+
+  """
+  Assigned if Middle Name is given in invalid format.
+  """
+  MIDDLE_NAME
+
+  """
+  Assigned if Postal is given in invalid format.
+  """
+  POSTAL
+
+  """
+  Assigned if State Code is given in invalid format.
+  """
+  STATE_CODE
+
+  """
+  Assigned if Primary Address is given in invalid format.
+  """
+  STREET_ADDRESS
+
+  """
+  Assigned if Secondary Address is given in invalid format.
+  """
+  STREET_ADDRESS_2
+
+  """
+  Assigned if Parent Name is given in invalid format.
+  """
+  PARENT_NAME
+
+  """
+  Assigned if Parent Email is given in invalid format.
+  """
+  PARENT_EMAIL
+}
+
+"""
+The possible error enums returned while trying to confirm registeration for two factor authentication.
+"""
+enum RegisterTwoFactorConfirmationErrorCode {
+  """
+  The user needs to re-authenticate to perform this operation.
+  """
+  REAUTH_NEEDED
+
+  """
+  The user cannot confirm two factor registration since the initial registration was never started or has expired.
+  """
+  REGISTRATION_NOT_STARTED
+
+  """
+  The one time password provided is invalid.
+  """
+  INVALID_OTP
+
+  """
+  The one time password provided is missing.
+  """
+  MISSING_OTP
+
+  """
+  The phone number provided is used for too many Twitch accounts.
+  """
+  LIMIT_REACHED
+
+  """
+  The user does not have a verified email.
+  """
+  EMAIL_NOT_VERIFIED
+
+  """
+  Something unexpected occured.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+The possible error enums returned while trying to register for two factor authentication.
+"""
+enum RegisterTwoFactorErrorCode {
+  """
+  The user needs to re-authenticate to perform this operation.
+  """
+  REAUTH_NEEDED
+
+  """
+  Phone number was not provided.
+  """
+  MISSING_PHONE_NUMBER
+
+  """
+  Phone number was not valid.
+  """
+  INVALID_PHONE_NUMBER
+
+  """
+  The user has requested to register for two factor authentication too many times.
+  """
+  REQUEST_THROTTLED
+
+  """
+  The user does not have a verified email.
+  """
+  EMAIL_NOT_VERIFIED
+
+  """
+  Something unexpected occured.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+The registration type signifies the policy for participants to join the competition.
+"""
+enum RegistrationType {
+  """
+  Competition that any Twitch user can join.
+  """
+  OPEN
+
+  """
+  Competition that only invited participants can join.
+  """
+  INVITATIONAL
+
+  """
+  Open competition where only followers of the channel can join.
+  """
+  FOLLOWERS
+
+  """
+  Open competition where only subscribers of the channel can join.
+  """
+  SUBSCRIBERS
+
+  """
+  Open competition where only followers and subscribers of the channel can join.
+  """
+  FOLLOWER_AND_SUBSCRIBERS
+
+  """
+  Unknown type.
+  """
+  UNKNOWN
+}
+
+"""
+Possible errors from this mutation.
+"""
+enum RejectSquadStreamInvitationErrorCode {
+  """
+  Invitation to be rejected does not exist.
+  """
+  INVITATION_NOT_FOUND
+
+  """
+  Squad associated with the invitation does not exist.
+  """
+  SQUAD_NOT_FOUND
+
+  """
+  User does not have permissions to reject invitation.
+  """
+  UNAUTHORIZED
+
+  """
+  Invitation not in pending state cannot be rejected.
+  """
+  INVITATION_CANNOT_BE_REJECTED
+}
+
+"""
+RejectSquadStreamOutOfNetworkInvitationsErrorCode are the possible errors that this mutation returns.
+"""
+enum RejectSquadStreamOutOfNetworkInvitationsErrorCode {
+  """
+  The user is not authorized to reject invitations on behalf of the recipient.
+  """
+  UNAUTHORIZED
+}
+
+"""
+RemoveEditorErrorCode defines a client error that occurred while removing an editor.
+"""
+enum RemoveEditorErrorCode {
+  """
+  The channel does not exist.
+  """
+  CHANNEL_NOT_FOUND
+
+  """
+  The target user does not exist.
+  """
+  TARGET_USER_NOT_FOUND
+}
+
+"""
+Possible error codes for RemoveEmoteFromGroupError.
+"""
+enum RemoveEmoteFromGroupErrorCode {
+  """
+  The specified emote does not exist.
+  """
+  EMOTE_NOT_FOUND
+
+  """
+  The user is not allowed to remove this emote from its group.
+  """
+  PERMISSION_DENIED
+
+  """
+  Unknown error.
+  """
+  UNKNOWN
+}
+
+"""
+RemoveOrganizationMemberErrorCode defines a client error that occurred while removing an organization member.
+"""
+enum RemoveOrganizationMemberErrorCode {
+  """
+  User does not have permission to remove another member.
+  """
+  PERMISSION_DENIED
+
+  """
+  The user to be removed does not exist.
+  """
+  USER_NOT_FOUND
+
+  """
+  Can not remove this user because it is assigned as an extension billing manager. Need to unassign first.
+  """
+  ASSIGNED_BILLING_MANAGER
+
+  """
+  Deprecated: code not used, a resolver error is returned instead.
+  """
+  INTERNAL_ERROR
+}
+
+"""
+RemoveSquadStreamMemberErrorCode are the possible errors that this mutation returns.
+"""
+enum RemoveSquadStreamMemberErrorCode {
+  """
+  The user is not authorized to remove members from the squad.
+  """
+  UNAUTHORIZED
+
+  """
+  The user to be removed is not in the squad specified.
+  """
+  USER_NOT_IN_SQUAD
+}
+
+"""
+RenewalPolicy defines whether the charge model will renew or not.
+"""
+enum RenewalPolicy {
+  """
+  Will not renew automatically.
+  """
+  NO_RENEW
+
+  """
+  Will renew automatically.
+  """
+  AUTO_RENEW
+
+  """
+  Unknown renewal policy.
+  """
+  UNKNOWN
+}
+
+"""
+Valid values for ReportContentNetzDGInput.contentDirectedTo.
+"""
+enum ReportContentNetzDGContentDirectedTo {
+  """
+  The reported content is directed at the reporter.
+  """
+  ME
+
+  """
+  The reported content is directed at someone the reporter represents.
+  """
+  SOMEONE_I_REPRESENT
+
+  """
+  The reported content is directed at someone else.
+  """
+  SOMEONE_ELSE
+}
+
+"""
+Valid values for ReportContentNetzDGInput.ReportingFor.
+"""
+enum ReportContentNetzDGReportingFor {
+  """
+  The reporter is reporting for themselves.
+  """
+  MYSELF
+
+  """
+  The reporter is reporting on behalf of a complaints office.
+  """
+  COMPLAINTS_OFFICE
+
+  """
+  The report is reporting on behalf of an agency of the german government.
+  """
+  GOVERNMENT_AGENCY
+}
+
+"""
+Types of content that can be reported.
+"""
+enum ReportContentType {
+  """
+  Report against a channel feed comment.
+  """
+  CHANNEL_FEED_COMMENT_REPORT
+
+  """
+  Report against a channel feed post.
+  """
+  CHANNEL_FEED_POST_REPORT
+
+  """
+  Report against a chat message.
+  """
+  CHAT_REPORT
+
+  """
+  Report against a channel's channel points.
+  """
+  CHANNEL_POINTS_REPORT
+
+  """
+  Report against a clip.
+  """
+  CLIP_REPORT
+
+  """
+  (Deprecated) Report against a vod collection.
+  """
+  COLLECTION_REPORT
+
+  """
+  (Deprecated) Report against a curse private group.
+  """
+  CURSE_PRIVATE_GROUP
+
+  """
+  (Deprecated) Report against a curse public group.
+  """
+  CURSE_PUBLIC_GROUP
+
+  """
+  (Deprecated) Report against a curse whisper.
+  """
+  CURSE_WHISPER
+
+  """
+  Report against an emote.
+  """
+  EMOTE_REPORT
+
+  """
+  Report against an oracle event.
+  """
+  EVENT_REPORT
+
+  """
+  Report against an extension.
+  """
+  EXTENSION_REPORT
+
+  """
+  Report against a live up notification.
+  """
+  LIVE_UP_REPORT
+
+  """
+  Report against a livestream.
+  """
+  LIVESTREAM_REPORT
+
+  """
+  Report against a poll.
+  """
+  POLL_REPORT
+
+  """
+  Report against a raid.
+  """
+  RAID_REPORT
+
+  """
+  Report against a reward redemption.
+  """
+  REWARD_REDEMPTION_REPORT
+
+  """
+  Report against a chatroom.
+  """
+  ROOM_REPORT
+
+  """
+  Report against sings group name.
+  """
+  SINGS_GROUP_NAME_REPORT
+
+  """
+  Report against sings group biography.
+  """
+  SINGS_GROUP_BIO_REPORT
+
+  """
+  Report against sings group chat.
+  """
+  SINGS_GROUP_CHAT_REPORT
+
+  """
+  Report against a sings group vod comment.
+  """
+  SINGS_VOD_COMMENT_REPORT
+
+  """
+  Report against sings duet seed.
+  """
+  SINGS_DUET_SEED_REPORT
+
+  """
+  Report against an unban request.
+  """
+  UNBAN_REQUEST_REPORT
+
+  """
+  Report against a live user.
+  """
+  USER_REPORT
+
+  """
+  Report against a twitch vod comment.
+  """
+  VOD_COMMENT_REPORT
+
+  """
+  Report against a twitch vod.
+  """
+  VOD_REPORT
+
+  """
+  Report against a whisper. Deprecated in favor of the whisperReport mutation.
+  """
+  WHISPER_REPORT @deprecated(reason: "use whisperReport mutation instead.")
+}
+
+"""
+Possible error reasons returned by reportWhisper mutation.
+"""
+enum ReportWhisperErrorReason {
+  """
+  Invalid user ID.
+  """
+  INVALID_USER_ID
+
+  """
+  There are no whispers from the target user to the reporter.
+  """
+  NO_WHISPERS_FROM_TARGET_USER
+
+  """
+  The reporter is currently rate limited.
+  """
+  RATE_LIMITED
+
+  """
+  Unauthorized.
+  """
+  UNAUTHORIZED
+
+  """
+  Unknown error.
+  """
+  UNKNOWN
+}
+
+enum RequestRitualTokenErrorCode {
+  """
+  Token is not in a status that can be requested.
+  """
+  TOKEN_NOT_AVAILABLE
+
+  """
+  Token does not exist.
+  """
+  TOKEN_NOT_FOUND
+}
+
+"""
+Possible error codes returned from a username reset.
+"""
+enum ResetUsernameErrorCode {
+  """
+  Authorization token is not valid.
+  """
+  TOKEN_INVALID
+
+  """
+  Too many attempts to update login.
+  """
+  REQUESTS_THROTTLED
+
+  """
+  Login is not available.
+  """
+  LOGIN_UNAVAILABLE
+
+  """
+  Login is too short.
+  """
+  LOGIN_TOO_SHORT
+
+  """
+  Login is too long.
+  """
+  LOGIN_TOO_LONG
+
+  """
+  Login contains characters that are not allowed.
+  """
+  LOGIN_CONTAINS_INVALID_CHARACTERS
+
+  """
+  Unrecognized error returned from the backend service.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+Possible error codes from the resolvePredictionEvent mutation.
+"""
+enum ResolvePredictionEventErrorCode {
+  """
+  The current user is forbidden from resolving this Prediction Event.
+  """
+  FORBIDDEN
+
+  """
+  This Prediction Event has already either been resolved or canceled, and as such this action cannot be taken.
+  """
+  EVENT_ENDED
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+An enumeration of the different exemption types.
+"""
+enum ResourceRestrictionExemptionType {
+  """
+  The restriction is exempt for an unknown reason.
+  """
+  UNKNOWN
+
+  """
+  The restriction is exempt for all users.
+  """
+  ALL
+
+  """
+  The restriction is exempt for staff accounts.
+  """
+  STAFF
+
+  """
+  The restriction is exempt for site admins.
+  """
+  SITE_ADMIN
+
+  """
+  The restriction is exempt for owning a product.
+  """
+  PRODUCT
+
+  """
+  The restriction is exempt for viewers that are in the same org as the channel owner.
+  """
+  ORGANIZATION_MEMBER
+
+  """
+  The restriction is exempt for the preview duration.
+  """
+  PREVIEW
+
+  """
+  The restriction is exempt for channel moderators.
+  """
+  CHANNEL_MODERATOR
+
+  """
+  The restriction is exempt for channel VIPs.
+  """
+  CHANNEL_VIP
+}
+
+"""
+An enumeration of the different restriction options.
+"""
+enum ResourceRestrictionOption {
+  """
+  Allows users holding the channel VIP role to access the resource.
+  """
+  ALLOW_CHANNEL_VIP
+
+  """
+  Allows users holding the channel moderator role to access the resource.
+  """
+  ALLOW_CHANNEL_MODERATOR
+
+  """
+  Allows only users with tier 3 subscriptions to access the resource.
+  """
+  ALLOW_TIER_3_ONLY
+
+  """
+  Allows only users with tier 2 and 3 subscriptions to access the resource.
+  """
+  ALLOW_TIER_2_AND_3_ONLY
+
+  """
+  Allows users with any tier subscriptions to access the resource.
+  """
+  ALLOW_ALL_TIERS
+}
+
+"""
+An enumeration of the different restriction types.
+"""
+enum ResourceRestrictionType {
+  """
+  The resource is restricted for an unknown reason.
+  """
+  UNKNOWN
+
+  """
+  The resource is restricted by a subscription.
+  """
+  SUB_ONLY_LIVE
+
+  """
+  The resource is restricted by the All-Access Pass.
+  """
+  ALL_ACCESS_PASS
+
+  """
+  The resource is restricted by the organization membership logic in RBAC.
+  """
+  ORGANIZATION_ACCESS_ONLY
+}
+
+"""
+An enumeration of the different restriction types.
+"""
+enum RestrictionResource {
+  """
+  For non-live video content, e.g. VODs.
+  """
+  VIDEO
+
+  """
+  For live video content.
+  """
+  LIVE
+}
+
+"""
+The possible erors when resuming a schedule.
+"""
+enum ResumeScheduleError {
+  """
+  Not authorized to resume this schedule.
+  """
+  PERMISSION_DENIED
+
+  """
+  The schedule was not found.
+  """
+  NOT_FOUND
+}
+
+"""
+RevokeVIPErrorCode defines a client error that occurred while revoking a VIP status.
+"""
+enum RevokeVIPErrorCode {
+  """
+  The channel does not exist.
+  """
+  CHANNEL_NOT_FOUND
+
+  """
+  The revoker does not have permission to revoke the VIP status in this channel.
+  """
+  FORBIDDEN
+
+  """
+  The user whose VIP status is to be revoked does not exist.
+  """
+  REVOKEE_NOT_FOUND
+
+  """
+  The user whose VIP statu is to be revoked does not actually have the VIP status to be revoked.
+  """
+  REVOKEE_NOT_VIP
+}
+
+enum RitualTokenStatus {
+  """
+  ELIGIBLE means a user does not have this token, but can request one.
+  """
+  ELIGIBLE
+
+  """
+  AVAILABLE means a user has been granted this token and it can be redeemed.
+  """
+  AVAILABLE
+
+  """
+  DISMISSED means a user has opted out of redeeming this token.
+  """
+  DISMISSED
+
+  """
+  REDEEMED means a user has successfully consumed this token.
+  """
+  REDEEMED
+}
+
+enum RitualTokenType {
+  """
+  NEW_CHATTER is granted 5 minutes after a user joins a channel for the first time.
+  """
+  NEW_CHATTER
+}
+
+"""
+DEPRECATED
+Type of user for grouping users in the rooms member list.
+"""
+enum RoomMemberType {
+  """
+  User that is the broadcaster.
+  """
+  BROADCASTER @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  User that is staff.
+  """
+  STAFF @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  User that is admin.
+  """
+  ADMIN @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  User that is global moderator.
+  """
+  GLOBALMOD @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  User that is a channel moderator.
+  """
+  MOD @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  User that has no special role.
+  """
+  REGULAR @deprecated(reason: "The Rooms product has been sunset")
+}
+
+"""
+Represents a group mention, such as @here.
+"""
+enum RoomMessageMentionType {
+  """
+  An @here mention.
+  """
+  HERE @deprecated(reason: "The Rooms product has been sunset")
+}
+
+"""
+DEPRECATED
+Describes the role a user must be in order to perform an action, such as sending messages. Roles are
+hierarchical, so users that meet a role also meet all lower roles as well. For example, a moderator
+meets the subscriber role, even if they are not subscribed to the channel. Roles are defined in order
+from highest to lowest in the enum.
+"""
+enum RoomRole {
+  """
+  The channel owner.
+  """
+  BROADCASTER @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  A moderator for the channel.
+  """
+  MODERATOR @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  A subscriber of the channel.
+  """
+  SUBSCRIBER @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  All users.
+  """
+  EVERYONE @deprecated(reason: "The Rooms product has been sunset")
+}
+
+"""
+An error describing why the issue happened, when relevant.
+"""
+enum RotateExtensionSecretsError {
+  """
+  User has indicated an invalid extension id.
+  """
+  INVALID_CLIENT
+
+  """
+  User is unable to delete the extension secrets.
+  """
+  UNAUTHORIZED
+
+  """
+  User indicated an Invalid delay; must be greater than zero.
+  """
+  INVALID_DELAY
+}
+
+"""
+Errors that can result from running multiplayer ads.
+"""
+enum RunMultiplayerAdErrorCode {
+  """
+  The channel is not live, so ads cannot be run on it.
+  """
+  CHANNEL_NOT_LIVE
+
+  """
+  At least one of the multiplayer ad offers has expired.
+  """
+  OFFER_EXPIRED
+
+  """
+  At least one of the multiplayer ad offers was not found.
+  """
+  OFFER_NOT_FOUND
+
+  """
+  An unknown error has occurred.
+  """
+  UNKNOWN
+}

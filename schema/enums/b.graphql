@@ -1,0 +1,664 @@
+"""
+Enumerates possible badge click actions.
+"""
+enum BadgeClickAction {
+  """
+  Go to the user's subscription page.
+  """
+  SUBSCRIBE
+
+  """
+  Go to the Twitch Turbo purchasing page.
+  """
+  GET_TURBO
+
+  """
+  Go to the Bits purchasing page.
+  """
+  GET_BITS
+
+  """
+  Redirect the user to the badge click URL.
+  """
+  VISIT_URL
+}
+
+"""
+Deprecated: Domains that badges belong to.
+"""
+enum BadgeDomain {
+  """
+  Badges that were granted via Twitch crates.
+  """
+  CRATE
+}
+
+"""
+Enumerates valid badge image sizes.
+"""
+enum BadgeImageSize {
+  """
+  The base badge image size: 18x18.
+  """
+  NORMAL
+
+  """
+  Double the normal badge image size: 36x36.
+  """
+  DOUBLE
+
+  """
+  Quadruple the normal badge image size: 72x72.
+  """
+  QUADRUPLE
+}
+
+"""
+A filter for controlling which Bits Badge Tier Emotes to return.
+"""
+enum BadgeTierEmotesFilter {
+  """
+  Returns all bits badge tier emotes for this channel.
+  """
+  ALL
+
+  """
+  Returns all locked bits badge tier emotes for this user in this channel.
+  """
+  LOCKED
+
+  """
+  Returns a few of the locked bits badge tier emotes for this user in this channel.
+  Which emotes and the exact number are determined by the back-end.
+  """
+  LOCKED_PREVIEW
+
+  """
+  Returns all unlocked bits badge tier emotes for this user in this channel.
+  """
+  UNLOCKED
+
+  """
+  Returns highest currently unlocked bits badge tier emote and next to be unlocked by user.
+  """
+  HIGHEST_UNLOCKED_AND_NEXT
+}
+
+enum BanUserFromChatRoomErrorCode {
+  """
+  User does not have permission to ban in channel.
+  """
+  FORBIDDEN
+
+  """
+  Target does not exist.
+  """
+  TARGET_NOT_FOUND
+
+  """
+  User tried to ban themselves.
+  """
+  TARGET_IS_SELF
+
+  """
+  User tried to ban anonymous user.
+  """
+  TARGET_IS_ANONYMOUS
+
+  """
+  User tried to ban a moderator without permission.
+  """
+  TARGET_IS_MOD
+
+  """
+  DEPRECATED: no longer returned.
+  """
+  TARGET_IS_VIP
+
+  """
+  User tried to ban broadcaster.
+  """
+  TARGET_IS_BROADCASTER
+
+  """
+  User tried to ban staff.
+  """
+  TARGET_IS_STAFF
+
+  """
+  User tried to ban admin.
+  """
+  TARGET_IS_ADMIN
+
+  """
+  User tried to ban global mod.
+  """
+  TARGET_IS_GLOBAL_MOD
+
+  """
+  User tried to ban already banned user.
+  """
+  TARGET_ALREADY_BANNED
+
+  """
+  Duration provided was too short or too long.
+  """
+  DURATION_INVALID
+}
+
+"""
+Represents the state of the notification.
+"""
+enum BitsBadgeTierNotificationState {
+  """
+  User dismissed the notification.
+  """
+  SKIPPED
+
+  """
+  User shared the notification with chat.
+  """
+  SHARED
+
+  """
+  Notification should be shown to user.
+  """
+  SHOW
+}
+
+"""
+Possible sort orders for lists of bits events.
+"""
+enum BitsEventSort {
+  """
+  Sort the bits events by amount.
+  """
+  AMOUNT
+
+  """
+  Sort the bits events by date.
+  """
+  DATE
+}
+
+"""
+Possible sort directions for lists of bits events.
+"""
+enum BitsEventSortDirection {
+  """
+  Sort in descending order.
+  """
+  DESC
+
+  """
+  Sort in ascending order.
+  """
+  ASC
+}
+
+"""
+Bits event type.
+"""
+enum BitsEventType {
+  """
+  Event for giving bits to broadcaster.
+  """
+  GIVE_BITS_TO_BROADCASTER
+
+  """
+  Event for using bits on extension.
+  """
+  USE_BITS_ON_EXTENSION
+
+  """
+  Event for using bits on poll.
+  """
+  USE_BITS_ON_POLL
+
+  """
+  Unknown event type.
+  """
+  UNKNOWN
+}
+
+"""
+BitsOfferType is the kind of offer.
+"""
+enum BitsOfferType {
+  """
+  AD is an advertisement or other engagement that can be watched to earn bits.
+  """
+  AD
+
+  """
+  BUNDLE is a standard package of bits that can be purchased for a price.
+  """
+  BUNDLE
+}
+
+"""
+Enum of payment method types.
+"""
+enum BitsPaymentMethodType {
+  """
+  Paypal.
+  """
+  PAYPAL
+
+  """
+  Amazon Pay.
+  """
+  AMAZON_PAY
+
+  """
+  Xsolla.
+  """
+  XSOLLA
+}
+
+"""
+An enumerable that identifies the checkout provider the customer is using.
+"""
+enum BitsProductProvider {
+  """
+  Amazon checkout.
+  """
+  AMAZON
+
+  """
+  Android IAP.
+  """
+  ANDROID
+
+  """
+  iOS IAP.
+  """
+  IOS
+
+  """
+  Paypal checkout.
+  """
+  PAYPAL
+
+  """
+  Xsolla checkout.
+  """
+  XSOLLA
+}
+
+"""
+Possible errors when retrieving bits product purchase info.
+"""
+enum BitsProductPurchaseInfoErrorCode {
+  """
+  An unexpected internal server error occurred.
+  """
+  INTERNAL_SERVER_ERROR
+
+  """
+  The user is unauthorized to view purchase info.
+  """
+  USER_UNAUTHORIZED
+
+  """
+  The Pricing ID is not found (404).
+  """
+  PRICING_ID_NOT_FOUND
+
+  """
+  Cannot determine User Residence. Either billing address and IP doesn't match or
+  user doesn't have country of resident declared (409).
+  """
+  UNKNOWN_USER_RESIDENCE
+
+  """
+  The billing info could not be found for the user and provider (410).
+  """
+  BILLING_INFO_NOT_FOUND
+
+  """
+  User is not eligible to purchase bits in this region (422).
+  """
+  PURCHASE_INELIGIBLE
+}
+
+"""
+An enumerable that identifies bits product types.
+"""
+enum BitsProductType {
+  """
+  A product that has to be purchased.
+  """
+  PURCHASED_PRODUCT
+
+  """
+  An unknown product type.
+  """
+  UNKNOWN
+}
+
+"""
+An enumerable that dictates user's Bits usage state.
+"""
+enum BitsUserState {
+  """
+  The user has never used or acquired Bits.
+  """
+  NEW_USER
+
+  """
+  The user has acquired Bits (purchased, watched ads, etc.) but has never used it.
+  """
+  ACQUIRED
+
+  """
+  The user has never used or acquired Bits, but clicked "Skip" button to skip the first user experience.
+  """
+  SKIPPED
+
+  """
+  The user has cheered before.
+  """
+  CHEERED
+
+  """
+  The user state is unknown.
+  """
+  UNKNOWN
+}
+
+"""
+Location from where the current user blocked target user.
+NOTE: it is onlyl used from the block_user mutation, this enum should have been
+named BlockUserContext and be placed in the same mutation file.
+"""
+enum BlockContext {
+  WHISPER
+  CHAT
+}
+
+"""
+Represents the user's status on Bounty Board.
+"""
+enum BountyBoardUserStatus {
+  """
+  The user has been invited to join the Bounty Board program but cannot participate in bounties yet.
+  """
+  INVITED
+
+  """
+  The user has been accepted into the Bounty Board program and can participate in bounties.
+  """
+  ACCEPTED
+
+  """
+  The user has been banned from the Bounty Board program.
+  """
+  BANNED
+
+  """
+  The user is not part of the Bounty Board program.
+  """
+  NONE
+}
+
+"""
+The status of a bounty campaign.
+"""
+enum BountyCampaignStatus {
+  """
+  The campaign is pending approval.
+  """
+  PENDING
+
+  """
+  The campaign has been approved.
+  """
+  APPROVED
+
+  """
+  The campaign has been rejected.
+  """
+  REJECTED
+
+  """
+  The campaign is live.
+  """
+  LIVE
+
+  """
+  The campaign is done.
+  """
+  COMPLETED
+}
+
+"""
+Represents the type of the campaign.
+"""
+enum BountyCampaignType {
+  """
+  A user is paid to stream themselves playing a game.
+  """
+  PAY_TO_STREAM
+
+  """
+  A user is paid to stream a game trailer.
+  """
+  GAME_TRAILER
+
+  """
+  A user is paid to stream a non-game trailer (ie. a movie trailer).
+  """
+  MISC_TRAILER
+
+  """
+  Invalid campaign type.
+  """
+  UNKNOWN
+}
+
+"""
+Possible upload types for bounty campaigns.
+"""
+enum BountyCampaignUploadType {
+  """
+  Upload type related to the box art image.
+  """
+  BOX_ART
+
+  """
+  Upload type related to the cover image.
+  """
+  COVER
+}
+
+"""
+Represents all the currently possible key product types.
+"""
+enum BountyKeyProductType {
+  """
+  The key is a coupon code.
+  """
+  COUPON
+
+  """
+  The key is for downloadable content or a game expansion.
+  """
+  DLC
+
+  """
+  The key is a game code.
+  """
+  GAME
+
+  """
+  The key is for a gift card.
+  """
+  GIFTCARD
+
+  """
+  The key is a code for a giveaway.
+  """
+  GIVEAWAY
+
+  """
+  The key is for in game content - character skins, customization, etc.
+  """
+  IGC
+
+  """
+  The key is for something else.
+  """
+  OTHER
+}
+
+"""
+The reason why bounty failed moderation.
+"""
+enum BountyModerationFailReason {
+  """
+  Moderation failed because broadcast does not meet minimal stream length requirement.
+  """
+  MINIMUM_TIME_NOT_MET
+
+  """
+  Moderation failed because broadcast is not with required content.
+  """
+  INCORRECT_CONTENT
+
+  """
+  Moderation failed because broadcaster did badmouthing during stream.
+  """
+  BADMOUTHING
+
+  """
+  Moderation failed because other content layered over/under required content.
+  """
+  OTHER_CONTENT_VISIBLE
+
+  """
+  Moderation failed because broadcaster had exessive idle time during sponsored stream.
+  """
+  IDLE
+
+  """
+  Moderation failed because missing sponsored stream VOD.
+  """
+  NO_VOD
+
+  """
+  Other reason caused moderation failed.
+  """
+  OTHER
+}
+
+"""
+The moderation status of the bounty.
+"""
+enum BountyModerationStatus {
+  """
+  The bounty has passed the moderation check.
+  """
+  PASS
+
+  """
+  The bounty is waiting for moderation check.
+  """
+  PENDING_REVIEW
+
+  """
+  The bounty has failed the moderation check.
+  """
+  FAIL
+}
+
+"""
+Represents all the possible bounty statuses.
+"""
+enum BountyStatus {
+  """
+  The bounty can be claimed by the user.
+  """
+  AVAILABLE
+
+  """
+  The bounty has been claimed by the user and is in progress.
+  """
+  LIVE
+
+  """
+  The bounty was completed successfully.
+  """
+  COMPLETED
+
+  """
+  The bounty was cancelled before it was completed.
+  """
+  CANCELLED
+}
+
+"""
+BroadcastFormat is type of ingest live sessions.
+"""
+enum BroadcastFormat {
+  """
+  Default live stream. Primary session for the backup session will be shown as live.
+  """
+  LIVE
+
+  """
+  Stream with intentional delays requested by the broadcaster.
+  """
+  DELAY
+
+  """
+  Primary session which backup session was stitched back to.
+  """
+  BACKUP_000
+
+  """
+  First backup session.
+  """
+  BACKUP_001
+
+  """
+  Second backup session.
+  """
+  BACKUP_002
+
+  """
+  Third backup session.
+  """
+  BACKUP_003
+}
+
+"""
+Describes from which source the video originated.
+NOTE: Should have been named VideoBroadcastType.
+"""
+enum BroadcastType {
+  """
+  If the video is of a past broadcast, it's an ARCHIVE.
+  """
+  ARCHIVE
+
+  """
+  When the video is a subsection of a past broadcast, it's a HIGHLIGHT.
+  """
+  HIGHLIGHT
+
+  """
+  (Legacy) When the video is directly uploaded to Twitch via the upload tool, it's an UPLOAD.
+  """
+  UPLOAD
+
+  """
+  When the video is directly uploaded to Twitch via the video manager, it's an PREMIERE_UPLOAD.
+  """
+  PREMIERE_UPLOAD
+
+  """
+  When a video has been premiered on Twitch and is saved, it's a PAST_PREMIERE.
+  """
+  PAST_PREMIERE
+}

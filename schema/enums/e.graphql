@@ -1,0 +1,579 @@
+"""
+The list of names of payment methods that are supported for web checkout.
+"""
+enum EligiblePaymentMethodName {
+  """
+  Amazon Pay payment method.
+  """
+  AMAZON_PAY
+
+  """
+  Paypal payment method.
+  """
+  PAYPAL
+
+  """
+  Credit card payment method.
+  """
+  CREDIT_CARD
+
+  """
+  Xsolla payment method.
+  """
+  XSOLLA
+
+  """
+  Twitch Wallet balance payment method.
+  """
+  WALLET
+
+  """
+  Direct Debit payment method.
+  """
+  DIRECT_DEBIT
+}
+
+"""
+The asset type of the emote (static, animated, etc.).
+"""
+enum EmoteAssetType {
+  """
+  The emote's asset is animated (e.g. GIF).
+  """
+  ANIMATED
+
+  """
+  The emote's asset is static (e.g. PNG).
+  """
+  STATIC
+
+  """
+  The emote's asset type is unknown.
+  """
+  UNKNOWN
+}
+
+"""
+The possible emote group asset types.
+"""
+enum EmoteGroupAssetType {
+  """
+  STATIC type groups only contain static emotes.
+  """
+  STATIC
+
+  """
+  ANIMATED type groups only contain animated emotes.
+  """
+  ANIMATED
+}
+
+"""
+Enum of supported image sizes.
+"""
+enum EmoteImageSize {
+  """
+  Lowest supported resolution.
+  """
+  SIZE_1X
+
+  """
+  Resolution used for kinda high density displays.
+  """
+  SIZE_2X
+
+  """
+  Highest density display support.
+  """
+  SIZE_4X
+
+  """
+  Original size, used for resizing functionality.
+  """
+  SIZE_ORIGINAL
+}
+
+"""
+Enum of supported resizing plans.
+"""
+enum EmoteResizePlan {
+  """
+  Resize a provided SIZE_ORIGINAL_IMAGE.
+  """
+  AUTO_RESIZE
+
+  """
+  Don't resize, use the image as is for 1x, 2x or 4x.
+  """
+  NO_RESIZE
+}
+
+"""
+Deprecated: Domains that emotes belong to.
+"""
+enum EmoteSetDomain {
+  """
+  Emotes that were granted via Twitch crates.
+  """
+  CRATE
+}
+
+"""
+The state of an emote.
+"""
+enum EmoteState {
+  """
+  Emote has been approved and is active.
+  """
+  ACTIVE
+
+  """
+  Emote has been uploaded and is awaiting approval.
+  """
+  PENDING
+
+  """
+  Emote is only available in the emote library.
+  """
+  ARCHIVED
+
+  """
+  Emote has been uploaded into the emote library and is awaiting approval.
+  """
+  PENDING_ARCHIVED
+
+  """
+  Emote is inactive.
+  """
+  INACTIVE
+
+  """
+  Emote has an unknown state.
+  """
+  UNKNOWN
+}
+
+"""
+Used to filter emotes by state.
+"""
+enum EmoteStateFilter {
+  """
+  Show all emotes, including active and pending.
+  """
+  ALL
+
+  """
+  Show only active emotes.
+  """
+  ACTIVE
+}
+
+enum EmoteType {
+  """
+  Emote is a channel points reward.
+  """
+  CHANNEL_POINTS
+
+  """
+  Emote is a bits badge tier reward.
+  """
+  BITS_BADGE_TIERS
+
+  """
+  Emote is a subscription product benefit.
+  """
+  SUBSCRIPTIONS
+
+  """
+  Emote is a Twitch Prime benefit.
+  """
+  PRIME
+
+  """
+  Emote is a Twitch Turbo benefit.
+  """
+  TURBO
+
+  """
+  Two Factor authorization enabled reward emotes.
+  """
+  TWO_FACTOR
+
+  """
+  Emote is one of the robot, monkey, or glitch smilies sets.
+  """
+  SMILIES
+
+  """
+  Emote is a global emote.
+  """
+  GLOBALS
+
+  """
+  Limited time emotes are from a limited window event like FUEL or Esports (like OWL or Heathstone).
+  """
+  LIMITED_TIME
+
+  """
+  Limited time emote from a hype train campaign.
+  """
+  HYPE_TRAIN
+
+  """
+  Limited time emote from a megacommmerce/megacheer campaign.
+  """
+  MEGA_COMMERCE
+
+  """
+  Emotes which have intentionally been given no associated feature because they are only available in the Emotes Library.
+  """
+  ARCHIVE
+
+  """
+  Emote has an unknown type.
+  """
+  UNKNOWN
+}
+
+"""
+State to track if the emote prefix is approved or not.
+"""
+enum EmoticonPrefixState {
+  """
+  Unknown.
+  """
+  UNKNOWN
+
+  """
+  No prefix has been submitted.
+  """
+  UNSET
+
+  """
+  Prefix is approved and active.
+  """
+  ACTIVE
+
+  """
+  Prefix was rejected by Twitch.
+  """
+  REJECTED
+
+  """
+  Prefix is waiting moderation by Twitch.
+  """
+  PENDING
+}
+
+"""
+EquipHeroAssetsErrorCode defines a client error that occurs when equipping hero assets.
+"""
+enum EquipHeroAssetsErrorCode {
+  """
+  The requesting user did not have permission to equip the assets.
+  """
+  FORBIDDEN
+
+  """
+  One of the requested asset IDs was not valid.
+  """
+  INVALID_ASSET_ID
+
+  """
+  Multiple assets were specified in a single asset type.
+  """
+  MULTIPLE_ASSETS_PER_TYPE
+
+  """
+  Some other unexpected error occured.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+ESRBRating for a given game.
+"""
+enum ESRBRating {
+  """
+  Game category that has not set an ESRB Rating.
+  """
+  UNSET
+
+  """
+  Game category that has ESRB Rating of Rating Pending (RP).
+  """
+  RP
+
+  """
+  Game category that has ESRB Rating of EC.
+  """
+  EC
+
+  """
+  Game category that has ESRB Rating of E.
+  """
+  E
+
+  """
+  Game category that has ESRB Rating of E10.
+  """
+  E10
+
+  """
+  Game category that has ESRB Rating of T.
+  """
+  T
+
+  """
+  Game category that has ESRB Rating of M.
+  """
+  M
+
+  """
+  Game category that has ESRB Rating of AO.
+  """
+  AO
+}
+
+"""
+The possible values for an Extension Anchor.
+"""
+enum ExtensionAnchor {
+  """
+  Component extension anchor.
+  """
+  COMPONENT
+
+  """
+  Hidden extensions are used currently for load tests.
+  """
+  HIDDEN
+
+  """
+  Panel extension anchor.
+  """
+  PANEL
+
+  """
+  Video overlay extension anchor.
+  """
+  VIDEO_OVERLAY
+}
+
+"""
+The support levels for Bits features.
+"""
+enum ExtensionBitsSupportLevel {
+  """
+  This extension doesn't have any support for bit features.
+  """
+  NONE
+
+  """
+  This extension has support for bit features but can operate in the event
+  the broadcaster disables the permissions.
+  """
+  OPTIONAL
+
+  """
+  This extension requires support for bit features and cannot operate in the event
+  the broadcaster disables the permissions.
+  """
+  REQUIRED
+}
+
+"""
+Enumeration of the different sort keys to sort extensions within a category.
+"""
+enum ExtensionCategorySortKey {
+  """
+  Manual sort key refers to an arbitrary sorting of extensions.
+  """
+  MANUAL
+
+  """
+  Popularity sort key refers to sorting of extensions by popularity.
+  """
+  POPULARITY
+
+  """
+  Time sort key refers to sorting of extensions from newest to latest.
+  """
+  TIME
+}
+
+"""
+Enumeration of the different category types that are currently supported.
+"""
+enum ExtensionCategoryType {
+  """
+  Curated Category Type is Twitch controlled.
+  """
+  CURATED
+
+  """
+  Developer Category Type is developer controlled.
+  """
+  DEVELOPER
+
+  """
+  Pseudo Categories are categories whose extensions are generated. Slugs are required
+  on pseudo categories and are often the best way to retrieve them. Example pseudo categories
+  and slugs include "new-releases" and "whitelisted".
+  """
+  PSEUDO
+}
+
+"""
+Possible locations for Extension Configuration to be hosted.
+"""
+enum ExtensionConfigurationLocation {
+  """
+  Configuration not required for activation of this extension.
+  """
+  NONE
+
+  """
+  Configuration hosted by Twitch using Extensions Configuration service.
+  """
+  HOSTED
+
+  """
+  Custom/Own service hosted configuration.
+  """
+  CUSTOM
+}
+
+"""
+Extension Link User Error Code.
+"""
+enum ExtensionLinkUserErrorCode {
+  """
+  The current user is not authorized to link / unlink this extension.
+  """
+  UNAUTHORIZED
+
+  """
+  The request body was invalid.
+  """
+  BAD_REQUEST
+
+  """
+  An unexpected error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+Enumerates where the user can submit an extension rating.
+"""
+enum ExtensionRatingLocation {
+  """
+  The global notifications popout.
+  """
+  NOTIFICATION
+}
+
+"""
+The possible types of required actions after attempting to activate an extension.
+"""
+enum ExtensionRequiredActionType {
+  """
+  The user must accept the permissions in order to complete the activation.
+  """
+  PROMPT_FOR_PERMISSIONS
+
+  """
+  The user must configure the extension in order to complete the activation.
+  """
+  REQUIRES_CONFIGURATION
+}
+
+"""
+The possible values for ExtensionState.
+"""
+enum ExtensionState {
+  """
+  IN_TEST extensions are currently being worked on by a developer.
+  """
+  IN_TEST
+
+  """
+  READY_FOR_REVIEW extensions are currently being examined by a developer for their readiness
+  to be reviewed (assets hosted on CDN).
+  """
+  READY_FOR_REVIEW
+
+  """
+  IN_REVIEW extensions are being looked at by Twitch.
+  """
+  IN_REVIEW
+
+  """
+  REJECTED extensions are permanently rejected; no action by the  developer will make them acceptable.
+  """
+  REJECTED
+
+  """
+  APPROVED extensions are ready to be released, at the developer's convenience.
+  """
+  APPROVED
+
+  """
+  RELEASED extensions are currently available to users.  Only one version of an extension
+  can be in this state at any time.
+  """
+  RELEASED
+
+  """
+  DEPRECATED extensions were once released, but a newer version now exists.
+  """
+  DEPRECATED
+
+  """
+  PENDING_ACTION extensions are ones that were reviewed by Twitch and returned to the developer for fixing.
+  """
+  PENDING_ACTION
+
+  """
+  UPLOADING extensions are in the process of having their assets loaded onto S3.
+  """
+  UPLOADING
+
+  """
+  ASSETS_UPLOADED extensions have had their assets uploaded already to S3. This state mirrors
+  the existing READY_FOR_REVIEW state, but doesn't incur an implicit upload.
+  """
+  ASSETS_UPLOADED
+
+  """
+  DELETED extensions have been deleted; this is a soft delete so we can undelete things.
+  """
+  DELETED
+}
+
+"""
+ExtensionStateFilter contains all the valid states to filter the list of extensions by.
+"""
+enum ExtensionStateFilter {
+  """
+  Released extension.
+  """
+  RELEASED
+}
+
+"""
+The support levels for subscriptions features.
+"""
+enum ExtensionSubscriptionsSupportLevel {
+  """
+  This extension doesn't have any support for subscriptions features.
+  """
+  NONE
+
+  """
+  This extension has support for subscriptions features but can operate in the event
+  the broadcaster disables the permissions.
+  """
+  OPTIONAL
+}

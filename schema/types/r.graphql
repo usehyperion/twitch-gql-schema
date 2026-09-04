@@ -1,0 +1,2167 @@
+"""
+Twitch Radio access.
+"""
+type Radio {
+  """
+  Twitch Radio account information for the user.
+  """
+  account: RadioAccount!
+
+  """
+  Fetch the requesting user's currently playing radio content.
+  """
+  currentlyPlaying: RadioCurrentlyPlaying!
+    @deprecated(reason: "Use 'currentRadioTrack' in 'channel' instead.")
+
+  """
+  Fetch a radio playlist by ID. Tracks can be requested here, but can be slow to respond.
+  """
+  playlist(id: ID!): RadioPlaylist
+
+  """
+  Fetch all, or filtered subset of, radio playlists. Cannot request track data from this query.
+  """
+  playlists(filter: RadioPlaylistFilter): [RadioPlaylist!]!
+
+  """
+  Fetch the requesting user's recently played radio content ids. Optionally filtered by type.
+  """
+  recentlyPlayed(filter: RadioRecentlyPlayedFilter): [RadioRecentlyPlayed!]!
+
+  """
+  Fetch a radio station by ID. Returns the initial queue with a token to get the next tracks if no pageToken is passed.
+  """
+  station(id: ID!, pageToken: String, numberOfTracks: Int): RadioStation
+
+  """
+  Fetch all radio stations.
+  """
+  stations: [RadioStation!]!
+}
+
+"""
+Amazon Music user information for a Twitch user using Twitch Radio.
+"""
+type RadioAccount {
+  """
+  The Twitch user's ID as known in Amazon Music.
+  """
+  customerID: ID!
+
+  """
+  The unique Amazon client device identifier for this user and service.
+  """
+  deviceID: ID!
+
+  """
+  ISO 3166-1 alpha-2 country code territory of the user in Amazon Music.
+  """
+  musicTerritory: String!
+
+  """
+  User token to authenticate with Amazon services
+  """
+  amazonAccessToken: String!
+  tokenExpiresAt: Time!
+}
+
+"""
+A Twitch Radio Album.
+"""
+type RadioAlbum {
+  """
+  The album's unique id (an Amazon Standard Identification Number).
+  """
+  id: ID!
+
+  """
+  URL to the album's main image.
+  """
+  imageURL: String!
+
+  """
+  The album name.
+  """
+  name: String!
+}
+
+"""
+A Twitch Radio artist.
+"""
+type RadioArtist {
+  """
+  The creator channel.
+  """
+  channel: Channel
+
+  """
+  The creator channel id.
+  """
+  creatorChannelID: ID
+
+  """
+  The artist's unique id (an Amazon Standard Identification Number).
+  """
+  id: ID!
+
+  """
+  The artist name.
+  """
+  name: String!
+}
+
+"""
+A container for Twitch Radio content request results.
+"""
+type RadioContent {
+  """
+  The requested playlists.
+  """
+  items: [RadioContentItem!]
+}
+
+"""
+A Twitch Radio LinkFire Input Response for Content Promotion.
+"""
+type RadioContentPromotion {
+  """
+  Text on the redirect button.
+  """
+  buttonText: String!
+
+  """
+  Icon for the media service having dark/light theme assets. Formats supported: PNG, SVG. Default value is SVG.
+  """
+  icon(format: RadioIconFormat = SVG): RadioIconThemeAssets!
+
+  """
+  IconURL for the media service. Formats supported: PNG, SVG. Default value is SVG.
+  """
+  iconURL(format: RadioIconFormat = SVG): String! @deprecated(reason: "Use 'icon' instead.")
+
+  """
+  Rank to order the icons.
+  """
+  rank: Int!
+
+  """
+  Title of the service.
+  """
+  title: String!
+
+  """
+  URL to redirect to the service.
+  """
+  url: String!
+}
+
+"""
+Content currently playing in the client for a user.
+"""
+type RadioCurrentlyPlaying {
+  """
+  The radio content promotion json data.
+  """
+  contentPromotions: [RadioContentPromotion!]
+
+  """
+  Whether the track is currently playing or not.
+  """
+  isCurrentlyPlaying: Boolean!
+
+  """
+  The Track Details of the currently playing track.
+  """
+  track: RadioTrack
+}
+
+"""
+The currently playing radio track addition result.
+"""
+type RadioCurrentTrackResponse {
+  """
+  Radio currently Playing Track is added Successfully or not.
+  """
+  isSuccess: Boolean!
+}
+
+"""
+Theme for the media service assets.
+"""
+type RadioIconThemeAssets {
+  """
+  Dark theme Asset URL.
+  """
+  darkURL: String!
+
+  """
+  Light theme Asset URL.
+  """
+  lightURL: String!
+}
+
+"""
+A Twitch Radio playlist.
+"""
+type RadioPlaylist {
+  """
+  Curator of the playlist.
+  """
+  curator: String!
+
+  """
+  Playlist's Description.
+  """
+  description: String!
+
+  """
+  The playlist's unique id (an Amazon Standard Identification Number).
+  """
+  id: ID!
+
+  """
+  URL to the playlist's main image.
+  """
+  imageURL: String!
+
+  """
+  Is the playlist featured.
+  """
+  isFeatured: Boolean!
+
+  """
+  The playlist's title.
+  """
+  title: String!
+
+  """
+  List of tracks in the playlist.
+  """
+  tracks: [RadioTrack!]
+}
+
+"""
+Content recently played in the client.
+"""
+type RadioRecentlyPlayed {
+  """
+  The type of content the ID maps to.
+  """
+  contentType: RadioRecentlyPlayedType!
+
+  """
+  The id of the recently played item.
+  """
+  id: ID!
+
+  """
+  Recently played playlist metadata.
+  """
+  playlist: RadioPlaylist
+
+  """
+  Recently played station metadata.
+  """
+  station: RadioStation
+
+  """
+  The time this ID was last recently played by the current user.
+  """
+  updatedAt: Time!
+}
+
+"""
+A Twitch Radio station.
+"""
+type RadioStation {
+  """
+  The station's unique id (an Amazon Standard Identification Number).
+  """
+  id: ID!
+
+  """
+  URL to the station's main image.
+  """
+  imageURL: String!
+
+  """
+  Is the station featured.
+  """
+  isFeatured: Boolean!
+
+  """
+  Page token to be passed back to the Client Gateway when requesting additional tracks.
+  """
+  pageToken: String
+
+  """
+  The station's title.
+  """
+  title: String!
+
+  """
+  List of tracks in the station.
+  """
+  tracks: [RadioTrack!]
+}
+
+"""
+A Twitch Radio track.
+"""
+type RadioTrack {
+  """
+  The track album.
+  """
+  album: RadioAlbum!
+
+  """
+  The track artists.
+  """
+  artists: [RadioArtist!]!
+
+  """
+  The duration of the track in seconds.
+  """
+  duration: Int!
+
+  """
+  Track's Genre.
+  """
+  genre: String!
+
+  """
+  The track's unique id (an Amazon Standard Identification Number).
+  """
+  id: ID!
+
+  """
+  Industry standard track's unique id.
+  """
+  isrc: String!
+
+  """
+  The title of the track.
+  """
+  title: String!
+}
+
+"""
+A raid represents a broadcaster directing their viewers to another channel
+in a synchronized "raid" on the channel after a countdown during which
+each viewer has a chance to opt out of the raid.
+
+Raids are created by a broadcaster from their dashbboard where they can search
+and select the channel they wish to target. Once selected the raid takes counts
+down to prepare after which the broadcaster can tell the raid to "Go", redirecting
+all joined raiders to the target channel.
+"""
+type Raid {
+  """
+  Timestamp of raid announcement.
+  """
+  announceAt: Time
+
+  """
+  Timestamp of raid go time.
+  """
+  goAt: Time
+
+  """
+  The ID of the raid.
+  """
+  id: ID!
+
+  """
+  Channel hosting the raid.
+  """
+  sourceChannel: User
+
+  """
+  Target of the raid.
+  """
+  targetChannel: User
+
+  """
+  Number of viewers in raid.
+  """
+  viewerCount: Int
+}
+
+"""
+A user's raid settings.
+"""
+type RaidSettings {
+  """
+  Determines what other channels can raid this channel.
+  """
+  incomingRaidsPolicy: IncomingRaidsPolicy!
+}
+
+"""
+An integer range with a minimum and a maximum.
+"""
+type Range {
+  """
+  The maximum value of the Range.
+  """
+  max: Int!
+
+  """
+  The minimum value of the Range.
+  """
+  min: Int!
+}
+
+"""
+The result of a rateExtension mutation.
+"""
+type RateExtensionPayload {
+  """
+  The error if the mutation fails to submit the extension rating.
+  """
+  error: RateExtensionError
+
+  """
+  The resulting ExtensionRating record.
+  """
+  rating: ExtensionRating
+}
+
+type Reaction {
+  """
+  count of users that reacted with a particular Emote.
+  """
+  count: Int!
+
+  """
+  The Emote associated with the Reaction.
+  """
+  emote: Emote!
+
+  """
+  The authenticated user's relationship with this reaction.
+  """
+  self: ReactionSelfConnection!
+}
+
+type ReactionSelfConnection {
+  """
+  Did the authenticated user react.
+  """
+  hasReacted: Boolean!
+}
+
+type ReadNotificationsPayload {
+  """
+  The amount of notifications that were set to read.
+  """
+  count: Int!
+
+  """
+  The notifications that were set to read. Only ID and isRead are accessible.
+  """
+  notifications: [OnsiteNotification]!
+}
+
+"""
+Feedback from a user about a piece of content.
+"""
+type RecommendationFeedback {
+  """
+  Reason for feedback.
+  """
+  category: RecommendationFeedbackCategory!
+
+  """
+  Feedback target.
+  """
+  content: RecommendationFeedbackContent
+
+  """
+  Recommendation Feedback ID. Generated from the type, category, content id, and user id.
+  """
+  id: ID!
+
+  """
+  Last time this feedback was given.
+  """
+  lastUpdated: Time!
+
+  """
+  Feedback target type.
+  """
+  type: RecommendationFeedbackType!
+
+  """
+  Feedback giver.
+  """
+  user: User
+}
+
+"""
+Connection between a user and recommendation feedback.
+"""
+type RecommendationFeedbackConnection {
+  """
+  Contains the edges for the recommendation feedback.
+  """
+  edges: [RecommendationFeedbackEdge!]
+
+  """
+  Contains pagination metadata.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+Edge containing the node and cursor for recommendation feedback items.
+"""
+type RecommendationFeedbackEdge {
+  """
+  Cursor for the feedback edge.
+  """
+  cursor: Cursor!
+
+  """
+  Node for the feedback edge.
+  """
+  node: RecommendationFeedback
+}
+
+type Recommendations {
+  """
+  The recommended community gifting quantities to display to the user when they intend to gift subscriptions.
+  The trackingID is not a unique ID for the recommendations, but a passthrough
+  value for backend logging to link to purchases made by the user after being
+  shown these recommendations.
+  """
+  communityGiftQuantities(trackingID: ID!): [Int!]
+
+  """
+  A list of recommended friends.
+  """
+  friends: [RecommendedFriend]
+
+  """
+  Live recommendations.
+  recRequestID is a tracking id created by the caller. Should be unique per request.
+  """
+  liveRecommendations(
+    first: Int = 10
+    recRequestID: String!
+    language: String!
+    location: String
+    context: RecommendationsContext
+  ): LiveRecommendationConnection
+
+  """
+  Stream recommendations.
+  """
+  streams(first: Int = 10): RecommendedStreamConnection
+    @deprecated(reason: "use a specific recommendation instead")
+
+  """
+  A list of recommended VODs.
+  """
+  videos(first: Int = 10, after: Cursor): RecommendedVideoConnection
+    @deprecated(reason: "this feature has been sunset")
+}
+
+type RecommendedFriend {
+  """
+  Reason why this recommendation was made.
+  """
+  reason: String
+
+  """
+  The user recommended to be a friend of the source user.
+  """
+  user: User
+}
+
+"""
+The response of a recommended games request which contains a list of recommended games.
+"""
+type RecommendedGamesConnection {
+  """
+  A list of recommended games.
+  """
+  edges: [RecommendedGamesEdge!]
+
+  """
+  Per-generation tracking id for identifying a recommendation model.
+  """
+  generationID: ID!
+
+  """
+  As pagination is currently not supported by the backend, this will always be the zero value.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Unique tracking id per response.
+  """
+  responseID: ID!
+}
+
+"""
+The content to render from a recommended game.
+"""
+type RecommendedGamesEdge {
+  """
+  As pagination is currently not supported by the backend, this will always be the zero value.
+  """
+  cursor: Cursor!
+
+  """
+  The underlying game content to render.
+  """
+  node: Game
+
+  """
+  Globally unique id per category used in client tracking.
+  """
+  trackingID: ID!
+}
+
+"""
+NOTE: this type will soon be removed.
+"""
+type RecommendedStreamConnection {
+  """
+  This field is deprecated.
+  """
+  nodes: [RecommendedStream] @deprecated(reason: "This field has been sunset")
+}
+
+"""
+The response of a recommended streams request which contains a list of recommended streams.
+"""
+type RecommendedStreamsConnection {
+  """
+  A list of recommended streams.
+  """
+  edges: [RecommendedStreamsEdge!]
+
+  """
+  Per-generation tracking id for identifying a recommendation model.
+  """
+  generationID: ID!
+
+  """
+  As pagination is currently not supported by the backend, this will always be the zero value.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Unique tracking id per response.
+  """
+  responseID: ID!
+}
+
+"""
+The content to render from a recommended stream.
+"""
+type RecommendedStreamsEdge {
+  """
+  As pagination is currently not supported by the backend, this will always be the zero value.
+  """
+  cursor: Cursor!
+
+  """
+  The underlying stream content to render.
+  """
+  node: Stream
+
+  """
+  Globally unique id per stream used in client tracking.
+  """
+  trackingID: ID!
+}
+
+type RecommendedVideoConnection {
+  edges: [RecommendedVideoEdge]
+  pageInfo: PageInfo
+
+  """
+  A unique ID for this generated list of recommendations.
+  """
+  setID: String
+}
+
+type RecommendedVideoEdge {
+  cursor: Cursor
+  node: Video
+}
+
+"""
+Record ad event error.
+"""
+type RecordAdEventError {
+  """
+  Error from recording ad event.
+  """
+  code: RecordAdEventErrorCode!
+}
+
+"""
+The payload returned after recording an ad event.
+"""
+type RecordAdEventPayload {
+  """
+  Error from mutation, if one exists.
+  """
+  error: RecordAdEventError
+}
+
+type RecurlyConfigs {
+  """
+  For interacting with the Braintree gateway and Paypal (supported by Recurly).
+  """
+  braintreeClientAuthorization: String!
+
+  """
+  For interacting with Pay With Amazon gateway (supported by Recurly).
+  """
+  payWithAmazonConfigs: PayWithAmazonConfigs!
+
+  """
+  Sent to Recurly to identify requests.
+  """
+  publicKey: String!
+}
+
+"""
+Payment Method information for a recurring payment.
+An abstraction for a set of Payments models, existing here to surface to the Payments Management Page.
+"""
+type RecurringPaymentDetail {
+  """
+  Time that the payment will attempt to renew.
+  """
+  expiresAt: Time
+
+  """
+  Product type of the purchase.
+  """
+  productType: SubscriptionProductType!
+
+  """
+  Currency for the renewalPrice, e.g. "USD".
+  """
+  renewalCurrency: String
+
+  """
+  Expected renewal price of the product in the smallest subunit of the currency, e.g. "499".
+  """
+  renewalPrice: Int
+
+  """
+  Divisor for renewalPrice for display: e.g. "100" for USD.
+  """
+  renewalPriceDivisor: Int
+
+  """
+  Subscription benefit, if still active.
+  """
+  subscriptionBenefit: SubscriptionBenefit
+
+  """
+  Twitch user ID, owner of the entitlement benefit.
+  """
+  ticketOwnerID: ID
+
+  """
+  Twitch user ID, owner of the channel that was subscribed to.
+  Can be null if product type is Turbo.
+  """
+  ticketProductOwnerID: ID
+
+  """
+  Whether this subscription will renew in the future and charge the user's payment method.
+  """
+  willRenew: Boolean!
+}
+
+"""
+Redeem claimable error.
+"""
+type RedeemClaimableError {
+  """
+  Error code while redeeming.
+  """
+  code: RedeemClaimableErrorCode!
+}
+
+"""
+The payload returned after claiming a key code.
+"""
+type RedeemClaimablePayload {
+  """
+  Possible errors returned from the service for this mutation.
+  """
+  error: RedeemClaimableError
+
+  """
+  The updated key information.
+  """
+  key: Claimable
+}
+
+"""
+An error from redeeming a custom Community Points reward in a channel.
+"""
+type RedeemCommunityPointsCustomRewardError {
+  """
+  An identifier for the error that occurred.
+  """
+  code: RedeemCommunityPointsCustomRewardErrorCode
+}
+
+"""
+The response from redeeming a custom Community Points reward in a channel.
+"""
+type RedeemCommunityPointsCustomRewardPayload {
+  """
+  An error that occurred while redeeming a custom Community Points reward in a channel.
+  """
+  error: RedeemCommunityPointsCustomRewardError
+
+  """
+  The newly created redemption.
+  """
+  redemption: CommunityPointsCustomRewardRedemption
+}
+
+"""
+RedeemCreatorGiftsPayload the output of redeeming subscriptions from a creator's balance.
+"""
+type RedeemCreatorGiftsPayload {
+  """
+  The container for creator gifts the creator has.
+  """
+  creatorGifting: CreatorGifting
+}
+
+type RedeemRitualTokenError {
+  code: RedeemRitualTokenErrorCode!
+}
+
+"""
+RedeemRitualTokenPayload is the response when redeeming a ritual token.
+"""
+type RedeemRitualTokenPayload {
+  error: RedeemRitualTokenError
+  token: RitualToken
+}
+
+"""
+RedeemSubscriptionPayload returns a status code indicating whether the update was successful or not.
+"""
+type RedeemSubscriptionPayload {
+  """
+  A code indicating why the redemption of subscription failed, if it did.
+  """
+  errorCode: RedeemSubscriptionResponseErrorCode
+
+  """
+  The Subscription Product that the user has been entitled to.
+  """
+  product: SubscriptionProduct
+}
+
+type RedeemTrueXAdPayload {
+  """
+  currentUser is the authenticated user object which includes the updated
+  `Wallet` info after the message bits have been spent.
+  """
+  currentUser: User
+
+  """
+  grantedBits is the number of bits the user earned from this engagement.
+  """
+  grantedBits: Int!
+}
+
+"""
+The result of a RefreshExtensionToken mutation.
+"""
+type RefreshExtensionTokenPayload {
+  """
+  Error from an RefreshExtensionToken Call.
+  """
+  error: String
+
+  """
+  The user's new token.
+  """
+  token: ExtensionToken
+}
+
+"""
+RegenerateStreamKeyPayload contains the VideoStreamSettings with updated stream key.
+"""
+type RegenerateStreamKeyPayload {
+  """
+  The updated video stream for channel.
+  """
+  channel: Channel
+}
+
+"""
+RegenerateVerificationCodePayload is the VerificationRequest document returned from EVS on success.
+"""
+type RegenerateVerificationCodePayload {
+  """
+  The updated verification request.
+  """
+  request: VerificationRequest
+}
+
+"""
+RegisterPayoutInformationError describes the error that occured when registering
+a user's payout information during payout onboarding.
+"""
+type RegisterPayoutInformationError {
+  """
+  Code to describe error that occurred while registering payout information.
+  """
+  code: RegisterPayoutInformationErrorCode!
+
+  """
+  Lists any field names that have an invalid format.
+  """
+  invalidFields: [RegisterPayoutInformationFieldName!]
+}
+
+"""
+RegisterPayoutInformationPayload is the updated workflow after registration is accepted.
+"""
+type RegisterPayoutInformationPayload {
+  """
+  Describes error that occured when registering payout information.
+  """
+  error: RegisterPayoutInformationError
+
+  """
+  New workflow state.
+  """
+  workflow: PayoutOnboardingWorkflow
+}
+
+"""
+Error returned during a invalid user request.
+"""
+type RegisterTwoFactorConfirmationError {
+  """
+  Error code returned by the backend.
+  """
+  code: RegisterTwoFactorConfirmationErrorCode!
+
+  """
+  The localized external error message.
+  """
+  message: String!
+}
+
+"""
+The result of a registerTwoFactorConfirmationPayload mutation.
+"""
+type RegisterTwoFactorConfirmationPayload {
+  """
+  New access token returned for clients to use after turning on 2FA.
+  """
+  accessToken: String
+
+  """
+  error code and localized error.
+  """
+  error: RegisterTwoFactorConfirmationError
+}
+
+"""
+Error returned during a invalid user request.
+"""
+type RegisterTwoFactorError {
+  """
+  Error code returned by the backend.
+  """
+  code: RegisterTwoFactorErrorCode!
+
+  """
+  The localized external error message.
+  """
+  message: String!
+}
+
+"""
+The result of a registerTwoFactorPayload mutation.
+"""
+type RegisterTwoFactorPayload {
+  """
+  error code and localized error.
+  """
+  error: RegisterTwoFactorError
+}
+
+type RejectedChatMessage {
+  """
+  Original message's raw body.
+  """
+  body: String
+
+  """
+  Optional list of fragments from the messages's body that lead to the message rejection.
+  """
+  failedFragments: [String]
+
+  """
+  The ID of the message.
+  """
+  id: ID
+
+  """
+  Specifies if a action by a moderator has been taken on the message.
+  """
+  isResolved: Boolean @deprecated(reason: "Use status field instead")
+
+  """
+  The extracted caught message.
+  """
+  message: Message
+
+  """
+  The user that created the message.
+  """
+  sender: User
+
+  """
+  Status of the message.
+  """
+  status: CaughtMessageStatus!
+
+  """
+  The channel where the message was originally sent.
+  """
+  target: User
+}
+
+type RejectFriendRequestPayload {
+  """
+  The user whose friend request was just rejected.
+  """
+  user: User
+}
+
+"""
+Errors from rejectSquadStreamInvitation mutation.
+"""
+type RejectSquadStreamInvitationError {
+  """
+  Error from request to reject invitation.
+  """
+  code: RejectSquadStreamInvitationErrorCode!
+}
+
+"""
+Outputs from the rejectSquadStreamInvitation mutation.
+"""
+type RejectSquadStreamInvitationPayload {
+  """
+  Error from mutation if exists.
+  """
+  error: RejectSquadStreamInvitationError
+
+  """
+  The rejected invitation.
+  """
+  invitation: SquadStreamInvitation
+}
+
+"""
+RejectSquadStreamOutOfNetworkInvitationsError is the error associated with a rejectSquadStreamOutOfNetworkInvitations.
+"""
+type RejectSquadStreamOutOfNetworkInvitationsError {
+  """
+  The associated error code.
+  """
+  code: RejectSquadStreamOutOfNetworkInvitationsErrorCode!
+}
+
+"""
+Outputs from the rejectSquadStreamOutOfNetworkInvitations mutation.
+"""
+type RejectSquadStreamOutOfNetworkInvitationsPayload {
+  """
+  The possible error returned from the service.
+  """
+  error: RejectSquadStreamOutOfNetworkInvitationsError
+}
+
+"""
+RemoveAutohostChannelsPayload returns the user whose autohostChannels field had been updated.
+"""
+type RemoveAutohostChannelsPayload {
+  """
+  User whose autohostChannels field had been updated.
+  """
+  user: User
+}
+
+"""
+The response from removing an item from a collection.
+"""
+type RemoveCollectionItemPayload {
+  """
+  The newly updated collection.
+  """
+  collection: Collection
+}
+
+"""
+RemoveCompetitionPhasePayload is the success response for removing a phase.
+"""
+type RemoveCompetitionPhasePayload {
+  """
+  The new state of competition after removing a phase.
+  """
+  competition: Competition
+
+  """
+  Used for competition mutation errors.
+  """
+  error: CompetitionError
+}
+
+"""
+Indication that the player was removed.
+"""
+type RemoveCompetitionPlayerPayload {
+  """
+  The new state of competition after removing a competition player from the competition.
+  """
+  competition: Competition
+
+  """
+  Used for competition mutation errors.
+  """
+  error: CompetitionError
+}
+
+"""
+RemoveCompetitionTeamPayload is the success response removing a competition team from the competition.
+"""
+type RemoveCompetitionTeamPayload {
+  """
+  The new state of competition after removing a competition team from the competition.
+  """
+  competition: Competition
+
+  """
+  Used for competition mutation errors.
+  """
+  error: CompetitionError
+}
+
+"""
+RemoveEditorError contains details about a client error that occurred.
+"""
+type RemoveEditorError {
+  """
+  The type of error that occurred when revoking a user's editor status.
+  """
+  code: RemoveEditorErrorCode!
+}
+
+"""
+RemoveEditorPayload is the response after attempting to revoke the editor status of a user.
+"""
+type RemoveEditorPayload {
+  """
+  The channel for which the editor status of the target user is removed.
+  """
+  channel: User
+
+  """
+  The client error that has occurred.
+  Null if the operation is successful.
+  """
+  error: RemoveEditorError
+
+  """
+  The user whose editor status was revoked.
+  """
+  targetUser: User
+}
+
+"""
+Error returned after attempting to remove an emote from its group.
+"""
+type RemoveEmoteFromGroupError {
+  """
+  The error code associated with this error.
+  """
+  code: RemoveEmoteFromGroupErrorCode!
+}
+
+"""
+Result of remove emote from group.
+"""
+type RemoveEmoteFromGroupPayload {
+  """
+  The updated emote if successful.
+  """
+  emote: Emote
+
+  """
+  Error returned after attempting to remove an emote from its group.
+  """
+  error: RemoveEmoteFromGroupError
+}
+
+"""
+RemoveOrganizationMemberError is the error associated with a RemoveOrganizationMember.
+"""
+type RemoveOrganizationMemberError {
+  """
+  The associated error code.
+  """
+  code: RemoveOrganizationMemberErrorCode!
+}
+
+"""
+Outputs from the removeOrganizationMember mutation.
+"""
+type RemoveOrganizationMemberPayload {
+  """
+  The possible error returned from the service.
+  """
+  error: RemoveOrganizationMemberError
+
+  """
+  The user who is removed from organization.
+  """
+  targetUser: User
+}
+
+type RemoveReactionPayload {
+  content: ReactableContent!
+}
+
+"""
+RemoveSquadStreamMemberError is the error associated with a removeSquadStreamMember.
+"""
+type RemoveSquadStreamMemberError {
+  """
+  The associated error code.
+  """
+  code: RemoveSquadStreamMemberErrorCode!
+}
+
+"""
+Outputs from the removeSquadStreamMember mutation.
+"""
+type RemoveSquadStreamMemberPayload {
+  """
+  The possible error returned from the service.
+  """
+  error: RemoveSquadStreamMemberError
+
+  """
+  The updated squad stream.
+  """
+  squadStream: SquadStream
+}
+
+"""
+The output payload for removing a stucco, returns the library of stuccos after removal.
+"""
+type RemoveStuccoPayload {
+  """
+  The list of stuccos available in the channel's library after removal.
+  """
+  stuccos: [Stucco!]
+}
+
+"""
+The response from reordering an item in a collection.
+"""
+type ReorderCollectionItemPayload {
+  """
+  The newly updated collection.
+  """
+  collection: Collection
+}
+
+type ReportContentPayload {
+  """
+  Content type that was reported.
+  """
+  content: ReportContentType!
+
+  """
+  ID of the content that was reported.
+  """
+  contentID: ID!
+}
+
+"""
+A valid reason for a report.
+"""
+type ReportReason {
+  """
+  The unique ID of the reason.
+  """
+  id: ID!
+
+  """
+  Whether or not this report reason is in-scope for a country-specific law.
+  """
+  isApplicableToCountryRegulations: Boolean!
+
+  """
+  The displayed text for this reason localized based on Accept-Language.
+  """
+  text: String!
+}
+
+"""
+A valid country and ToS reasons for a report.
+"""
+type ReportToSAndCountryReasons {
+  """
+  The countryCode of the country-specific reporting flow that applies to the user.
+  If null then there is no relevant country-specific reporting flow for the user.
+  """
+  countryCode: String
+
+  """
+  Localized string that should be displayed to the user as a disclosure that their report.
+  Falls under given legislation, and may be viewed by legal authorities.
+  """
+  disclosureText: String
+
+  """
+  The list of report reasons that apply for the content type.
+  """
+  toSAndCountryReasons: [ReportReason!]!
+}
+
+"""
+Payload returned from the reportWhisper mutation.
+"""
+type ReportWhisperPayload {
+  """
+  Reports aren't queryable in GQL, so only an error is returned.
+  """
+  error: ReportWhisperPayloadError
+}
+
+"""
+Error type that may be returned returned from the reportWhisper mutation.
+"""
+type ReportWhisperPayloadError {
+  """
+  Reason that the report wasn't created.
+  """
+  reason: ReportWhisperErrorReason!
+}
+
+type ReportWhisperThreadPayload {
+  thread: WhisperThread!
+}
+
+"""
+Metadata about a GraphQL request.
+"""
+type RequestInfo {
+  """
+  The country code where the request originated. Defaults to "US" if geoip lookup fails.
+  """
+  countryCode: String!
+
+  """
+  Whether the request came from a country belonging to the European Union.
+  """
+  fromEU: Boolean!
+
+  """
+  The IP address where the request originated.
+  """
+  ipAddress: String
+
+  """
+  Whether the request came from a country belonging to the European Economic Area.
+  """
+  isFromEEA: Boolean!
+}
+
+type RequestRitualTokenError {
+  code: RequestRitualTokenErrorCode!
+}
+
+"""
+RequestRitualTokenPayload is the response when requesting a ritual token.
+"""
+type RequestRitualTokenPayload {
+  error: RequestRitualTokenError
+  token: RitualToken
+}
+
+"""
+ResendVerificationEmailPayload is the output after resending a verification email.
+"""
+type ResendVerificationEmailPayload {
+  """
+  The modified user.
+  """
+  user: User
+}
+
+"""
+Error returned during an invalid username reset request.
+"""
+type ResetUsernameCodeError {
+  """
+  Error code returned by the backend.
+  """
+  code: ResetUsernameErrorCode!
+}
+
+"""
+The result of a username reset.
+"""
+type ResetUsernamePayload {
+  """
+  Error code for error from returned the username reset.
+  """
+  error: ResetUsernameCodeError
+
+  """
+  The modified username for the user.
+  """
+  login: String
+}
+
+"""
+An error returned from the resolvePredictionEvent mutation.
+"""
+type ResolvePredictionEventError {
+  """
+  Code describing the error.
+  """
+  code: ResolvePredictionEventErrorCode!
+}
+
+"""
+Payload for resolving a prediciton event.
+"""
+type ResolvePredictionEventPayload {
+  """
+  If present, there was an error with the request.
+  """
+  error: ResolvePredictionEventError
+
+  """
+  The resolved Prediction Event.
+  """
+  predictionEvent: PredictionEvent
+}
+
+"""
+A restriction for a specific resource.
+"""
+type ResourceRestriction {
+  """
+  The list of exemptions for a given resource restriction.
+  """
+  exemptions: [ResourceRestrictionExemption!]
+
+  """
+  The restriction's unique identifier.
+  """
+  id: ID!
+
+  """
+  The list of options that were applied at time of creation for a given resource restriction.
+  """
+  options: [ResourceRestrictionOption!]!
+
+  """
+  The type of restriction on this resource.
+  """
+  type: ResourceRestrictionType!
+}
+
+"""
+Exemption information for a specific resource restriction.
+"""
+type ResourceRestrictionExemption {
+  """
+  The list of description data a user make take to become exempt for the given restriction.
+  """
+  actions: [ResourceRestrictionExemptionAction!]
+
+  """
+  The time that the restriction is no longer active.
+  """
+  endsAt: Time
+
+  """
+  The keys needed for a given restriction.
+  """
+  keys: [String!]
+
+  """
+  The time that the restriction becomes active.
+  """
+  startsAt: Time
+
+  """
+  The type of exemption.
+  """
+  type: ResourceRestrictionExemptionType!
+}
+
+"""
+Description data for clients to get for user actions to get exempt.
+"""
+type ResourceRestrictionExemptionAction {
+  """
+  Name of the action need. e.g. Ticket Product short name.
+  """
+  name: String!
+
+  """
+  The human readable title of the restriction.
+  """
+  title: String!
+}
+
+"""
+Outputs from the respondToTeamInvitation mutation.
+"""
+type RespondToTeamInvitationPayload {
+  """
+  The user who just accepted a team invitation.
+  """
+  user: User
+}
+
+"""
+A recent resub token to use for sending a special message.
+"""
+type ResubNotification {
+  """
+  The number of months of total subbing.
+  """
+  cumulativeTenureMonths: Int!
+
+  """
+  A unique ID for the resub notification.
+  """
+  id: ID!
+
+  """
+  The number of months of consecutive subbing.
+  """
+  months: Int!
+
+  """
+  The number of months of consecutive subbing.
+  """
+  streakTenureMonths: Int!
+
+  """
+  The token to use when submitting a sub/resub message.
+  """
+  token: String!
+
+  """
+  If the resub notification is caused by a gift or not
+  """
+  isGiftSubscription: Boolean!
+
+  """
+  Gifter who gave the gift, null if no gifter or anon
+  """
+  gifter: User
+}
+
+"""
+The returned payload when resuming a schedule.
+"""
+type ResumeSchedulePayload {
+  """
+  The possible error.
+  """
+  error: ResumeScheduleError
+
+  """
+  The updated schedule input.
+  """
+  schedule: Schedule
+}
+
+"""
+Revenue configuration data related to a subscription product.
+"""
+type RevenueConfig {
+  """
+  Unique identifier for the revenue configuration.
+  """
+  id: ID!
+
+  """
+  0-100 percent value of revenue the broadcaster will earn.
+  """
+  splitPercent: Int!
+
+  """
+  Start time of when the revenue split configuration takes effect.
+  """
+  startAt: Time
+}
+
+"""
+RevokeVIPError contains details about a client error that occurred.
+"""
+type RevokeVIPError {
+  """
+  The type of error that occurred when revoking a user's VIP status.
+  """
+  code: RevokeVIPErrorCode!
+}
+
+"""
+RevokeVIPPayload is the response after attempting to revoke the VIP status of a user.
+"""
+type RevokeVIPPayload {
+  """
+  The channel that the user is revoked as a VIP to.
+  """
+  channel: User
+
+  """
+  The client error that has occurred.
+  Null if the operation is successful.
+  """
+  error: RevokeVIPError
+
+  """
+  The user whose VIP status is revoked.
+  """
+  revokee: User
+}
+
+"""
+Rewarded Video information.
+"""
+type RewardedVideo {
+  """
+  A flag indicating if the user is eligible for rewarded videos.
+  """
+  isEligible: Boolean!
+
+  """
+  A flag indicating if the user needs to do a captcha in order to use rewarded videos.
+  """
+  shouldCaptcha: Boolean!
+}
+
+type RichOEmbed implements OEmbed {
+  authorName: String
+  authorURL: String
+  cacheAge: Int
+  height: Int!
+  html: String!
+  inputURL: String!
+  providerName: String
+  providerURL: String
+  thumbnail: ThumbnailOEmbed
+  title: String
+  type: String!
+  version: String!
+  width: Int!
+}
+
+"""
+A ritual is an opportunity for a viewer to better connect with a streamer's
+community by announcing when they reach milestones in the channel.
+A ritual token is issued when a user is eligible for the ritual, and can be
+redeemed to send the announcement in a channel.
+"""
+type RitualToken {
+  """
+  The channel that the user can redeem the ritual token in.
+  """
+  channel: User
+
+  """
+  The time after which the ritual is considered expired and can no longer be
+  redeemed. Clients should dismiss the ritual UI if it's still shown after
+  this time. Null if the ritual never expires.
+  """
+  expiresAt: Time
+
+  """
+  A unique ID for the ritual token.
+  """
+  id: ID!
+
+  """
+  The status of the ritual token.
+  """
+  status: RitualTokenStatus
+
+  """
+  The type of the ritual to be redeemed.
+  """
+  type: RitualTokenType
+
+  """
+  The user that owns the ritual token.
+  """
+  user: User
+}
+
+"""
+DEPRECATED.
+A chatroom associated with a channel where members of the room can exchange messages.
+"""
+type Room {
+  """
+  UUID of the room.
+  """
+  id: ID! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Whether the room can be read by non-members and logged out users.
+  """
+  isPreviewable: Boolean! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Paginated list of members of the chatroom.
+  """
+  members(first: Int = 100, after: Cursor): RoomMemberConnection
+    @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  List of messages to the room, in reverse chronological order. If fromTime is used, that time is used
+  as the cursor instead of after/before.
+  """
+  messages(
+    first: Int
+    after: Cursor
+    last: Int
+    before: Cursor
+    fromTime: Time
+  ): RoomMessageConnection @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Minimum role required to join the room. For example, in a sub room, subs can join,
+  but also the broadcaster, mods, and staff.
+  """
+  minimumAllowedRole: RoomRole! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Room modes (e.g. slow mode).
+  """
+  modes: RoomModes @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  The name of the room (e.g. subs-only).
+  """
+  name: String! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  The user the room belongs to.
+  """
+  owner: User! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  rolePermissions describes the role necessary to perform actions in the room.
+  """
+  rolePermissions: RoomRolePermissions @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Returns the current user's settings for the room.
+  """
+  self: RoomView @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  The room topic (e.g. "serious discussion only").
+  """
+  topic: String @deprecated(reason: "The Rooms product has been sunset")
+}
+
+"""
+DEPRECATED
+Paginated list of room members (users).
+"""
+type RoomMemberConnection {
+  """
+  The elements of the list.
+  """
+  edges: [RoomMemberEdge]! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo! @deprecated(reason: "The Rooms product has been sunset")
+}
+
+"""
+Element in a list of room members.
+"""
+type RoomMemberEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  The user who is a member of the room.
+  """
+  node: User @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Type of user for grouping users in the rooms member list.
+  """
+  type: RoomMemberType! @deprecated(reason: "The Rooms product has been sunset")
+}
+
+"""
+DEPRECATED
+A message sent from a user to a room.
+"""
+type RoomMessage {
+  """
+  The text and emoticon content of a message.
+  """
+  content: RoomMessageContent! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Time the message was deleted or purged. Null if the message is not deleted.
+  """
+  deletedAt: Time @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  UUID of the message.
+  """
+  id: ID! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  The room the message was sent in.
+  """
+  room: Room! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  The user that sent the message.
+  """
+  sender: User! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Time the message was sent.
+  """
+  sentAt: Time! @deprecated(reason: "The Rooms product has been sunset")
+}
+
+"""
+DEPRECATED
+Paginated list of messages in a room.
+"""
+type RoomMessageConnection {
+  """
+  The elements of the list.
+  """
+  edges: [RoomMessageEdge]! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo! @deprecated(reason: "The Rooms product has been sunset")
+}
+
+"""
+DEPRECATED
+The content of a user's message to a room.
+"""
+type RoomMessageContent {
+  """
+  Parsed list of fragments in the message, include emotes, mentions, and plaintext.
+  """
+  fragments: [RoomMessageFragment]! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  String representation of the user message.
+  """
+  text: String! @deprecated(reason: "The Rooms product has been sunset")
+}
+
+"""
+Element in a list of messages.
+"""
+type RoomMessageEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  The message.
+  """
+  node: RoomMessageItem @deprecated(reason: "The Rooms product has been sunset")
+}
+
+"""
+DEPRECATED
+One parsed part of a message, which may be an emote, mention, or plaintext.
+"""
+type RoomMessageFragment {
+  """
+  Contains an emote or a mentioned user depending on the text of the fragment.
+  """
+  content: FragmentContent @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Plaintext representation of the fragment.
+  """
+  text: String! @deprecated(reason: "The Rooms product has been sunset")
+}
+
+"""
+DEPRECATED
+RoomMessageGroupMention represents a group mention, such as @here.
+"""
+type RoomMessageGroupMention {
+  """
+  The type of mention.
+  """
+  type: RoomMessageMentionType! @deprecated(reason: "The Rooms product has been sunset")
+}
+
+"""
+Modes that have been enabled for the room.
+"""
+type RoomModes {
+  """
+  If enabled, messages to the room must contain only emotes.
+  """
+  emotesOnlyModeEnabled: Boolean! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  If enabled, messages to the room must be unique.
+  """
+  r9kModeEnabled: Boolean! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  The number of seconds users must wait between messages. If 0, slow mode is disabled.
+  """
+  slowModeDurationSeconds: Int! @deprecated(reason: "The Rooms product has been sunset")
+}
+
+"""
+DEPRECATED
+Represents the permissions a user has in a room.
+"""
+type RoomPermissions {
+  """
+  Whether the user can moderate the room.
+  """
+  moderate: Boolean! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Whether the user can read messages in the room.
+  """
+  readMessages: Boolean! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Whether the user can send messages in the room.
+  """
+  sendMessages: Boolean! @deprecated(reason: "The Rooms product has been sunset")
+}
+
+"""
+DEPRECATED
+RoomRolePermissions describes the role necessary to perform actions in a room.
+"""
+type RoomRolePermissions {
+  """
+  Read describes the role necessary to read messages in the room.
+  """
+  read: RoomRole! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Send describes the role necessary to send messages in the room.
+  """
+  send: RoomRole! @deprecated(reason: "The Rooms product has been sunset")
+}
+
+"""
+DEPRECATED
+A RoomView represents the authenticated user's self connection to a room, and includes the user's
+settings and permissions.
+"""
+type RoomView {
+  """
+  Whether the user has archived the room.
+  """
+  isArchived: Boolean! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Whether the user has muted the room.
+  """
+  isMuted: Boolean! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Whether the user has unread messages in the room.
+  """
+  isUnread: Boolean! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Last time the user read a message in the room.
+  """
+  lastReadAt: Time @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  The permissions the authenticated user has in the room.
+  """
+  permissions: RoomPermissions @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  The room the room view belongs to.
+  """
+  room: Room! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  The number of mentions for the user in the room that the user has not read.
+  """
+  unreadMentionCount: Int! @deprecated(reason: "The Rooms product has been sunset")
+}
+
+"""
+RotateExtensionSecretsPayload returns the new extension secrets information.
+"""
+type RotateExtensionSecretsPayload {
+  """
+  A user-friendly error, should one occur.
+  """
+  error: RotateExtensionSecretsError
+
+  """
+  All the existing secrets for the extension.
+  """
+  secrets: [ExtensionSecret!]
+}
+
+"""
+ROW cookie vendor for a user.
+"""
+type ROWCookieVendor {
+  """
+  User content status for each vendor.
+  """
+  consentStatus: ConsentStatus!
+
+  """
+  A flag that shows if the consent is given by the user or by consent service as default value.
+  """
+  hasUserSetConsent: Boolean!
+
+  """
+  A flag that shows if the vendor should be visible to management page.
+  """
+  isVisible: Boolean!
+
+  """
+  Vendor name.
+  """
+  name: VendorName!
+}
+
+"""
+List of ROW cookie vendor.
+"""
+type ROWVendorConsent {
+  """
+  status for vendors.
+  """
+  status: [ROWCookieVendor!]!
+}
+
+"""
+RTMPSession is metadata related to the RTMP data sent by the broadcaster.
+"""
+type RTMPSession {
+  """
+  Audio codecs of RTMP session.
+  """
+  audioCodecs: String!
+
+  """
+  H.264 advanced video codec.
+  """
+  avcLevel: Int
+
+  """
+  Staff-only field. The IP address of the broadcaster of the RTMP session.
+  """
+  clientIP: String
+
+  """
+  Name of the broadcaster's encoder.
+  """
+  encoder: String!
+
+  """
+  H.264 encoder Instantaneous Decoder Refresh interval.
+  """
+  idrInterval: Int
+
+  """
+  rtmpExitReason tells how the stream session was terminated.
+  """
+  rtmpExitReason: String
+
+  """
+  RTMP request parameters sent by the broadcaster.
+  """
+  rtmpFlags: String!
+
+  """
+  A full list of RTMP header sent by the broadcaster.
+  """
+  rtmpMetadata: String!
+
+  """
+  Duration of each video frame segment in seconds.
+  """
+  segmentDurationSeconds: Int!
+
+  """
+  Video codecs of RTMP session.
+  """
+  videoCodecs: String!
+
+  """
+  Video resolution height in pixel.
+  """
+  videoResolutionHeight: Int!
+
+  """
+  Video resolution width in pixel.
+  """
+  videoResolutionWidth: Int!
+}
+
+"""
+The response after running multiplayer ads.
+"""
+type RunMultiplayerAdsPayload {
+  """
+  The error that has occurred.
+  Null if the operation is successful.
+  """
+  error: RunMultiplayerAdErrorCode
+}

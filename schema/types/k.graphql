@@ -1,0 +1,124 @@
+"""
+The connection of key batches for a given key pool.
+"""
+type KeyBatchConnection {
+  """
+  The list of key batch edges in the connection.
+  """
+  edges: [KeyBatchEdge!]!
+
+  """
+  The metadata about having more key batches to fetch, or if there is a previous page of key batches.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of key batches for the key pool.
+  """
+  totalCount: Int!
+}
+
+"""
+The key batch edge which contains our cursor and node.
+"""
+type KeyBatchEdge {
+  """
+  The cursor of the edge, which is the key batch ID.
+  """
+  cursor: Cursor!
+
+  """
+  The node of the edge, which contains all information about the key batch.
+  """
+  node: KeyBatchNode
+}
+
+"""
+The information associated with a given key batch.
+"""
+type KeyBatchNode {
+  """
+  The key batch ID, which is unique for a given key pool.
+  """
+  id: ID!
+
+  """
+  The number of keys in the batch.
+  """
+  numKeys: Int!
+
+  """
+  The status of the batch.
+  """
+  status: KeyBatchStatus!
+}
+
+"""
+The connection of key pools to a user.
+"""
+type KeyPoolConnection {
+  """
+  The list of key pool edges associated with the user.
+  """
+  edges: [KeyPoolEdge!]!
+
+  """
+  The metadata about having more key pools to fetch, or if there is a previous page of key pools.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of key pools for the given user.
+  """
+  totalCount: Int!
+}
+
+"""
+The key pool edge which contains our cursor and node.
+"""
+type KeyPoolEdge {
+  """
+  The cursor of the edge, which is also the key pool ID.
+  """
+  cursor: Cursor!
+
+  """
+  The node of the edge, which contains all information about the key pool.
+  """
+  node: KeyPoolNode
+}
+
+"""
+The information associated with a given key pool.
+"""
+type KeyPoolNode {
+  """
+  The key batches that have been generated in the key pool.
+  """
+  batches(after: String): KeyBatchConnection
+
+  """
+  The description of the key pool.
+  """
+  description: String!
+
+  """
+  The key pool ID, which is unique.
+  """
+  id: ID!
+
+  """
+  The product type associated with the key pool, which determines what kind of keys are generated.
+  """
+  productType: String!
+
+  """
+  The SKU associated with the key pool, which is used to redeem content.
+  """
+  sku: String!
+
+  """
+  Status of the key pool, which can be active, inactive, or invalidated.
+  """
+  status: KeyPoolStatus!
+}

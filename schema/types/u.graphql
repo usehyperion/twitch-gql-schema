@@ -1,0 +1,4258 @@
+"""
+Used to provide info on the subscription events that might have happened in another device
+and not acknowledged in the current device.
+"""
+type UnacknowledgedSubscriptionEvent {
+  """
+  The user of the channel the subscription was for.
+  """
+  channel: User
+
+  """
+  The time that the subscription benefits will expire.
+  """
+  endDate: Time
+
+  """
+  The external product id.
+  """
+  externalProductID: ID!
+
+  """
+  The current status of the subscription. One of "active", "will_not_renew", or "canceled".
+  """
+  status: UnacknowledgedSubscriptionEventState!
+
+  """
+  The UUID of the subscription.
+  """
+  subscriptionID: ID!
+}
+
+"""
+A request from a channel-banned user to the channel moderators to be unbanned
+from the channel.
+"""
+type UnbanRequest {
+  """
+  The channel on which the banned user is appealing a ban.
+  """
+  channel: Channel
+
+  """
+  The time at which the unban request was created.
+  """
+  createdAt: Time!
+
+  """
+  UUID of the Unban Request.
+  """
+  id: ID!
+
+  """
+  The banned user appealing the ban.
+  """
+  requester: User
+
+  """
+  Custom message provided by the requester.
+  """
+  requesterMessage: String
+
+  """
+  The time at which the unban request was resolved (approved or denied).
+  """
+  resolvedAt: Time
+
+  """
+  The moderator that has taken action on the user.
+  """
+  resolvedBy: User
+
+  """
+  Custom message provided by the resolver.
+  """
+  resolverMessage: String
+
+  """
+  The status of the unban request.
+  """
+  status: UnbanRequestStatus!
+}
+
+"""
+Paginated list of Unban Requests.
+"""
+type UnbanRequestConnection {
+  """
+  The elements of the list.
+  """
+  edges: [UnbanRequestEdge!]
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Count of all pending unban requests.
+  """
+  totalCount(status: UnbanRequestStatus = NONE): Float
+}
+
+"""
+Element in a list of Unban Requests.
+"""
+type UnbanRequestEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  The unban request.
+  """
+  node: UnbanRequest
+}
+
+"""
+Error returned from an update mutation.
+"""
+type UnbanRequestError {
+  """
+  The error code returned from an update mutation.
+  """
+  code: UnbanRequestErrorCode!
+}
+
+"""
+Set of preferences set by the channel owner regarding unban requests.
+"""
+type UnbanRequestsSettings {
+  """
+  The number of minutes after being banned before users can request an unban.
+  """
+  cooldownMinutes: Int!
+
+  """
+  Whether users can create requests on the channel or not.
+  """
+  isEnabled: Boolean!
+}
+
+type UnbanUserFromChatRoomError {
+  code: UnbanUserFromChatRoomErrorCode!
+}
+
+type UnbanUserFromChatRoomPayload {
+  """
+  The new ban status of this user regarding the specified channel.
+  """
+  ban: ChatRoomBanStatus
+
+  """
+  Mutation error caused by the user input.
+  """
+  error: UnbanUserFromChatRoomError
+}
+
+type UnblockUserPayload {
+  """
+  User that was unblocked.
+  """
+  targetUser: User!
+}
+
+"""
+Returns the created feedback item back to the client.
+"""
+type UndoRecommendationFeedbackPayload {
+  """
+  The id of the feedback you just undid.
+  """
+  feedbackID: ID!
+}
+
+"""
+UnfollowGamePayload is the response from unfollowing a game.
+"""
+type UnfollowGamePayload {
+  """
+  The deleted follow relationship, if one existed beforehand.
+  """
+  follow: GameFollow
+
+  """
+  The game that was unfollowed
+  game.self.follow should now be null.
+  """
+  game: Game
+}
+
+type UnfollowUserPayload {
+  """
+  The deleted follow relationship.
+  """
+  follow: Follow
+}
+
+type UnfriendUserPayload {
+  """
+  The user whose friend relationship was just destroyed by the authenticated user.
+  """
+  user: User
+}
+
+"""
+UnhostPayload is the response after attempting to unhost.
+"""
+type UnhostPayload {
+  """
+  The channel that just unhosted.
+  """
+  channel: User
+}
+
+"""
+UninstallExtensionError is wrapper for error associated with the uninstallExtension mutation.
+"""
+type UninstallExtensionError {
+  """
+  Error code.
+  """
+  code: UninstallExtensionErrorCode!
+}
+
+"""
+The resulting payload of an uninstallExtension mutation.
+"""
+type UninstallExtensionPayload {
+  """
+  The error when the mutation fails to set feature flags.
+  """
+  error: UninstallExtensionError
+
+  """
+  The id of the extension which was uninstalled.
+  """
+  id: ID!
+}
+
+"""
+UnlinkAmazonConnectionPayload indicates whether the unlinking was successful or not.
+"""
+type UnlinkAmazonConnectionPayload {
+  """
+  Whether or not the unlink operation was successful. Only reports if the
+  underlying call was successful, as such will return true even if no unlinking
+  occured (such as when as user doesn't have a linked amazon account, for instance).
+  """
+  isSuccess: Boolean
+}
+
+"""
+Contains a struct of all current accounts connections.
+"""
+type UnlinkRiotConnectionPayload {
+  """
+  The complete account connections list where Riot will be null.
+  """
+  connections: AccountConnectionSet
+}
+
+type UnlinkSSOPayload {
+  """
+  The deleted SSO links.
+  """
+  links: [SSOLink!]
+}
+
+"""
+The response from redeeming the unlock a chosen modified subscriber emote reward.
+"""
+type UnlockChosenModifiedSubscriberEmotePayload {
+  """
+  The user's new Community Points balance.
+  """
+  balance: Int
+
+  """
+  The error that occurred during redemption, if any.
+  """
+  error: CommunityPointsUnlockEmoteError
+}
+
+"""
+The response from redeeming the unlock a chosen subscriber emote reward.
+"""
+type UnlockChosenSubscriberEmotePayload {
+  """
+  The user's new Community Points balance.
+  """
+  balance: Int
+
+  """
+  The error that occurred during redemption, if any.
+  """
+  error: CommunityPointsUnlockEmoteError
+}
+
+"""
+The response from redeeming the unlock a random subscriber emote reward.
+"""
+type UnlockRandomSubscriberEmotePayload {
+  """
+  The user's new Community Points balance.
+  """
+  balance: Int
+
+  """
+  The random emote that was unlocked.
+  """
+  emote: CommunityPointsEmote
+
+  """
+  The error that occurred during redemption, if any.
+  """
+  error: CommunityPointsUnlockEmoteError
+}
+
+"""
+ModUserError contains details about a client error that occurred.
+"""
+type UnmodUserError {
+  """
+  The enum indicating what error has occurred.
+  """
+  code: UnmodUserErrorCode!
+}
+
+"""
+UnmodUserPayload is the response when remove a user as a moderator.
+"""
+type UnmodUserPayload {
+  """
+  The channel that the user is removed as a moderator to.
+  """
+  channel: User
+
+  """
+  The client error that has occurred.
+  Null if the operation is successful.
+  """
+  error: UnmodUserError
+
+  """
+  The user that is removed as a moderator.
+  """
+  target: User
+}
+
+"""
+UnsetHypeTrainConfigPayload is the response that contains the Unsetd config.
+"""
+type UnsetHypeTrainConfigPayload {
+  """
+  The hype train config for the channel.
+  """
+  config: HypeTrainConfig
+}
+
+"""
+Output from the unsubscribe mutation.
+"""
+type UnsubscribeEmailPayload {
+  """
+  Specifies whether the action was successful.
+  """
+  isSuccess: Boolean!
+}
+
+"""
+Output from the updateAdProperties mutation.
+"""
+type UpdateAdPropertiesPayload {
+  """
+  User/channel to update the ad settings.
+  """
+  targetUser: User
+}
+
+"""
+The returned payload from the UpdateAllChannelVideosViewability mutation.
+"""
+type UpdateAllChannelVideosViewabilityPayload {
+  """
+  The status for this mutation.
+  """
+  status: UpdateAllChannelVideosViewabilityStatus
+}
+
+"""
+Status associated with mutation UpdateAllChannelVideosViewability.
+"""
+type UpdateAllChannelVideosViewabilityStatus {
+  """
+  Error code.
+  """
+  code: UpdateAllChannelVideosViewabilityStatusCode!
+}
+
+type UpdateAllWhisperThreadsPayload {
+  count: Int!
+}
+
+"""
+UpdateAutohostSettingsPayload returns the user whose settings had been updated.
+"""
+type UpdateAutohostSettingsPayload {
+  """
+  User whose autohost settings has been updated.
+  """
+  user: User
+}
+
+"""
+Defines the new AutoMod levels of a channel.
+"""
+type UpdateAutoModLevelsPayload {
+  """
+  The new levels after applying the mutation.
+  """
+  autoModConfiguration: AutoModConfiguration
+}
+
+type UpdateAutoModPropertiesPayload {
+  """
+  The new properties after applying the mutation.
+  """
+  autoModProperties: AutoModProperties
+}
+
+"""
+UpdateBitsBadgeTierNotificationPayload is the payload returned after updating a bits badge tier notification.
+"""
+type UpdateBitsBadgeTierNotificationPayload {
+  """
+  The user that updated the bits badge tier notification.
+  """
+  user: User
+}
+
+"""
+Errors for updating bits badges.
+"""
+type UpdateBitsBadgeTiersError {
+  """
+  The associated error code.
+  """
+  code: UpdateBitsBadgeTiersErrorCode!
+}
+
+"""
+Results of bits badge tier updates.
+"""
+type UpdateBitsBadgeTiersPayload {
+  """
+  Whether or not the broadcaster is enabled to upload bits badge tier emote rewards.
+  """
+  canUploadBadgeTierEmoticons: Boolean
+
+  """
+  Service error, if any.
+  """
+  error: UpdateBitsBadgeTiersError
+
+  """
+  Updated bits badge tiers.
+  """
+  tiers: [BitsBadgeTier!]
+}
+
+"""
+Error code for an error that occurs while updating boost settings.
+"""
+type UpdateBoostSettingsError {
+  """
+  Error code for error that occurred while updating boost settings.
+  """
+  code: UpdateBoostSettingsErrorCode!
+}
+
+"""
+The result of an updateBoostSettings mutation.
+"""
+type UpdateBoostSettingsPayload {
+  """
+  The updated channel.
+  """
+  channel: Channel
+
+  """
+  The possible error returned from the service.
+  """
+  error: UpdateBoostSettingsError
+}
+
+"""
+The result of a updateBroadcastSettings mutation.
+"""
+type UpdateBroadcastSettingsPayload {
+  """
+  The modified broadcast settings.
+  """
+  broadcastSettings: BroadcastSettings
+
+  """
+  Error from updating broadcast settings, if any.
+  """
+  error: UpdateBroadcastSettingsErrorCode
+}
+
+"""
+Outputs from the update celebration config mutation.
+"""
+type UpdateCelebrationConfigPayload {
+  """
+  The updated celebration config.
+  """
+  celebrationConfig: CelebrationConfig
+
+  """
+  If present, there was an error with the request.
+  """
+  error: CelebrationError
+}
+
+"""
+Outputs from the Update celebration mutation.
+"""
+type UpdateCelebrationPayload {
+  """
+  The updated celebration.
+  """
+  celebration: Celebration
+
+  """
+  If present, there was an error with the request.
+  """
+  error: CelebrationError
+}
+
+"""
+Outputs from the updated celebration product config mutation.
+"""
+type UpdateCelebrationProductConfigPayload {
+  """
+  The updated celebration products.
+  """
+  celebrationProducts: [CelebrationProduct!]
+
+  """
+  If present, there was an error with the request.
+  """
+  error: CelebrationError
+}
+
+"""
+Outputs from the update celebration config mutation.
+"""
+type UpdateCelebrationUserSettingsPayload {
+  """
+  The updated logged in user.
+  """
+  currentUser: User
+}
+
+"""
+The result of a UpdateChangelogReadTimePayload mutation.
+"""
+type UpdateChangelogReadTimePayload {
+  """
+  The user whose changelog was marked as read.
+  """
+  user: User
+}
+
+"""
+Response payload.
+"""
+type UpdateChanletContentAttributesPayload {
+  """
+  Updated chanlet.
+  """
+  chanlet: Channel
+}
+
+"""
+The result of a updateChannelClipsSetting mutation.
+"""
+type UpdateChannelClipsSettingPayload {
+  """
+  The updated channel.
+  """
+  channel: Channel
+}
+
+"""
+The result of an update to the category shelf.
+"""
+type UpdateChannelHomePreferencesPayload {
+  """
+  The channel with the modified category shelf.
+  """
+  channel: Channel
+
+  """
+  The possible error returned.
+  """
+  error: UpdateChannelCategoryShelfError
+}
+
+"""
+An error returned from the updateChannelPredictionSettings mutation.
+"""
+type UpdateChannelPredictionSettingsError {
+  """
+  Code describing the error.
+  """
+  code: UpdateChannelPredictionSettingsErrorCode!
+}
+
+"""
+Payload for updating a channel's Prediction Settings.
+"""
+type UpdateChannelPredictionSettingsPayload {
+  """
+  If present, there was an error with the request.
+  """
+  error: UpdateChannelPredictionSettingsError
+
+  """
+  The updated settings.
+  """
+  settings: ChannelPredictionSettings
+}
+
+type UpdateChatColorPayload {
+  """
+  The user whose chat color was set.
+  """
+  user: User
+}
+
+"""
+Result of mutation is the updated ChatSettings object.
+"""
+type UpdateChatSettingsPayload {
+  """
+  The new chatSettings after applying the mutation.
+  """
+  chatSettings: ChatSettings
+}
+
+"""
+Errors for updating a cheermote tier.
+"""
+type UpdateCheermoteTierError {
+  """
+  The associated error code.
+  """
+  code: UpdateCheermoteTierErrorCode!
+}
+
+"""
+Results of the cheermote tier update.
+"""
+type UpdateCheermoteTierPayload {
+  """
+  Service error, if any.
+  """
+  error: UpdateCheermoteTierError
+}
+
+"""
+Result of mutation is the updated UserSettings object.
+"""
+type UpdateCheerPartnerSettingsPayload {
+  """
+  The updated user settings object.
+  """
+  cheer: CheerPartnerSettings!
+}
+
+"""
+UpdateClipError is an error associated with the updateClip mutation.
+"""
+type UpdateClipError {
+  """
+  The error when the clip fails to update a clip.
+  """
+  message: String
+}
+
+"""
+UpdateClipPayload returns the updated clip.
+"""
+type UpdateClipPayload {
+  """
+  The clip with its updated properties.
+  """
+  clip: Clip!
+
+  """
+  The error when the clip fails to update a clip.
+  """
+  error: UpdateClipError
+}
+
+"""
+UpdateClipViewCount returns the clip that was updated.
+"""
+type UpdateClipViewCountPayload {
+  """
+  The clip that was updated.
+  The views field is the only field that is updated, and the change is not reflected immediately.
+  """
+  clip: Clip
+}
+
+"""
+UpdateCollectionPayload resolves the updated collection.
+"""
+type UpdateCollectionPayload {
+  """
+  The collection that was just updated.
+  """
+  collection: Collection!
+}
+
+"""
+An error from updating an automatic Community Points reward in a channel.
+"""
+type UpdateCommunityPointsAutomaticRewardError {
+  """
+  An identifier for the error that occurred.
+  """
+  code: UpdateCommunityPointsAutomaticRewardErrorCode
+
+  """
+  On COST_TOO_LOW, the minimum cost that can be set.
+  """
+  minimumCost: Int
+}
+
+"""
+The response from updating an automatic Community Points reward in a channel.
+"""
+type UpdateCommunityPointsAutomaticRewardPayload {
+  """
+  An error that occurred while updating an automatic Community Points reward in a channel.
+  """
+  error: UpdateCommunityPointsAutomaticRewardError
+
+  """
+  The newly updated reward.
+  """
+  reward: CommunityPointsAutomaticReward
+}
+
+"""
+An error from updating a channel's Community Points channel settings.
+"""
+type UpdateCommunityPointsChannelSettingsError {
+  """
+  An identifier for the error that occurred.
+  """
+  code: UpdateCommunityPointsChannelSettingsErrorCode
+}
+
+"""
+The response from updating a channel's Community Points channel settings.
+"""
+type UpdateCommunityPointsChannelSettingsPayload {
+  """
+  The channel with the newly updated settings.
+  """
+  channel: Channel
+
+  """
+  An error that occurred while updating a channel's Community Points channel settings.
+  """
+  error: UpdateCommunityPointsChannelSettingsError
+}
+
+"""
+Update community goal error.
+"""
+type UpdateCommunityPointsCommunityGoalError {
+  """
+  The error code.
+  """
+  code: UpdateCommunityPointsCommunityGoalErrorCode!
+}
+
+"""
+Update community goal payload.
+"""
+type UpdateCommunityPointsCommunityGoalPayload {
+  """
+  The error, if any.
+  """
+  error: UpdateCommunityPointsCommunityGoalError
+
+  """
+  The community goal.
+  """
+  goal: CommunityPointsCommunityGoal
+}
+
+"""
+An error from updating a custom Community Points reward in a channel.
+"""
+type UpdateCommunityPointsCustomRewardError {
+  """
+  An identifier for the error that occurred.
+  """
+  code: UpdateCommunityPointsCustomRewardErrorCode!
+}
+
+"""
+The response from updating a custom Community Points reward in a channel.
+"""
+type UpdateCommunityPointsCustomRewardPayload {
+  """
+  An error that occurred while updating a custom Community Points reward in a channel.
+  """
+  error: UpdateCommunityPointsCustomRewardError
+
+  """
+  The newly updated reward.
+  """
+  reward: CommunityPointsCustomReward
+}
+
+"""
+An error from acting on a Community Points redemption.
+"""
+type UpdateCommunityPointsCustomRewardRedemptionStatusError {
+  """
+  An identifier for the error that occurred.
+  """
+  code: UpdateCommunityPointsCustomRewardRedemptionStatusErrorCode
+}
+
+"""
+The response from acting on all Community Points redemptions for a channel.
+Most of the work is done as an async task and redemption status changes are pushed over pubsub.
+"""
+type UpdateCommunityPointsCustomRewardRedemptionStatusesByChannelPayload {
+  """
+  An error that occurred while updating the redemption statuses.
+  """
+  error: UpdateCommunityPointsCustomRewardRedemptionStatusesError
+}
+
+"""
+The response from acting on the Community Points redemptions from the provided list.
+Most of the work is done as an async task and redemption status changes are pushed over pubsub.
+"""
+type UpdateCommunityPointsCustomRewardRedemptionStatusesByRedemptionsPayload {
+  """
+  An error that occurred while updating the redemption statuses.
+  """
+  error: UpdateCommunityPointsCustomRewardRedemptionStatusesError
+}
+
+"""
+The response from acting on all Community Points redemptions for a reward.
+Most of the work is done as an async task and redemption status changes are pushed over pubsub.
+"""
+type UpdateCommunityPointsCustomRewardRedemptionStatusesByRewardPayload {
+  """
+  An error that occurred while updating the redemption statuses.
+  """
+  error: UpdateCommunityPointsCustomRewardRedemptionStatusesError
+}
+
+"""
+An error from acting on a Community Points redemption.
+"""
+type UpdateCommunityPointsCustomRewardRedemptionStatusesError {
+  """
+  An identifier for the error that occurred.
+  """
+  code: UpdateCommunityPointsCustomRewardRedemptionStatusesErrorCode
+}
+
+"""
+The response from acting on a Community Points redemption.
+"""
+type UpdateCommunityPointsCustomRewardRedemptionStatusPayload {
+  """
+  An error that occurred while updating the redemption status.
+  """
+  error: UpdateCommunityPointsCustomRewardRedemptionStatusError
+
+  """
+  The updated redemption.
+  """
+  redemption: CommunityPointsCustomRewardRedemption
+}
+
+"""
+An error returned when updating a user's enrollment in Community Points early access.
+"""
+type UpdateCommunityPointsEarlyAccessError {
+  """
+  The error code identifying this error.
+  """
+  code: UpdateCommunityPointsEarlyAccessErrorCode!
+}
+
+"""
+Returns updated early access status for Community Points.
+"""
+type UpdateCommunityPointsEarlyAccessSettingsPayload {
+  """
+  The channel whose Early Access preference was updated.
+  """
+  channel: Channel
+
+  """
+  Optionally, an error that occurred while attempting to update the user's enrollment status.
+  """
+  error: UpdateCommunityPointsEarlyAccessError
+}
+
+"""
+An error from updating the last viewed community points content timestamps on a channel.
+"""
+type UpdateCommunityPointsLastViewedContentError {
+  """
+  An identifier for the error that occurred.
+  """
+  code: UpdateCommunityPointsLastViewedContentErrorCode
+}
+
+"""
+The response from updating the last viewed community points content timestamps on a channel.
+"""
+type UpdateCommunityPointsLastViewedContentPayload {
+  """
+  An error that occurred while updating the last viewed content timestamps.
+  """
+  error: UpdateCommunityPointsLastViewedContentError
+
+  """
+  The updated last viewed timestamps for a channels content.
+  """
+  lastViewedChannelContent: [CommunityPointsLastViewedContentByType!]
+
+  """
+  The updated last viewed timestamps for global content across all of twitch.
+  """
+  lastViewedGlobalContent: [CommunityPointsLastViewedContentByTypeAndID!]
+}
+
+"""
+An error from updating a Community Points Smart Costs Acknowledgements in a channel.
+"""
+type UpdateCommunityPointsSmartCostsAcknowledgementsError {
+  """
+  An identifier for the error that occurred.
+  """
+  code: UpdateCommunityPointsSmartCostsAcknowledgementsErrorCode
+}
+
+"""
+Payload returned after updating Community Points Smart Costs Acknowledgements.
+"""
+type UpdateCommunityPointsSmartCostsAcknowledgementsPayload {
+  """
+  List of acknowledgements for community points smart costs that were updated.
+  """
+  acknowledgements: [SmartCostsAcknowledgement!]
+
+  """
+  An error that occurred while updating a Community Points Smart Costs Acknowledgements in a channel.
+  """
+  error: UpdateCommunityPointsSmartCostsAcknowledgementsError
+}
+
+"""
+Data that was mutated after the competition was updated.
+"""
+type UpdateCompetitionPayload {
+  """
+  The competition which was updated.
+  """
+  competition: Competition
+
+  """
+  Used for competition mutation errors.
+  """
+  error: CompetitionError
+}
+
+"""
+Data that was mutated after the player was updated.
+"""
+type UpdateCompetitionPlayerPayload {
+  """
+  The new state of competition after updating a competition player in the competition.
+  """
+  competition: Competition
+
+  """
+  Used for competition mutation errors.
+  """
+  error: CompetitionError
+}
+
+"""
+Data that was mutated after the CompetitionTeam was updated.
+"""
+type UpdateCompetitionTeamPayload {
+  """
+  The competition that was updated.
+  """
+  competition: Competition
+
+  """
+  Used for competition mutation errors.
+  """
+  error: CompetitionError
+}
+
+"""
+Error associated with mutation UpdateConsent.
+"""
+type UpdateConsentError {
+  """
+  Error code.
+  """
+  code: UpdateConsentErrorCode
+}
+
+"""
+UpdateConsentPayload returns the created or updated consent status.
+"""
+type UpdateConsentPayload {
+  """
+  The full consent status given by the user after the create request.
+  """
+  consent: Consent
+
+  """
+  The possible error returned from service.
+  """
+  error: UpdateConsentError
+}
+
+"""
+Result of mutation is the contentID.
+"""
+type UpdateContentTagsPayload {
+  """
+  Content which tags have been updated.
+  """
+  content: TaggedContent
+}
+
+"""
+Result of the updateDashboardViewMosaicLayout mutation.
+"""
+type UpdateDashboardViewMosaicLayoutPayload {
+  """
+  Represents an error when attempting to update a layout, if applicable.
+  """
+  errorCode: UpdateDashboardViewMosaicLayoutErrorCode
+
+  """
+  The the layout that was updated.
+  """
+  layout: ChannelDashboardLayout
+}
+
+"""
+UpdateDropBenefitOnDropPayload returns the result of the update.
+"""
+type UpdateDropBenefitOnDropPayload {
+  """
+  Returns the updated Campaign.
+  """
+  dropCampaign: DropCampaign
+
+  """
+  A mapped error returned by the drops management service.
+  """
+  error: DropsError
+}
+
+"""
+UpdateDropBenefitPayload returns the result of the update.
+"""
+type UpdateDropBenefitPayload {
+  """
+  Returns the updated Benefit.
+  """
+  dropBenefit: DropBenefit
+
+  """
+  A mapped error returned by the drops management service.
+  """
+  error: DropsError
+}
+
+"""
+UpdateDropPreconditionsPayload returns the result of the update.
+"""
+type UpdateDropPreconditionsPayload {
+  """
+  Returns the updated Campaign.
+  """
+  dropCampaign: DropCampaign
+
+  """
+  A mapped error returned by the drops management service.
+  """
+  error: DropsError
+}
+
+"""
+The result of a updateDropsOptOutStatus mutation.
+"""
+type UpdateDropsOptOutStatusPayload {
+  """
+  Status is the updated status.
+  """
+  isOptedOut: Boolean
+
+  """
+  userID is the user who wishes to opt out of drops.
+  """
+  userID: ID
+}
+
+"""
+Errors for updating emote orders.
+"""
+type UpdateEmoteOrdersError {
+  """
+  The associated error code.
+  """
+  code: UpdateEmoteOrdersErrorCode!
+}
+
+"""
+The result of an updateEmoteOrders mutation.
+"""
+type UpdateEmoteOrdersPayload {
+  """
+  Emotes are the newly reordered emotes.
+  """
+  emotes: [Emote!]
+
+  """
+  Service error, if any.
+  """
+  error: UpdateEmoteOrdersError
+}
+
+"""
+UpdateExtensionDiscoveryDataPayload returns the update Extension discovery metadata.
+"""
+type UpdateExtensionDiscoveryDataPayload {
+  """
+  The error when the mutation fails to update an extension.
+  """
+  error: UpdateExtensionDiscoveryDataError
+
+  """
+  The updated extension discovery data.
+  """
+  manifest: ExtensionVersionDiscoveryManifest
+}
+
+"""
+UpdateExtensionManifestPayload returns the update Extension manifest.
+"""
+type UpdateExtensionManifestPayload {
+  """
+  The error when the mutation fails to update an extension.
+  """
+  error: UpdateExtensionManifestError
+
+  """
+  The updated extension manifest.
+  """
+  manifest: ExtensionManifest
+}
+
+"""
+UpdateHypeTrainConfigPayload is the response that contains the updated config.
+"""
+type UpdateHypeTrainConfigPayload {
+  """
+  The updated hype train config for the channel.
+  """
+  config: HypeTrainConfig
+}
+
+type UpdateIsSharingActivityPayload {
+  """
+  The modified user.
+  """
+  user: User
+}
+
+"""
+Result of mutation is the updated user object.
+"""
+type UpdateLeaderboardSettingsPayload {
+  """
+  The user whose settings were updated.
+  """
+  user: User
+}
+
+"""
+Returned after live up notification state is mutated.
+"""
+type UpdateLiveUpNotificationPayload {
+  """
+  The modified broadcast settings.
+  """
+  broadcastSettings: BroadcastSettings
+
+  """
+  If any validation errors occur, this will not be nil.
+  """
+  error: UpdateLiveUpNotificationValidationError
+}
+
+"""
+Resolver for validation errors that occur on update live up notification.
+"""
+type UpdateLiveUpNotificationValidationError {
+  """
+  Error code that describes the validation error.
+  """
+  code: UpdateLiveUpNotificationValidationErrorCode!
+}
+
+"""
+UpdateLobbyParticipantScorePayload is the success response updating the score
+for the lobby participant, who is a competition player or competition team, in a competition.
+"""
+type UpdateLobbyParticipantScorePayload {
+  """
+  The new state of competition after scoring a competition player or competition team for that lobby.
+  """
+  competition: Competition
+
+  """
+  Used for competition mutation errors.
+  """
+  error: CompetitionError
+}
+
+"""
+Returns updated tokens, or an error if a new LWA flow is required.
+"""
+type UpdateLWATokenPayload {
+  """
+  An error in this flow means the client should redo the LWA flow.
+  """
+  error: WatchPartyError
+
+  """
+  Contains all token information.
+  """
+  token: LWAToken
+}
+
+"""
+Contains the server response payload.
+"""
+type UpdateMultiviewContentAttributesPayload {
+  """
+  Unprocssed content attribute updates.
+  """
+  failedUpdates: [MultiviewContentAttribute!]!
+
+  """
+  Processed content attribute updates.
+  """
+  succeededUpdates: [MultiviewContentAttribute!]!
+}
+
+"""
+Returned after onboarding state is mutated.
+"""
+type UpdateOnboardingSkippedChannelsPayload {
+  """
+  Current state of the given user.
+  """
+  user: User
+}
+
+"""
+Error that may be returned by the UpdateOrganizationMemberRole mutation.
+"""
+type UpdateOrganizationMemberRoleError {
+  """
+  Type of mutation error.
+  """
+  code: UpdateOrganizationMemberRoleErrorCode!
+}
+
+"""
+Outputs from the UpdateOrganizationMemberRole mutation.
+"""
+type UpdateOrganizationMemberRolePayload {
+  """
+  Logical error that could be returned by the mutation.
+  """
+  error: UpdateOrganizationMemberRoleError
+
+  """
+  Updated member with the new role.
+  """
+  organizationMember: OrganizationMember
+}
+
+"""
+UpdateOwnerChanletAttributesPayload returns the new chanlet that was created.
+"""
+type UpdateOwnerChanletAttributesPayload {
+  """
+  Resulted OwnerChanletAttributes from the update. This is expected to match the input.
+  """
+  ownerChanletAttributes: OwnerChanletAttributes
+}
+
+type UpdatePanelPayload {
+  panel: Panel!
+}
+
+"""
+Error returned during a invalid user request.
+"""
+type UpdatePhoneNumberConfirmationError {
+  """
+  Error code returned by the backend.
+  """
+  code: UpdatePhoneNumberConfirmationErrorCode!
+
+  """
+  The localized external error message.
+  """
+  message: String!
+}
+
+"""
+The result of a updatePhoneNumberConfirmationPayload mutation.
+"""
+type UpdatePhoneNumberConfirmationPayload {
+  """
+  error code and localized error.
+  """
+  error: UpdatePhoneNumberConfirmationError
+}
+
+"""
+Error returned during a invalid user request.
+"""
+type UpdatePhoneNumberError {
+  """
+  Error code returned by the backend.
+  """
+  code: UpdatePhoneNumberErrorCode!
+
+  """
+  The localized external error message.
+  """
+  message: String!
+}
+
+"""
+The result of a updatePhoneNumberPayload mutation.
+"""
+type UpdatePhoneNumberPayload {
+  """
+  error code and localized error.
+  """
+  error: UpdatePhoneNumberError
+}
+
+"""
+Error code for an error that occurs while updating prime offer status.
+"""
+type UpdatePrimeOfferStatusError {
+  """
+  Error code for error that occurred while updating prime offer status.
+  """
+  code: UpdatePrimeOfferStatusErrorCode!
+}
+
+"""
+The returned value for an update prime offer status query.
+"""
+type UpdatePrimeOfferStatusPayload {
+  """
+  The possible error returned from the service.
+  """
+  error: UpdatePrimeOfferStatusError
+
+  """
+  The connection for the status of the offer for the user.
+  """
+  self: [PrimeOfferSelfConnection!]!
+}
+
+"""
+Data that was mutated.
+"""
+type UpdatePrimeSettingsPayload {
+  """
+  The mutated PrimeSettings.
+  """
+  primeSettings: PrimeSettings
+}
+
+"""
+UpdateRaidSettingsPayload returns the user whose settings had been updated.
+"""
+type UpdateRaidSettingsPayload {
+  """
+  User whose raid settings has been updated.
+  """
+  user: User
+}
+
+type UpdateRoomError {
+  code: UpdateRoomErrorCode!
+
+  """
+  On NAME_LENGTH_INVALID, TOPIC_LENGTH_INVALID: Maximum number of characters.
+  """
+  maxLength: Int
+
+  """
+  On NAME_LENGTH_INVALID, TOPIC_LENGTH_INVALID: Minimum number of characters.
+  """
+  minLength: Int
+}
+
+type UpdateRoomModesError {
+  code: UpdateRoomModesErrorCode!
+
+  """
+  On SLOW_MODE_DURATION_INVALID: Maximum number of seconds slow mode can be set to.
+  """
+  maximumSlowModeDurationSeconds: Int
+
+  """
+  On SLOW_MODE_DURATION_INVALID: Minimum number of seconds slow mode can be set to.
+  """
+  minimumSlowModeDurationSeconds: Int
+}
+
+type UpdateRoomModesPayload {
+  error: UpdateRoomModesError
+  room: Room
+}
+
+type UpdateRoomPayload {
+  error: UpdateRoomError
+  room: Room
+}
+
+type UpdateRoomViewPayload {
+  roomView: RoomView
+}
+
+"""
+UpdateScheduleSegmentError is a wrapper for error associated with the UpdateScheduleSegment mutation.
+"""
+type UpdateScheduleSegmentError {
+  """
+  Error code.
+  """
+  code: UpdateScheduleSegmentErrorCode!
+
+  """
+  If the error is related to overlapping segments, provide the existing segment causing a conflict.
+  """
+  conflictingSegment: ScheduleSegment
+
+  """
+  If the error is related to an input out of service-defined bounds, provide the maximum allowed value.
+  """
+  maximum: Int
+
+  """
+  If the error is related to an input out of service-defined bounds, provide the miniimum allowed value.
+  """
+  minimum: Int
+}
+
+"""
+The returned payload when updating a schedule segment.
+"""
+type UpdateScheduleSegmentPayload {
+  """
+  The possible error returned.
+  """
+  error: UpdateScheduleSegmentError
+
+  """
+  The updated schedule with the updated segment.
+  """
+  schedule: Schedule
+}
+
+"""
+The result of an UpdateSeenCreatorOnboardingContent mutation.
+"""
+type UpdateSeenCreatorOnboardingContentPayload {
+  """
+  The user who viewed onboarding content.
+  """
+  user: User
+}
+
+"""
+UpdateSocialMediaPayload returns the updated social media.
+"""
+type UpdateSocialMediaPayload {
+  """
+  The social media channel that was updated.
+  """
+  channel: Channel
+
+  """
+  The potential error when updating a social media.
+  """
+  error: UpdateSocialMediaError
+}
+
+"""
+UpdateSquadInvitePolicyError is the error associated with an updateSquadInvitePolicy.
+"""
+type UpdateSquadInvitePolicyError {
+  """
+  The associated error code.
+  """
+  code: UpdateSquadInvitePolicyErrorCode!
+}
+
+"""
+Returns after the invite policy is mutated.
+"""
+type UpdateSquadInvitePolicyPayload {
+  """
+  The possible error returned from the service.
+  """
+  error: UpdateSquadInvitePolicyError
+
+  """
+  The modified user.
+  """
+  user: User
+}
+
+"""
+UpdateSquadStreamError is the error associated with a updateSquadStream.
+"""
+type UpdateSquadStreamError {
+  """
+  The associated error code.
+  """
+  code: UpdateSquadStreamErrorCode!
+}
+
+"""
+Outputs from the updateSquadStream mutation.
+"""
+type UpdateSquadStreamPayload {
+  """
+  The possible error returned from the service.
+  """
+  error: UpdateSquadStreamError
+
+  """
+  The updated squad stream.
+  """
+  squadStream: SquadStream
+}
+
+"""
+Outputs from the update stucco pack mutation.
+"""
+type UpdateStuccoPackPayload {
+  """
+  The updated stucco pack.
+  """
+  stuccoPack: StuccoPack
+}
+
+"""
+The output for the update stucco mutation.
+"""
+type UpdateStuccoPayload {
+  """
+  The updated stucco.
+  """
+  stucco: Stucco
+}
+
+"""
+Output from the updateSubscriptionProduct mutation.
+"""
+type UpdateSubscriptionProductPayload {
+  """
+  Subscription product output.
+  """
+  product: SubscriptionProduct
+
+  """
+  User/channel to update the subscription product.
+  """
+  targetUser: User
+}
+
+"""
+The possible error returned.
+"""
+type UpdateUserColorsError {
+  """
+  The error code.
+  """
+  code: UpdateUserColorsErrorCode!
+}
+
+"""
+The result of a UpdateUserColorsInput mutation.
+"""
+type UpdateUserColorsPayload {
+  """
+  The possible error returned.
+  """
+  error: UpdateUserColorsError
+
+  """
+  The modified user.
+  """
+  user: User
+}
+
+"""
+The result of a updateUserCreateDateHidden mutation.
+"""
+type UpdateUserCreateDateHiddenPayload {
+  """
+  The modified user.
+  """
+  user: User
+}
+
+"""
+The result of a updateUserDirectoryHidden mutation.
+"""
+type UpdateUserDirectoryHiddenPayload {
+  """
+  The modified user.
+  """
+  user: User
+}
+
+"""
+The result of a updateUserEmailReuseable mutation.
+"""
+type UpdateUserEmailReusablePayload {
+  """
+  The modified user.
+  """
+  user: User
+}
+
+"""
+The possible error returned.
+"""
+type UpdateUserError {
+  """
+  The error code.
+  """
+  code: UpdateUserErrorCode!
+}
+
+"""
+The result of a updateUserIsEmailRevertSuccess mutation.
+"""
+type UpdateUserIsEmailRevertSuccessPayload {
+  """
+  The modified user.
+  """
+  user: User
+}
+
+"""
+The result of an updateUser mutation.
+"""
+type UpdateUserPayload {
+  """
+  The possible error returned.
+  """
+  error: UpdateUserError
+
+  """
+  The modified user.
+  """
+  user: User
+}
+
+"""
+An error returned from the updateUserPredictionSettings mutation.
+"""
+type UpdateUserPredictionSettingsError {
+  """
+  Code describing the error.
+  """
+  code: UpdateUserPredictionSettingsErrorCode!
+}
+
+"""
+Payload for updating a user's Prediction Settings.
+"""
+type UpdateUserPredictionSettingsPayload {
+  """
+  If present, there was an error with the request.
+  """
+  error: UpdateUserPredictionSettingsError
+
+  """
+  The updated settings.
+  """
+  settings: UserPredictionSettings
+}
+
+"""
+UpdateUserSubscriptionGiftSettingsPayload returns the user's current gift settings.
+"""
+type UpdateUserSubscriptionSettingsPayload {
+  subscriptionSettings: UserSubscriptionSettings
+}
+
+"""
+Output from the updateUserTeamMembership mutation.
+"""
+type UpdateUserTeamMembershipPayload {
+  """
+  The user whose membership was modified.
+  """
+  user: User
+}
+
+"""
+Error information in the update user video shelves response.
+"""
+type UpdateUserVideoShelvesError {
+  """
+  An http error code to identify the error response.
+  """
+  code: Int!
+
+  """
+  The translated error response message for this given error.
+  """
+  message: String
+}
+
+"""
+Response to a request to update a user's video shelves.
+"""
+type UpdateUserVideoShelvesPayload {
+  """
+  The error response for this update request.
+  """
+  error: UpdateUserVideoShelvesError
+
+  """
+  The list of shelves for this user.
+  """
+  shelves: [VideoShelf]
+}
+
+"""
+Response to a request to update a resume watching entry for a specified user and video.
+"""
+type UpdateUserViewedVideoPayload {
+  """
+  The video returned from the request.
+  """
+  video: Video
+}
+
+type UpdateVideoCommentPayload {
+  """
+  The comment that was updated.
+  """
+  comment: VideoComment!
+}
+
+"""
+Response to a request to update a video.
+"""
+type UpdateVideoPayload {
+  """
+  The video with updated fields.
+  """
+  video: Video
+}
+
+"""
+Error that may be returned by the UpdateVideoStreamSettings mutation.
+"""
+type UpdateVideoStreamSettingsError {
+  """
+  Type of mutation error.
+  """
+  code: UpdateVideoStreamSettingsErrorCode!
+}
+
+"""
+UpdateVideoStreamSettingsPayload returns the updated video stream settings for the broadcaster.
+"""
+type UpdateVideoStreamSettingsPayload {
+  """
+  The updated Channel for the broadcaster.
+  """
+  channel: Channel
+
+  """
+  Error code.
+  """
+  error: UpdateVideoStreamSettingsError
+}
+
+"""
+Error associated with mutation UpdateVideosViewability.
+"""
+type UpdateVideosViewabilityError {
+  """
+  Error code.
+  """
+  code: UpdateVideosViewabilityErrorCode!
+}
+
+"""
+The returned payload from the DeleteVideos mutation.
+"""
+type UpdateVideosViewabilityPayload {
+  """
+  The possible error returned from service.
+  """
+  error: UpdateVideosViewabilityError
+}
+
+type UpdateVisibilityPayload {
+  """
+  The modified user.
+  """
+  user: User
+}
+
+"""
+The response from the UpdateWhisperSettings mutation.
+"""
+type UpdateWhisperSettingsPayload {
+  """
+  The user whose whisper settings were updated.
+  """
+  user: User
+}
+
+type UpdateWhisperThreadPayload {
+  """
+  Thread that was updated.
+  """
+  thread: WhisperThread!
+}
+
+"""
+Data required to upload an image to the competition.
+"""
+type UploadCompetitionImagePayload {
+  """
+  Used for upload competition image errors.
+  """
+  error: CompetitionUploadImageError
+
+  """
+  The metadata required to access an image for a competition.
+  """
+  image: CompetitionImageUpload
+}
+
+"""
+Individual upload config.
+"""
+type UploadConfig {
+  """
+  Upload id used when listening to pubsub.
+  """
+  ID: ID!
+
+  """
+  URL to upload images to.
+  """
+  URL: String!
+
+  """
+  The type of asset of the emote image that should be uploaded.
+  """
+  assetType: EmoteAssetType!
+
+  """
+  Images that will result out of the upload.
+  """
+  images: [UploadImage!]!
+
+  """
+  Size of the image that should be uploaded.
+  """
+  size: EmoteImageSize!
+}
+
+type UploadImage {
+  """
+  Image ID generated by Mako for image.
+  """
+  ID: ID!
+
+  """
+  Size of the image.
+  """
+  Size: EmoteImageSize!
+
+  """
+  The asset type of the image.
+  """
+  assetType: EmoteAssetType!
+}
+
+"""
+The url metadata of a twitch webpage.
+"""
+type URLMetadata {
+  """
+  The linked data (JSON format) of the page.
+  """
+  jsonld: String
+
+  """
+  The list of metatags of the page.
+  """
+  metatags: [SEOMetatag!]!
+
+  """
+  The data that power URL sharing.
+  """
+  share: URLMetadataShare!
+
+  """
+  The title of the page.
+  """
+  title: String!
+}
+
+"""
+The data that power URL sharing.
+"""
+type URLMetadataShare {
+  """
+  The text to share.
+  """
+  text: String!
+
+  """
+  The title to share.
+  """
+  title: String!
+
+  """
+  The url to share.
+  """
+  url: String!
+}
+
+"""
+UseChatNotificationTokenPayload is the return of the UseChatNotificationToken mutation.
+"""
+type UseChatNotificationTokenPayload {
+  """
+  If the token was successfully used.
+  """
+  isSuccess: Boolean!
+}
+
+"""
+Twitch user.
+"""
+type User {
+  """
+  Information about a user's connected accounts.
+  """
+  accountConnections: AccountConnectionSet!
+
+  """
+  Information about a user's account health status.
+  """
+  accountHealth: UserAccountHealth
+
+  """
+  Fetch active challenges for the user based on a variety of sorting options.
+  By default returns 10 challenges, sorted by start time.
+  """
+  activeChallenges(
+    first: Int = 10
+    after: Cursor
+    sort: ChannelChallengeSort = START_TIME
+    direction: SortOrder = DESC
+  ): ChannelChallengeConnection
+
+  """
+  An action that a user or session is performing. This field is null if the user is not friends with
+  the authenticated user.
+  """
+  activity: Activity
+
+  """
+  Ad Properties for the given user.
+  """
+  adProperties: AdProperties
+
+  """
+  The user's relationship with Amazon.
+  """
+  amazon: UserAmazonConnection @deprecated(reason: "Retail sales discontinued")
+
+  """
+  List of authenticated Twitch sessions.
+  """
+  authenticatedSessionList: [AuthenticatedSession!]
+
+  """
+  AutoModProperties is a mapping of automod categories to levels, i.e. a user has indicated they want level 4, or
+  the highest level of moderation for profanity, but level 1 for everything
+  else. (These are based on Sift levels, and will be deprecated).
+  """
+  autoModProperties: AutoModProperties
+
+  """
+  A user's configured auto refill information, contains all auto refill profiles.
+  Will have an optional filter argument in the future.
+  """
+  autoRefill: AutoRefill
+
+  """
+  The list of channels that this user has configured to automatically host
+  when their channel is not streaming live. Users can only view their own
+  autohost channels.
+  """
+  autohostChannels: AutohostChannelConnection
+
+  """
+  Options and preferences for autohost behavior, including whether
+  autohosting is enabled at all and how to choose which channel to host.
+  Users can only view their own autohost settings.
+  """
+  autohostSettings: AutohostSettings
+
+  """
+  The list of channels that have added this user as a channel to automatically host when their channel is not
+  streaming live. Users can only view their own autohosted by channels.
+  """
+  autohostedByChannels: AutohostedByChannelConnection
+
+  """
+  An action that a user or session is performing. This field is null if the user is not friends with
+  the authenticated user.
+  """
+  availability: Availability
+
+  """
+  The badges which are available for the authenticated user to select for use on
+  another user's streams and videos if no channel-specific preference is set.
+  If no domain is not specified, all emote sets will be returned.
+  This is only returned if the request is authenticated by the same user whose email is requested.
+  """
+  availableBadges(domains: [BadgeDomain!]): [Badge]
+
+  """
+  A list of this user's balances in FIAT currencies
+  If this isn't the `currentUser` this will return null.
+  """
+  balances(walletType: WalletType): [Balance] @deprecated(reason: "Use walletBalances")
+
+  """
+  A list of this user's banned users.
+  A maximum of 100 users by most recent are returned
+  Only resolves for the authenticated user.
+  """
+  bannedUsers: [ChannelBannedUser!]
+
+  """
+  A URL to the user's banner image.
+  """
+  bannerImageURL: String
+
+  """
+  bitsBalance is the number of bits this user currently has available to spend.
+  If this isn't the `currentUser` or the user has been banned from using bits this will return null.
+  This field can only be requested if an OAuth token is supplied with the request.
+  """
+  bitsBalance: Int
+
+  """
+  bitsEvents returns a paginated list of this user's bits usage transactions
+  If this isn't the `currentUser` this will return null.
+  This field can only be requested if an OAuth token is supplied with the request.
+  """
+  bitsEvents(
+    first: Int = 50
+    after: Cursor
+    criteria: BitsEventConnectionCriteriaInput!
+  ): BitsEventConnection
+
+  """
+  bitsOffers is a list of the ways this user can obtain more bits.
+  If this isn't the `currentUser` or the user has been banned from using bits this will return null.
+  This field can only be requested if an OAuth token is supplied with the request.
+  """
+  bitsOffers: [BitsOffer]
+
+  """
+  BitsPaymentMethods has a list of eligible payment methods for a user to transact with.
+  """
+  bitsPaymentMethods: BitsPaymentMethods
+
+  """
+  BitsProductEligibility checks for a given user if they are eligible to purchase a given product from the associated
+  provider, quantity, and locale.
+  bitsProduct(id: ID!, provider: BitsProductProvider!, quantity: Int!, locale: String!): BitsProductEligibility!
+  bitsProducts is a list of bits products that a user is able to purchase.
+  Unlike bitsOffers, this does not return any pricing information, only information
+  about the purchasable. A provider must be supplied, which is the payment platform
+  being currently used. An optional list of SKUs can be provided if we are looking up
+  a specific set of products for a user.
+  """
+  bitsProducts(
+    provider: BitsProductProvider!
+    skus: [String!]
+    paymentProvider: PaymentProvider
+  ): [BitsProduct!]
+
+  """
+  Settings tied to a bits user.
+  """
+  bitsUserSettings: BitsUserSettings
+
+  """
+  bitsUserState dictates the state of the Bits user (new to Bits, existing Bits user, etc.)
+  If this isn't the `currentUser` or the user has been banned from using bits this will return null.
+  This field can only be requested if an OAuth token is supplied with the request.
+  """
+  bitsUserState: BitsUserState
+
+  """
+  Resolves account information that Twitch has stored for a user's blizzard account information.
+  """
+  blizzardAccount: BlizzardUser
+
+  """
+  Get the blocked terms of a user.
+  """
+  blockedTerms: [ChannelBlockedTerm!]!
+
+  """
+  blockedUsers returns a list users that are restrained from directly communicating with this user.
+  """
+  blockedUsers: [User]!
+
+  """
+  bounties is a list of bounty board bounties for this user.
+  """
+  bounties(status: String!): [Bounty!] @deprecated(reason: "Use user.bountiesPage instead")
+
+  """
+  bountiesPage is a paginated list of bounty board bounties for this user.
+  """
+  bountiesPage(first: Int = 10, after: Cursor, status: String!): BountyConnection
+
+  """
+  bountyBoardSettings are settings and rules around the behavior of bounty boards for this user.
+  """
+  bountyBoardSettings: BountyBoardSettings
+
+  """
+  Badges that are displayed in chat during this user's broacasts or videos.
+  """
+  broadcastBadges: [Badge]
+
+  """
+  A User's broadcast settings that persists between streams.
+  """
+  broadcastSettings: BroadcastSettings
+
+  """
+  A User's campaign for their channel.
+  """
+  campaign(campaignID: ID!): Campaign @deprecated(reason: "campaign events have been deprecated")
+
+  """
+  A User's campaign properties for their channel.
+  """
+  campaignProperties: CampaignProperties @deprecated(reason: "campaign events have been deprecated")
+
+  """
+  A container for celebration settings for the logged in user.
+  """
+  celebrationSettings: CelebrationUserSettings
+
+  """
+  The channel which belongs to the user. This is still deprecated for previous uses.
+  This should only be used for the multi-view experience.
+  """
+  channel: Channel
+
+  """
+  What other similar content are my viewers watching.
+  """
+  channelAnalyticsContentOverlap: ChannelAnalyticsContentOverlap
+
+  """
+  A user's channel feed.
+  No authorization required.  Returns even if channel feed is disabled in the UI.
+  """
+  channelFeed: Feed
+
+  """
+  Returns the list of chatrooms in the channel visible by the current user.
+  """
+  channelRooms: [Room]! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Hex color of the user's name in chat, e.g. "#ccaa44".
+  """
+  chatColor: String
+
+  """
+  chatSettings are settings and rules for chatting in this user's channel.
+  """
+  chatSettings: ChatSettings
+
+  """
+  chatUISettings are settings for the user's chat UI.
+  """
+  chatUISettings: ChatUISettings
+
+  """
+  cheer is the channel-specific cheer settings and current state.
+  Returns null if cheering isn't enabled for this channel.
+  """
+  cheer: CheerInfo
+
+  """
+  The list of OAuth clients authorized by the current user.
+  """
+  clientAuthorizations: [ClientAuthorization!]
+
+  """
+  A paginated list of clips featuring this user.
+  When criteria is not specified, the default values are used.
+  """
+  clips(first: Int = 10, after: Cursor, criteria: UserClipsInput): ClipConnection
+
+  """
+  A paginated list of collections (playlists) created by the user.
+  """
+  collections(first: Int = 10, after: Cursor, options: CollectionsOptions): CollectionsConnection
+
+  """
+  Properties relating to the authenticated user's community points on twitch.
+  """
+  communityPoints: CommunityPointsUserProperties
+
+  """
+  The company that the user belongs to.
+  Returns null if the user doesn't belong to a company.
+  """
+  company: Company @deprecated(reason: "Use organizations instead.")
+
+  """
+  The competitions that a user is involved in.
+  Returns null if the user doesn't have any competitions.
+  user and competition state can be null.
+  """
+  competitions(
+    first: Int = 10
+    after: Cursor
+    userState: CompetitionPlayerState
+    competitionState: CompetitionState
+    userCompetitionRelationship: UserCompetitionRelationship!
+  ): CompetitionConnection
+
+  """
+  When the user created their account.
+  """
+  createdAt: Time!
+
+  """
+  The container for creator gifts the creator has. This will be null if the creator
+  does not have this feature enabled.
+  """
+  creatorGifting: CreatorGifting
+
+  """
+  Creator metrics for the given time period.
+  """
+  creatorMetricsByInterval(
+    startAt: Time!
+    endAt: Time!
+    timeZone: String
+    numberOfIntervals: Int = 1
+  ): CreatorMetricsByInterval
+
+  """
+  Get the user's referral links sorted by most recently created first. Will be a
+  null CreatorReferralLinkConnection if the user is not eligible.
+  """
+  creatorReferralLinks(first: Int = 1, after: Cursor): CreatorReferralLinkConnection
+
+  """
+  Get the user's creator referral link statistics summary.
+  """
+  creatorReferralSummary(startAt: Time!, endAt: Time!): CreatorReferralSummary!
+
+  """
+  Paginated past activities for the Dashboard Activity Feed.
+  Always ordered by descending timestamp.
+  """
+  dashboardActivityFeedActivities(
+    first: Int = 10
+    after: Cursor
+  ): DashboardActivityFeedActivityConnection
+
+  """
+  Paginated past activities for the Dashboard Alert Queue.
+  Always ordered by descending timestamp.
+  """
+  dashboardAlertQueueActivities(
+    first: Int = 10
+    after: Cursor
+  ): DashboardAlertQueueActivityConnection
+
+  """
+  Preferences that control what alerts are sent to the user for the Dashboard Alert Queue.
+  """
+  dashboardAlertQueuePreferences: DashboardAlertQueuePreferences
+
+  """
+  Timestamp when a user's account was deleted/disabled.
+  """
+  deletedAt: Time
+
+  """
+  A user-provided blurb describing themselves.
+  Returns null when a description has not been set.
+  """
+  description: String
+
+  """
+  The directories the user is currently set to broadcast in.
+  """
+  directories: UserDirectoryConnection
+
+  """
+  Lists the chat badges that should be displayed by the user's display name in
+  features like chat and whispers. If a channelID is passed in, fetches the
+  display badges that user will have in that channel's context.
+  Includes the following badges:
+  - global authority (staff/admin/global mod)
+  - channel authority (broadcaster/mod, if channelID is set)
+  - subscriber (if channelID is set)
+  - channel selected (bits) or global selected (prime, turbo, ...).
+  """
+  displayBadges(channelID: ID, channelLogin: String): [Badge]!
+
+  """
+  A user-styled version of their login.
+  For international users, this could be the user's login with localized characters.
+  """
+  displayName: String!
+
+  """
+  Number of DMCA violations user has received.
+  """
+  dmcaViolationCount: Int
+
+  """
+  A drop 2.0 campaign including personal settings (e.g. account connection status). (Viewer dashboard individual item).
+  """
+  dropCampaign(id: ID!): DropCampaign
+
+  """
+  A list of all available Drops 2.0 Campaigns that a user is eligible to participate in. (Viewer dashboard list).
+  """
+  dropCampaigns: [DropCampaign!]
+
+  """
+  Fetch User's current session, which describes the minutes-watched progress towards a drop.
+  """
+  dropCurrentSession: DropCurrentSession
+
+  """
+  A list of channels where the user is an editor.
+  """
+  editableChannels: EditableChannelConnection
+
+  """
+  A list of channel editors.
+  """
+  editors: EditorConnection
+
+  """
+  The user's email address.
+  This is only returned if the request is authenticated by the same user who's email is requested.
+  """
+  email: String
+
+  """
+  The emote sets this user is entitled to use.
+  If no domains are specified, all emote sets will be returned.
+  If multiple domains are specified, emotes that belong to either domain are returned (OR).
+  If this user is not the current user, it returns nil and a "forbidden" error.
+  """
+  emoteSets(domains: [EmoteSetDomain!]): [EmoteSet!]
+
+  """
+  The channel's emoticon prefix settings.
+  """
+  emoticonPrefix: EmoticonPrefix
+
+  """
+  The list channels that have been endorsed by the user.
+  """
+  endorsedChannels(
+    first: Int = 10
+    recommendationsContext: RecommendationsContext!
+  ): EndorsedChannelConnection
+
+  """
+  A paginated list of user's all expired subscriptions.
+  Only resolves for the current user. Returns a forbidden error if requested for another user.
+  """
+  expiredSubscriptions(first: Int = 10, after: Cursor): ExpiredSubscriptionConnection
+
+  """
+  Feature flags specific to this user.
+  Always returns nil.
+  """
+  featureFlags: FeatureFlags @deprecated(reason: "this functionality has been removed")
+
+  """
+  A follow relationship between this user and the one which has the target ID or login.
+  Null if no relationship exists.
+  """
+  follow(targetID: ID, targetLogin: String): Follow
+    @deprecated(reason: "Use user.self.follower instead.")
+
+  """
+  Retrieves a list of games which the user is following.
+  """
+  followedGames(first: Int = 10, type: FollowedGamesType = ALL): FollowedGameConnection
+
+  """
+  A list of broadcasters this user follows, who are hosting other broadcasters.
+  Only resolves for the authenticated user.
+  """
+  followedHosts(first: Int = 10): FollowedHostConnection
+    @deprecated(
+      reason: "This field is intended to be replaced as soon as an alternative is available."
+    )
+
+  """
+  A list of live-streaming broadcasters this user is following.
+  Only resolves for the authenticated user.
+  NOTE: the sort input parameter is not supported and should not be used.
+  """
+  followedLiveUsers(
+    first: Int = 10
+    after: Cursor
+    includeRestricted: [StreamRestrictionType!]
+    sort: StreamSort = VIEWER_COUNT
+  ): FollowedLiveUserConnection
+    @deprecated(
+      reason: "This field is intended to be replaced as soon as an alternative is available."
+    )
+
+  """
+  Retrieves recent/popular VODs from the streamers you follow.
+  If this isn't the `currentUser` this will return null.
+  """
+  followedVideos(
+    first: Int = 10
+    after: Cursor
+    languages: [String!]
+    types: [BroadcastType!]
+    sort: VideoSort = TIME
+  ): VideoConnection
+
+  """
+  A paginated list of users which follow this user.
+  """
+  followers(first: Int = 10, after: Cursor, order: SortOrder = ASC): FollowerConnection
+
+  """
+  A paginated list of users this user is following.
+  """
+  follows(
+    first: Int = 10
+    after: Cursor
+    filter: FollowsFilter = ALL
+    order: SortOrder = ASC
+  ): FollowConnection
+
+  """
+  A list of this user's Twitch friends.
+  A maximum of 500 friends are returned, although most users have less than the maximum.
+  Only accessible if the user is authenticated with the `user_presence_friends_read` scope.
+  """
+  friends: FriendConnection
+
+  """
+  Notification connection information for a time range.
+  """
+  goLiveNotificationConnection(
+    startAt: Time!
+    endAt: Time!
+    first: Int = 100
+    after: Cursor
+    sort: SortOrder = DESC
+  ): GoLiveNotificationConnection
+
+  """
+  Notification information for a time range.
+  """
+  goLiveNotifications(
+    startAt: Time!
+    endAt: Time!
+    first: Int = 100
+    sort: SortOrder = DESC
+  ): [GoLiveNotification!]
+
+  """
+  Notifications timeseries analytics for a time range.
+  """
+  goLiveNotificationsTimeseries(
+    startAt: Time!
+    endAt: Time!
+    granularity: Granularity!
+    numberOfIntervals: Int = 1
+    timeZone: String!
+  ): [GoLiveNotificationTimeseries!]
+
+  """
+  Always returns false, will be deleted soon.
+  """
+  hasBadgesTimedOut: Boolean! @deprecated(reason: "this functionality has been removed")
+
+  """
+  Whether this user has Twitch Presto.
+  """
+  hasPresto: Boolean
+
+  """
+  Whether this user has Twitch Prime.
+  """
+  hasPrime: Boolean!
+
+  """
+  Whether this user has streamed before.
+  """
+  hasStreamed: Boolean
+
+  """
+  Whether this user has Twitch Turbo.
+  """
+  hasTurbo: Boolean!
+
+  """
+  Whether this user has unread creator changelog items.
+  """
+  hasUnreadChangelogItems: Boolean
+
+  """
+  This user's Hero configuration.
+  """
+  hero: Hero
+
+  """
+  A curated list of suggested channels to host.
+  """
+  hostRecommendations: [User]
+
+  """
+  The users hosting this user.
+  This field only resolves for the authenticated user, otherwise resolves to null.
+  """
+  hostedBy(first: Int = 10, after: Cursor): HostConnection
+
+  """
+  The user who this user is hosting.
+  """
+  hosting: User
+
+  """
+  The user's unique identifier.
+  """
+  id: ID!
+
+  """
+  Returns a SHA-1 hash of the id field.
+  """
+  idSHA1: ID!
+
+  """
+  A list of open friend requests sent to this user. Friend requests from non-strangers are always placed in front of
+  friend requests from strangers; `sort` affects how the two components are ordered within themselves. Only accessible
+  if the user is authenticated with the `user_presence_friends_read` scope.
+  """
+  incomingFriendRequests(
+    first: Int = 10
+    after: Cursor
+    sort: FriendSort = DESC
+  ): IncomingFriendRequestConnection
+
+  """
+  A list of the squad stream invitations that the user has received.
+  Each invitation has a network type of either in-network or out-of-network. The invitations are sorted by creation
+  time, with the latest invitation first.
+  This field only resolves for the authenticated user.
+  """
+  incomingSquadStreamInvitations: SquadStreamInvitationConnection
+
+  """
+  The list of extensions the user has installed.
+  installedExtensions gives a set of Extension installations, but does not include some of the information required
+  to render extensions.  For this, use extensionsForChannel instead, where you will get more accurate response, and
+  which includes fetched extension configuration and extension permissions.
+  """
+  installedExtensions: [ExtensionInstallation!]
+
+  """
+  Items (crates, drops, etc.) the user owns.
+  """
+  inventory: Inventory
+
+  """
+  A list of teams that the user has been invited to.
+  Only resolves for the current user.
+  """
+  invitedTeams: [Team]
+
+  """
+  Whether or not the broadcaster is eligible for payout through twitch game commerce revenue share.
+  """
+  isCommerceRevShareEnabled: Boolean! @deprecated(reason: "Game sales discontinued")
+
+  """
+  Whether the user's Twitch account is connected to a Twitter account.
+  Returns nil if there was an error. This field is only accessible on the current user.
+  """
+  isConnectedToTwitter: Boolean
+
+  """
+  Whether or not the user has enabled their email to be reused to create another twitch account.
+  """
+  isEmailReusable: Boolean!
+
+  """
+  Whether or not the user can update their email.
+  """
+  isEmailUpdateable: Boolean!
+
+  """
+  Whether or not the user has verified their email address by clicking a link sent to their email.
+  """
+  isEmailVerified: Boolean!
+
+  """
+  Indicates that the owner of the email on the account did not signup for this account
+  This mainly implies that the account is being deleted and not eligible for self service reactivation.
+  """
+  isFlaggedToDelete: Boolean!
+
+  """
+  Whether or not the user can moderate any broadcast chat.
+  """
+  isGlobalMod: Boolean! @deprecated(reason: "Use user.roles.isGlobalMod instead.")
+
+  """
+  Whether or not the user is in good standing, granting automatic emote approval.
+  Passes both the authed twitch user who is requesting and the user they are requesting.
+  Applies to both affiliates and partners.
+  """
+  isInEmoteGoodStanding: Boolean
+
+  """
+  Whether or not the user is in good standing generally.
+  Authenticated to current user. Will error if not a partner.
+  """
+  isInGoodStanding: Boolean!
+
+  """
+  Whether the user meets the GDPR compliance as per his/her country's minimum compliance age.
+  """
+  isMinimumGDPRConsentAge: Boolean!
+
+  """
+  Whether or not the user is moderator of a another user's channel.
+  """
+  isModerator(channelID: String!): Boolean!
+
+  """
+  Whether or not the user is a partnered broadcaster with Twitch.
+  """
+  isPartner: Boolean @deprecated(reason: "Use user.roles.isPartner instead.")
+
+  """
+  Whether or not the user has verified their phone number.
+  This is currently always true if the user has a phone number.
+  We do not not allow a user to set a phone number without verifying.
+  """
+  isPhoneNumberVerified: Boolean!
+
+  """
+  Whether or not the user is a site admininistrator.
+  """
+  isSiteAdmin: Boolean! @deprecated(reason: "Use user.roles.isSiteAdmin instead.")
+
+  """
+  Whether or not the user is a Twitch staff member.
+  """
+  isStaff: Boolean! @deprecated(reason: "Use user.roles.isStaff instead.")
+
+  """
+  The key pools associated with a user.
+  """
+  keyPools(after: String): KeyPoolConnection
+
+  """
+  The user's language preference.
+  """
+  language: Language @deprecated(reason: "Use user.settings.preferredLanguageTag instead.")
+
+  """
+  The user's last broadcast.
+  """
+  lastBroadcast: Broadcast
+
+  """
+  When the user last updated their login name.
+  This special field only resolves for the authenticated user.
+  """
+  lastLoginChangeAt: Time
+
+  """
+  The last time the user's availability or activity changed.
+  This special field only resolves for the authenticated user; use friends.edges.lastStatusChangeAt to retrieve this
+  information about friends..
+  Requires the `user_presence_friends_read` scope.
+  """
+  lastStatusChangeAt: Time
+
+  """
+  Fetches the latest created Poll for the user.
+  """
+  latestPoll: Poll
+
+  """
+  The extensions this user has shared their identity with.
+  """
+  linkedExtensions: [Extension!]
+
+  """
+  The user's standard alphanumeric Twitch name.
+  """
+  login: String!
+
+  """
+  The user's profile image.
+  Valid widths are 28, 50, 70, 150, 300, and 600.
+  The image height will be the same as the given width.
+  """
+  logoURL(width: Int!): String @deprecated(reason: "Replaced by profileImageURL")
+
+  """
+  Lists a User's Uploaded Loyalty Badge.
+  """
+  loyaltyBadges: [LoyaltyBadge!]
+
+  """
+  Returns the max number of channel rooms that the current user is allowed to
+  create for their channel.
+  """
+  maxAllowedChannelRooms: Int! @deprecated(reason: "The Rooms product has been sunset")
+
+  """
+  Returns a resolver to query different subsets of the moderation logs.
+  """
+  modLogs: ModLogs
+
+  """
+  Returns all channel roles' access permissions to moderator logs.
+  """
+  modLogsAccess: [ModLogsAccess!]
+
+  """
+  Returns a channel role's access permission to moderator logs.
+  """
+  modLogsRoleAccess(role: ChannelUserRole!): ModLogsAccess
+
+  """
+  A user's settings related to the moderation view page.
+  """
+  modViewSettings: ModViewSettings
+
+  """
+  Returns a paginated list of channel moderators.
+  """
+  mods(first: Int = 10, after: Cursor): ModConnection
+
+  """
+  A user's event notification settings.
+  """
+  notificationSettings: [EventNotificationSetting!]
+
+  """
+  A user's notifications.
+  This is only returned if the request is authenticated by the same user whose onsite notifications are requested.
+  `language` is a letter code for the language the requesting user speaks (ex. "en").
+  """
+  notifications(
+    first: Int = 10
+    after: Cursor
+    language: String
+    displayType: OnsiteNotificationDisplayType
+    capabilities: [OnsiteNotificationsCapability!]
+  ): OnsiteNotificationConnection
+
+  """
+  OAuth applications developed by the current user.
+  """
+  oauthApps(after: Cursor): OAuthAppConnection
+
+  """
+  A URL to the image that is displayed when the user is not broadcasting nor hosting another user's broadcast.
+  """
+  offlineImageURL: String
+
+  """
+  Information about the current user's onboarding state.
+  """
+  onboarding: Onboarding @deprecated(reason: "This feature has been sunset.")
+
+  """
+  List of invites to join an organization.
+  """
+  organizationInvites(first: Int = 10, after: Cursor): OrganizationInviteUserConnection
+
+  """
+  Returns a list of developer organizations.
+  Returns null if the user doesn't belong to any organizations.
+  """
+  organizations: [Organization!]
+
+  """
+  A list of open friend requests sent by this user. Friend requests to non-strangers are always placed in front of
+  friend requests to strangers; `sort` affects how the two components are ordered within themselves. Only accessible
+  if the user is authenticated with the `user_presence_friends_read` scope.
+  """
+  outgoingFriendRequests(
+    first: Int = 10
+    after: Cursor
+    sort: FriendSort = DESC
+  ): OutgoingFriendRequestConnection
+
+  """
+  A list of teams owned by the user.
+  Only resolves for the current user.
+  """
+  ownedTeams: [Team]
+
+  """
+  panels is a list of `Panel` objects with information related to this channel.
+  """
+  panels(hideExtensions: Boolean = false): [Panel]!
+
+  """
+  Fetch participating challenges for the user based on a variety of sorting options.
+  By default returns 10 challenges, sorted by end time.
+  """
+  participatingChallenges(
+    first: Int = 10
+    after: Cursor
+    sort: ChannelChallengeSort = END_TIME
+    direction: SortOrder = ASC
+    status: [ChannelChallengeStatus!]
+  ): ChannelChallengeConnection
+
+  """
+  Non-partnered users can submit a partnership application via createPartnershipApplication mutation.
+  PartnershipApplication includes the status of the most recently submitted application.
+  """
+  partnershipApplication: PartnershipApplication
+
+  """
+  Whether or not the user is able to be paid.
+  """
+  payableStatus: PayableStatus
+
+  """
+  Metrics that are relevant to incentive-based contracts for some partnered
+  streamers. This API returns a year-to-date, rolling list of the past 12
+  months and includes the current (in-progress) month.
+  """
+  paymentIncentiveMetrics: [PaymentIncentiveMetricsRollup!]
+
+  """
+  Holds configuration necessary to start payment method management. Only the
+  authenticated user can access their own configs.
+  This is the second step of the payment method management flow.
+  (User.paymentMethods -> User.paymentMethodConfigs -> Mutation.setDefaultPaymentMethod).
+  """
+  paymentMethodConfigs: PaymentProviderConfigs
+
+  """
+  List of payment methods that will be used to pay for Twitch subscriptions that renew in the future
+  This is the first step of the payment method management flow.
+  (User.paymentMethods -> User.paymentMethodConfigs -> Mutation.setDefaultPaymentMethod).
+  """
+  paymentMethods: [PaymentMethod!]
+
+  """
+  Get user's list of payment transactions. This currently aggregates subscriptions related transactions but plans
+  to also aggregate other product types such as Bits. The ultimate goal is to record, aggregate, and provide the
+  payment history of Twitch users in a convenient way.
+  """
+  paymentTransactions(
+    first: Int = 50
+    after: Cursor
+    criteria: PaymentTransactionConnectionCriteriaInput!
+  ): PaymentTransactionConnection
+
+  """
+  Payout Information.
+  """
+  payout: Payout
+
+  """
+  Accrued balance since last payout.
+  """
+  payoutBalance: PayoutBalance
+
+  """
+  A user's invite into a payout program.
+  """
+  payoutInvite: PayoutInvite
+
+  """
+  List of payout plans a user has when enrolled in any payout programs.
+  """
+  payoutPlans: [PayoutPlan!]
+
+  """
+  Get the permitted terms of a user.
+  """
+  permittedTerms: [ChannelPermittedTerm!]!
+
+  """
+  The user's phone number. Format is always in E.164 format.
+  This is only returned if the request is authenticated by the same user whose phone is requested.
+  """
+  phoneNumber: String
+
+  """
+  Fetch polls for the user based on a variety of sorting options.
+  By default returns 15 polls, sorted by start time.
+  """
+  polls(
+    first: Int = 15
+    after: Cursor
+    sort: PollSort = START_TIME
+    direction: SortOrder = DESC
+    status: [PollStatus!]
+  ): PollConnection
+
+  """
+  Options and preferences for how the user participates in Predictions Events.
+  Users can only view their own Predictions Settings.
+  """
+  predictionsSettings: UserPredictionSettings
+
+  """
+  The amount of preroll free time in seconds that a user has earned on their channel.
+  """
+  prerollFreeTimeSeconds: Int
+
+  """
+  The hex string for the user's primary creator color.
+  Example: "FFFFFF".
+  """
+  primaryColorHex: String
+
+  """
+  The primary team this user belongs to. A user may belong to more than one team at the same time but must select a single
+  team as the primary. If the user doesn't have a primary team this will be null.
+  """
+  primaryTeam: Team
+
+  """
+  Always returns null, will be removed soon.
+  """
+  primePayoutDetails: PrimePayoutDetails
+    @deprecated(reason: "Use primePayoutHistory, this will be removed soon")
+
+  """
+  The prime payout details over a period of time for the user.
+  """
+  primePayoutHistory: [PrimePayoutDetail!]
+
+  """
+  The Twitch Prime settings data for the user.
+  """
+  primeSettings: PrimeSettings
+
+  """
+  A URL to the user's profile image.
+  Valid widths are 28, 50, 70, 96, 150, 300, and 600.
+  The image height will be the same as the given width.
+  """
+  profileImageURL(width: Int!): String
+
+  """
+  The URL to viewing this user's profile.
+  This is typically https://twitch.tv/<login> .
+  """
+  profileURL: String!
+
+  """
+  The number of views this user's profile has received since creation.
+  """
+  profileViewCount: Int
+
+  """
+  The program agreement for a user enrolled in a payout program.
+  """
+  programAgreement: ProgramAgreement
+
+  """
+  A user's pulse feed.
+  This is only returned if the request is authenticated by the same user whose email is requested.
+  """
+  pulseFeed: Feed
+
+  """
+  PurchaseOrder returns a user's purchase order.
+  """
+  purchaseOrder(id: ID!): PurchaseOrder
+
+  """
+  Quests associated with a user.
+  """
+  quests: Quests
+
+  """
+  Twitch Radio for the user.
+  """
+  radio: Radio
+
+  """
+  Twitch Radio account information.
+  """
+  radioAccount: RadioAccount @deprecated(reason: "Use user.radio.account instead.")
+
+  """
+  Always returns null.
+  """
+  raid: Raid @deprecated(reason: "this feature has been moved")
+
+  """
+  Preferences for raid behavior, including whether
+  raids are enabled and from whom can raids orignate.
+  Users can only view their own raid settings.
+  """
+  raidSettings: RaidSettings
+
+  """
+  An array of recent raids by the broadcaster.
+  """
+  recentRaids: [Raid!]
+
+  """
+  The feedback a user has given about recommended content.
+  """
+  recommendationFeedback(
+    limit: Int = 5
+    after: Cursor
+    type: String!
+  ): RecommendationFeedbackConnection
+
+  """
+  Recommendations for the user. Recommendations can be retrieved only if the request
+  is authenticated and only for the authenticated user.
+  """
+  recommendations: Recommendations
+
+  """
+  The recommended prefix which is generated based on user name.
+  """
+  recommendedEmoticonPrefix: String!
+
+  """
+  This user's relationship with another user.
+  """
+  relationship(targetUserID: ID): UserRelationship
+
+  """
+  User's declared country of residence.
+  """
+  residence: UserResidence
+
+  """
+  Info on rewarded video for a user (eligibility).
+  """
+  rewardedVideo: RewardedVideo
+
+  """
+  The roles this user fulfills on Twitch.
+  """
+  roles: UserRoles
+
+  """
+  Search through a paginated list of public and private videos for this user.
+  """
+  searchVideos(first: Int = 10, after: Cursor, search: VideoConnectionSearchParams): VideoConnection
+
+  """
+  A list of streamer onboarding content IDs that that the user has been shown, and when it was first shown.
+  """
+  seenCreatorOnboardingContent: [CreatorOnboardingContent!]
+
+  """
+  The badge this user has selected for global use on Twitch.
+  """
+  selectedBadge: Badge
+
+  """
+  The authenticated user's relationship with this user.
+  """
+  self: UserSelfConnection
+
+  """
+  Loads the extension installation data for the queried userID's channel that is relevant to the calling user.
+  This includes the extension configuration data & auth tokens for the extension-channel-user combination.
+  """
+  selfInstalledExtensions(isMobile: Boolean = false): [ExtensionInstallationSelfEdge!]
+
+  """
+  The settings this user has on Twitch.
+  """
+  settings: UserSettings
+
+  """
+  The squad stream that this user is currently a member of, or null if the user is not a member of
+  any squad stream.
+  """
+  squadStream: SquadStream
+
+  """
+  squadStreamSettings are the user's rules and settings for the squad stream feature.
+  Some fields only resolve for the authenticated user. See schema definition for more detail.
+  """
+  squadStreamSettings: SquadStreamSettings
+
+  """
+  The relationship between the authenticated user and the single sign-on (SSO)
+  apps they have linked to their Twitch account.
+  """
+  ssoLinks(app: String): [SSOLink!] @deprecated(reason: "Service has been shut down")
+
+  """
+  The user's live stream.
+  Null if the user is not currently broadcasting.
+  """
+  stream: Stream
+
+  """
+  A list of the start and end times of stream sessions.
+  """
+  streamSessions(first: Int, lastStartedAt: Time): [StreamSession!]
+
+  """
+  A list stream sessions that started and ended during the specified interval.
+  """
+  streamSessionsByInterval(startAt: Time!, endAt: Time!): [StreamSession!]
+
+  """
+  A list of stream summaries. Stream summaries provide analytics information
+  for a streaming session. Last started time is for querying sessions from a previous time stamp.
+  """
+  streamSummaries(first: Int, lastStartedAt: Time): [StreamSummary!]
+
+  """
+  Stucco packs displayed in the user's dashboard stucco settings.
+  """
+  stuccoPacksBroadcaster: [StuccoPack]
+
+  """
+  stuccos available in the library in the user's dashboard stucco settings.
+  """
+  stuccos: [Stucco]
+
+  """
+  A list of channels to which the user is subscribed.
+  Only resolves for the authenticated user.
+  """
+  subscribedChannels(first: Int = 10, after: Cursor, live: Boolean): SubscribedChannelConnection
+
+  """
+  The subscription score of the user. Returns both a breakdown of subscriptions and points by tier.
+  Authenticated to the current user. Will be nil if the user is not a partner or affiliate.
+  """
+  subscriberScore: SubscriberScore
+
+  """
+  A paginated list of user's all active subscriptions.
+  Only resolves for the current user. Returns a forbidden error if requested for another user.
+  """
+  subscriptionBenefits(
+    first: Int = 10
+    after: Cursor
+    criteria: SubscriptionBenefitCriteriaInput!
+  ): SubscriptionBenefitConnection
+
+  """
+  A list of subscription products available for purchase on the user's page.
+  """
+  subscriptionProducts: [SubscriptionProduct]
+
+  """
+  A list of subscription products available for purchase on the user's page, including handleable errors.
+  """
+  subscriptionProductsResult: SubscriptionProductsResult!
+
+  """
+  Subscription preferences for the current user.
+  Only resolves for the current user. Returns an error if request for another user.
+  """
+  subscriptionSettings: UserSubscriptionSettings
+
+  """
+  Subtoken information associated with the user.
+  Includes balance of tokens which can be used to redeem Subscriptions.
+  """
+  subscriptionToken: SubscriptionToken
+
+  """
+  Analytics of the frequency of tags used in discovery.
+  """
+  tagAnalytics: [TagAnalytic!]
+
+  """
+  Tags are used as a discovery and search mechanism for channels.
+  The tag data is from Graffiti directly. Graffiti is not designed to handle huge traffic.
+  Please use Stream.tags instead if know the stream is live and you can accept a 5 min delay in the data.
+  For example, you should use Stream.tags for the channel page and the browse page, but use User.tags for the dashboard.
+  """
+  tags: [Tag!]
+
+  """
+  A list of UserTeamMemberships which includes all the teams the user is a member of.
+  This includes the primary team.
+  Only resolves for the current user.
+  """
+  teamMemberships: [UserTeamMembership]
+
+  """
+  Retrieves all the statistics within the start and end time broken down by granularity.
+  Default endAt time will be the current time (now).
+  Granularity defaults to 5 minutes.
+  """
+  timeseriesStats(
+    startAt: Time!
+    endAt: Time
+    timeZone: String!
+    granularity: Granularity = FIVE_MINUTE
+  ): TimeseriesStats
+
+  """
+  Tournament associated with the user. This is used with the Bits custom cheering experience.
+  """
+  tournament: Tournament @deprecated
+
+  """
+  The user's relationship with Twitch.
+  """
+  twitch: UserTwitchConnection
+
+  """
+  Get unacknowledged subscription events.
+  """
+  unacknowledgedSubscriptionEvents(platform: String!): [UnacknowledgedSubscriptionEvent!]
+
+  """
+  When the user last updated their account.
+  Returns null when the user's account has never been updated.
+  """
+  updatedAt: Time
+
+  """
+  Verification request object for the user and an associated contact address.
+  If no address is provided, the current email address associated with the user account will be used.
+  """
+  verificationRequest(address: String): VerificationRequest
+
+  """
+  Aggregated analytics for several video referral sources, for use in channel analytics.
+  """
+  videoPlayReferrals(
+    start: Time!
+    end: Time!
+    filter: ReferralsFilter = ALL
+    dimension: ReferralsDimension!
+    first: Int = 15
+  ): VideoPlayReferrals
+
+  """
+  A paginated list of video shelves to display on the user's channel.
+  """
+  videoShelves(first: Int = 10, after: Cursor, options: ShelvesOptions): VideoShelfConnection
+
+  """
+  A paginated list of video shelves that are available to be displayed on the
+  user's channel. Only accessible for authorized users (user & editors).
+  """
+  videoShelvesAvailable(
+    first: Int = 10
+    after: Cursor
+    options: ShelvesAvailableOptions
+  ): VideoShelfConnection
+
+  """
+  A paginated list of videos for this user.
+  """
+  videos(
+    first: Int = 10
+    after: Cursor
+    type: BroadcastType
+    types: [BroadcastType!]
+    sort: VideoSort = TIME
+    options: VideoConnectionOptionsInput
+  ): VideoConnection
+
+  """
+  The viewable poll for a channel.
+  Null if no viewable poll is present.
+  """
+  viewablePoll: Poll
+
+  """
+  A paginated list of viewed videos and their histories for this user.
+  Only resolves for current user.
+  """
+  viewedVideos(first: Int = 10): ViewedVideosConnection
+
+  """
+  A paginated list of channel VIPs.
+  """
+  vips(first: Int = 10, after: Cursor): VIPConnection
+
+  """
+  A user's balances in their Twitch Wallet in different FIAT currencies
+  If this isn't the `currentUser` this will return null.
+  """
+  walletBalances(walletType: WalletType, bestGuessCountryCode: String): WalletBalances
+
+  """
+  A list of restrictions that prevent a user from hosting Watch Parties. A
+  user can only host Watch Parties if there are no restrictions.
+  """
+  watchPartiesRestrictions: [WatchPartiesRestriction!]
+
+  """
+  A Watch Party if the User is currently broadcasting one.
+  """
+  watchParty(accessToken: String, decorated: Boolean = false): WatchPartyResult
+
+  """
+  Settings related to the Whispers (private user-to-user messaging) feature.
+  Only resolves for the authenticated user.
+  """
+  whisperSettings: WhisperSettings
+
+  """
+  A paginated list of whisper threads for the current user, sorted by recent first.
+  """
+  whisperThreads(first: Int = 10, after: Cursor): WhisperThreadConnection
+
+  """
+  Withholding Tax Detail is the withholding tax rates for the creator.
+  """
+  withholdingTaxDetail: WithholdingTaxDetail
+}
+
+"""
+Groups users account health information around security of their account.
+"""
+type UserAccountHealth {
+  """
+  Is the user required to reset their password.
+  """
+  isPasswordResetRequired: Boolean!
+
+  """
+  Is the users email address verified.
+  """
+  isVerifiedEmail: Boolean!
+
+  """
+  Current status of the users password.
+  """
+  passwordStatus: PasswordStatus!
+
+  """
+  The list of Two factor Methods the user has registered with.
+  Empty list means the user does not have two factor.
+  """
+  twoFactorMethods: [TwoFactorMethod!]!
+}
+
+"""
+The relationship between the user and Amazon.
+"""
+type UserAmazonConnection {
+  """
+  The Amazon associates store linked to this user.
+  """
+  associatesStore: AssociatesStore
+}
+
+"""
+The edge between a User and a Blizzard connection.
+"""
+type UserBlizzardConnectionLink {
+  """
+  Returns battletag if available. Can be string or nil.
+  """
+  battleTag: String
+}
+
+"""
+Paginated list of Users, where the relationship between the source type and the User is
+generic enough that no information needs to be encoded on the edge.
+"""
+type UserConnection {
+  edges: [UserEdge!]
+  pageInfo: PageInfo!
+
+  """
+  The total number of users.
+  """
+  totalCount: Int
+}
+
+"""
+The connection between a user and the directories they have selected to broadcast in.
+"""
+type UserDirectoryConnection {
+  """
+  The directories selected by this user.
+  """
+  nodes: [Directory]!
+}
+
+"""
+When resolving a User, the underlying service may claim that
+no user actually exists for the inputs (i.e. banned, deleted, or
+there's no record of an account with that login/ID).
+"""
+type UserDoesNotExist {
+  """
+  Key that was used to resolve the user, could be an ID or login.
+  """
+  key: String!
+}
+
+"""
+A list of Drops awarded to the user. // deprecated.
+"""
+type UserDropAwardConnection {
+  """
+  The Drops awarded to the user.
+  """
+  nodes: [DropAward]! @deprecated
+
+  """
+  The number of drop awards a user has received.
+  """
+  totalCount: Int @deprecated
+}
+
+"""
+A list of Drops awarded to the user via Drops2.0.
+"""
+type UserDropReward {
+  """
+  The DropBenefit that a user is entitled to.
+  """
+  benefit: DropBenefit!
+
+  """
+  The game that awarded the Drop.
+  """
+  game: Game @deprecated(reason: "use benefit.Game")
+
+  """
+  The assigned ID of the awarded reward.
+  """
+  id: ID! @deprecated(reason: "use benefit.id")
+
+  """
+  The image URL of the Benefit. Images are 80x80 pixels.
+  """
+  imageURL: String! @deprecated(reason: "use benefit.imageAssetURL")
+
+  """
+  Flag if the user is connected to the game in order to receive the Reward.
+  """
+  isConnected: Boolean!
+
+  """
+  Specifies if this reward is considered for a game that is available on iOS.
+  """
+  isIosAvailable: Boolean! @deprecated(reason: "use benefit.isIosAvailable")
+
+  """
+  The timestamp when the Benefit was last awarded to the user.
+  """
+  lastAwardedAt: Time!
+
+  """
+  The developer-provided name of the awarded Benefit.
+  """
+  name: String! @deprecated(reason: "use benefit.name")
+
+  """
+  Link where the user can connect their account necessary to receive the reward.
+  """
+  requiredAccountLink: String! @deprecated(reason: "use benefit.accountLinkURL")
+
+  """
+  The number of drop awards a user has received.
+  """
+  totalCount: Int!
+}
+
+"""
+Generic edge between some type and a User, where there is no information that needs to
+to be encoded on the edge.
+"""
+type UserEdge {
+  cursor: Cursor
+  node: User
+}
+
+"""
+An attempt to resolve a user has failed due to an error.
+"""
+type UserError {
+  """
+  Key that was used to resolve the user, could be an ID or login.
+  """
+  key: String!
+}
+
+"""
+The edge between a User and a Facebook connection.
+"""
+type UserFacebookConnectionLink {
+  """
+  The user's full name on Facebook. eg. "John Doe".
+  """
+  fullName: String!
+}
+
+"""
+UserLeaderboard contains a leaderboard whose entries are Users.
+"""
+type UserLeaderboard {
+  """
+  id is the id of this leaderboard.
+  """
+  id: ID!
+
+  """
+  items is the list of users in the leaderboard ordered by their score.
+  """
+  items: UserLeaderboardItemConnection!
+
+  """
+  myPosition contains the item representing the authed user's position on this leaderboard.
+  """
+  myPosition: UserLeaderboardItem
+
+  """
+  SecondsRemaining is the number of seconds left before the leaderboard expires (or zero for all-time).
+  """
+  secondsRemaining: Int!
+}
+
+"""
+UserLeaderboardItem at a specific node in a leaderboard connection.
+"""
+type UserLeaderboardItem {
+  """
+  id the id of this leaderboard item.
+  """
+  id: ID!
+
+  """
+  rank the ordinal rank of this leaderboard item.
+  """
+  rank: Int!
+
+  """
+  score the numerical value by which this leaderboard is sorted.
+  """
+  score: Int!
+
+  """
+  user is the user that holds this position.
+  """
+  user: User
+}
+
+"""
+UserLeaderboardItemConnection is used to show the various leaderboard items.
+"""
+type UserLeaderboardItemConnection {
+  """
+  edges ...
+  """
+  edges: [UserLeaderboardItemEdge!]!
+
+  """
+  pageInfo ...
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+UserLeaderboardItemEdge describes an edge in a bits leaderboard.
+"""
+type UserLeaderboardItemEdge {
+  """
+  The cursor for this leaderboard edge.
+  """
+  cursor: Cursor!
+
+  """
+  The leaderboard entry at this edge.
+  """
+  node: UserLeaderboardItem
+}
+
+"""
+Options and preferences for how the user participates in Predictions Events.
+Users can only view their own Predictions Settings.
+"""
+type UserPredictionSettings {
+  """
+  Whether the user has accepted the latest Predictions Terms of Service.
+  """
+  hasAcceptedTOS: Boolean!
+
+  """
+  Whether the user is in a region that is restricted from participation in making predictions.
+  """
+  isInRestrictedRegion: Boolean
+
+  """
+  Whether the user has opted to display a temporary chat badge indicating their choices during Predictions Events.
+  """
+  isTemporaryChatBadgeEnabled: Boolean!
+}
+
+"""
+Statistics concerning how a user has performed when making Predictions in a given channel.
+"""
+type UserPredictionStatistics {
+  """
+  The total number of events that this user has participated in on this channel.
+  """
+  eventsTotal: Int!
+
+  """
+  The number of events that this user has successfully predicted in this channel.
+  """
+  eventsWon: Int!
+
+  """
+  The most recent prediction made by this user on this channel. Null if they have not made a Prediction recently.
+  """
+  mostRecentPrediction: Prediction
+
+  """
+  The total number of points that this user has spent making predictions in this channel.
+  """
+  pointsUsed: Int!
+
+  """
+  The total number of points that this user has won from correct predictions in this channel.
+  """
+  pointsWon: Int!
+
+  """
+  The highest number of points that this user has won from a correct prediction in this channel.
+  """
+  pointsWonMax: Int!
+
+  """
+  The user's current win-streak in Events on this channel.
+  """
+  winStreak: Int!
+
+  """
+  The highest win-streak in Events on this channel the user has ever had.
+  """
+  winStreakMax: Int!
+}
+
+"""
+Subjective data on a User (user/channel) for the target user.
+"""
+type UserRelationship {
+  """
+  The time when a follower relationship between the user and the target user was established.
+  """
+  followedAt: Time
+
+  """
+  Statistics concerning how well the target user has performed in Prediction Events on the user's channel.
+  """
+  predictionStatistics: UserPredictionStatistics
+
+  """
+  The subscription benefit relationship between the user and the target user.
+  Null if the user is not subscribed to the other user.
+  """
+  subscriptionBenefit: SubscriptionBenefit
+
+  """
+  Subscription tenure data for the user to the target user.
+  """
+  subscriptionTenure(tenureMethod: SubscriptionTenureMethod!): SubscriptionTenure
+}
+
+"""
+User's residence.
+"""
+type UserResidence {
+  """
+  Country in ISO alpha-2.
+  """
+  countryCode: String!
+
+  """
+  Postal code.
+  """
+  postalCode: String
+}
+
+"""
+The edge between a User and a Youtube Connection.
+"""
+type UserRiotConnectionLink {
+  """
+  The PUUID for the user's Riot account.
+  """
+  id: ID!
+}
+
+"""
+Groups site-wide user roles together.
+"""
+type UserRoles {
+  """
+  Whether or not the user is enrolled in the affiliate program.
+  See https://affiliate.twitch.tv for more information.
+  """
+  isAffiliate: Boolean
+
+  """
+  Whether or not the user is allowed to approve extensions on Twitch.
+  """
+  isExtensionsApprover: Boolean
+    @deprecated(reason: "This role is no longer surfaced through the API")
+
+  """
+  Whether or not the user is enrolled in the extensions developer program.
+  See https://dev.twitch.tv/docs/extensions/onboarding for more information.
+  """
+  isExtensionsDeveloper: Boolean
+
+  """
+  Whether or not the user can moderate any broadcast chat.
+  """
+  isGlobalMod: Boolean
+
+  """
+  Whether or not the user is a partnered broadcaster with Twitch.
+  """
+  isPartner: Boolean
+
+  """
+  Whether or not the user is a site admininistrator.
+  """
+  isSiteAdmin: Boolean
+
+  """
+  Whether or not the user is a Twitch staff member.
+  """
+  isStaff: Boolean
+}
+
+"""
+UserSelfBitsBadge contains the current user's badge tier in a channel and progress toward the next tier.
+NOTE: should probably have been named CurrentUserBitsBadge.
+"""
+type UserSelfBitsBadge {
+  """
+  current is the highest bits chat badge the authenticated user has achieved in this channel.
+  If a badge tier is disabled after being earned it will still appear here until the next tier is earned.
+  If the user hasn't earned any bits badges yet this will be null.
+  """
+  current: Badge
+  id: ID!
+
+  """
+  next is the next chat badge the authenticated user can earn in this channel.
+  If this is null then there are no higher tiers to earn.
+  """
+  next: Badge
+
+  """
+  nextBits is the bits value of the next chat badge the authenticated user can earn in this channel.
+  If this is null then there are no higher tiers to earn.
+  """
+  nextBits: Int
+
+  """
+  progress is the fraction of the way the user is toward the next badge tier [0.0-1.0).
+  If `next` is null this will be zero.
+  """
+  progress: Float!
+
+  """
+  tierNotification represents a notification sent to a user when they have achieved
+  a new bits badge in a channel. Used to send a special message.
+  If no notification is pending this will be null.
+  """
+  tierNotification: BitsBadgeTierNotification
+
+  """
+  totalBits is the number of bits the authenticated user has used in this channel.
+  """
+  totalBits: Int!
+}
+
+"""
+Subjective data on another User (user/channel) for the current user.
+"""
+type UserSelfConnection {
+  """
+  The badges which are available for the authenticated user to select for use on another user's streams and videos.
+  """
+  availableBadges: [Badge]
+
+  """
+  Ban status of the authenticated user with respect to this user's channel.
+  """
+  banStatus: ChatRoomBanStatus
+
+  """
+  bitsBadge contains information about bits badge progression in a channel.
+  This field can only be requested if an OAuth token is supplied with the request.
+  """
+  bitsBadge: UserSelfBitsBadge
+
+  """
+  The bits leaderboard entry shows the current user's entry in the
+  channel's leaderboard. It does not show context entries around it.
+  """
+  bitsLeaderboardEntry: BitsLeaderboardEntry
+    @deprecated(reason: "use user.self.bitsLeaderboardItem instead.")
+
+  """
+  The bits leaderboard item shows the current user's entry in the
+  channel's leaderboard. It does not show context entries around it.
+  """
+  bitsLeaderboardItem: BitsLeaderboardItem
+
+  """
+  The bits leaderboard position shows the curreent users rank
+  and the surrounding users in the current channel.
+  """
+  bitsLeaderboardPosition: BitsLeaderboard
+
+  """
+  Whether or not the authenticated user can follow this user.
+  """
+  canFollow: Boolean!
+
+  """
+  CanGift relationship between the authenticated user, another user, and a product.
+  True is the authenticated user can gift the product to the other user.
+  """
+  canGift(product: String!): Boolean!
+    @deprecated(reason: "Transitioning to SubscriptionProductSelfConnection instead")
+
+  """
+  CanGiftInChannel relationship between the authenticated user and a product.
+  True is the authenticated user is allowed to send gifts in this channel.
+  """
+  canGiftInChannel(product: String!): Boolean!
+    @deprecated(reason: "Transitioning to SubscriptionProductSelfConnection instead")
+
+  """
+  Checks if the authenticated user can subscribe to this channel via Prime.
+  """
+  canPrimeSubscribe: Boolean!
+
+  """
+  Whether the authenticated user has permission to redeem a subscription to this Channel.
+  Return Values are.
+  1) Null - The Channel to which the User is subscribed to is not supporting any subscription redemption.
+  2) False - The User has already utilized their redemption to the channel offering subscription redemption.
+  2) True - The User can use the subscription redemption offered by the channel.
+  """
+  canRedeemSubscription: Boolean
+
+  """
+  The list of celebration products available for the authenticated user to purchase in this channel.
+  """
+  celebrationProducts: [CelebrationProduct]
+
+  """
+  If the authenticated user cannot chat in this channel, a list of reasons.
+  Null if the user can chat.
+  """
+  chatRestrictedReasons: [ChatRestrictedReason!]
+
+  """
+  Lists the chat badges that should be displayed by the user's display name in
+  features on a particular user's channel (i.e. chat, feeds).
+  Includes the following badges:
+  - global authority (staff/admin/global mod)
+  - channel authority (broadcaster/mod)
+  - subscriber
+  - channel selected (bits) or global selected (prime, turbo, ...).
+  """
+  displayBadges: [Badge]!
+
+  """
+  A follower relationship between the authenticated user and another user.
+  Null if the relationship does not exist.
+  """
+  follower: FollowerEdge
+
+  """
+  The friendship-type relationship (friendship, incoming friend request, outgoing friend request) between the
+  authenticated user and another user. Null if no friendship-type relationship exists.
+  """
+  friendship: FriendRelationship
+
+  """
+  True if the authenticated user has joined this channel.
+  """
+  isChannelMember: Boolean
+
+  """
+  Whether or not the authenticated user is editor of another user's channel.
+  """
+  isEditor: Boolean
+
+  """
+  Whether or not the authenticated user is a founder badge owner of another user's channel.
+  """
+  isFounder: Boolean
+
+  """
+  Whether or not the authenticated user is a moderator of another user's channel.
+  """
+  isModerator: Boolean
+
+  """
+  Whether or not the authenticated user is a VIP of another user's channel.
+  """
+  isVIP: Boolean
+
+  """
+  The timestamp of the last time the authenticated user sent a chat message in
+  another user's channel within the last 30 minutes.
+  Null if the authenticated user has not chatted in the channel in the last 30 minutes.
+  """
+  lastRecentChatMessageAt: Time
+
+  """
+  Information about the authenticated user's Prime subscription credit benefit.
+  """
+  primeSubCreditBenefit: PrimeSubCreditBenefit
+
+  """
+  The most recent resub token to use for sending a special message.
+  If no notification is pending this will be null.
+  """
+  resubNotification: ResubNotification
+
+  """
+  Lists ritual tokens that can be requested or displayed to the user in another user's channel.
+  """
+  ritualTokens: [RitualToken!]
+
+  """
+  The badge the authenticated user selected for use on another user's streams and videos.
+  """
+  selectedBadge: Badge
+
+  """
+  Stucco packs that are available to viewers of a broadcaster.
+  """
+  stuccoPacksViewer: [StuccoPack]
+
+  """
+  The current subscriber badge that a user would have if subscribed & remaining locked subscriber badges with progress.
+  """
+  subscriberBadgeProgress(limit: Int = 5): [SubscriberBadgeProgress!]
+
+  """
+  The subscription benefit relationship between the authenticated user and another user.
+  Null if the authenticated user is not subscribed to the other user.
+  """
+  subscriptionBenefit: SubscriptionBenefit
+
+  """
+  The number of gift subscriptions that the authenticated user has given to other users in this channel.
+  """
+  subscriptionGiftCount: Int
+
+  """
+  Subscription tenure data for the user to this channel.
+  """
+  subscriptionTenure(tenureMethod: SubscriptionTenureMethod!): SubscriptionTenure
+
+  """
+  Whether the authenticated user can send or receive Whispers to/from another user.
+  """
+  whisperPermissions: WhisperPermissions
+}
+
+"""
+Groups site-wide user settings together.
+"""
+type UserSettings {
+  """
+  Whether the user is whitelisted to host Prime Video watch parties. This
+  takes precedence over user.watchPartiesRestrictions.
+  """
+  canHostWatchParties: Boolean!
+
+  """
+  The user's channel feed on/off switch.
+  The channel feed is displayed if set to true and is
+  hidden if set to false.
+  """
+  channelFeedEnabled: Boolean! @deprecated
+
+  """
+  The cheer settings for a user, configured in their partner dashboard.
+  """
+  cheer: CheerPartnerSettings
+
+  """
+  Whether or not the user has a second authentication method configured.
+  """
+  hasTwoFactorEnabled: Boolean
+
+  """
+  Whether or not the broadcaster is eligible for payout through Amazon retail revenue share.
+  """
+  isAmazonRetailRevShareEnabled: Boolean @deprecated(reason: "Game sales discontinued")
+
+  """
+  Whether or not the broadcaster is eligible for payout through twitch game commerce revenue share.
+  """
+  isCommerceRevShareEnabled: Boolean @deprecated(reason: "Game sales discontinued")
+
+  """
+  Whether or not the user has requested that their registration date be hidden in the viewer card.
+  """
+  isCreateDateHidden: Boolean
+
+  """
+  Whether or not the user has elected to be hidden from search results.
+  """
+  isDirectoryHidden: Boolean
+
+  """
+  Whether or not the email was successfully reverted.
+  """
+  isEmailRevertSuccess: Boolean
+
+  """
+  Whether the user's channel has rituals enabled.
+  """
+  isRitualsEnabled: Boolean!
+
+  """
+  Whether the user's channel is whitelisted into the rituals experiment.
+  """
+  isRitualsWhitelisted: Boolean! @deprecated(reason: "Rituals is whitelisted only for launch.")
+
+  """
+  The user's activity sharing setting.
+  Activity is the part of a user's status that shows what they're currently playing, watching, or streaming.
+  Requires the `user_presence_friends_read` scope.
+  """
+  isSharingActivity: Boolean!
+
+  """
+  Partner settings related to leaderboards.
+  """
+  leaderboard: LeaderboardSettings
+
+  """
+  The user's preferred language tag for displaying text content.
+  """
+  preferredLanguageTag: LanguageTag
+
+  """
+  The user's shared availability while online.
+  A value of ONLINE (typically called "invisibility") additionally means that the user's activity will not be shared
+  regardless of the isSharingActivity setting.
+  Requires the `user_presence_friends_read` scope.
+  """
+  visibility: Visibility!
+}
+
+"""
+The edge between a User and a Steam connection.
+"""
+type UserSteamConnectionLink {
+  """
+  A Steam user ID.
+  """
+  id: ID!
+}
+
+"""
+UserSubscriptionSettings displays the users subscription settings.
+"""
+type UserSubscriptionSettings {
+  """
+  If the user only wants to receive gifts to channels they follow.
+  """
+  giftsToFollowedChannelsOnly: Boolean!
+
+  """
+  If the user wants to hide Badge Modifier.
+  """
+  isBadgeModifierHidden: Boolean!
+
+  """
+  If the user wants to hide their Founder Badges.
+  """
+  isFounderBadgesHidden: Boolean!
+
+  """
+  If the user wants to hide the number of gifts they've gifted.
+  """
+  isGiftCountHidden: Boolean!
+
+  """
+  If the user wants to hide their subscription tenure and status in the chat viewer card.
+  """
+  isSubscriptionStatusHidden: Boolean!
+}
+
+"""
+UserTeamMembership represents a User's membership to a Twitch Team.
+UserTeamMemberships are collections of teams that the User is a part of.
+"""
+type UserTeamMembership {
+  """
+  Whether the team is the primary team for the given User.
+  """
+  isPrimary: Boolean!
+
+  """
+  Whether the team is revenue revealed for the given User.
+  """
+  isRevenueRevealed: Boolean!
+
+  """
+  Whether the team is stats revealed for the given User.
+  """
+  isStatsRevealed: Boolean!
+
+  """
+  The Team the user is a member of.
+  """
+  team: Team!
+}
+
+"""
+The relationship between the user and Twitch.
+"""
+type UserTwitchConnection {
+  """
+  Returns the User's preferred team in Overwatch League.
+  """
+  overwatchLeagueTeamPreference: OverwatchLeagueTeamPreference
+}
+
+"""
+The edge between a User and a Twitter connection.
+"""
+type UserTwitterConnectionLink {
+  """
+  A Twitter username, without the "@" (eg. "Twitch").
+  """
+  username: String!
+}
+
+"""
+The edge between a User and a Youtube Connection.
+"""
+type UserYoutubeConnectionLink {
+  """
+  The URL for the user's Youtube channel.
+  """
+  channelURL: String!
+}

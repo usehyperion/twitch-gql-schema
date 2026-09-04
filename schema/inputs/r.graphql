@@ -1,0 +1,862 @@
+"""
+RateExtensionInput submits a user's rating and feedback on a Twitch extension.
+"""
+input RateExtensionInput {
+  """
+  The ID of the extension being rated.
+  """
+  extensionClientID: ID!
+
+  """
+  The version of the extension being rated.
+  """
+  extensionVersion: String!
+
+  """
+  Whether the user recommends the extension or not.
+  """
+  isRecommended: Boolean!
+
+  """
+  Indicates from where the user submitted the rating.
+  """
+  location: ExtensionRatingLocation!
+
+  """
+  The ID of the user performing the rating.
+  """
+  userID: ID!
+}
+
+input ReadNotificationsInput {
+  """
+  IDs of the notifications to set as read. The minimum number is 1 and the maximum is 100.
+  """
+  ids: [ID!]!
+}
+
+"""
+RecommendationsContext define parameters which can control recommendations logic.
+Clients should strive to fill in as many fields as possible for the highest quality recommendaitons.
+Many of these fields should be identical to what is sent in pageview events:
+https://blueprint.di.xarth.tv/#/schema/pageview.
+"""
+input RecommendationsContext {
+  """
+  The 'app_window_height' field sent in pageview events.
+  """
+  appWindowHeight: Int
+
+  """
+  The 'app_window_width' field sent in pageview events.
+  """
+  appWindowWidth: Int
+
+  """
+  The 'client_app' field sent in pageview events.
+  """
+  clientApp: String
+
+  """
+  Optional ISO country code, defaults to use the country code from the geoip of the request.
+  """
+  country: String
+
+  """
+  The 'location' field sent in pageview events (signifying the location on the site or app).
+  """
+  location: String
+
+  """
+  Web, ios, android, etc.
+  """
+  platform: String
+
+  """
+  The 'referrer_domain' field sent in pageview events.
+  """
+  referrerDomain: String
+
+  """
+  The 'viewport_height' field sent in pageview events.
+  """
+  viewportHeight: Int
+
+  """
+  The 'viewport_width' field sent in pageview events.
+  """
+  viewportWidth: Int
+}
+
+"""
+The input for recording an ad event.
+"""
+input RecordAdEventInput {
+  """
+  The ad event name.
+  """
+  eventName: String!
+
+  """
+  Ad details JSON encoded as a string.
+  """
+  eventPayload: String!
+
+  """
+  The RAd service token used for validation.
+  """
+  radToken: String!
+}
+
+"""
+The input for claiming a key code.
+"""
+input RedeemClaimableInput {
+  """
+  Optional param for user's self-declared country of residence.
+  Currently only used for Gift Card Redemptions.
+  """
+  countryOfResidence: String
+
+  """
+  The key code that needs to be claimed.
+  """
+  keyCode: String!
+}
+
+"""
+Input for redeeming a custom Community Points reward in a channel.
+"""
+input RedeemCommunityPointsCustomRewardInput {
+  """
+  The channel ID that the reward is being redeemed in.
+  """
+  channelID: ID!
+
+  """
+  The cost that the client expects this reward to cost.
+  If this cost is different from the reward's true cost, the request will fail.
+  """
+  cost: Int!
+
+  """
+  The prompt that the client expects this reward to have.
+  If this prompt is different from the reward's true prompt, the request will fail.
+  Should be null if the reward does not have a prompt.
+  """
+  prompt: String
+
+  """
+  The unique reward ID.
+  """
+  rewardID: ID!
+
+  """
+  For rewards that require text input, this is the user-supplied text.
+  Discarded if the reward does not require text input.
+  """
+  textInput: String
+
+  """
+  The title that the client expects this reward to have.
+  If this title is different from the reward's true title, the request will fail.
+  """
+  title: String!
+
+  """
+  Client-set identifier for the transaction. This ID should be universally unique.
+  """
+  transactionID: ID!
+}
+
+"""
+RedeeemCreatorGiftsInput the input for redeeming subscriptions from a creator's balance.
+"""
+input RedeemCreatorGiftsInput {
+  """
+  The amount of balance to redeem. This value must be greater than 0 and less than the creator's
+  standing balance.
+  """
+  amount: Int!
+}
+
+"""
+RedeemRitualTokenInput is the input when redeeming a ritual token.
+"""
+input RedeemRitualTokenInput {
+  """
+  The channel to redeem the token in.
+  """
+  channelID: ID!
+
+  """
+  User-specified text to send with the token redemption.
+  """
+  messageText: String
+
+  """
+  The type of ritual to be redeemed.
+  """
+  type: RitualTokenType!
+}
+
+"""
+RedeemSubscriptionInput creates a new subscription redemption input.
+"""
+input RedeemSubscriptionInput {
+  """
+  The channelID to which the user is currently subscribed to and is allowing to redeem a subscription.
+  """
+  fromChannelID: ID!
+
+  """
+  The channelID to which the user wants to redeem their subscription to.
+  """
+  targetChannelID: ID!
+
+  """
+  The User who is trying to redeem the subscription.
+  """
+  userID: ID!
+}
+
+input RedeemTrueXAdInput {
+  """
+  args are parameters describing the engagement the user just completed for bits.
+  """
+  args: String!
+
+  """
+  signature is a digital signature protecting the integrity of `args`.
+  """
+  signature: String!
+
+  """
+  targetID is the `User.id` of the channel where the user is watching the ad.
+  """
+  targetID: ID
+
+  """
+  trueXAd is descriptive information about the engagement that was just shown.
+  This information is useful for logging errors on the server-side.
+  """
+  trueXAd: TrueXAd
+}
+
+"""
+The required input for an RefreshExtensionToken mutation.
+"""
+input RefreshExtensionTokenInput {
+  """
+  The id of the channel the extension is currently installed on.
+  """
+  channelID: ID!
+
+  """
+  The ID of the extension that the user is refreshing their token for.
+  """
+  extensionID: ID!
+
+  """
+  The current extension jwt being refreshed.
+  """
+  jwt: String
+}
+
+"""
+RegenerateStreamKeyInput is input required to regenerate a broadcaster's stream key.
+"""
+input RegenerateStreamKeyInput {
+  """
+  channelID of the broadcaster.
+  """
+  channelID: ID!
+}
+
+"""
+RegenerateVerificationCodeInput is input required to regenerate a user's verification code in EVS.
+"""
+input RegenerateVerificationCodeInput {
+  """
+  Address that the user is verifying. This will most likely be an email address or phone number.
+  """
+  address: String!
+
+  """
+  Key for the entity associated with the address. This is generally the Twitch ID of the user.
+  """
+  key: String!
+}
+
+"""
+RegisterPayoutInformationInput is the input required to register a user's payout information during payout onboarding.
+"""
+input RegisterPayoutInformationInput {
+  """
+  Birthdate submitted by the user while registering into a payout program.
+  """
+  birthdate: Time!
+
+  """
+  City submitted by the user while registering into a payout program.
+  """
+  city: String!
+
+  """
+  Company Name submitted by the user while registering into a payout program.
+  """
+  companyName: String
+
+  """
+  Country Code (ISO-3166) submitted by the user while registering into a payout program.
+  """
+  countryCode: String!
+
+  """
+  Email submitted by the user while registering into a payout program.
+  """
+  email: String!
+
+  """
+  First Name submitted by the user while registering into a payout program.
+  """
+  firstName: String!
+
+  """
+  Last Name submitted by the user while registering into a payout program.
+  """
+  lastName: String!
+
+  """
+  Middle Name submitted by the user while registering into a payout program.
+  """
+  middleName: String
+
+  """
+  Parent Email submitted by the under age user while registering into a payout program.
+  """
+  parentEmail: String
+
+  """
+  Parent Name submitted by the under age user while registering into a payout program.
+  """
+  parentName: String
+
+  """
+  Postal submitted by the user while registering into a payout program.
+  """
+  postal: String
+
+  """
+  State Code submitted by the user while registering into a payout program.
+  """
+  stateCode: String
+
+  """
+  Primary Address submitted by the user while registering into a payout program.
+  """
+  streetAddress: String!
+
+  """
+  Secondary Address submitted by the user while registering into a payout program.
+  """
+  streetAddress2: String
+
+  """
+  TargetUserID is the ID of the user whose payout information will be registered.
+  """
+  targetUserID: ID!
+}
+
+"""
+The required input for a registerTwoFactorConfirmation mutation.
+"""
+input RegisterTwoFactorConfirmationInput {
+  """
+  The one time password required to complete two factor registration.
+  """
+  oneTimePassword: String!
+
+  """
+  The ID of the user that is requesting to complete registration of two factor authentication.
+  """
+  userID: ID!
+}
+
+"""
+The required input for a registerTwoFactor mutation.
+"""
+input RegisterTwoFactorInput {
+  """
+  The phone number used for two factor registration.
+  """
+  phoneNumber: String!
+
+  """
+  The ID of the user that is requesting to register for two factor authentication.
+  """
+  userID: ID!
+}
+
+input RejectFriendRequestInput {
+  """
+  The authenticated user will reject the friend request sent by the user with an ID equal to targetID.
+  """
+  targetID: ID!
+}
+
+"""
+Inputs to the rejectSquadStreamInvitation mutation.
+"""
+input RejectSquadStreamInvitationInput {
+  """
+  ID of the invitation to be rejected.
+  """
+  invitationID: ID!
+}
+
+"""
+Inputs to the rejectSquadStreamOutOfNetworkInvitations mutation.
+"""
+input RejectSquadStreamOutOfNetworkInvitationsInput {
+  """
+  ID of the user whose out of network invitations will be rejected.
+  """
+  recipientID: ID!
+}
+
+"""
+RemoveAutohostChannelsInput remove channelIDs from a user's list to autohost.
+"""
+input RemoveAutohostChannelsInput {
+  """
+  ChannelIDs that will be removed from the list to autohost.
+  """
+  channelIDs: [ID!]!
+
+  """
+  UserID to update autohost list for.
+  """
+  userID: ID!
+}
+
+"""
+RemoveCollectionItemInput accepts a collectionID and item ID and parameters to remove the item from a collection.
+"""
+input RemoveCollectionItemInput {
+  """
+  The id of the collection.
+  """
+  collectionID: ID!
+
+  """
+  The id of the item of which will be added to the collection.
+  """
+  itemID: ID!
+
+  """
+  The type of item ie. video.
+  """
+  itemType: String!
+}
+
+"""
+RemoveCompetitionPhaseInput contains the inputs required to remove a phase.
+"""
+input RemoveCompetitionPhaseInput {
+  """
+  The competition id of the competition.
+  """
+  competitionID: ID!
+
+  """
+  The id of the competition phase.
+  """
+  phaseID: ID!
+}
+
+"""
+Remove a player from a Competition. If you remove a player that is part of a
+team, the player will removed from the team as well. If that player is a captain
+of the team, the team will no longer have a captain.
+"""
+input RemoveCompetitionPlayerInput {
+  """
+  Unique Competition ID.
+  """
+  competitionID: ID!
+
+  """
+  Twitch user id of the player.
+  """
+  userID: ID!
+}
+
+"""
+Inputs for removing a competition team from a competition.
+"""
+input RemoveCompetitionTeamInput {
+  """
+  ID of the competition.
+  """
+  competitionID: ID!
+
+  """
+  ID of the team.
+  """
+  teamID: ID!
+}
+
+"""
+RemoveEditorInput contains the parameters to revoke the editor status from a user for a channel.
+"""
+input RemoveEditorInput {
+  """
+  The channel from which the editor status of the user will be revoked.
+  """
+  channelID: ID!
+
+  """
+  The ID of the user whose editor status will be revoked.
+  Either targetUserID or targetUserLogin must be provided.
+  """
+  targetUserID: ID
+
+  """
+  The login of the user whose editor status will be revoked.
+  Either targetUserID or targetUserLogin must be provided.
+  """
+  targetUserLogin: String
+}
+
+"""
+The input for remove emote from group.
+"""
+input RemoveEmoteFromGroupInput {
+  """
+  ID of the emote to be removed from its group.
+  """
+  emoteID: ID!
+}
+
+"""
+Inputs to the removeOrganizationMember mutation.
+"""
+input RemoveOrganizationMemberInput {
+  """
+  The ID of the organization.
+  """
+  organizationID: ID!
+
+  """
+  The twitch ID of the organization member.
+  """
+  userID: ID!
+}
+
+input RemoveReactionInput {
+  emoteID: ID!
+  entityID: ID!
+}
+
+"""
+Inputs to the removeSquadStreamMember mutation.
+"""
+input RemoveSquadStreamMemberInput {
+  """
+  The user ID of the member that should be removed from the squad stream.
+  """
+  memberUserID: ID!
+
+  """
+  The ID of the squad stream.
+  """
+  squadStreamID: ID!
+}
+
+"""
+Inputs for removing a stucco (from the library).
+- Active stuccos cannot be removed, they have to be inactive first (not part of a stucco pack).
+"""
+input RemoveStuccoInput {
+  """
+  ID of the channel the stucco is removed from.
+  """
+  channelID: ID!
+
+  """
+  Unique ID of the stucco to be removed.
+  """
+  stuccoID: ID!
+}
+
+"""
+ReorderCollectionItemInput accepts a collectionID and item ID and parameters to update the item order of a collection.
+"""
+input ReorderCollectionItemInput {
+  """
+  The id of the collection.
+  """
+  collectionID: ID!
+
+  """
+  The id of the item of which will be moved in the collection.
+  """
+  itemID: ID!
+
+  """
+  The type of item ie. video.
+  """
+  itemType: String!
+
+  """
+  The new position of the item.
+  """
+  position: Int!
+}
+
+input ReportContentInput {
+  """
+  Content type being reported.
+  """
+  content: ReportContentType!
+
+  """
+  ID of the content being reported.
+  """
+  contentID: ID!
+
+  """
+  The description of the report.
+  """
+  description: String!
+
+  """
+  Extra (content specific) data for the report.
+  """
+  extra: String!
+
+  """
+  Extra arguments required for NetzDG reporting.
+  """
+  netzDGArgs: ReportContentNetzDGInput
+
+  """
+  The reason ID for the report.
+  """
+  reason: ID!
+
+  """
+  ID of the user being reported.
+  """
+  targetID: ID!
+
+  """
+  The path taken through the report wizard.
+  """
+  wizardPath: [String!]
+}
+
+"""
+Extra fields that are required for NetzDG reporting.
+"""
+input ReportContentNetzDGInput {
+  """
+  Who the reporter thinks the offending content is directed to.
+  """
+  contentDirectedTo: ReportContentNetzDGContentDirectedTo!
+
+  """
+  The email address of the reporter.
+  """
+  reporterEmail: String!
+
+  """
+  Who the reporter is reporting on behalf of.
+  """
+  reportingFor: ReportContentNetzDGReportingFor!
+}
+
+"""
+Input to the reportWhisper mutation.
+"""
+input ReportWhisperInput {
+  """
+  The description of the report.
+  """
+  description: String!
+
+  """
+  The reason option for the report.
+  """
+  reason: String!
+
+  """
+  ID of the user being reported.
+  """
+  targetID: ID!
+
+  """
+  The path taken through the report wizard.
+  """
+  wizardPath: [String!]
+}
+
+input ReportWhisperThreadInput {
+  """
+  Reason why the user is reporting the thread.
+  """
+  reason: String
+
+  """
+  ID of user being reported.
+  """
+  targetUserID: ID!
+
+  """
+  ID of thread to report.
+  """
+  threadID: ID!
+}
+
+"""
+RequestRitualTokenInput is the input when requesting a ritual token.
+"""
+input RequestRitualTokenInput {
+  """
+  The channel to request a ritual token in.
+  """
+  channelID: ID!
+
+  """
+  The type of ritual token to request.
+  """
+  type: RitualTokenType!
+}
+
+"""
+ResendVerificationEmailInput is input required to resend the verification email.
+"""
+input ResendVerificationEmailInput {
+  """
+  ID of the user to resend a verification email to.
+  """
+  userID: ID!
+}
+
+"""
+Input for a username reset.
+"""
+input ResetUsernameInput {
+  """
+  The new login for the user.
+  """
+  login: String!
+
+  """
+  The authorization token for the username reset.
+  """
+  resetUsernameToken: String!
+}
+
+"""
+Input for resolving a Prediction Event (and paying out all of the users who predicted correctly).
+"""
+input ResolvePredictionEventInput {
+  """
+  The unique identifier of the Prediction Event to resolve.
+  """
+  eventID: ID!
+
+  """
+  The unique identifier of the Prediction Outcome to select as the winner.
+  """
+  outcomeID: ID!
+}
+
+"""
+Inputs to the respondToTeamInvitation mutation.
+"""
+input RespondToTeamInvitationInput {
+  """
+  Whether the user accepts or declines the team invite.
+  """
+  accepted: Boolean!
+
+  """
+  The team whose invite the user will be responding to.
+  """
+  teamID: ID!
+
+  """
+  The authenticated user who will respond to the team invitation with an ID equal to userID.
+  """
+  userID: ID!
+}
+
+"""
+The input to resume a schedule.
+"""
+input ResumeScheduleInput {
+  """
+  The id of the schedule.
+  """
+  scheduleID: ID!
+}
+
+"""
+RevokeVIPInput contains the parameters to revoke the VIP status of a user from a channel.
+"""
+input RevokeVIPInput {
+  """
+  The channel from which the VIP status of the user will be revoked.
+  """
+  channelID: ID!
+
+  """
+  The ID of the user whose VIP status will be revoked.
+  Either revokeeID or revokeeLogin must be provided.
+  """
+  revokeeID: ID
+
+  """
+  The login of the user whose VIP status will be revoked.
+  Either revokeeID or revokeeLogin must be provided.
+  """
+  revokeeLogin: String
+}
+
+"""
+RotateExtensionSecretsInput includes the necessary parameters for creating a new extension secrets.
+"""
+input RotateExtensionSecretsInput {
+  """
+  Delay is the time delay in seconds between creation & activation of the secret.
+  """
+  delaySeconds: Int!
+
+  """
+  extensionID to generate a the secret for.
+  """
+  extensionID: ID!
+}
+
+"""
+Inputs for running multiplayer ads.
+"""
+input RunMultiplayerAdsInput {
+  """
+  ID of the channel the ads will run on.
+  """
+  channelID: ID!
+
+  """
+  How long the multiplayer ad should run for.
+  """
+  desiredAdDurationSeconds: Int
+
+  """
+  The ID of the ad offers to run.
+  """
+  offerIDs: [ID!]!
+}

@@ -1,0 +1,43 @@
+"""
+Contains an offer ID and offer status.
+"""
+input OfferAndStatus {
+  """
+  Unique Identifier for an offer.
+  """
+  offerID: ID!
+
+  """
+  The status to set the offer to for the specified user.
+  """
+  status: String!
+}
+
+"""
+OfferTagBindingInput defines a key-value pair.
+"""
+input OfferTagBindingInput {
+  """
+  The key of the tag.
+  """
+  key: String!
+
+  """
+  The value of the tag.
+  """
+  value: String!
+}
+
+input OrderPanelsInput {
+  ids: [ID!]!
+}
+
+"""
+Parameters for filtering OrganizationMembers.
+"""
+input OrganizationMembersInput {
+  """
+  Filter members with this role.
+  """
+  role: OrganizationMemberRole
+}

@@ -1,0 +1,184 @@
+"""
+Possible ways of sorting collections of categories.
+"""
+enum GameSort {
+  """
+  Sort by number of concurrent viewers, descending (most viewers first).
+  """
+  VIEWER_COUNT
+
+  """
+  Sort by relevance to the current user.
+  """
+  RELEVANCE
+}
+
+"""
+The possible error enums returned while trying to generate a second factor QR code.
+"""
+enum GenerateSecondFactorQRCodeErrorCode {
+  """
+  The user needs to re-authenticate to perform this operation.
+  """
+  REAUTH_NEEDED
+
+  """
+  The user does not have two factor enabled and cannot generate a QR code.
+  """
+  NO_TWO_FACTOR
+
+  """
+  The user has requested too many second factor QR codes.
+  """
+  REQUEST_THROTTLED
+
+  """
+  The user does not exist.
+  """
+  USER_NOT_FOUND
+
+  """
+  Something unexpected occured.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+An error describing why the issue happened, when relevant.
+"""
+enum GetExtensionSecretsError {
+  """
+  User has indicated an invalid extension id.
+  """
+  INVALID_CLIENT
+
+  """
+  User is unable to read the extension secrets.
+  """
+  UNAUTHORIZED
+
+  """
+  Something went wrong on our side that we need to fix.
+  """
+  INTERNAL
+}
+
+"""
+Types of a gift offer.
+"""
+enum GiftType {
+  """
+  A single recipient gift type.
+  """
+  SINGLE_RECIPIENT
+
+  """
+  A community gift type.
+  """
+  COMMUNITY
+}
+
+"""
+GoRaidErrorCode are the possible errors that this mutation returns.
+"""
+enum GoRaidErrorCode {
+  """
+  The request is missing valid channel parameters.
+  """
+  INVALID_CHANNEL
+
+  """
+  The user tries to unraid without an active raid.
+  """
+  NO_ACTIVE_RAID
+}
+
+"""
+Set based on the auth input type.
+"""
+enum GrantType {
+  """
+  Used for the initial flow after LWA, one-time usage.
+  """
+  AUTHORIZATION_CODE
+
+  """
+  Used for follow up refreshes, can be used as many times as needed.
+  """
+  REFRESH_TOKEN
+}
+
+"""
+GrantVIPErrorCode defines a client error that occurred while granting the VIP status.
+"""
+enum GrantVIPErrorCode {
+  """
+  The channel does not exist.
+  """
+  CHANNEL_NOT_FOUND
+
+  """
+  The granter does not have permission to grant VIP status in this channel.
+  """
+  FORBIDDEN
+
+  """
+  The user who is to be granted the VIP status actually already has the VIP status.
+  """
+  GRANTEE_ALREADY_VIP
+
+  """
+  The user who is to be granted the VIP status is banned or timed out in this channel.
+  """
+  GRANTEE_CHAT_BANNED
+
+  """
+  The user who is to be granted the VIP status does not exist.
+  """
+  GRANTEE_NOT_FOUND
+
+  """
+  The channel has reached the maximum number of users with the VIP status and cannot grant the status to any more users.
+  """
+  MAX_VIPS_REACHED
+
+  """
+  The channel has not completed the VIP Achievement to unlock the VIP feature.
+  """
+  VIP_ACHIEVEMENT_INCOMPLETE
+}
+
+"""
+Different types of granularities supported.
+"""
+enum Granularity {
+  """
+  Bucketed by five minute intervals.
+  """
+  FIVE_MINUTE
+
+  """
+  Bucketed by twenty minute intervals.
+  """
+  TWENTY_MINUTE
+
+  """
+  Bucketed by forty minute intervals.
+  """
+  FORTY_MINUTE
+
+  """
+  Bucketed by day intervals.
+  """
+  DAY
+
+  """
+  Bucketed by week intervals.
+  """
+  WEEK
+
+  """
+  Bucketed by month intervals.
+  """
+  MONTH
+}

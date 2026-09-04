@@ -1,0 +1,13 @@
+type JoinChannelRoomsPayload {
+  channel: User
+}
+
+"""
+Outputs from the joinRaid mutation.
+"""
+type JoinRaidPayload {
+  """
+  The ID of the raid that was joined by the user.
+  """
+  raidID: ID
+}

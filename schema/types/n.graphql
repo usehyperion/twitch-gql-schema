@@ -1,0 +1,34 @@
+"""
+GDPR cookie vendors for vendors that dont support TCF strings, for a user.
+"""
+type NonTCFCookieVendor {
+  """
+  User content status for each vendor.
+  """
+  consentStatus: ConsentStatus!
+
+  """
+  If it’s an advertising, analytics, or essential cookie.
+  """
+  cookieVendorType: CookieVendorType!
+
+  """
+  A flag that shows if the consent is given by the user or by consent service as default value.
+  """
+  hasUserSetConsent: Boolean!
+
+  """
+  A flag that shows if the vendor should be visible to management page.
+  """
+  isVisible: Boolean!
+
+  """
+  Vendor name.
+  """
+  name: VendorName!
+
+  """
+  Url to the Vendor's privacy policy.
+  """
+  policyURL: String!
+}

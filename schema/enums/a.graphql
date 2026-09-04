@@ -1,0 +1,679 @@
+"""
+Client error code.
+"""
+enum AcceptOrganizationInviteErrorCode {
+  """
+  Internal error.
+  """
+  INTERNAL_ERROR
+
+  """
+  Invalid Argument.
+  """
+  INVALID_ARGUMENT
+
+  """
+  Invitation not found.
+  """
+  NOT_FOUND
+
+  """
+  The requesting user does not permission to accept invite.
+  """
+  PERMISSION_DENIED
+
+  """
+  The user doesn't meet the requirements to have this role. For example, when trying to assign the
+  "BILLING_MANAGER" role, but the user doesn't have 2FA enabled or completed Extension Monetization Onboarding.
+  """
+  MEMBER_INELIGIBLE
+
+  """
+  Organization Member already exists.
+  """
+  ALREADY_EXISTS
+
+  """
+  User is exceeds the the limit of organization they can be a member for.
+  """
+  EXCEEDS_MEMBERSHIP_LIMIT
+}
+
+"""
+Enumerates possible errors when accepting a program agreement.
+"""
+enum AcceptProgramAgreementError {
+  """
+  Must have auth credentials to agree to a program agreement.
+  """
+  UNAUTHENTICATED
+
+  """
+  User does not have permission to agree to the program agreement for the targeted user.
+  """
+  FORBIDDEN
+
+  """
+  Version of the agreement provided in the input is not valid.
+  """
+  INVALID_AGREEMENT_VERSION
+
+  """
+  An internal error has occurred.
+  """
+  INTERNAL_ERROR
+}
+
+"""
+Possible errors from this mutation.
+"""
+enum AcceptSquadStreamInvitationErrorCode {
+  """
+  Invitation to be accepted does not exist.
+  """
+  INVITATION_NOT_FOUND
+
+  """
+  Squad associated with the invitation does not exist.
+  """
+  SQUAD_NOT_FOUND
+
+  """
+  User does not have permissions to accept invitation.
+  """
+  UNAUTHORIZED
+
+  """
+  Invitation not in pending state cannot be accepted.
+  """
+  INVITATION_CANNOT_BE_ACCEPTED
+
+  """
+  The recipient does not have access to squad streams.
+  """
+  USER_CANNOT_ACCESS_SQUADS
+}
+
+"""
+Possible error codes from the acknowledgePredictionResult mutation.
+"""
+enum AcknowledgePredictionResultErrorCode {
+  """
+  The authorized user is forbidden from acknowledging this Prediction result.
+  """
+  FORBIDDEN
+
+  """
+  The specified Prediction ID was not found.
+  """
+  NOT_FOUND
+
+  """
+  The specified Prediction ID has not been resolved yet.
+  """
+  NOT_RESOLVED
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+ActivationState contains possible activation states found in the ActivationConfig.
+"""
+enum ActivationState {
+  """
+  The extension is activated into a slot on the channel.
+  """
+  ACTIVE
+
+  """
+  The extension has not been activated into a slot or required permsissions/config
+  is not set up yet.
+  """
+  INACTIVE
+
+  """
+  The user rejected the permissions required for the extension to be activated.
+  """
+  REJECTED_PERMISSIONS
+}
+
+"""
+The categories of activities which users can engage in.
+"""
+enum ActivityType {
+  PLAYING
+  STREAMING
+  WATCHING
+}
+
+"""
+Possible errors that this resolver returns.
+"""
+enum AddChannelBlockedTermError {
+  """
+  User does not have permission to add blocked term in channel.
+  """
+  NO_PERMISSIONS
+
+  """
+  Duration provided was invalid.
+  """
+  DURATION_INVALID
+}
+
+"""
+Possible errors that this resolver returns.
+"""
+enum AddChannelPermittedTermError {
+  """
+  User does not have permission to add Permitted term in channel.
+  """
+  NO_PERMISSIONS
+
+  """
+  Duration provided was invalid.
+  """
+  DURATION_INVALID
+}
+
+"""
+AddEditorErrorCode defines a client error that occurred while adding an editor.
+"""
+enum AddEditorErrorCode {
+  """
+  The channel does not exist.
+  """
+  CHANNEL_NOT_FOUND
+
+  """
+  The user who is to become an editor is already an editor.
+  """
+  TARGET_USER_ALREADY_EDITOR
+
+  """
+  The user who is to become an editor does not exist.
+  """
+  TARGET_USER_NOT_FOUND
+}
+
+"""
+Recently played error codes.
+"""
+enum AddRadioRecentlyPlayedErrorCode {
+  """
+  The ID provided was malformed.
+  """
+  INVALID_ID
+
+  """
+  Permission denied to add/update a recently played item.
+  """
+  PERMISSION_DENIED
+}
+
+"""
+AddStreamAuthorizedUserErrorCode is the client error type that occurred during the AddStreamAuthorizedUser mutation.
+"""
+enum AddStreamAuthorizedUserErrorCode {
+  """
+  Unable to assign the Targeted user to stream on behalf of the broadcaster.
+  """
+  TARGET_USER_UNRETURNABLE
+
+  """
+  The broadcaster is not found.
+  """
+  CHANNEL_NOT_FOUND
+
+  """
+  Maximum limit for adding authorized user is reached.
+  """
+  MAX_ACCOUNT_LIMIT
+
+  """
+  Permission denied to add an authorized user.
+  """
+  PERMISSION_DENIED
+
+  """
+  Invalid argument to add an authorized user.
+  """
+  INVALID_ARGUMENT
+}
+
+"""
+AdPlatform describes the type of device.
+"""
+enum AdPlatform {
+  """
+  Ios iphone app.
+  """
+  IOS_PHONE
+
+  """
+  Ios tablet app.
+  """
+  IOS_TABLET
+
+  """
+  Android phone app.
+  """
+  ANDROID_PHONE
+
+  """
+  Android tablet app.
+  """
+  ANDROID_TABLET
+}
+
+"""
+The type of content playing when the ad was requested.
+"""
+enum AdRequestContentType {
+  """
+  Live streams.
+  """
+  LIVE
+
+  """
+  VOD playback.
+  """
+  VOD
+}
+
+"""
+The type of ad break being requested.
+"""
+enum AdrollType {
+  """
+  Ad that runs prior to seeing a stream/vod.
+  """
+  PREROLL
+
+  """
+  Ad that runs in the middle of a stream/vod.
+  """
+  MIDROLL
+
+  """
+  Ad that runs after a stream/vod.
+  """
+  POSTROLL
+}
+
+"""
+Status of a user's invitation to the Affiliate program.
+"""
+enum AffiliateInvitationStatus {
+  """
+  Invitation cannot be sent, pending a user action.
+  """
+  INCOMPLETE_WORKFLOW
+
+  """
+  Invitation is scheduled to be sent.
+  """
+  PENDING_INVITE
+
+  """
+  Invitation has been sent.
+  """
+  SENT
+}
+
+"""
+Possible errors from the mutation.
+"""
+enum AllocateKeysForBountyErrorCode {
+  """
+  The provided input is invalid.
+  """
+  INVALID_ARGUMENT
+
+  """
+  The bounty or required key metadata was not found.
+  """
+  NOT_FOUND
+
+  """
+  Unknown error being returned from service.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+Units defines how many price units is equivalent to 1 unit of currency.
+"""
+enum AndroidCurrencyUnits {
+  """
+  Default units is ISO-4217 format (e.g. 100 JPY units is 100 JPY, 100 USD units is 1.00 USD).
+  """
+  NORMAL_UNITS
+
+  """
+  Micro units (1,000,000 micro-units = 1 unit of currency).
+  """
+  MICRO_UNITS
+}
+
+"""
+The available animated emote generation presets.
+"""
+enum AnimatedEmotePreset {
+  """
+  Shake makes the source image shake.
+  """
+  SHAKE
+
+  """
+  Roll makes the source image roll across.
+  """
+  ROLL
+
+  """
+  Spin makes the source image spin around in place.
+  """
+  SPIN
+
+  """
+  Rave makes the source image change colors.
+  """
+  RAVE
+
+  """
+  Slide in makes the source image slide in from the left.
+  """
+  SLIDE_IN
+
+  """
+  Slide out makes the source image slide out to the right.
+  """
+  SLIDE_OUT
+}
+
+"""
+Archive community goal error code.
+"""
+enum ArchiveCommunityPointsCommunityGoalErrorCode {
+  """
+  The goal was not found.
+  """
+  NOT_FOUND
+
+  """
+  The current user is not allowed to archive community goals for this channel.
+  """
+  FORBIDDEN
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+Possible errors from the mutation.
+"""
+enum ArkoseEndpointVersion {
+  """
+  Version 1 endpoint.
+  """
+  V1
+
+  """
+  Version 2 endpoint.
+  """
+  V2
+}
+
+"""
+Possible error codes for AssignEmoteToBitsTierError.
+"""
+enum AssignEmoteToBitsTierErrorCode {
+  """
+  The specified emote does not exist.
+  """
+  EMOTE_NOT_FOUND
+
+  """
+  The user is not allowed to assign this emote.
+  """
+  PERMISSION_DENIED
+
+  """
+  The bits tier has no available empty emote slots.
+  """
+  EMOTE_LIMIT_REACHED
+
+  """
+  The emote is not in a valid state to be assigned.
+  """
+  INVALID_EMOTE_STATE
+
+  """
+  An active or pending emote is already using this emote's code.
+  """
+  EMOTE_CODE_ALREADY_EXISTS
+
+  """
+  Emotes are not allowed in the specified bits tier.
+  """
+  EMOTES_NOT_ALLOWED_IN_TIER
+
+  """
+  Unknown error.
+  """
+  UNKNOWN
+}
+
+"""
+Possible error codes for AssignEmoteToSubscriptionProductError.
+"""
+enum AssignEmoteToSubscriptionProductErrorCode {
+  """
+  The specified emote does not exist.
+  """
+  EMOTE_NOT_FOUND
+
+  """
+  The user is not allowed to assign this emote.
+  """
+  PERMISSION_DENIED
+
+  """
+  The product has no available empty emote slots.
+  """
+  EMOTE_LIMIT_REACHED
+
+  """
+  The emote is not in a valid state to be assigned.
+  """
+  INVALID_EMOTE_STATE
+
+  """
+  An active or pending emote is already using this emote's code.
+  """
+  EMOTE_CODE_ALREADY_EXISTS
+
+  """
+  Unknown error.
+  """
+  UNKNOWN
+}
+
+"""
+Enums for the difference error codes which can be returned.
+"""
+enum AssignExtensionBillingManagerErrorCode {
+  """
+  Extension does not belong to the same organization as the assigned billing manager member.
+  """
+  FAILED_PRECONDITION
+
+  """
+  The user doesn't meet the requirements to be the assigned billing manager.
+  For example, doesn't have a valid role or did not complete Extension Monetization (TIMs).
+  """
+  MEMBER_INELIGIBLE
+
+  """
+  User does not have permission to perform action.
+  """
+  PERMISSION_DENIED
+}
+
+"""
+DEPRECATED: to be replaced by IncomingRaidsPolicy.
+Determines what other channels can raid this channel.
+"""
+enum AutohostSettingsIncomingRaidsPolicy {
+  """
+  This user cannot be radied by anyone.
+  """
+  NONE
+
+  """
+  This user can be raided by other people in their network.
+  """
+  NETWORK
+
+  """
+  This user can be raded by anyone.
+  """
+  ALL
+}
+
+"""
+The strategy to use when choosing channels to autohost.
+"""
+enum AutohostSettingsStrategy {
+  """
+  Picks channels in the order defined by the user.
+  """
+  ORDERED
+
+  """
+  Picks channels at random.
+  """
+  RANDOM
+}
+
+"""
+Reason why a message is flagged and/or rejected.
+"""
+enum AutoModCaughtMessageCategory {
+  """
+  Message contained words that were aggressive.
+  """
+  AGGRESSIVE
+
+  """
+  Message contained identity details.
+  """
+  IDENTITY
+
+  """
+  Message contained words that were vulgar.
+  """
+  PROFANITY
+
+  """
+  Message contained words that were sexual.
+  """
+  SEXUAL
+}
+
+"""
+Describes a flagged message's posting status.
+"""
+enum AutoModCaughtMessageStatus {
+  """
+  The message has not received a decision from a mod.
+  """
+  PENDING
+
+  """
+  Deprecated. The message was approved by a channel moderator or the broadcaster.
+  """
+  APPROVED
+
+  """
+  The message was allowed to be sent to chat by a channel moderator or the broadcaster.
+  """
+  ALLOWED
+
+  """
+  The message was denied by a channel moderator or the broadcaster.
+  """
+  DENIED
+
+  """
+  The message status is invalid (something unexpected).
+  """
+  INVALID
+
+  """
+  The message expired before being acted upon by a channel moderator or the broadcaster.
+  """
+  EXPIRED
+}
+
+"""
+Client error code.
+"""
+enum AutoModContentErrorCode {
+  """
+  Internal error.
+  """
+  INTERNAL_ERROR
+
+  """
+  Invalid Argument.
+  """
+  INVALID_ARGUMENT
+
+  """
+  Resource Exhausted(rate limited).
+  """
+  RESOURCE_EXHAUSTED
+}
+
+"""
+The possible computed states for a user or session.
+"""
+enum Availability {
+  AWAY
+  BUSY
+  IDLE
+  OFFLINE
+  ONLINE
+}
+
+enum AvailabilityInput {
+  ONLINE
+  IDLE
+  OFFLINE
+}
+
+"""
+AVC profiles for streams.
+"""
+enum AVCProfile {
+  """
+  Low level.
+  """
+  BASELINE
+
+  """
+  Regular level.
+  """
+  MAIN
+
+  """
+  High level.
+  """
+  HIGH
+}

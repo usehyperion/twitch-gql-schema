@@ -1,0 +1,1390 @@
+"""
+Error that occurred while validating with code.
+"""
+type ValidateVerificationCodeError {
+  """
+  Error code for error that occurred while validating with code.
+  """
+  code: ValidateVerificationCodeErrorCode
+}
+
+"""
+ValidateVerificationCodePayload is the VerificationRequest document returned from EVS on success.
+"""
+type ValidateVerificationCodePayload {
+  """
+  Mutation error based on user input.
+  """
+  error: ValidateVerificationCodeError
+
+  """
+  The updated verification request.
+  """
+  request: VerificationRequest
+}
+
+"""
+VendorConsentStatus is the consent status of each vendor.
+"""
+type VendorConsentStatus {
+  """
+  User consentStatus for this vendor.
+  """
+  consentStatus: ConsentStatus!
+
+  """
+  A flag that shows if the consent is given by the user or by consent service as default value.
+  """
+  hasUserSetConsent: Boolean!
+
+  """
+  A flag that shows if the vendor should be visible to the consent settings page.
+  """
+  isVisible: Boolean!
+
+  """
+  Vendor name.
+  """
+  name: VendorName!
+}
+
+"""
+Represents a user's request to verify a given contact method, such as email address or phone number.
+"""
+type VerificationRequest {
+  """
+  Address that the user is verifying. This will most likely be an email address or phone number.
+  """
+  address: String!
+
+  """
+  Key for the entity associated with the address. This is generally the Twitch ID of the user.
+  """
+  key: String!
+
+  """
+  Time at which the verification request was last modified.
+  """
+  modified: Time!
+
+  """
+  Status of the verification request: pending, verified, or rejected.
+  """
+  status: VerificationStatus!
+}
+
+"""
+VerifyContactMethodPayload is the VerificationRequest document returned from EVS on success.
+"""
+type VerifyContactMethodPayload {
+  """
+  The success/failure of the verification attempt.
+  """
+  isSuccess: Boolean!
+
+  """
+  The updated verification request.
+  """
+  request: VerificationRequest
+}
+
+"""
+Error returned during a invalid user request.
+"""
+type VerifyOneTimePasswordError {
+  """
+  Error code returned by the backend.
+  """
+  code: VerifyOneTimePasswordErrorCode!
+
+  """
+  The localized external error message.
+  """
+  message: String!
+}
+
+"""
+The result of a verifyOneTimePassword mutation.
+"""
+type VerifyOneTimePasswordPayload {
+  """
+  error code and localized error.
+  """
+  error: VerifyOneTimePasswordError
+}
+
+"""
+Error that occurred while validating with captcha token.
+"""
+type VerifyRewardedVideoEligibilityCaptchaError {
+  """
+  Error code for error that occurred while validating the captcha token.
+  """
+  code: VerifyRewardedVideoEligibilityCaptchaErrorCode!
+}
+
+"""
+The response from verifying a captcha with rewarded video systems.
+"""
+type VerifyRewardedVideoEligibilityCaptchaPayload {
+  """
+  The error (if one exists) returned from validating the captcha token.
+  """
+  error: VerifyRewardedVideoEligibilityCaptchaError
+}
+
+"""
+A container of content for a vertical grouped by shelves.
+"""
+type VerticalDirectory {
+  """
+  The vertical's unique Twitch identifier.
+  """
+  id: ID!
+
+  """
+  The vertical's backend name.
+  """
+  name: String
+
+  """
+  List of shelf groups containing content for this vertical.
+  """
+  shelfGroups: [VerticalShelfGroup!]
+
+  """
+  The human readable slug for the vertical directory, used in the URL.
+  """
+  slug: String
+
+  """
+  The subtitle for the shelf group.
+  """
+  subtitle: ShelfTitle!
+
+  """
+  The title for the shelf.
+  """
+  title: ShelfTitle!
+
+  """
+  Used in client tracking.
+  """
+  trackingID: ID!
+}
+
+"""
+An ordered list of content to render with metadata on the content.
+"""
+type VerticalShelf {
+  """
+  The ordered content for the shelf.
+  """
+  content: ShelfContentConnection!
+
+  """
+  The one or more contexts for which this shelf contains content for.
+  """
+  contentContext: [VerticalContentContext!]
+
+  """
+  A unique identifier for the shelf.
+  """
+  id: ID!
+
+  """
+  The subtitle for the shelf group.
+  """
+  subtitle: ShelfTitle
+
+  """
+  The title for the shelf.
+  """
+  title: ShelfTitle
+
+  """
+  Used in client tracking.
+  """
+  trackingID: ID!
+
+  """
+  The type of this shelf.
+  """
+  type: VerticalShelfType!
+}
+
+"""
+A grouping of one or more shelves.
+"""
+type VerticalShelfGroup {
+  """
+  The one or more contexts for which this shelf group contains content for.
+  """
+  contentContext: [VerticalContentContext!]
+
+  """
+  A unique identifer for this shelf group.
+  """
+  id: ID!
+
+  """
+  The ordered shelves for this shelf group.
+  """
+  shelves: [VerticalShelf!]
+
+  """
+  The subtitle for the shelf group.
+  """
+  subtitle: ShelfTitle
+
+  """
+  The title for the shelf group.
+  """
+  title: ShelfTitle
+
+  """
+  Used in client tracking.
+  """
+  trackingID: ID!
+}
+
+"""
+A container of content for a vertical by category, grouped by shelves.
+"""
+type VerticalSubDirectory {
+  """
+  The one or more contexts for which this directory contains content for.
+  """
+  contentContext: [VerticalContentContext!]
+
+  """
+  The vertical's unique Twitch identifier.
+  """
+  id: ID!
+
+  """
+  List of shelf groups containing content for this vertical category.
+  """
+  shelfGroups: [VerticalShelfGroup!]
+
+  """
+  The subtitle for the shelf group.
+  """
+  subtitle: ShelfTitle!
+
+  """
+  The title for the shelf.
+  """
+  title: ShelfTitle!
+
+  """
+  Used in client tracking.
+  """
+  trackingID: ID!
+}
+
+type Video {
+  """
+  A link to an image which contains an animated preview of the video.
+  """
+  animatedPreviewURL: String
+
+  """
+  A list of bookmarks for this video.
+  """
+  bookmarks(first: Int, after: Cursor): VideoBookmarkConnection
+
+  """
+  The type of broadcast the video originated from.
+  """
+  broadcastType: BroadcastType
+
+  """
+  A paginated list of clips for this video.
+  When criteria is not specified, the default values are used.
+  """
+  clips(first: Int = 10, after: Cursor, curatorIDs: [ID!], sort: SortOrder = ASC): ClipConnection
+
+  """
+  A paginated list of comments against this video.
+  """
+  comments(
+    first: Int
+    after: Cursor
+    last: Int
+    Before: Cursor
+    contentOffsetSeconds: Int
+  ): VideoCommentConnection
+
+  """
+  A list of tags describing the video.
+  """
+  contentTags: [Tag!]
+
+  """
+  The time the video metadata record was created.
+  """
+  createdAt: Time
+
+  """
+  The user who created this video.
+  This will be either the broadcaster or one of their editors.
+  """
+  creator: User
+
+  """
+  NOTE: named `deleteAt` in Vinyl.
+  """
+  deletedAt: Time
+
+  """
+  A description of the video, formatted in markdown.
+  """
+  description: String
+
+  """
+  Download information of the video. NOTE: Request this field only when a user is requesting a download
+  since it will go through a process to generate a download URL on the backend.
+  """
+  download: VideoDownload
+
+  """
+  The length of the video.
+  """
+  duration: Duration @deprecated(reason: "Use length instead, as it's easier to parse.")
+
+  """
+  The game the video is depicting.
+  """
+  game: Game
+
+  """
+  The video's identifier.
+  """
+  id: ID!
+
+  """
+  Whether the video has been soft deleted.
+  """
+  isDeleted: Boolean!
+
+  """
+  Which language the video is in.
+  """
+  language: String
+
+  """
+  The length of the video, as an int, in seconds.
+  """
+  lengthSeconds: Int
+
+  """
+  A list of moments for this video.
+  """
+  moments(
+    first: Int = 10
+    after: Cursor
+    sort: SortOrder = ASC
+    types: [VideoMomentType]
+    momentRequestType: VideoMomentRequestType
+  ): VideoMomentConnection
+
+  """
+  Publicly available muted segment info, detailing which parts of the video
+  have had audio removed.
+  """
+  muteInfo: VideoMuteInfo
+
+  """
+  For highlights, the number of seconds offset from the beginning of the past broadcast the highlight starts.
+  For past broadcasts and uploads, this means nothing.
+  """
+  offsetSeconds: Int
+
+  """
+  The owner of the video.
+  """
+  owner: User
+
+  """
+  The playback access token that determines whether the user can watch the video.
+  Fetched for both authed and unauthed users.
+  """
+  playbackAccessToken(params: PlaybackAccessTokenParams!): PlaybackAccessToken
+
+  """
+  The URL to the thumbnail which should be displayed for the video.
+  If either `height` or `width` are not given, a templated value (i.e.
+  `{height}`, `{width}`) will be present in the URL instead.
+  """
+  previewThumbnailURL(height: Int, width: Int): String!
+
+  """
+  The time when the archive/highlight/upload was first ever available to public,
+  even if it is not currently public.
+  """
+  publishedAt: Time
+
+  """
+  The reactions associated with this video.
+  """
+  reactions: [Reaction]
+
+  """
+  The time the video was recorded.
+  """
+  recordedAt: Time
+
+  """
+  The reason a video is restricted if the given video is a restricted video.
+  For a video that is not restricted, this field can be null.
+  """
+  resourceRestriction: ResourceRestriction
+
+  """
+  The reason a video is restricted if the given video is a restricted video.
+  For a video that is not restricted, this field can be null.
+  """
+  restriction: VideoRestriction
+    @deprecated(reason: "Restriction will be moved over to resourceRestriction instead")
+
+  """
+  Either PRIVATE or PUBLIC.
+  """
+  scope: VideoPrivacyScope
+
+  """
+  A link to a sprite sheet image made up of preview thumbnails when seeking the video timeline.
+  """
+  seekPreviewsURL: String
+
+  """
+  The authenticated user's relationship with this video.
+  """
+  self: VideoSelfEdge
+
+  """
+  When broadcastType is:
+  - ARCHIVE: status goes from RECORDING to RECORDED.
+  - HIGHLIGHT: status goes from UNPROCESSED to RECORDED.
+  - UPLOAD: status goes from CREATED to UPLOADING, to PENDING_TRANSCODE, to RECORDED, or FAILED if anything goes wrong.
+  - PREMIERE_UPLOAD: status goes from CREATED to UPLOADING, to
+  PENDING_TRANSCODE, to RECORDED, or FAILED if anything goes wrong for this
+  legacy broadcast type.
+  - PAST_PREMIERE: status goes from RECORDING to RECORDED for this legacy broadcast type.
+  """
+  status: VideoStatus
+
+  """
+  The suggested details for creating an automated highlight from this video.
+  """
+  suggestedHighlight: VideoSuggestedHighlight
+
+  """
+  An array of tags describing the video. This field will be deprecated soon. Please use `Video.contentTag` instead.
+  """
+  tags: [String]
+
+  """
+  A list of thumbnail URLs for the video, ordered by descending priority.
+  Owners can insert custom thumbnails into this list.
+  If either `height` or `width` are not given, a templated value (i.e.
+  `{height}`, `{width}`) will be present in the URL instead.
+  """
+  thumbnailURLs(height: Int, width: Int): [String]
+
+  """
+  The title of the video.
+  """
+  title: String
+
+  """
+  A paginated list of clips featuring this vod that is, by default, ordered by view count descending.
+  When criteria is not specified, the default values are used.
+  """
+  topClips(first: Int = 10, after: Cursor, criteria: VideoTopClipsInput): ClipConnection
+
+  """
+  The most recent time the video data was updated.
+  """
+  updatedAt: Time
+
+  """
+  The numer of views this video has. Can be delayed by up to 15 minutes.
+  """
+  viewCount: Int
+
+  """
+  For a scheduled video, the time when the video will be made available to the
+  public (the time when the scope will be automatically set to "public").
+  For a video that is public or not scheduled, is null.
+  """
+  viewableAt: Time
+}
+
+"""
+A video bookmark.
+"""
+type VideoBookmark {
+  """
+  channel the VOD belongs to.
+  """
+  channel: User!
+
+  """
+  Time at which the bookmark was created.
+  """
+  createdAt: Time!
+
+  """
+  Description of the bookmark.
+  """
+  description: String!
+
+  """
+  ID of the bookmark.
+  """
+  id: ID!
+
+  """
+  Relative offset in the video.
+  """
+  positionSeconds: Int!
+
+  """
+  user who created the bookmark.
+  """
+  user: User!
+}
+
+"""
+A paginated list of video bookmarks.
+"""
+type VideoBookmarkConnection {
+  """
+  The elements of the paginated list.
+  """
+  edges: [VideoBookmarkEdge]!
+
+  """
+  Error of the get video bookmarks request.
+  """
+  error: VideoBookmarkConnectionError
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+VideoBookmarkConnectionError is the error associated with a getVideoBookmarks.
+"""
+type VideoBookmarkConnectionError {
+  """
+  The associated error code.
+  """
+  code: VideoBookmarkConnectionErrorCode
+}
+
+"""
+A video bookmark.
+"""
+type VideoBookmarkEdge {
+  """
+  Uniquely identifies this clip's position in a connection.
+  """
+  cursor: Cursor!
+
+  """
+  The bookmark.
+  """
+  node: VideoBookmark!
+}
+
+"""
+Comment on a video.
+"""
+type VideoComment {
+  """
+  Author of the comment.
+  """
+  commenter: User
+
+  """
+  Position of the video where this comment was added.
+  """
+  contentOffsetSeconds: Int!
+
+  """
+  The time the comment was created.
+  """
+  createdAt: Time!
+
+  """
+  The comments's unique identifier.
+  """
+  id: ID!
+
+  """
+  The message of the comment.
+  """
+  message: VideoCommentMessage
+
+  """
+  DEPRECATED. List of replies on this comment.
+  """
+  replies(first: Int, after: Cursor): VideoCommentConnection @deprecated
+
+  """
+  Where the comment originated.
+  """
+  source: VideoCommentSource!
+
+  """
+  Current state of the comment.
+  """
+  state: VideoCommentState!
+
+  """
+  The last time this comment was updated.
+  """
+  updatedAt: Time!
+
+  """
+  The video on which this comment was added.
+  """
+  video: Video
+}
+
+"""
+Paginated list of comments.
+"""
+type VideoCommentConnection {
+  edges: [VideoCommentEdge]
+  pageInfo: PageInfo!
+}
+
+"""
+Video comment edge with cursor and the comment node.
+"""
+type VideoCommentEdge {
+  cursor: Cursor
+  node: VideoComment
+}
+
+"""
+Represents the message of a comment.
+"""
+type VideoCommentMessage {
+  """
+  Parts of the message body with meta info.
+  """
+  fragments: [VideoCommentMessageFragment]
+
+  """
+  List of badges the comment author had selected for use at the time of the comment.
+  """
+  userBadges: [Badge]
+
+  """
+  Text color preferences of comment's author.
+  """
+  userColor: String
+}
+
+"""
+Represents a part of the message body with meta info.
+"""
+type VideoCommentMessageFragment {
+  """
+  Embedded emote info.
+  """
+  emote: EmbeddedEmote
+
+  """
+  User which was mentioned.
+  """
+  mention: User
+
+  """
+  Raw text of the comment.
+  """
+  text: String!
+}
+
+"""
+A paginated list of videos, and its metadata.
+"""
+type VideoConnection {
+  """
+  The list of videos in this page.
+  """
+  edges: [VideoEdge]
+
+  """
+  Information about this page of videos.
+  """
+  pageInfo: PageInfo
+
+  """
+  The total number of videos in the larger collection.
+  """
+  totalCount: Int
+}
+
+"""
+Video download information.
+"""
+type VideoDownload {
+  """
+  Status of the download process.
+  """
+  status: VideoDownloadStatus!
+
+  """
+  Generated URL from which to download the video.
+  """
+  url: String!
+}
+
+"""
+An element in a paginated list of videos, and its metadata.
+"""
+type VideoEdge {
+  cursor: Cursor
+  node: Video
+}
+
+"""
+Video Ingest Session Metadata for the current or past broadcasts.
+"""
+type VideoIngestSession {
+  """
+  Stream session metadata related to broadcaster's backup ingest session.
+  """
+  backupIngestSession: BackupIngestSession
+
+  """
+  Bitrates of session by time. Recorded every 3 to 5 seconds.
+  """
+  bitrates(startedAt: Time, endedAt: Time): [StreamBitrate!]
+
+  """
+  Broadcaster of the stream.
+  """
+  broadcaster: User
+
+  """
+  Recorded framedrop events in stream session.
+  """
+  frameDrops: [IngestFrameDrop!]
+
+  """
+  Framerates of session by time. Recorded every 3 to 5 seconds.
+  """
+  framerates(startedAt: Time, endedAt: Time): [StreamFramerate!]
+
+  """
+  The ID of the stream ingest session.
+  """
+  id: ID!
+
+  """
+  Stream session metadata related to broadcaster's ingest session.
+  """
+  ingestSession: IngestSession!
+
+  """
+  Stream session metadata related to broadcaster's RTMP session.
+  """
+  rtmpSession: RTMPSession!
+
+  """
+  Recorded starvation events in stream session.
+  """
+  starvationEvents: [IngestStarvationEvent!]
+
+  """
+  Set of codes to indicate what is wrong with ingested stream.
+  """
+  streamHealth: IngestStreamHealth
+
+  """
+  Stream session metadata related to broadcaster's transcode session.
+  """
+  transcodeSessions: [TranscodeSession!]
+}
+
+"""
+A video moment represents either a point in time, or a duration of time,
+during which structured metadata is present.
+"""
+type VideoMoment {
+  """
+  channel the VOD belongs to.
+  """
+  channel: User!
+
+  """
+  Time at which the moment was created.
+  """
+  createdAt: Time!
+
+  """
+  The displayable context of this moment (translated, where applicable). For
+  instance, the stream marker comment, game name for game change, or “Pack opening”
+  for Hearthstone VCA. Can be null.
+  """
+  description: String
+
+  """
+  A union of the fields that are specific to individual moments, such as Game Mode
+  inside Hearthstone VCA data.
+  """
+  details: VideoMomentDetails
+
+  """
+  The duration, in ms, that this moment is applicable, or zero if no duration.
+  """
+  durationMilliseconds: Int!
+
+  """
+  ID of the moment.
+  """
+  id: ID!
+
+  """
+  Moments that cover a time range can also contain moments for that time range.
+  """
+  moments: VideoMomentConnection
+
+  """
+  The time, in ms, after the start of the video when this moment occurs.
+  """
+  positionMilliseconds: Int!
+
+  """
+  The additional displayable context of this moment (translated, where applicable).
+  Can be null.
+  """
+  subDescription: String
+
+  """
+  The url to the thumbnail for this moment.
+  Can be null.
+  """
+  thumbnailURL: String
+
+  """
+  The underlying moment type.
+  """
+  type: VideoMomentType!
+
+  """
+  The id of the video this moment is contained in.
+  """
+  video: Video
+}
+
+"""
+A paginated list of video moments.
+"""
+type VideoMomentConnection {
+  """
+  The elements of the paginated list.
+  """
+  edges: [VideoMomentEdge!]!
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+A video moment.
+"""
+type VideoMomentEdge {
+  """
+  Uniquely identifies this moment's position in the connection.
+  """
+  cursor: Cursor!
+
+  """
+  The moment.
+  """
+  node: VideoMoment!
+}
+
+"""
+Information about one contiguous muted portion of video.
+"""
+type VideoMutedSegment {
+  """
+  Duration in seconds of the mute. Standard length is 360 (6 mins).
+  """
+  duration: Int!
+
+  """
+  Offset is how many seconds into the video the mute begins. 0 indicates the beginning of the video is muted.
+  """
+  offset: Int!
+}
+
+"""
+A list of all sections of the video that are muted.
+If pagination is required at any point in the future, put edges and pageInfo
+in this type.
+"""
+type VideoMutedSegmentConnection {
+  """
+  No pagination functionality. All data returned in initial call.
+  """
+  nodes: [VideoMutedSegment!]
+}
+
+"""
+Details about automatic mutes applied to this video.
+"""
+type VideoMuteInfo {
+  """
+  List of segments muted.
+  """
+  mutedSegmentConnection: VideoMutedSegmentConnection
+
+  """
+  List of tracks that are flagged for copyrighted music.
+  """
+  tracks: [FlaggedTrack!]
+}
+
+type VideoOEmbed implements OEmbed {
+  authorName: String
+  authorURL: String
+  cacheAge: Int
+  height: Int!
+  html: String!
+  inputURL: String!
+  providerName: String
+  providerURL: String
+  thumbnail: ThumbnailOEmbed
+  title: String
+  type: String!
+  version: String!
+  width: Int!
+}
+
+"""
+VideoOverlayView holds the view configuration of an extension if the videoOverlay anchor is supported.
+"""
+type VideoOverlayView implements ExtensionView {
+  """
+  Specifies whether or not the extension has the ability to link to external websites.
+  """
+  canLinkExternalContent: Boolean!
+
+  """
+  Relative path of the HTML file to load for this view, used by devsite to specify the layout of assets.
+  """
+  viewerPath: String!
+
+  """
+  The URL which should be loaded in for the extension.
+  """
+  viewerURL: String!
+}
+
+"""
+Endpoints for different video referral sources, based on channel and time range.
+"""
+type VideoPlayReferrals {
+  """
+  The referral groups and respective counts.
+  """
+  items: [AggregatedReferrals!]
+
+  """
+  Sum of all referrals for a given date range.
+  """
+  total: Int!
+}
+
+"""
+Restrictions for viewing of a video. Resolves if a video is restricted, null otherwise.
+"""
+type VideoRestriction {
+  """
+  The product "short name" a user needs to purchase to view the video.
+  """
+  productName: String!
+
+  """
+  The name of the product shown to users.
+  """
+  productTitle: String!
+
+  """
+  The reason a video is restricted.
+  """
+  reason: String!
+
+  """
+  The type of restriction the video has.
+  """
+  type: String!
+}
+
+"""
+The relationship between the authenticated user and a video.
+"""
+type VideoSelfEdge {
+  """
+  Can a user watch a restricted video.
+  """
+  isRestricted: Boolean!
+
+  """
+  User's viewing history against a video.
+  """
+  viewingHistory: VideoViewingHistory
+}
+
+"""
+A video shelf contains items (clips, videos) from a user to display on their videos page.
+"""
+type VideoShelf {
+  """
+  The associated collection if the shelf items are from a specified collection.
+  """
+  collection: Collection
+
+  """
+  A description of what the video shelf contains.
+  """
+  description: String
+
+  """
+  The associated game with the shelf if the items are from a specified game.
+  """
+  game: Game
+
+  """
+  ID of the video shelf.
+  """
+  id: ID!
+
+  """
+  Videos/clips in the video shelf.
+  """
+  items: [VideoShelfItem!]
+
+  """
+  The title of the video shelf.
+  """
+  title: String!
+
+  """
+  The type of items the video shelf contains.
+  """
+  type: VideoShelfType!
+}
+
+"""
+A paginated list of video shelves with metadata.
+"""
+type VideoShelfConnection {
+  """
+  The list of video shelves available.
+  """
+  edges: [VideoShelfEdge!]
+
+  """
+  The max number of shelves configuration.
+  """
+  maxShelfCount: Int
+
+  """
+  Information about this page of video shelves.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of shelves available.
+  """
+  totalCount: Int!
+}
+
+"""
+A video shelf.
+"""
+type VideoShelfEdge {
+  """
+  Cursor represents the position of the current edge/node.
+  """
+  cursor: Cursor!
+
+  """
+  Uniquely identifies this video shelf's position in a connection.
+  """
+  node: VideoShelf
+}
+
+"""
+Video stream settings for ingesting a stream such as stream key, latency mode, or vod save preference.
+Represents a user's channel setting when starting a streamm.
+"""
+type VideoStreamSettings {
+  """
+  A list of Twitch users who are authorized to stream on behalf of a broadcaster.
+  """
+  authorizedUsers: [User!]
+
+  """
+  A list of stream keys to be used for backup redundant stream.
+  """
+  backupStreamKeys: [StreamKeyResult!]!
+
+  """
+  The number of seconds delay for a stream. When this is set, a stream will be ingested with specified delay in seconds.
+  """
+  delaySeconds: Int!
+
+  """
+  The number of seconds to display the disconnect slate while the stream is unstable.
+  """
+  disconnectSlateDurationSeconds: Int!
+
+  """
+  When isBackupEnabled is true, streamers can stream a backup stream using the streamkey on backupStreamKeys.
+  """
+  isBackupEnabled: Boolean!
+
+  """
+  When isDelayEnabled is true, streamers can stream with specified delay seconds on delaySeconds.
+  """
+  isDelayEnabled: Boolean!
+
+  """
+  When isDisconnectSlateEnabled is true, streams will show a disconnect slate
+  for the period specified on delaySeconds when a stream disconnects temporarily.
+  """
+  isDisconnectSlateEnabled: Boolean!
+
+  """
+  Whether or not a stream should be started as a low latency stream.
+  """
+  isLowLatency: Boolean!
+
+  """
+  Whether or not the broadcaster prefers to archive the vod for a stream.
+  """
+  shouldArchiveVODs: Boolean!
+
+  """
+  The RTMP stream key for the user's channel. This key is required to stream a video to Twitch.
+  """
+  streamKey: StreamKeyResult!
+}
+
+"""
+Details about creating an automated highlight from this video.
+"""
+type VideoSuggestedHighlight {
+  """
+  Boolean for whether this set of suggested segments were addressed and dismissed.
+  """
+  isDismissed: Boolean!
+
+  """
+  List of suggested video segments.
+  """
+  segments: [VideoSuggestedSegment]!
+
+  """
+  Status of the segments.
+  """
+  status: SegmentsStatusType
+}
+
+"""
+Information for one suggested video segment.
+"""
+type VideoSuggestedSegment {
+  """
+  Ending time of the suggested segment in milliseconds.
+  """
+  endMS: Int!
+
+  """
+  Starting time of the suggested segment in milliseconds.
+  """
+  startMS: Int!
+}
+
+"""
+User's viewing history against a video. All fields are null if no viewing history is available.
+"""
+type VideoViewingHistory {
+  """
+  Position in seconds since the start of the video.
+  """
+  position: Int
+
+  """
+  When the viewing history was last updated.
+  """
+  updatedAt: Time
+}
+
+type ViewedNotificationsPayload {
+  """
+  The modified user which contains an updated OnsiteNotificationsSummary.
+  """
+  user: User
+}
+
+"""
+A paginated list of viewed videos, their histories, and metadata.
+"""
+type ViewedVideosConnection {
+  """
+  The list of videos and their viewing histories in this page.
+  """
+  edges: [ViewedVideosEdge]
+}
+
+"""
+An element in a paginated list of viewing histories, and its metadata.
+"""
+type ViewedVideosEdge {
+  """
+  Viewing history of user against the video.
+  """
+  history: VideoViewingHistory!
+
+  """
+  Video this viewing history belongs to.
+  """
+  node: Video!
+}
+
+"""
+Paginated list of VIP users of a channel.
+"""
+type VIPConnection {
+  """
+  The elements of the list.
+  """
+  edges: [VIPEdge!]!
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+Element in a list of VIP users of a channel.
+"""
+type VIPEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  Timestamp of when the VIP status was granted.
+  """
+  grantedAt: Time!
+
+  """
+  The user who has the VIP status.
+  """
+  node: User
+}
+
+"""
+Payload returned from Visit Stream Manager call.
+"""
+type VisitStreamManagerPayload {
+  """
+  The channel ID of the stream manager visited.
+  """
+  channelID: ID
+
+  """
+  The success/failure of the client.
+  """
+  isSuccess: Boolean
+
+  """
+  The viewer ID trying to view the stream manager.
+  """
+  viewerID: ID
+}
+
+"""
+Vote in poll error.
+"""
+type VoteInAdPollError {
+  """
+  Code describing the error.
+  """
+  code: VoteInAdPollErrorCode!
+}
+
+"""
+Output from the vote on poll mutation.
+"""
+type VoteInAdPollPayload {
+  """
+  If present, there was an error with the request.
+  """
+  error: VoteInAdPollError
+
+  """
+  The voter objet returned by the vote operation.
+  """
+  vote: AdPollVote
+}
+
+"""
+Output from the vote on poll by choice index mutation.
+"""
+type VoteInPollByChoiceIndexPayload {
+  """
+  If present, there was an error with the request.
+  """
+  error: VoteInPollError
+
+  """
+  The voter objet returned by the vote operation.
+  """
+  voter: PollVoter
+}
+
+"""
+Vote in poll error.
+"""
+type VoteInPollError {
+  """
+  Code describing the error.
+  """
+  code: VoteInPollErrorCode!
+}
+
+"""
+Output from the vote on poll mutation.
+"""
+type VoteInPollPayload {
+  """
+  If present, there was an error with the request.
+  """
+  error: VoteInPollError
+
+  """
+  The voter object returned by the vote operation.
+  """
+  voter: PollVoter
+}

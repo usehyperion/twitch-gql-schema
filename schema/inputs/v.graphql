@@ -1,0 +1,280 @@
+"""
+ValidateVerificationCodeInput is input required to verify a user contact method
+in EVS by validating their verification code.
+"""
+input ValidateVerificationCodeInput {
+  """
+  Address that the user is verifying. This will most likely be an email address or phone number.
+  """
+  address: String!
+
+  """
+  Code used to validate if the verification request is valid.
+  """
+  code: String!
+
+  """
+  Key for the entity associated with the address. This is generally the Twitch ID of the user.
+  """
+  key: String!
+}
+
+"""
+VendorConsentStatusInput is the input struct for vendor consent status.
+"""
+input VendorConsentStatusInput {
+  """
+  Consent status of this vendor.
+  """
+  consentStatus: ConsentStatus!
+
+  """
+  name of the vendor.
+  """
+  name: VendorName!
+}
+
+"""
+VerifyContactMethodInput is input required to verify a user contact method in EVS by their opaque ID.
+"""
+input VerifyContactMethodInput {
+  """
+  Used to validate the associated user contact info.
+  """
+  opaqueID: ID!
+}
+
+"""
+The required input for a VerifyOneTimePasswordInput mutation.
+"""
+input VerifyOneTimePasswordInput {
+  """
+  The one time password that needs to be verified.
+  """
+  oneTimePassword: String!
+
+  """
+  The ID of the user attempting to verify a one time password.
+  """
+  userID: ID!
+}
+
+"""
+Inputs for registering a Captcha for WATEB.
+"""
+input VerifyRewardedVideoEligibilityCaptchaInput {
+  """
+  Whether we authenticated with V1 or V2 Arkose endpoint.
+  """
+  arkoseEndpointVersion: ArkoseEndpointVersion!
+
+  """
+  The token response from Arkose to verify.
+  """
+  sessionToken: String!
+}
+
+"""
+The content context of a subdirectory.
+"""
+input VerticalSubDirectoryContentContext {
+  """
+  The subdirectory content context category ids.
+  """
+  categoryIDs: [ID!]
+
+  """
+  The subdirectory content context tag ids.
+  """
+  tagIDs: [ID!]
+}
+
+"""
+Optional input to filter videos.
+Add any additional optional fields to this input.
+"""
+input VideoConnectionOptionsInput {
+  """
+  The IDs of any categories that should be included in the results.
+  """
+  gameIDs: [ID!]
+
+  """
+  Whether unpublished (private) videos should be returned. Will only be returned
+  for the currently authenticated user. Defaults to false.
+  """
+  includePrivate: Boolean = false
+
+  """
+  The maximum length in seconds of any videos returned.
+  """
+  maxLengthSeconds: Int
+
+  """
+  The minimum length in seconds of any videos returned.
+  """
+  minLengthSeconds: Int
+
+  """
+  The ending creation date of any videos returned (not inclusive).
+  """
+  searchRangeEndAt: Time
+
+  """
+  The starting creation date of any videos returned (not inclusive).
+  """
+  searchRangeStartAt: Time
+}
+
+"""
+A Video Connection Search input to set params to include search term.
+"""
+input VideoConnectionSearchParams {
+  """
+  The search term to filter video results by.
+  """
+  term: String
+}
+
+"""
+Options to include private videos.
+"""
+input VideoOptions {
+  includePrivate: Boolean = false
+}
+
+"""
+The required configuration to activate a video overlay extension.
+"""
+input VideoOverlayActivationInput {
+  """
+  The slot name of where the component extension should be displayed.
+  """
+  slot: String!
+}
+
+"""
+VideoOverlayViewInput holds the view configuration of an extension if the videoOverlay anchor is supported.
+"""
+input VideoOverlayViewInput {
+  """
+  Relative path of the HTML file to load for this view.
+  """
+  viewerPath: String!
+}
+
+"""
+Filtering criteria for paginated video top clips results.
+"""
+input VideoTopClipsInput {
+  """
+  The ID of the curator to filter results by.
+  """
+  curatorID: ID
+
+  """
+  The time period to restrict clips based on creation time.
+  """
+  period: ClipsPeriod = LAST_WEEK
+
+  """
+  The sort order for the clips results.
+  """
+  sort: ClipsSort = VIEWS_DESC
+}
+
+"""
+Input for Visit Stream Manager.
+"""
+input VisitStreamManagerInput {
+  """
+  The channel ID of the stream manager visited.
+  """
+  channelID: ID!
+}
+
+"""
+Inputs for voting on an ad poll.
+"""
+input VoteInAdPollInput {
+  """
+  The id of the choice the vote is casted on in the poll.
+  """
+  choiceID: ID!
+
+  """
+  The id of the poll that is being voted in.
+  """
+  pollID: ID!
+
+  """
+  The voter id of the voter.
+  """
+  userID: ID!
+
+  """
+  The unique id for this vote action.
+  """
+  voteID: ID!
+}
+
+"""
+Inputs for voting on a poll by choice index.
+Poll id and choice id are retrieved from the backend, before sending the vote.
+"""
+input VoteInPollByChoiceIndexInput {
+  """
+  The id of the channel the vote is being cast in.
+  """
+  channelID: ID!
+
+  """
+  Important: The ***ONE INDEXED*** (NOT ZERO INDEXED) position of the choice that is chosen in the poll.
+  """
+  choiceIndex: Int!
+
+  """
+  The tokens used for this vote.
+  """
+  tokens: PollVoteTokensInput
+
+  """
+  The user id of the voter.
+  """
+  userID: ID!
+
+  """
+  The unique id for this vote action.
+  """
+  voteID: ID!
+}
+
+"""
+Inputs for voting on a poll.
+"""
+input VoteInPollInput {
+  """
+  The id of the choice the vote is casted on in the poll.
+  """
+  choiceID: ID!
+
+  """
+  The id of the poll that is being voted in.
+  """
+  pollID: ID!
+
+  """
+  The tokens used for this vote.
+  """
+  tokens: PollVoteTokensInput
+
+  """
+  The user id of the voter.
+  """
+  userID: ID!
+
+  """
+  The unique id for this vote action.
+  """
+  voteID: ID!
+}

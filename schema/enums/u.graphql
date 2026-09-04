@@ -1,0 +1,1642 @@
+"""
+Subscrption state of the reported unacknowledged events.
+"""
+enum UnacknowledgedSubscriptionEventState {
+  """
+  The subscription is active.
+  """
+  ACTIVE
+
+  """
+  Subscription will not renew, but may still be active.
+  """
+  WILL_NOT_RENEW
+
+  """
+  Subscription will not renew and is not active.
+  """
+  CANCELLED
+
+  """
+  Subscription that is on hold.
+  """
+  ON_HOLD
+}
+
+"""
+Possible errors arising from an update unban request mutation.
+"""
+enum UnbanRequestErrorCode {
+  """
+  User does not have the permissions required to update the Unban Request.
+  """
+  UNAUTHORIZED
+
+  """
+  Unban Request was not found.
+  """
+  REQUEST_NOT_FOUND
+
+  """
+  Attempted status update was not valid.
+  """
+  INVALID_UPDATE
+
+  """
+  Unknown error.
+  """
+  UNKNOWN
+}
+
+"""
+Reasons why a user may be restricted from requesting an unban.
+"""
+enum UnbanRequestRestrictionReason {
+  """
+  User has already created an unban request for the current ban.
+  """
+  ALREADY_CREATED
+
+  """
+  User is not banned on the channel.
+  """
+  NOT_BANNED
+
+  """
+  User is attempting to create a request too since their ban. Must wait for cooldown period to end.
+  """
+  TOO_SOON_SINCE_BAN
+
+  """
+  Channel is not receiving unban requests.
+  """
+  UNBAN_REQUESTS_DISABLED
+
+  """
+  User must be logged in to be able to request an unban.
+  """
+  UNAUTHENTICATED
+
+  """
+  Unknown restricted reason.
+  """
+  UNKNOWN
+}
+
+"""
+Ways to sort Unban Requests.
+"""
+enum UnbanRequestsSortOrder {
+  """
+  The oldest request first.
+  """
+  OLDEST
+
+  """
+  The newest request first.
+  """
+  NEWEST
+}
+
+"""
+Possible statuses of an unban request.
+"""
+enum UnbanRequestStatus {
+  """
+  Default status. Is an invalid status state. Used as zero value when no specific status is specified.
+  """
+  NONE
+
+  """
+  Approved; user is unbanned from the channel.
+  """
+  APPROVED
+
+  """
+  User's unban request is denied; user remains banned in the channel.
+  """
+  DENIED
+
+  """
+  A moderator decision has not been made on the Unban Request.
+  """
+  PENDING
+
+  """
+  The user has had their unban request approved, and has acknowledged
+  the rules on the channel.
+  """
+  ACKNOWLEDGED
+
+  """
+  The user has canceled their unban request.
+  """
+  CANCELED
+}
+
+enum UnbanUserFromChatRoomErrorCode {
+  """
+  User does not have permission to unban in channel.
+  """
+  FORBIDDEN
+
+  """
+  Target does not exist.
+  """
+  TARGET_NOT_FOUND
+
+  """
+  Target is not banned in channel.
+  """
+  TARGET_NOT_BANNED
+}
+
+"""
+UninstallExtensionErrorCode is an error code associated with UninstallExtensionError.
+"""
+enum UninstallExtensionErrorCode {
+  """
+  User is unable to make modifications to the extension.
+  """
+  UNAUTHORIZED
+
+  """
+  Channel id is invalid, for example, is empty.
+  """
+  INVALID_CHANNEL_ID
+
+  """
+  The extension is not installed on the channel.
+  """
+  EXTENSION_NOT_INSTALLED
+}
+
+"""
+UnmodUserErrorCode defines a client error that occurred while remove a moderator.
+"""
+enum UnmodUserErrorCode {
+  """
+  The requesting user does not have permission to add a moderator in this channel.
+  """
+  FORBIDDEN
+
+  """
+  The target user does not exist or has a suspended account.
+  """
+  TARGET_NOT_FOUND
+
+  """
+  The channel does not exist.
+  """
+  CHANNEL_NOT_FOUND
+
+  """
+  The target user is not a moderator.
+  """
+  TARGET_NOT_MOD
+}
+
+"""
+The status codes for this mutation.
+"""
+enum UpdateAllChannelVideosViewabilityStatusCode {
+  """
+  Update job was successful started.
+  """
+  SUCCESS
+
+  """
+  User does not have permission to update videos.
+  """
+  FORBIDDEN
+
+  """
+  Internal error.
+  """
+  INTERNAL_ERROR
+
+  """
+  Invalid Argument.
+  """
+  INVALID_ARGUMENT
+
+  """
+  Unknown Error.
+  """
+  UNKNOWN
+}
+
+"""
+Possible error codes returned for updating bits badges.
+"""
+enum UpdateBitsBadgeTiersErrorCode {
+  """
+  Invalid parameters in the request.
+  """
+  INVALID_PARAMETER
+
+  """
+  Badge title is too long.
+  """
+  BADGE_TITLE_EXCEEDS_CHARACTER_LIMIT
+
+  """
+  Badge title did not pass moderation check.
+  """
+  BADGE_TITLE_FAILED_MODERATION
+
+  """
+  The emote code submitted collides with an existing emote code.
+  """
+  EMOTE_CODE_ALREADY_EXISTS
+
+  """
+  The emote code submitted is unacceptable (contains offensive, banned, or "bad" words, which violates guidelines).
+  """
+  EMOTE_CODE_UNACCEPTABLE
+
+  """
+  Data for least one of the image sizes is not provided.
+  """
+  INCOMPLETE_BADGE_IMAGE_DATA
+
+  """
+  Other errors returned from the service.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+Error types recognized.
+"""
+enum UpdateBoostSettingsErrorCode {
+  """
+  Invalid parameter in the request.
+  """
+  INVALID_PARAMETER
+
+  """
+  Internal error being returned from service.
+  """
+  INTERNAL_ERROR
+}
+
+"""
+Possible error codes returned from updating broadcast settings.
+"""
+enum UpdateBroadcastSettingsErrorCode {
+  """
+  User is not authorized to update broadcast settings for this channel.
+  """
+  AUTH_FAILURE
+
+  """
+  Too many attempts to update broadcast settings.
+  """
+  REQUESTS_THROTTLED
+
+  """
+  Language is invalid.
+  """
+  LANGUAGE_NOT_VALID
+
+  """
+  Streaming status is too long.
+  """
+  STATUS_TOO_LONG
+
+  """
+  Streaming status uses banned words.
+  """
+  STATUS_USES_BANNED_WORDS
+
+  """
+  Game name is too long.
+  """
+  GAME_NAME_TOO_LONG
+
+  """
+  Unrecognized error returned from the backend service.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+The possible error returned.
+"""
+enum UpdateChannelCategoryShelfError {
+  """
+  The user making the update is not authorized to do so.
+  """
+  FORBIDDEN
+
+  """
+  One or more of the category IDs in the input are invalid.
+  """
+  INVALID_CATEGORY
+
+  """
+  The same category ID cannot be both shown and hidden.
+  """
+  CANNOT_SHOW_AND_HIDE_CATEGORY
+}
+
+"""
+Possible error codes from the updateChannelPredictionSettings mutation.
+"""
+enum UpdateChannelPredictionSettingsErrorCode {
+  """
+  The authorized user is not allowed to update prediction settings for this channel.
+  """
+  FORBIDDEN
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+Possible error codes returned for updating a cheermote tier.
+"""
+enum UpdateCheermoteTierErrorCode {
+  """
+  Only the cheermote owner is allowed to upload cheermotes.
+  """
+  INVALID_OWNER
+
+  """
+  The uploaded image assets could not be parsed.
+  """
+  INVALID_IMAGE_UPLOAD
+
+  """
+  The uploaded image assets could not be found.
+  """
+  EMOTE_IMAGE_NOT_FOUND
+
+  """
+  There were not enough image assets supplied for the cheermote.
+  """
+  NOT_ENOUGH_EMOTE_IMAGE_ASSETS
+
+  """
+  There were more image assets supplied than required for the cheermote.
+  """
+  TOO_MANY_EMOTE_IMAGE_ASSETS
+
+  """
+  A static image asset was not supplied, but is required for the cheermote.
+  """
+  EMOTE_MISSING_STATIC_ASSET
+
+  """
+  An animated image asset was not supplied, but is required for the cheermote.
+  """
+  EMOTE_MISSING_ANIMATED_ASSET
+
+  """
+  Other errors returned from the service.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+The possible reasons updating an automatic Community Points reward in a channel could fail.
+"""
+enum UpdateCommunityPointsAutomaticRewardErrorCode {
+  """
+  An unexpected error occurred.
+  """
+  UNKNOWN
+
+  """
+  The current user is not allowed to update a reward in this channel.
+  """
+  FORBIDDEN
+
+  """
+  The cost is below the minimum.
+  """
+  COST_TOO_LOW
+
+  """
+  The cost is invalid. Must be a positive integer.
+  """
+  COST_INVALID
+
+  """
+  The background color is invalid. Backgrounds must be a valid hex color, for example "FF0000".
+  """
+  BACKGROUND_COLOR_INVALID
+}
+
+"""
+The possible reasons updating a channel's Community Points channel settings could fail.
+"""
+enum UpdateCommunityPointsChannelSettingsErrorCode {
+  """
+  An unexpected error occurred.
+  """
+  UNKNOWN
+
+  """
+  The current user is not allowed to update this channel's settings.
+  """
+  FORBIDDEN
+
+  """
+  The custom name failed AutoMod.
+  """
+  NAME_AUTOMOD_FAILED
+}
+
+"""
+Update community goal error code.
+"""
+enum UpdateCommunityPointsCommunityGoalErrorCode {
+  """
+  Goal already exists.
+  """
+  DUPLICATE_GOAL
+
+  """
+  Goal title failed automod.
+  """
+  TITLE_AUTOMOD_FAILED
+
+  """
+  Goal title is invalid.
+  """
+  TITLE_INVALID
+
+  """
+  Goal description failed automod.
+  """
+  DESCRIPTION_AUTOMOD_FAILED
+
+  """
+  Goal description is invalid.
+  """
+  DESCRIPTION_INVALID
+
+  """
+  Goal amount is invalid.
+  """
+  GOAL_AMOUNT_INVALID
+
+  """
+  Goal duration is invalid.
+  """
+  DURATION_INVALID
+
+  """
+  Goal background color is invalid.
+  """
+  BACKGROUND_COLOR_INVALID
+
+  """
+  Goal cannot be updated since it has already been started.
+  """
+  GOAL_STARTED
+
+  """
+  Goal status change invalid.
+  """
+  INVALID_STATUS_CHANGE
+
+  """
+  Goal was not found.
+  """
+  NOT_FOUND
+
+  """
+  The current user is not allowed to update goals for this channel.
+  """
+  FORBIDDEN
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+The possible reasons updating a custom Community Points reward in a channel could fail.
+"""
+enum UpdateCommunityPointsCustomRewardErrorCode {
+  """
+  An unexpected error occurred.
+  """
+  UNKNOWN
+
+  """
+  The current user is not allowed to update a reward in this channel.
+  """
+  FORBIDDEN
+
+  """
+  The reward was not found.
+  """
+  NOT_FOUND
+
+  """
+  The title failed AutoMod.
+  """
+  TITLE_AUTOMOD_FAILED
+
+  """
+  The prompt failed AutoMod.
+  """
+  PROMPT_AUTOMOD_FAILED
+
+  """
+  The cost is invalid. Costs must be greater than 0.
+  """
+  COST_INVALID
+
+  """
+  The maxPerStream is invalid. maxPerStream must be greater than 0.
+  """
+  MAX_PER_STREAM_INVALID
+
+  """
+  The title is invalid. Titles must not be empty and must be at most 45 characters long.
+  """
+  TITLE_INVALID
+
+  """
+  The background color is invalid. Backgrounds must be a valid hex color, for example "FF0000".
+  """
+  BACKGROUND_COLOR_INVALID
+
+  """
+  A reward with the provided title already exists. Custom reward titles must be unique.
+  """
+  DUPLICATE_REWARD
+
+  """
+  The maxPerUserPerStream is invalid. maxPerUserPerStream must be greater than 0.
+  """
+  MAX_PER_USER_PER_STREAM_INVALID
+
+  """
+  The globalCooldown is invalid. globalCooldown must be greater tham 0.
+  """
+  GLOBAL_COOLDOWN_INVALID
+}
+
+"""
+The possible reasons acting on a Community Points redemption could fail.
+"""
+enum UpdateCommunityPointsCustomRewardRedemptionStatusErrorCode {
+  """
+  The redemption was not found.
+  """
+  NOT_FOUND
+
+  """
+  The current user is not allowed to update the status of this redemption.
+  """
+  FORBIDDEN
+}
+
+"""
+The possible reasons acting on a Community Points redemption could fail.
+"""
+enum UpdateCommunityPointsCustomRewardRedemptionStatusesErrorCode {
+  """
+  An unexpected error occured.
+  """
+  UNKNOWN
+
+  """
+  The current user is not allowed to update the statuses of these redemptions.
+  """
+  FORBIDDEN
+
+  """
+  There is already a bulk update in progress for this reward / all rewards. Only one can be	processed at a time.
+  """
+  IN_PROGRESS
+}
+
+"""
+An error returned when updating a user's enrollment in Community Points early access.
+"""
+enum UpdateCommunityPointsEarlyAccessErrorCode {
+  """
+  The user is not allowed to opt in to the Community Points early access program.
+  """
+  FORBIDDEN
+
+  """
+  There was some other error updating the user's enrollment.
+  """
+  UNKNOWN
+}
+
+"""
+The possible reasons updating the last viewed community points content timestamps on a channel could fail.
+"""
+enum UpdateCommunityPointsLastViewedContentErrorCode {
+  """
+  An unexpected error occurred.
+  """
+  UNKNOWN
+
+  """
+  The current user is not allowed to update last viewed timestamps for this channel.
+  """
+  FORBIDDEN
+}
+
+"""
+The possible reasons updating a Community Points Smart Costs Acknowledgement in a channel could fail.
+"""
+enum UpdateCommunityPointsSmartCostsAcknowledgementsErrorCode {
+  """
+  An unexpected error occurred.
+  """
+  UNKNOWN
+
+  """
+  The current user is not allowed to update a smart costs acknowledgement in this channel.
+  """
+  FORBIDDEN
+
+  """
+  The cost is invalid. Must be a positive integer.
+  """
+  LAST_ACKNOWLEDGED_COST_INVALID
+}
+
+"""
+Client Error Code.
+"""
+enum UpdateConsentErrorCode {
+  """
+  Invalid vendor name or law name or consent status.
+  """
+  INVALID_VENDOR_LAW_CONSENT_STATUS
+}
+
+"""
+Error codes for issues that may occur when trying to update an
+existing Mosaic layout.
+"""
+enum UpdateDashboardViewMosaicLayoutErrorCode {
+  """
+  An unhandled error.
+  """
+  UNKNOWN
+
+  """
+  A layout matching the provided ID was not found.
+  """
+  NOT_FOUND
+
+  """
+  The name argument is invalid.
+  """
+  INVALID_ARGUMENT_NAME
+
+  """
+  The layout argument is invalid.
+  """
+  INVALID_ARGUMENT_LAYOUT
+
+  """
+  The version argument is invalid.
+  """
+  INVALID_ARGUMENT_VERSION
+
+  """
+  The layoutID argument is required.
+  """
+  INVALID_ARGUMENT_LAYOUTID
+
+  """
+  The userID argument is required.
+  """
+  INVALID_ARGUMENT_USERID
+
+  """
+  One or more unspecified aguments are invalid. These are not
+  user-actionable, but might indicate a logic error.
+  """
+  INVALID_ARGUMENT
+}
+
+"""
+The expected errors that can be returned from the UpdateEmoteOrders mutation.
+"""
+enum UpdateEmoteOrdersErrorCode {
+  """
+  The user is not permitted to update the orders of the requested emotes or group.
+  """
+  UNAUTHORIZED
+
+  """
+  No emote was found with the requested emote ID.
+  """
+  BAD_EMOTE_REQUEST
+
+  """
+  No group was found with the requested group ID.
+  """
+  BAD_GROUP_REQUEST
+
+  """
+  The orders provided result in an invalid set of orders in a particular group.
+  """
+  BAD_NON_UNIQUE_ORDERS_REQUEST
+
+  """
+  An unexpected error occurred.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+UpdateExtensionDiscoveryDataError is an error associated with the updateExtensionDiscoveryData mutation.
+"""
+enum UpdateExtensionDiscoveryDataError {
+  """
+  User is unable to make modifications to the extension.
+  """
+  UNAUTHORIZED
+
+  """
+  Version specified is invalid.
+  """
+  INVALID_VERSION
+
+  """
+  Extension names must be shorter than 40 characters.
+  """
+  INVALID_NAME_LENGTH
+
+  """
+  Extension description must be shorter than 1024 characters.
+  """
+  INVALID_DESCRIPTION_LENGTH
+
+  """
+  Extension summary must be shorter than 140 characters.
+  """
+  INVALID_SUMMARY_LENGTH
+
+  """
+  Extension author email must not be nil. Lenght must be < 254, Parses a single RFC 5322 address.
+  """
+  INVALID_AUTHOR_EMAIL
+
+  """
+  Extension support email must not be nil. Lenght must be < 254, Parses a single RFC 5322 address.
+  """
+  INVALID_SUPPORT_EMAIL
+
+  """
+  Extension author name length must be > 40.
+  """
+  INVALID_AUTHOR_NAME_LENGTH
+
+  """
+  Extension testing base uri must not be nil and empty scheme. Scheme should be http or https. User should not be nil.
+  """
+  INVALID_TESTING_BASE_URI
+
+  """
+  Extension terms uri must not be nil and empty scheme. Scheme should be http or https. User should not be nil.
+  """
+  INVALID_TERMS_URI
+
+  """
+  Extension privacy uri must not be nil and empty scheme. Scheme should be http or https. User should not be nil.
+  """
+  INVALID_PRIVACY_URI
+}
+
+"""
+UpdateExtensionManifestError is an error associated with the updateExtensionManifest mutation.
+"""
+enum UpdateExtensionManifestError {
+  """
+  User is unable to make modifications to the extension.
+  """
+  UNAUTHORIZED
+
+  """
+  Version specified is invalid.
+  """
+  INVALID_VERSION
+
+  """
+  At least one anchor must be specified.
+  """
+  ANCHOR_REQUIRED
+
+  """
+  HasZoom was specified but ZoomPixels is missing.
+  """
+  INVALID_ZOOM
+
+  """
+  The number of whitelisted broadcasters exceeds the limit.
+  """
+  MAX_BROADCASTERS
+
+  """
+  The number of whitelisted testing users exceeds the limit.
+  """
+  MAX_TESTERS
+
+  """
+  The number of whitelisted config URLs exceeds the limit.
+  """
+  MAX_WHITELISTED_CONFIG_URLS
+
+  """
+  The number of whitelisted panel URLs exceeds the limit.
+  """
+  MAX_WHITELISTED_PANEL_URLS
+
+  """
+  Extension names must be shorter than 40 characters.
+  """
+  INVALID_NAME_LENGTH
+
+  """
+  Extension description must be shorter than 1024 characters.
+  """
+  INVALID_DESCRIPTION_LENGTH
+
+  """
+  Extension summary must be shorter than 140 characters.
+  """
+  INVALID_SUMMARY_LENGTH
+
+  """
+  Extension author email must not be nil. Lenght must be < 254, Parses a single RFC 5322 address.
+  """
+  INVALID_AUTHOR_EMAIL
+
+  """
+  Extension support email must not be nil. Lenght must be < 254, Parses a single RFC 5322 address.
+  """
+  INVALID_SUPPORT_EMAIL
+
+  """
+  Extension author name length must be > 40.
+  """
+  INVALID_AUTHOR_NAME_LENGTH
+
+  """
+  Extension testing base uri must not be nil and empty scheme. Scheme should be http or https. User should not be nil.
+  """
+  INVALID_TESTING_BASE_URI
+
+  """
+  Extension terms uri must not be nil and empty scheme. Scheme should be http or https. User should not be nil.
+  """
+  INVALID_TERMS_URI
+
+  """
+  Extension privacy uri must not be nil and empty scheme. Scheme should be http or https. User should not be nil.
+  """
+  INVALID_PRIVACY_URI
+
+  """
+  Extension component viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_COMPONENT_VIEWER_PATH
+
+  """
+  Extension panel viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_PANEL_VIEWER_PATH
+
+  """
+  Extension video overlay viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_VIDEO_OVERLAY_VIEWER_PATH
+
+  """
+  Extension config viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_CONFIG_VIEWER_PATH
+
+  """
+  Extension live config viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_LIVE_CONFIG_VIEWER_PATH
+
+  """
+  Extension mobile viewer path must not be nil. Format should be BaseUri/Extension_Path.
+  """
+  INVALID_MOBILE_VIEWER_PATH
+
+  """
+  Extension component aspect width must be < 50 or > 1.
+  """
+  INVALID_COMPONENT_ASPECT_WIDTH
+
+  """
+  Extension component aspect height must be < 50 or > 1.
+  """
+  INVALID_COMPONENT_ASPECT_HEIGHT
+
+  """
+  Extension panel hiehgt must be < 500 or > 100.
+  """
+  INVALID_PANEL_HEIGHT
+
+  """
+  Extension Bits Support Level must ba valid member of the BitsSupportLevelEnum.
+  """
+  INVALID_BITS_SUPPORT_LEVEL
+}
+
+"""
+Validation error status codes.
+"""
+enum UpdateLiveUpNotificationValidationErrorCode {
+  """
+  The notification text sent did not pass auto mod.
+  """
+  FAILED_AUTOMOD
+
+  """
+  The notification text sent is too long.
+  """
+  TOO_LONG
+
+  """
+  The target user is not found.
+  """
+  USER_NOT_FOUND
+}
+
+"""
+UpdateOrganizationMemberRoleErrorCode is the client error type that occurred
+during the UpdateOrganizationMemberRole mutation.
+"""
+enum UpdateOrganizationMemberRoleErrorCode {
+  """
+  The user is not a member of the organization, or the organization does not exist.
+  """
+  MEMBER_NOT_FOUND
+
+  """
+  The user doesn't meet the requirements to have this role. For example, when trying to assign the
+  "BILLING_MANAGER" role, but the user doesn't have 2FA enabled or completed Extension Monetization Onboarding.
+  """
+  MEMBER_INELIGIBLE
+
+  """
+  Current user not allowed to update the role.
+  For example, developers can not assign roles, and no one can assign the owner role to another user.
+  """
+  PERMISSION_DENIED
+
+  """
+  One of the input parameters is malformed. This should not happen when properly using the UI.
+  """
+  INVALID_ARGUMENT
+}
+
+"""
+The possible error enums returned while trying to change a users phone number.
+"""
+enum UpdatePhoneNumberConfirmationErrorCode {
+  """
+  The user needs to re-authenticate to perform this operation.
+  """
+  REAUTH_NEEDED
+
+  """
+  Phone number was not valid.
+  """
+  INVALID_PHONE_NUMBER
+
+  """
+  The phone number has requested checks on too many verification codes.
+  """
+  REQUEST_THROTTLED
+
+  """
+  The phone number provided is used for too many Twitch accounts.
+  """
+  LIMIT_REACHED
+
+  """
+  The one time password provided is invalid.
+  """
+  INVALID_OTP
+
+  """
+  The one time password provided is missing. A SMS to the phone number will be triggered when this error occurs.
+  """
+  MISSING_OTP
+
+  """
+  Something unexpected occured.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+The possible error enums returned while trying to change a users phone number.
+"""
+enum UpdatePhoneNumberErrorCode {
+  """
+  The user needs to re-authenticate to perform this operation.
+  """
+  REAUTH_NEEDED
+
+  """
+  Phone number was not valid.
+  """
+  INVALID_PHONE_NUMBER
+
+  """
+  The phone number has requested too many verification codes.
+  """
+  REQUEST_THROTTLED
+
+  """
+  The phone number provided is used for too many Twitch accounts.
+  """
+  LIMIT_REACHED
+
+  """
+  Something unexpected occured.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+Error types recognized.
+"""
+enum UpdatePrimeOfferStatusErrorCode {
+  """
+  Status when the offers fail to be updated.
+  """
+  OFFERS_FAILED_TO_UPDATE
+
+  """
+  Unknown error being returned from service.
+  """
+  UNKNOWN
+}
+
+enum UpdateRoomErrorCode {
+  """
+  User does not have permission to update room.
+  """
+  FORBIDDEN
+
+  """
+  Could not find a room with the given room ID.
+  """
+  ROOM_NOT_FOUND
+
+  """
+  Name too short or too long.
+  """
+  NAME_LENGTH_INVALID
+
+  """
+  Name contains invalid characters (e.g. spaces).
+  """
+  NAME_CONTAINS_INVALID_CHARACTERS
+
+  """
+  Name failed automod check.
+  """
+  NAME_INAPPROPRIATE
+
+  """
+  Name was not unique to channel.
+  """
+  NAME_NOT_UNIQUE
+
+  """
+  Topic too short or too long.
+  """
+  TOPIC_LENGTH_INVALID
+
+  """
+  Topic failed automod check.
+  """
+  TOPIC_INAPPROPRIATE
+
+  """
+  Invalid roles specified (e.g. a more permissive role for send than read).
+  """
+  ROLES_INVALID
+}
+
+enum UpdateRoomModesErrorCode {
+  """
+  RoomID referred to an invalid or the user does not have permissions to see the room.
+  """
+  ROOM_NOT_FOUND
+
+  """
+  User did not have permission to update room modes.
+  """
+  FORBIDDEN
+
+  """
+  Slow mode duration was too short, too long, or not a number.
+  """
+  SLOW_MODE_DURATION_INVALID
+}
+
+"""
+The possible error returned.
+"""
+enum UpdateScheduleSegmentErrorCode {
+  """
+  Not authorized to update this segment.
+  """
+  PERMISSION_DENIED
+
+  """
+  The number of categories is invalid. Refer to the error for min and max acceptable values.
+  """
+  INVALID_CATEGORY_COUNT
+
+  """
+  The specified segment could not be found.
+  """
+  NOT_FOUND
+
+  """
+  No update was made because no updated attributes were provided.
+  """
+  NO_UPDATED_ATTRIBUTES_PROVIDED
+
+  """
+  No update was made because the update would cause a segment overlap.
+  """
+  OVERLAPPING_SEGMENTS
+
+  """
+  The title length is invalid. Refer to the error for min and max acceptable values.
+  """
+  INVALID_TITLE
+
+  """
+  The title failed the moderation check.
+  """
+  TITLE_FAILED_MODERATION
+
+  """
+  The timezone is not valid.
+  """
+  INVALID_TIMEZONE
+
+  """
+  The categories are not valid.
+  """
+  INVALID_CATEGORIES
+
+  """
+  The segment start day is invalid.
+  """
+  INVALID_START_DAY
+
+  """
+  The segment start hour is invalid.
+  """
+  INVALID_START_HOUR
+
+  """
+  The segment start minute is invalid.
+  """
+  INVALID_START_MINUTE
+
+  """
+  The duration is invalid. Refer to the error for min and max acceptable values.
+  """
+  INVALID_DURATION
+
+  """
+  The segment is invalid.
+  """
+  INVALID_SEGMENT
+
+  """
+  The input is not valid.
+  """
+  INVALID_ARGUMENT
+
+  """
+  The segment first occurrence date is set in the past.
+  """
+  FIRST_OCCURRENCE_DATE_IN_PAST
+
+  """
+  Cannot set the first occurrence date on an infinitely recurring segment.
+  """
+  FIRST_OCCURRENCE_DATE_ON_RECURRING_SEGMENT
+
+  """
+  The segment has already started and can't be edited.
+  """
+  ALREADY_STARTED
+}
+
+"""
+UpdateSocialMediaError is a user error while creating a social media.
+"""
+enum UpdateSocialMediaError {
+  """
+  The title failed moderation.
+  """
+  FAILED_TITLE_MODERATION
+
+  """
+  The provided title was too long.
+  """
+  TITLE_TOO_LONG
+
+  """
+  The provided url is invalid.
+  """
+  INVALID_URL
+
+  """
+  The social medias does not exist.
+  """
+  NOT_FOUND
+}
+
+"""
+UpdateSquadInvitePolicyErrorCode are the possible errors that this mutation returns.
+"""
+enum UpdateSquadInvitePolicyErrorCode {
+  """
+  The caller is not authorized to update the user's squad invite policy.
+  """
+  UNAUTHORIZED
+}
+
+"""
+UpdateSquadStreamErrorCode are the possible errors that this mutation returns.
+"""
+enum UpdateSquadStreamErrorCode {
+  """
+  The squad is not found.
+  """
+  SQUAD_NOT_FOUND
+
+  """
+  The squad cannot be updated (e.g. squad is not in pending status).
+  """
+  SQUAD_CANNOT_BE_UPDATED
+
+  """
+  The squad has too few members to be updated to live.
+  """
+  SQUAD_TOO_FEW_MEMBERS
+
+  """
+  The user is not authorized to update the squad.
+  """
+  UNAUTHORIZED
+}
+
+"""
+The possible types of error codes returned.
+"""
+enum UpdateUserColorsErrorCode {
+  """
+  Hex string is invalid.
+  """
+  INVALID_HEX_COLOR
+}
+
+"""
+The possible error codes returned from updating a user.
+"""
+enum UpdateUserErrorCode {
+  """
+  User is not authorized to update this user.
+  """
+  AUTH_FAILURE
+
+  """
+  Too many attempts to update user.
+  """
+  REQUESTS_THROTTLED
+
+  """
+  User cannot be found.
+  """
+  USER_NOT_FOUND
+
+  """
+  Sudo token expired, prompt the user to log in again.
+  """
+  REAUTH_NEEDED
+
+  """
+  Display name not available.
+  """
+  DISPLAY_NAME_NOT_AVAILABLE
+
+  """
+  Display name is too short.
+  """
+  DISPLAY_NAME_TOO_SHORT
+
+  """
+  Display name is too long.
+  """
+  DISPLAY_NAME_TOO_LONG
+
+  """
+  Display name contains invalid characters.
+  """
+  INVALID_CHARS_IN_DISPLAY_NAME
+
+  """
+  User is not allowed to change their display name again.
+  """
+  DISPLAY_NAME_CHANGE_AGAIN
+
+  """
+  User can only change the capitalization of their display name.
+  """
+  DISPLAY_NAME_ONLY_CAP
+
+  """
+  Unexpected error during displayname override.
+  """
+  DISPLAY_NAME_UNEXPECTED_ERR
+
+  """
+  The login you selected is not available.
+  """
+  LOGIN_NOT_AVAILABLE
+
+  """
+  The login you selected is not yet available for re-use.
+  """
+  LOGIN_BLOCKED
+
+  """
+  Login change rate limited.
+  """
+  NOT_ALLOWED_TO_CHANGE_LOGIN
+
+  """
+  The login you selected is too short.
+  """
+  LOGIN_TOO_SHORT
+
+  """
+  The login you selected is too long.
+  """
+  LOGIN_TOO_LONG
+
+  """
+  The login you selected contains invalid characters.
+  """
+  INVALID_CHARS_IN_LOGIN
+
+  """
+  Login contains banned words.
+  """
+  LOGIN_USE_BANNED_WORDS
+
+  """
+  Login contains variations on banned words.
+  """
+  LOGIN_USE_VARIATION_ON_BANNED_WORDS
+
+  """
+  User exists but was excluded by filter criteria.
+  """
+  FILTERED_USER_REQUESTED
+
+  """
+  The IP is blocked.
+  """
+  IP_BLOCKED
+
+  """
+  Too many users associated with the email.
+  """
+  TOO_MANY_USERS_FOR_EMAIL
+
+  """
+  Email disabled for reuse.
+  """
+  EMAIL_DISABLED_FOR_REUSE
+
+  """
+  Email address is not valid.
+  """
+  INVALID_EMAIL
+
+  """
+  Admins must use their work email.
+  """
+  WORK_EMAIL_REQUIRED
+
+  """
+  Email address uses an invalid domain.
+  """
+  INVALID_EMAIL_DOMAIN
+
+  """
+  Email change cooldown.
+  """
+  NOT_ALLOWED_TO_CHANGE_EMAIL
+
+  """
+  Phone number is invalid.
+  """
+  PHONE_NUMBER_INVALID
+
+  """
+  Phone number cannot contain letters.
+  """
+  PHONE_NUMBER_HAS_LETTERS
+
+  """
+  Description contains banned words.
+  """
+  DESCRIPTION_FAILED_MODERATION
+
+  """
+  Description field is too long.
+  """
+  DESCRIPTION_TOO_LONG
+
+  """
+  No properties found for this user identifier.
+  """
+  NO_PROPERTIES
+
+  """
+  Reservation does not exist in db.
+  """
+  RESERVATION_NOT_EXITS
+
+  """
+  The specified locale is invalid.
+  """
+  LANGUAGE_NOT_VALID
+
+  """
+  Age cannot be under 13 years.
+  """
+  INVALID_BIRTHDAY
+
+  """
+  Last Login doesn't follow format "%Y-%m-%d %H:%M:%S".
+  """
+  INVALID_LAST_LOGIN
+
+  """
+  Phone number or email update cannot be combined with delete pohone number.
+  """
+  INVALID_PARAMETER_COMBINATION
+
+  """
+  Phone number can only be removed for an account with a verifed email.
+  """
+  NOT_ALLOWED_TO_DELETE_PHONE_NUMBER
+
+  """
+  Phone number already exists.
+  """
+  PHONE_NUMBER_ALREADY_EXISTS
+
+  """
+  Hex color is not valid.
+  """
+  INVALID_HEX_COLOR
+
+  """
+  Unknown error.
+  """
+  UNKNOWN
+}
+
+"""
+Possible error codes from the updateUserPredictionSettings mutation.
+"""
+enum UpdateUserPredictionSettingsErrorCode {
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+UpdateVideoStreamSettingsErrorCode is the client error type that occurred during the UpdateVideoStreamSettings mutation.
+"""
+enum UpdateVideoStreamSettingsErrorCode {
+  """
+  The broadcaster is not found.
+  """
+  CHANNEL_NOT_FOUND
+
+  """
+  Permission denied to add an authorized user.
+  """
+  PERMISSION_DENIED
+
+  """
+  Invalid argument to add an authorized user.
+  """
+  INVALID_ARGUMENT
+}
+
+"""
+Client error code.
+"""
+enum UpdateVideosViewabilityErrorCode {
+  """
+  Internal error.
+  """
+  INTERNAL_ERROR
+
+  """
+  The request body was invalid.
+  """
+  BAD_REQUEST
+
+  """
+  Permission Denied.
+  """
+  PERMISSION_DENIED
+
+  """
+  Unknown error.
+  """
+  UNKNOWN
+}
+
+"""
+Enum that specifies which role the user is taking when querying for competitions.
+"""
+enum UserCompetitionRelationship {
+  """
+  Player in a competition.
+  """
+  PLAYER
+
+  """
+  Owner of a competition.
+  """
+  OWNER
+
+  """
+  Unknown competition role.
+  """
+  UNKNOWN
+}
+
+"""
+The available types of lookups for a user query.
+"""
+enum UserLookupType {
+  """
+  Retrieves only active users without TOS/DMCA violations.
+  """
+  ACTIVE
+
+  """
+  Includes suspended or deleted users in the results.
+  """
+  ALL
+}
+
+"""
+Restrictions on a user participating in a given Prediction Event.
+"""
+enum UserPredictionEventRestriction {
+  """
+  The user is restricted from participating because they have the ability to manage Predictions on this channel.
+  """
+  CAN_MANAGE_PREDICTIONS
+
+  """
+  The user is restricted from participating because their geographic location has a blanket ban on Prediction participation.
+  """
+  REGION_LOCKED
+
+  """
+  The user is restricted from participating because their geographic location
+  has a ban on Predictions for the specific game/category being played.
+  """
+  CATEGORY_REGION_LOCKED
+}

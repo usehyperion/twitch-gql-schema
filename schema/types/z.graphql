@@ -1,0 +1,36 @@
+type ZuoraConfigs {
+  """
+  Twitch merchant account ID on Zuora.
+  """
+  externalAccountID: ID!
+
+  """
+  ID of the hosted page we will render.
+  """
+  hostedPageID: ID!
+
+  """
+  URL of the hosted page we will render.
+  """
+  hostedPageURL: String!
+
+  """
+  Used to encrypt sensitive information.
+  """
+  publicKey: String!
+
+  """
+  Need to pass generated signature to access Zuora payment pages.
+  """
+  signature: String!
+
+  """
+  In some cases, when you contact Zuora Support with an issue, the person helping you may ask you to provide the tenant ID.
+  """
+  tenantID: ID!
+
+  """
+  Zuora API uses token as part of authentication.
+  """
+  token: String!
+}

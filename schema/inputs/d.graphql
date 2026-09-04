@@ -1,0 +1,742 @@
+"""
+The required input for a deactivateExtension mutation.
+"""
+input DeactivateExtensionInput {
+  """
+  The composite ID of an extension installation <extensionID:version:channelID>.
+  """
+  extensionInstallationID: ID!
+}
+
+"""
+Input to the DeclineOrganiztaionInvite mutation.
+"""
+input DeclineOrganizationInviteInput {
+  """
+  ID of the invite to decline.
+  """
+  organizationInviteID: ID!
+}
+
+"""
+Inputs for deleting all videos by channel id mutation.
+"""
+input DeleteAllChannelVideosInput {
+  """
+  The ID of the channel to delete all videos from.
+  """
+  channelID: ID!
+}
+
+"""
+The input for delete bits badge tier emoticon.
+"""
+input DeleteBitsBadgeTierEmoticonInput {
+  """
+  channelID is the owner of the emoticon being deleted.
+  """
+  channelID: ID!
+
+  """
+  emoteID is the unique identifier for the emote.
+  """
+  emoteID: ID!
+
+  """
+  The visual representation of the emote.
+  For example, "O_o" instead of "(O|o)_(o|O)".
+  """
+  text: String!
+
+  """
+  threshold is the badge tier threshold associated with this emoticon.
+  """
+  threshold: Int!
+}
+
+"""
+Inputs for deleting a celebration.
+"""
+input DeleteCelebrationInput {
+  """
+  ID of celebration to delete.
+  """
+  celebrationID: ID!
+
+  """
+  ID of channel where the celebration to delete exists.
+  """
+  channelID: ID!
+}
+
+"""
+Inputs for the mutation. channel ID and a list of phrases to be deleted.
+"""
+input DeleteChannelBlockedTermInput {
+  """
+  channelID is the owner of the term being deleted.
+  """
+  channelID: ID!
+
+  """
+  phrases is the strings representation of the term being deleted.
+  """
+  phrases: [String!]!
+}
+
+"""
+Inputs for the deleting a channel's clip.
+"""
+input DeleteChannelClipsInput {
+  """
+  channelID is the channel's ID.
+  """
+  channelID: ID!
+}
+
+"""
+Inputs for the mutation. channel ID and a list of phrases to be deleted.
+"""
+input DeleteChannelPermittedTermInput {
+  """
+  channelID is the ID of the owner of the permitted term being deleted.
+  """
+  channelID: ID!
+
+  """
+  phrases is the string representation of the term being deleted.
+  """
+  phrases: [String!]!
+}
+
+"""
+The input for deleteChatMessage.
+"""
+input DeleteChatMessageInput {
+  """
+  The channel the message was sent in.
+  """
+  channelID: ID!
+
+  """
+  The UUID of the message to be deleted.
+  """
+  messageID: ID!
+}
+
+"""
+The input for delete cheermote tier.
+"""
+input DeleteCheermoteTierInput {
+  """
+  Threshold of the cheermote tier to be deleted.
+  """
+  tierThreshold: CheermoteTierThreshold!
+
+  """
+  ID of the owner of the cheermote tier being deleted.
+  """
+  userID: ID!
+}
+
+"""
+DeleteClipsInput accepts either a list of slugs, a video id, or a broadcast id
+to determine the clips to delete.
+"""
+input DeleteClipsInput {
+  """
+  The id of the broadcast to delete clips from.
+  """
+  broadcastID: ID
+
+  """
+  The list of clip slugs to be deleted.
+  """
+  slugs: [ID!]
+
+  """
+  The id of the video to delete clips from.
+  """
+  videoID: ID
+}
+
+"""
+DeleteCollectionInput accepts a collection ID to delete a collection.
+"""
+input DeleteCollectionInput {
+  """
+  The id of the collection to be deleted.
+  """
+  collectionID: ID!
+}
+
+"""
+Delete community goal input.
+"""
+input DeleteCommunityPointsCommunityGoalInput {
+  """
+  The channel.
+  """
+  channelID: ID!
+
+  """
+  The community goal.
+  """
+  goalID: ID!
+}
+
+"""
+Input for deleting a custom Community Points reward in a channel.
+"""
+input DeleteCommunityPointsCustomRewardInput {
+  """
+  The channel ID that the reward is being deleted in.
+  """
+  channelID: ID!
+
+  """
+  The ID of the reward being deleted.
+  """
+  rewardID: ID!
+
+  """
+  Rewards cannot be deleted while they have unfulfilled redemptions.
+  All unfulfilled redemptions will be set to this new state asynchronously after the reward is deleted.
+  """
+  unfulfilledRedemptionsNewStatus: CommunityPointsCustomRewardRedemptionStatus = FULFILLED
+}
+
+"""
+Delete a Competition.
+"""
+input DeleteCompetitionInput {
+  """
+  Unique Competition Id.
+  """
+  id: ID!
+}
+
+"""
+Delete tags associated with CLIP, STREAM, or VOD with contentID.
+"""
+input DeleteContentTagsInput {
+  """
+  ID of the channel owning the content.
+  """
+  authorID: ID!
+
+  """
+  ID of content: Channel ID for Streams, Slugs for Clips, and VOD ids for VODs.
+  """
+  contentID: ID!
+
+  """
+  Type of content being returned. Can only be of values CLIP, STREAM, or VOD.
+  """
+  contentType: ContentType!
+
+  """
+  List of tag IDs to be deleted from the content.
+  """
+  tagIDs: [ID!]!
+}
+
+"""
+The input required when making a request to delete a user's default payment method for a given provider.
+"""
+input DeleteDefaultPaymentMethodInput {
+  """
+  The payment provider we're deleting the payment method on.
+  """
+  provider: PaymentProvider!
+
+  """
+  The user to delete default payment method for.
+  """
+  userID: ID!
+}
+
+"""
+DeleteDeviceTokenInput accepts a token and user ID and deletes that pair from the database.
+"""
+input DeleteDeviceTokenInput {
+  """
+  The token to be deleted.
+  """
+  deviceToken: ID!
+
+  """
+  ID for the user associated with the device token.
+  """
+  userID: ID!
+}
+
+"""
+DeleteDropCampaignInput has fields required to delete a campaign.
+"""
+input DeleteDropCampaignInput {
+  """
+  The id of the Drop campaign to be deleted.
+  """
+  campaignID: ID!
+}
+
+"""
+DeleteDropInput has fields required to delete a drop.
+"""
+input DeleteDropInput {
+  """
+  The id of the Drop to be deleted.
+  """
+  dropID: ID!
+}
+
+"""
+The input for delete emote.
+"""
+input DeleteEmoteInput {
+  """
+  ID of the emote to be deleted.
+  """
+  id: ID!
+}
+
+"""
+Information needed to delete images on extension.
+"""
+input DeleteExtensionImageInput {
+  """
+  The extension:version the images are for.
+  """
+  extensionID: ID!
+
+  """
+  Urls to be deleted.
+  """
+  urls: [String!]!
+}
+
+"""
+Inputs for the deleteExtension mutation.
+"""
+input DeleteExtensionInput {
+  """
+  ID for the extension being deleted.
+  """
+  id: ID!
+}
+
+"""
+The information we need to delete the extension's secrets.
+"""
+input DeleteExtensionSecretsInput {
+  """
+  The extensionID whose secrets should be removed.
+  """
+  extensionID: ID!
+}
+
+"""
+Inputs for the mutation. Loyalty Badge to be deleted by channelID, badgeID, and channelTenureMethodID.
+"""
+input DeleteLoyaltyBadgeInput {
+  """
+  badgeID correlated to the badge being deleted.
+  """
+  badgeID: ID!
+
+  """
+  channelID correlated to the badge being deleted.
+  """
+  channelID: ID!
+
+  """
+  channelTenureMethodID uniquely identifies the badge being deleted.
+  """
+  channelTenureMethodID: ID!
+}
+
+"""
+Output from the DeleteModeratorComment mutation.
+"""
+input DeleteModeratorCommentInput {
+  """
+  ID of the comment to be deleted.
+  """
+  ID: ID!
+}
+
+"""
+Contains a list of IDs of content attributes that are to be deleted.
+"""
+input DeleteMultiviewContentAttributesInput {
+  """
+  A list of content attribute IDs.
+  """
+  IDs: [ID!]!
+}
+
+input DeleteNotificationInput {
+  """
+  The notification to delete.
+  """
+  id: ID!
+}
+
+input DeletePanelInput {
+  id: ID!
+}
+
+input DeletePostInput {
+  postID: ID!
+}
+
+"""
+Data required to delete recommendation feedback.
+"""
+input DeleteRecommendationFeedbackInput {
+  """
+  The id of the feedback.
+  """
+  feedbackID: ID!
+
+  """
+  The page this event was fired from.
+  """
+  sourceItemPage: String!
+}
+
+input DeleteRoomInput {
+  roomID: ID!
+}
+
+input DeleteRoomMessageInput {
+  messageID: ID!
+  roomID: ID!
+}
+
+"""
+The input to delete a schedule.
+"""
+input DeleteScheduleInput {
+  """
+  The channel ID.
+  """
+  channelID: ID!
+
+  """
+  The schedule ID.
+  """
+  scheduleID: ID!
+}
+
+"""
+The input to delete a schedule segment.
+"""
+input DeleteScheduleSegmentInput {
+  """
+  The schedule id.
+  """
+  scheduleID: ID!
+
+  """
+  The segment id to delete.
+  """
+  segmentID: ID!
+}
+
+"""
+Mutation input to delete a social media item by ID under the given channelID.
+"""
+input DeleteSocialMediaInput {
+  """
+  The ID of the channel the social media belongs to.
+  """
+  channelID: ID!
+
+  """
+  The ID of the social media item.
+  """
+  id: ID!
+}
+
+"""
+Inputs to the deleteSquadStreamInvitation mutation.
+"""
+input DeleteSquadStreamInvitationInput {
+  """
+  ID of the invitation to be deleted.
+  """
+  invitationID: ID!
+}
+
+"""
+DeleteStreamAuthorizedUserInput contains the channelID for the broadcaster and the authorized userID.
+"""
+input DeleteStreamAuthorizedUserInput {
+  """
+  authorizedUserID for an authorized user who was allowed to stream on behalf of broadcaster.
+  """
+  authorizedUserID: ID!
+
+  """
+  channelID of the broadcaster.
+  """
+  channelID: ID!
+}
+
+"""
+Inputs for the deleting clips made by user.
+"""
+input DeleteUserClipsInput {
+  """
+  userID is the user's ID.
+  """
+  userID: ID!
+}
+
+"""
+Inputs for the DeleteUserColors mutation.
+"""
+input DeleteUserColorsInput {
+  """
+  The ID of the user whose creator color is being deleted.
+  """
+  userID: ID!
+}
+
+"""
+Inputs for the deleting videos by id mutation.
+"""
+input DeleteVideosInput {
+  """
+  The IDs of the videos to be deleted.
+  """
+  videoIDs: [ID!]!
+}
+
+"""
+Input information for deleting a thumbnail from a video.
+"""
+input DeleteVideoThumbnailInput {
+  """
+  The thumbnail url path.
+  """
+  path: String!
+
+  """
+  ID of the video the thumbnail will be deleted from.
+  """
+  videoID: ID!
+}
+
+input DenyRejectedChatMessageInput {
+  id: ID!
+}
+
+"""
+Input to the denyRejectedCheer mutation.
+"""
+input DenyRejectedCheerInput {
+  """
+  Client-generated unique ID used to prevent a cheer from being re-sent (thus spending double bits).
+  The server will reject any request with an ID that has already been used.
+  """
+  id: ID!
+
+  """
+  ID of the user whose message is automodded.
+  """
+  targetUserID: ID!
+}
+
+"""
+Required input to deny an unban request on a channel.
+"""
+input DenyUnbanRequestInput {
+  """
+  ID of the unban request to be resolved.
+  """
+  id: ID!
+
+  """
+  Optional message from the resolver to be shown to the unban requester.
+  """
+  resolverMessage: String
+}
+
+"""
+Inputs for deselecting a channel badge.
+"""
+input DeselectChannelBadgeInput {
+  """
+  ID of the channel this badge is selected on.
+  """
+  channelID: ID!
+}
+
+"""
+Defines AutoMod category levels for a Channel.
+"""
+input DetailedAutoModLevelsInput {
+  """
+  This field will be a value between 0 and 4, inclusive.
+  """
+  ableismLevel: Int
+
+  """
+  This field will be a value between 0 and 4, inclusive.
+  """
+  aggressionLevel: Int
+
+  """
+  This field will be a value between 0 and 4, inclusive.
+  """
+  homophobiaLevel: Int
+
+  """
+  This field will be a value between 0 and 4, inclusive.
+  """
+  misogynyLevel: Int
+
+  """
+  This field will be a value between 0 and 4, inclusive.
+  """
+  nameCallingLevel: Int
+
+  """
+  This field will be a value between 0 and 4, inclusive.
+  """
+  profanityLevel: Int
+
+  """
+  This field will be a value between 0 and 4, inclusive.
+  """
+  racismLevel: Int
+
+  """
+  This field will be a value between 0 and 4, inclusive.
+  """
+  sexualityLevel: Int
+}
+
+"""
+The required input for a disableTwoFactor mutation.
+"""
+input DisableTwoFactorInput {
+  """
+  The ID of the user that is requesting to disable two factor authentication.
+  """
+  userID: ID!
+}
+
+"""
+Inputs to the disableUserAccount mutation.
+"""
+input DisableUserAccountInput {
+  """
+  Reason for a user to disable their account.
+  """
+  description: String
+
+  """
+  Permanently delete account.
+  false means account will be disabled and can be reenabled in the future.
+  true means the account will be disabled and will be permanently deleted after a period of time.
+  default is false.
+  """
+  isDelete: Boolean
+
+  """
+  The ID of the user to disable or delete.
+  Only the requester's user ID is allowed.
+  """
+  userID: ID!
+}
+
+input DismissFriendRecommendationInput {
+  """
+  The recommendation to the authenticated user to become friends with a user with ID targetID will be removed.
+  """
+  targetID: ID!
+}
+
+"""
+DismissRitualTokenInput is the input when dismissing a ritual token.
+"""
+input DismissRitualTokenInput {
+  """
+  The channel to dismiss the ritual token in.
+  """
+  channelID: ID!
+
+  """
+  The type of ritual token to dismiss.
+  """
+  type: RitualTokenType!
+}
+
+"""
+Input for dismissing a video's suggested highlight.
+"""
+input DismissVideoSuggestedHighlightInput {
+  """
+  VideoID of the video whos automated highlight suggestions were dismissed.
+  """
+  videoID: ID!
+}
+
+"""
+A measurement against an in-game event to determine whether the drop should trigger.
+"""
+input DropEventConditionInput {
+  """
+  The key of the in-game event that can trigger the drop.
+  """
+  key: String!
+
+  """
+  The operator to apply to the event.
+  """
+  operator: DropEventConditionOperator!
+
+  """
+  The value of the in-game event that the operator is compared to.
+  """
+  value: String!
+}
+
+"""
+DropImageUploadInput has the fields required to upload a drop's image asset.
+"""
+input DropImageUploadInput {
+  """
+  The ownerID of the content owner.
+  """
+  ownerID: ID!
+
+  """
+  The ID for the referenced scope item.
+  """
+  referenceID: ID!
+
+  """
+  The scope of what the image gets uploaded for.
+  """
+  scope: Scope!
+}
+
+"""
+DropPrecondition is the tuple of DropID and the DropPreconditionID, which is the drop that must be attained first.
+"""
+input DropPrecondition {
+  """
+  The drop that can be claimed once the preconditions are met.
+  """
+  dropID: ID!
+
+  """
+  The drop that must have been claimed before you can make progress on this drop.
+  """
+  dropPreconditionID: ID!
+}

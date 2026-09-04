@@ -1,0 +1,663 @@
+"""
+The hearthstone game mode that was played.
+"""
+type HearthsoneMomentGameMode {
+  """
+  The game type (e.g. Ranked, Casual, Arena, Pack Opening, etc.).
+  """
+  type: String!
+
+  """
+  The value for the game type (e.g. 0-11 for Arena, Priest vs Warlock for Ranked).
+  """
+  value: String
+}
+
+"""
+Moment Details specific to the hearthstone game.
+"""
+type HearthstoneMomentDetails {
+  """
+  The broadcasters hero, can be null.
+  """
+  broadcasterHero: HearthstoneMomentHero
+
+  """
+  The game mode that was played, can be null.
+  """
+  gameMode: HearthsoneMomentGameMode
+
+  """
+  The oponents hero, can be null.
+  """
+  opponentHero: HearthstoneMomentHero
+}
+
+"""
+The hero that either the broadcaster or opponent played.
+"""
+type HearthstoneMomentHero {
+  """
+  The hero's (capitalized) class.
+  """
+  class: String!
+
+  """
+  The hero's id.
+  """
+  id: ID!
+
+  """
+  The hero's (capitalized) name.
+  """
+  name: String!
+}
+
+"""
+Represents the user's Hero.
+"""
+type Hero {
+  """
+  A unique ID for this hero.
+  """
+  id: ID!
+
+  """
+  The URI to the pre-composited, full-resolution hero image.
+  """
+  imageURI: String!
+
+  """
+  The configuration of that hero, to be used by the editor.
+  """
+  self: HeroConfiguration
+}
+
+"""
+Representation of a Hero asset.
+"""
+type HeroAsset {
+  """
+  User colorization of the asset, if any.
+  """
+  color: String
+
+  """
+  URI to the asset's color mask image.
+  """
+  colorMaskURI: String
+
+  """
+  When does this asset expire.
+  """
+  expiresAt: Time
+
+  """
+  Is this asset new to the requesting user.
+  """
+  isNew: Boolean
+
+  """
+  URI to the asset's line art image.
+  """
+  lineArtURI: String
+
+  """
+  What skeletons does this asset function properly on.  A NULL entry here
+  indicates that the asset will function on all skeletons.
+  """
+  supportedSkeletons: [HeroSkeleton!]
+
+  """
+  The type of the asset.
+  """
+  type: HeroAssetType!
+}
+
+"""
+Represents the position of an asset relative to a skeleton.
+"""
+type HeroAssetPosition {
+  """
+  Which type of asset this position refers to.
+  """
+  assetType: HeroAssetType!
+
+  """
+  x coordinate of the position.
+  """
+  x: Int!
+
+  """
+  y coordinate of the position.
+  """
+  y: Int!
+}
+
+"""
+Represents the user's Hero configuration.
+"""
+type HeroConfiguration {
+  """
+  What assets the user has equipped.
+  """
+  assets: [HeroAsset!]
+
+  """
+  Which skeleton the user employed.
+  """
+  skeleton: HeroSkeleton
+
+  """
+  What color was applied to that skeleton.
+  """
+  skeletonColor: String
+}
+
+"""
+Represents a Hero skeleton.
+"""
+type HeroSkeleton {
+  """
+  List of x,y offsets for the assets to be properly composited on this skeleton.
+  """
+  assetPositions: [HeroAssetPosition!]!
+
+  """
+  URI to the color mask for the skeleton.
+  """
+  colorMaskURI: String!
+
+  """
+  The UUID for this skeleton.
+  """
+  id: ID!
+
+  """
+  URI to the line art for the skeleton.
+  """
+  lineArtURI: String!
+}
+
+"""
+HiddenView holds the view configuration of an extension if it is a hidden load test extension.
+"""
+type HiddenView implements ExtensionView {
+  """
+  Specifies whether or not the extension has the ability to link to external websites.
+  """
+  canLinkExternalContent: Boolean!
+
+  """
+  Relative path of the HTML file to load for this view, used by devsite to specify the layout of assets.
+  """
+  viewerPath: String!
+
+  """
+  The URL which should be loaded in for the extension.
+  """
+  viewerURL: String!
+}
+
+"""
+An minimal version of a DONE CompetitionLobby focusing on the outcome of a lobby
+"""
+type HistoricalCompetitionLobby {
+  """
+  id is the unique id of the HistoricalCompetitionLobby.
+  """
+  id: ID!
+
+  """
+  The participant who had a higher score, if scores are equal and the lobby is done, the lobby ended in a tie.
+  """
+  winner: CompetitionLobbyParticipant
+}
+
+"""
+Paginated list of Users hosting a particular target User.
+"""
+type HostConnection {
+  """
+  Users hosting a target User.
+  """
+  edges: [HostEdge!]
+
+  """
+  Pagination information for this connection.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of users hosting a target.
+  """
+  totalCount: Int
+}
+
+"""
+Edge between Users hosting a target.
+"""
+type HostEdge {
+  """
+  Unique identifier for each Users hosting.
+  """
+  cursor: Cursor!
+
+  """
+  A User hosting.
+  """
+  node: User
+}
+
+"""
+HostTargetChannelError contains a error code.
+"""
+type HostTargetChannelError {
+  """
+  The type of error that occurred when trying to host.
+  """
+  code: HostTargetChannelErrorCode!
+}
+
+"""
+HostTargetChannelPayload is the response after attempting to host.
+"""
+type HostTargetChannelPayload {
+  """
+  The client error that has occurred.
+  Null if the operation is successful.
+  """
+  error: HostTargetChannelError
+
+  """
+  The channel that is hosting.
+  """
+  source: User
+
+  """
+  The target channel that is hosted.
+  """
+  target: User
+}
+
+"""
+The wrapper structure that contains information regarding a Hype Train.
+"""
+type HypeTrain {
+  """
+  Configuration for Hype Trains for a channel, normally loaded this way when configuring the Hype Train from the
+  Broadcaster's perspective.
+  """
+  config: HypeTrainConfig
+
+  """
+  Information pertaining to executions of Hype Trains in a channel. This is loaded on channel page load.
+  """
+  execution: HypeTrainExecution
+}
+
+"""
+The Hype Train reward that's a Badge.
+"""
+type HypeTrainBadgeReward implements HypeTrainReward {
+  """
+  The badge that is to be entitled.
+  """
+  badge: Badge
+
+  """
+  The identifier of the reward.
+  """
+  id: ID!
+
+  """
+  The type of reward, which will be HypeTrainRewardType.BADGE.
+  """
+  type: HypeTrainRewardType!
+}
+
+"""
+A conductor of the Hype Train.
+"""
+type HypeTrainConductor {
+  """
+  The participation that made them the Hype Train conductor.
+  """
+  participation: [HypeTrainParticipation!]!
+
+  """
+  The conductor source.
+  """
+  source: HypeTrainParticipationSource!
+
+  """
+  The user object that is the conductor.
+  """
+  user: User!
+}
+
+"""
+The configured conductor rewards for a given participation source.
+"""
+type HypeTrainConductorReward {
+  """
+  The rewards entitled for being the conductor and contributing from this source.
+  """
+  rewards: [HypeTrainReward!]!
+
+  """
+  The source that the conductor participated from.
+  """
+  source: HypeTrainParticipationSource!
+
+  """
+  The type of conductor that gets this reward.
+  """
+  type: HypeTrainConductorType!
+}
+
+"""
+The Hype Train config for a channel.
+"""
+type HypeTrainConfig {
+  """
+  A custom setting that will be an emote that the user has chosen (or PogChamp
+  if not set) to display in their Hype Train events.
+  """
+  calloutEmote: Emote
+
+  """
+  The conductor rewards for a Hype Train successful execution.
+  """
+  conductorRewards: [HypeTrainConductorReward!]!
+
+  """
+  The cooldown period between Hype Train executions.
+  """
+  cooldownPeriodMinutes: Int!
+
+  """
+  The difficulty of the Hype Train.
+  """
+  difficulty: HypeTrainDifficulty!
+
+  """
+  The configured levels of the Hype Train.
+  """
+  difficultySettings: [HypeTrainDifficultySettings!]!
+
+  """
+  The identifier for the hype train.
+  """
+  id: ID!
+
+  """
+  The boolean flag that denotes if the Hype Train is enabled or not.
+  """
+  isEnabled: Boolean!
+
+  """
+  The structure that holds the parameters for tweaking how a Hype Train gets kicked off.
+  """
+  kickoff: HypeTrainKickoffConfig!
+
+  """
+  The duration a Hype Train level executes for.
+  """
+  levelDurationSeconds: Int!
+
+  """
+  The threshold for a notification to be displayed.
+  """
+  notificationThresholds: [HypeTrainNotificationThreshold!]!
+
+  """
+  The conversion rates for all the actions that contribute to Hype Train progress.
+  """
+  participationConversionRates: [HypeTrainParticipationConversionRate!]!
+
+  """
+  Hex color for the current hype train. Null if not enabled or no theme color is set.
+  """
+  primaryHexColor: String
+
+  """
+  A boolean flag that indicates if the hype train settings should be personalized by Twitch.
+  """
+  shouldUsePersonalizedSettings: Boolean!
+
+  """
+  A custom setting for using the creators color as the base color of hype trains.
+  """
+  willUseCreatorColor: Boolean!
+}
+
+"""
+A mapping between a difficulty and the levels that correspond.
+"""
+type HypeTrainDifficultySettings {
+  """
+  The difficulty of the level.
+  """
+  difficulty: HypeTrainDifficulty!
+
+  """
+  The levels associated with the difficulty.
+  """
+  levels: [HypeTrainLevel!]!
+}
+
+"""
+The Hype Train reward that's an Emote.
+"""
+type HypeTrainEmoteReward implements HypeTrainReward {
+  """
+  The emote that is to be entitled.
+  """
+  emote: Emote
+
+  """
+  The identifier of the reward.
+  """
+  id: ID!
+
+  """
+  The type of reward, which will be HypeTrainRewardType.EMOTE.
+  """
+  type: HypeTrainRewardType!
+}
+
+"""
+The structure that defines Hype Train Execution in a channel.
+"""
+type HypeTrainExecution {
+  """
+  The conductors of the Hype Train.
+  """
+  conductors: [HypeTrainConductor!]!
+
+  """
+  The Hype Train config that the train was started with.
+  """
+  config: HypeTrainConfig!
+
+  """
+  The reason the Hype Train was ended, if it has been ended.
+  """
+  endReason: HypeTrainEndReason
+
+  """
+  The time the Hype Train was ended, if the Hype Train was a previous execution.
+  """
+  endedAt: Time
+
+  """
+  The time that the Hype Train will expire at.
+  """
+  expiresAt: Time!
+
+  """
+  The identifier of the execution.
+  """
+  id: ID!
+
+  """
+  Boolean flag that denotes if the Hype Train is active or not.
+  """
+  isActive: Boolean!
+
+  """
+  The participation events in the Hype Train.
+  """
+  participations: [HypeTrainParticipation!]!
+
+  """
+  The progress structure that contains relevant information about how much progress the Hype Train acheived.
+  """
+  progress: HypeTrainProgress!
+
+  """
+  The time that the Hype Train started.
+  """
+  startedAt: Time!
+
+  """
+  The last time the Hype Train was updated.
+  """
+  updatedAt: Time!
+}
+
+"""
+The Hype Train kickoff configuration.
+"""
+type HypeTrainKickoffConfig {
+  """
+  What quantity of current commerce events can trigger a Hype Train.
+  """
+  eventsThreshold: Int!
+
+  """
+  The minimum value of points that the combined events have to equal to kick off a Hype Train.
+  """
+  minPoints: Int!
+
+  """
+  The period of time that is required for these commerce events to occur in to execute a Hype Train.
+  """
+  periodSeconds: Int!
+}
+
+"""
+The Hype Train level configuration, which includes information about level completion and associated rewards.
+"""
+type HypeTrainLevel {
+  """
+  The value of participation that will take to complete the level.
+  """
+  goal: Int!
+
+  """
+  The level ID.
+  """
+  id: ID!
+
+  """
+  The associated rewards for completing the level.
+  """
+  rewards: [HypeTrainReward!]!
+
+  """
+  The value of the level, like Level 1, 2, etc. Can be configurable.
+  """
+  value: Int!
+}
+
+"""
+The notification threshold for an action / source combination.
+"""
+type HypeTrainNotificationThreshold {
+  """
+  The action performed.
+  """
+  action: HypeTrainParticipationAction!
+
+  """
+  The source of the action.
+  """
+  source: HypeTrainParticipationSource!
+
+  """
+  The value that is the theshold for displaying a notification.
+  """
+  value: Int!
+}
+
+"""
+The Hype Train participation structure that contains relevant information about the participation event.
+"""
+type HypeTrainParticipation {
+  """
+  The type of participation.
+  """
+  action: HypeTrainParticipationAction!
+
+  """
+  The amount that the participation is valued in the Hype Train progress.
+  """
+  quantity: Int!
+
+  """
+  The participation source.
+  """
+  source: HypeTrainParticipationSource!
+}
+
+"""
+The participation conversion rate for what an action will count towards the Hype Train.
+"""
+type HypeTrainParticipationConversionRate {
+  """
+  The action performed.
+  """
+  action: HypeTrainParticipationAction!
+
+  """
+  The source of the action.
+  """
+  source: HypeTrainParticipationSource!
+
+  """
+  The rate that it will be converted as in the Hype Train progress calculations.
+  """
+  value: Int!
+}
+
+"""
+The structure that contains relevant information about the current progress in the Hype Train.
+"""
+type HypeTrainProgress {
+  """
+  The goal value that the Hype Train is trying to complete.
+  """
+  goal: Int!
+
+  """
+  The Level that the Hype Train is currently on.
+  """
+  level: HypeTrainLevel!
+
+  """
+  The current progression that the channel has made in the level.
+  """
+  progression: Int!
+
+  """
+  The number of seconds left until this Hype Train execution ends.
+  """
+  remainingSeconds: Int!
+
+  """
+  The total progression overall that has occurred in the Hype Train across all levels.
+  """
+  total: Int!
+}

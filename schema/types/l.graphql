@@ -1,0 +1,309 @@
+"""
+The details of Leaderboard format.
+"""
+type LeaderboardDetails {
+  """
+  The max participant count for a lobby in phase. Valid values are 1-100.
+  """
+  lobbyMaxSize: Int!
+
+  """
+  The number of phases to be created for the competition. Valid values are 1-20.
+  """
+  phaseCount: Int!
+
+  """
+  A display string conveying how a Competition Organizer intends to resolve ties.
+  """
+  tiebreakerLabel: TiebreakerLabel
+}
+
+"""
+LeaderboardSet contains the set of leaderboards that are active on a channel.
+"""
+type LeaderboardSet {
+  """
+  bits contains the leaderboard of top users by number of bits cheered for the channel.
+  """
+  bits: UserLeaderboard
+
+  """
+  subGift contains the leaderboard of top users by number of sub gifts given in the channel.
+  """
+  subGift: UserLeaderboard
+}
+
+"""
+Partner dashboard settings for the bits cheering and sub gifting leaderboards.
+"""
+type LeaderboardSettings {
+  """
+  The default leaderboard the user wants to show.
+  """
+  defaultLeaderboard: LeaderboardType!
+
+  """
+  Flag that is true if the user has bits cheering leaderboards turned on.
+  """
+  isCheerEnabled: Boolean!
+
+  """
+  Flag that is true if the user has sub gifting leaderboards turned on.
+  """
+  isSubGiftEnabled: Boolean!
+
+  """
+  The time period the user wants the leaderboard to be displayed as.
+  """
+  timePeriod: LeaderboardTimePeriodType!
+}
+
+type LeaveChannelRoomsPayload {
+  channel: User
+}
+
+"""
+Outputs from the leaveRaid mutation.
+"""
+type LeaveRaidPayload {
+  """
+  The ID of the raid that was joined by the user.
+  """
+  raidID: ID
+}
+
+"""
+LeaveSquadStreamError is the error associated with a leaveSquadStream.
+"""
+type LeaveSquadStreamError {
+  """
+  The associated error code.
+  """
+  code: LeaveSquadStreamErrorCode!
+}
+
+"""
+Outputs from the leaveSquadStream mutation.
+"""
+type LeaveSquadStreamPayload {
+  """
+  The possible error returned from the service.
+  """
+  error: LeaveSquadStreamError
+
+  """
+  The updated squad stream.
+  """
+  squadStream: SquadStream
+}
+
+"""
+LinkOEmbed is a link oEmbed.  This looks strange being empty, but mirrors the oEmbed official spec most exactly.
+"""
+type LinkOEmbed implements OEmbed {
+  authorName: String
+  authorURL: String
+  cacheAge: Int
+  inputURL: String!
+  providerName: String
+  providerURL: String
+  thumbnail: ThumbnailOEmbed
+  title: String
+  type: String!
+  version: String!
+}
+
+"""
+LinkSSOError is an error that occurs when account linking fails.
+"""
+type LinkSSOError {
+  """
+  The error code that describes why account linking failed.
+  """
+  code: LinkSSOErrorCode!
+}
+
+"""
+LinkSSOPayload returns the newly created link or an error if account linking failed.
+"""
+type LinkSSOPayload {
+  """
+  The error when an app cannot be linked to the user's account.
+  """
+  error: LinkSSOError
+
+  """
+  The new SSO link.
+  """
+  link: SSOLink
+}
+
+"""
+LiveConfigView holds the view configuration of an extension if the live config dashboard page is supported.
+"""
+type LiveConfigView implements ExtensionView {
+  """
+  Specifies whether or not the extension has the ability to link to external websites.
+  """
+  canLinkExternalContent: Boolean!
+
+  """
+  Relative path of the HTML file to load for this view, used by devsite to specify the layout of assets.
+  """
+  viewerPath: String!
+
+  """
+  The URL which should be loaded in for the extension.
+  """
+  viewerURL: String!
+}
+
+type LiveRecommendationConnection {
+  """
+  The list of recommended streams with metadata to display.
+  """
+  edges: [StreamRecommendationEdge!]
+
+  """
+  Per-generation tracking id for identifying a recommendation model.
+  """
+  generationID: String!
+
+  """
+  The list of recommended streams to display.
+  """
+  nodes: [Stream]!
+    @deprecated(reason: "To be replaced by edges which also includes a required trackingID.")
+
+  """
+  Unique tracking id per response.
+  """
+  responseID: String!
+}
+
+"""
+Information about the live up notification of a user.
+"""
+type LiveUpNotificationInfo {
+  """
+  Whether the user's liveUpNotification field is the default value (i.e. "<user> went live!").
+  """
+  isDefault: Boolean
+
+  """
+  The text that will be in the notification that sends when the user starts broadcasting.
+  The default value is currently a translated version of "<user> went live!" when the user has not set a custom value.
+  """
+  liveUpNotification: String
+}
+
+"""
+An error returned from the lockPredictionEvent mutation.
+"""
+type LockPredictionEventError {
+  """
+  Code describing the error.
+  """
+  code: LockPredictionEventErrorCode!
+}
+
+"""
+Payload from closing a prediciton event to new predictions.
+"""
+type LockPredictionEventPayload {
+  """
+  If present, there was an error with the request.
+  """
+  error: LockPredictionEventError
+
+  """
+  The updated Prediction Event.
+  """
+  predictionEvent: PredictionEvent
+}
+
+"""
+Communicates a Loyalty Badge (usually during upload).
+"""
+type LoyaltyBadge {
+  """
+  Unique identifier the badges method of tenure by channelid and cumulative months.
+  """
+  channelTenureMethodID: ID!
+
+  """
+  The channel's loyalty badge unique identifier.
+  """
+  id: ID!
+
+  """
+  image1xURL to retrieve the 1x sized Badge.
+  """
+  image1xURL: String!
+
+  """
+  Image1xURL to retrieve the 2x sized Badge.
+  """
+  image2xURL: String!
+
+  """
+  image4xURL to retrieve the 4x sized Badge.
+  """
+  image4xURL: String!
+
+  """
+  Identifies the amount of cumulative tenure months to acquire Badge.
+  """
+  requiredTenureMonths: Int!
+
+  """
+  A localized, human-friendly title for the badge.
+  Defaults to English if no translation exists for the requested locale.
+  """
+  title: String!
+}
+
+"""
+LoyaltyBadgeUploadConfig is the upload configuration for creating loyalty badges.
+"""
+type LoyaltyBadgeUploadConfig {
+  """
+  The image ID of the badge image.
+  """
+  imageID: ID
+
+  """
+  The resulting URL of the badge image.
+  """
+  imageURL: String
+
+  """
+  The upload ID of the badge file.
+  """
+  uploadID: ID
+
+  """
+  The URL to upload the badge image to.
+  """
+  uploadURL: String
+}
+
+"""
+Caller should store all of these fields.
+"""
+type LWAToken {
+  """
+  Access token to pass in on subsequent requests.
+  """
+  accessToken: String!
+
+  """
+  TTL in seconds, default is 3600.
+  """
+  expiresIn: Int!
+
+  """
+  Should be stored, though generally shouldn't change.
+  """
+  refreshToken: String!
+}

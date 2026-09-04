@@ -1,0 +1,117 @@
+"""
+Inputs for terminating a poll.
+"""
+input TerminatePollInChannelInput {
+  """
+  The id of the channel with the poll to terminate.
+  """
+  channelID: ID!
+}
+
+"""
+Inputs for terminating a poll.
+"""
+input TerminatePollInput {
+  """
+  The id of the poll to terminate.
+  """
+  pollID: ID!
+}
+
+input ToggleRitualsEnabledInput {
+  channelID: ID!
+  isEnabled: Boolean!
+}
+
+"""
+TrackAppealRequestInput the details needs about which track to appeal.
+"""
+input TrackAppealRequestInput {
+  """
+  audibleMagicResponseID is the ID of the audible magic response.
+  """
+  audibleMagicResponseID: ID!
+
+  """
+  reason is the reason the track is being appealed.
+  """
+  reason: String!
+}
+
+"""
+The tracking pixel that will be created as part of this campaign.
+"""
+input TrackingPixelInput {
+  """
+  How long a client needs to view the content before firing the pixel.
+  """
+  timeOffsetSeconds: Int
+
+  """
+  The type of tracker.
+  """
+  type: TrackingPixelType
+
+  """
+  The URL that is requested when the pixel is fired.
+  """
+  url: String!
+}
+
+"""
+TransitionExtesnsionManifest updates the state of an existing extension.
+"""
+input TransitionExtensionStateInput {
+  """
+  The extension ID of the extension to update.
+  """
+  id: ID!
+
+  """
+  Notes provided to the moderation team while reviewing the extension.
+  Required when transitioning to READY_FOR_REVIEW.
+  """
+  reviewNotes: String
+
+  """
+  The State to transition the extension to.
+  """
+  state: ExtensionState!
+
+  """
+  URL to a test channel, provided to the moderation team while reviewing the extension.
+  Required when transitioning to READY_FOR_REVIEW.
+  """
+  testChannel: String
+
+  """
+  The extension version to update.
+  """
+  version: String!
+}
+
+"""
+TrueXAd is descriptive information about an engagement that was show for bits.
+Used as input on the redeem trueXAd mutation.
+"""
+input TrueXAd {
+  """
+  campaignID is the ID of the campaign this ad belongs to.
+  """
+  campaignID: ID!
+
+  """
+  creativeID is the ID of the particular ad experience displayed to the user.
+  """
+  creativeID: ID!
+
+  """
+  currencyAmount is the suggested amount of "currency" to provide to the user based on this ad.
+  """
+  currencyAmount: String!
+
+  """
+  name is the name of the ad campaign.
+  """
+  name: String!
+}

@@ -1,0 +1,490 @@
+"""
+An enumeration of broadcaster languages.
+"""
+enum Language {
+  """
+  Arabic.
+  """
+  AR
+
+  """
+  American Sign Language.
+  """
+  ASL
+
+  """
+  Bulgarian.
+  """
+  BG
+
+  """
+  Catalan.
+  """
+  CA
+
+  """
+  Czech.
+  """
+  CS
+
+  """
+  Danish.
+  """
+  DA
+
+  """
+  German.
+  """
+  DE
+
+  """
+  Greek.
+  """
+  EL
+
+  """
+  English.
+  """
+  EN
+
+  """
+  Spanish.
+  """
+  ES
+
+  """
+  Finnish.
+  """
+  FI
+
+  """
+  French.
+  """
+  FR
+
+  """
+  Hindi.
+  """
+  HI
+
+  """
+  Hungarian.
+  """
+  HU
+
+  """
+  Indonesian.
+  """
+  ID
+
+  """
+  Italian.
+  """
+  IT
+
+  """
+  Japanese.
+  """
+  JA
+
+  """
+  Korean.
+  """
+  KO
+
+  """
+  Malay.
+  """
+  MS
+
+  """
+  Dutch.
+  """
+  NL
+
+  """
+  Norwegian.
+  """
+  NO
+
+  """
+  Other.
+  """
+  OTHER
+
+  """
+  Polish.
+  """
+  PL
+
+  """
+  Portuguese.
+  """
+  PT
+
+  """
+  Romanian.
+  """
+  RO
+
+  """
+  Russian.
+  """
+  RU
+
+  """
+  Slovak.
+  """
+  SK
+
+  """
+  Swedish.
+  """
+  SV
+
+  """
+  Thai.
+  """
+  TH
+
+  """
+  Tagalog.
+  """
+  TL
+
+  """
+  Turkish.
+  """
+  TR
+
+  """
+  Ukrainian.
+  """
+  UK
+
+  """
+  Vietnamese.
+  """
+  VI
+
+  """
+  Chinese.
+  """
+  ZH
+
+  """
+  Chinese (Hong Kong).
+  """
+  ZH_HK
+}
+
+"""
+An enumeration of user language tags (shortened BCP 47) available on Twitch.
+This should not be confused with Language, which is broadcaster language.
+"""
+enum LanguageTag {
+  """
+  Arabic.
+  """
+  AR
+
+  """
+  Bulgarian.
+  """
+  BG
+
+  """
+  Czech.
+  """
+  CS
+
+  """
+  Danish.
+  """
+  DA
+
+  """
+  German.
+  """
+  DE
+
+  """
+  Greek.
+  """
+  EL
+
+  """
+  English.
+  """
+  EN
+
+  """
+  English - Great Britain.
+  """
+  EN_GB
+
+  """
+  Spanish.
+  """
+  ES
+
+  """
+  Spanish - Mexico.
+  """
+  ES_MX
+
+  """
+  Finnish.
+  """
+  FI
+
+  """
+  French.
+  """
+  FR
+
+  """
+  Hindi.
+  """
+  HI
+
+  """
+  Hungarian.
+  """
+  HU
+
+  """
+  Italian.
+  """
+  IT
+
+  """
+  Japanese.
+  """
+  JA
+
+  """
+  Korean.
+  """
+  KO
+
+  """
+  Dutch.
+  """
+  NL
+
+  """
+  Norwegian.
+  """
+  NO
+
+  """
+  Polish.
+  """
+  PL
+
+  """
+  Portuguese.
+  """
+  PT
+
+  """
+  Portuguese - Brazil.
+  """
+  PT_BR
+
+  """
+  Romanian.
+  """
+  RO
+
+  """
+  Russian.
+  """
+  RU
+
+  """
+  Slovak.
+  """
+  SK
+
+  """
+  Swedish.
+  """
+  SV
+
+  """
+  Thai.
+  """
+  TH
+
+  """
+  Turkish.
+  """
+  TR
+
+  """
+  Vietnamese.
+  """
+  VI
+
+  """
+  Chinese - China.
+  """
+  ZH_CN
+
+  """
+  Chinese - Taiwan.
+  """
+  ZH_TW
+
+  """
+  Chinese.
+  """
+  ZH
+}
+
+"""
+LeaderboardTimePeriodType enumerates the various types of supported Leaderboards.
+"""
+enum LeaderboardTimePeriodType {
+  """
+  Daily leaderboards reset at midnight PT.
+  """
+  DAY
+
+  """
+  Weekly leaderboards reset at midnight PT between Sunday and Monday.
+  """
+  WEEK
+
+  """
+  Monthly leaderboards reset at midnight PT on the last day of the month.
+  """
+  MONTH
+
+  """
+  All time leaderboards are cumulative back to when Bits launched in June of 2016.
+  """
+  ALLTIME
+}
+
+"""
+LeaderboardType enumerates the various types of supported Leaderboards.
+"""
+enum LeaderboardType {
+  """
+  Bits cheering leaderboards.
+  """
+  CHEER
+
+  """
+  Sub gifting leaderboards.
+  """
+  SUBGIFT
+}
+
+"""
+LeaveSquadStreamErrorCode are the possible errors that this mutation returns.
+"""
+enum LeaveSquadStreamErrorCode {
+  """
+  The user is not in the squad specified.
+  """
+  USER_NOT_IN_SQUAD
+
+  """
+  The operation is unauthorized.
+  """
+  UNAUTHORIZED
+}
+
+"""
+LinkSSOErrorCode enumerates the possible errors that can cause account linking to fail.
+"""
+enum LinkSSOErrorCode {
+  """
+  The activation code is incorrect.
+  """
+  CODE_INCORRECT
+
+  """
+  The activation code is expired.
+  """
+  CODE_EXPIRED
+
+  """
+  The user has already linked an SSO app of the same type to their account.
+  """
+  ALREADY_LINKED
+}
+
+"""
+The location that a piece of text should link to.
+"""
+enum LinkType {
+  """
+  Do not link to anything.
+  """
+  NO_LINK
+
+  """
+  Link to the categories directory (on web: https://www.twitch.tv/directory).
+  """
+  CATEGORIES_DIRECTORY
+
+  """
+  Link to the streams directory (on web: https://www.twitch.tv/directory/all).
+  """
+  STREAMS_DIRECTORY
+}
+
+"""
+The lobby state signifies the progress in the competition.
+"""
+enum LobbyState {
+  """
+  No participants are in lobby.
+  """
+  PREP
+
+  """
+  Participants have filled the lobby and can be swapped around different lobbies.
+  """
+  READY
+
+  """
+  Participants are currently playing in the lobby, they can be scored but cannot be swapped to different lobbies.
+  """
+  ACTIVE
+
+  """
+  Participants are all scored and no longer playing.
+  """
+  DONE
+
+  """
+  Lobby state is unknown.
+  """
+  UNKNOWN
+}
+
+"""
+Possible error codes from the lockPredictionEvent mutation.
+"""
+enum LockPredictionEventErrorCode {
+  """
+  The current user is forbidden from updating this Prediction Event.
+  """
+  FORBIDDEN
+
+  """
+  This Prediction Event is not currently in the ACTIVE state.
+  """
+  EVENT_NOT_ACTIVE
+
+  """
+  An unknown error occurred.
+  """
+  UNKNOWN
+}

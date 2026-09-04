@@ -1,0 +1,1173 @@
+type AcceptFriendRequestPayload {
+  """
+  The user whose friend request was just accepted.
+  """
+  user: User
+}
+
+"""
+Error associated with mutation AcceptOrganizationInvite.
+"""
+type AcceptOrganizationInviteError {
+  """
+  Error code.
+  """
+  code: AcceptOrganizationInviteErrorCode!
+}
+
+"""
+Output from the AcceptOrganizationInvite mutation.
+"""
+type AcceptOrganizationInvitePayload {
+  """
+  The possible error returned from service.
+  """
+  error: AcceptOrganizationInviteError
+}
+
+"""
+AcceptProgramAgreementPayload is the payload returned after accepting a program agreement.
+"""
+type AcceptProgramAgreementPayload {
+  """
+  Describes error that occured while accepting a program agreement.
+  """
+  error: AcceptProgramAgreementError
+
+  """
+  New workflow state.
+  """
+  workflow: PayoutOnboardingWorkflow
+}
+
+"""
+Errors from acceptSquadStreamInvitation mutation.
+"""
+type AcceptSquadStreamInvitationError {
+  """
+  Error from request to accept invitation.
+  """
+  code: AcceptSquadStreamInvitationErrorCode!
+}
+
+"""
+Outputs from the acceptSquadStreamInvitation mutation.
+"""
+type AcceptSquadStreamInvitationPayload {
+  """
+  Error from mutation if exists.
+  """
+  error: AcceptSquadStreamInvitationError
+
+  """
+  The accepted invitation.
+  """
+  invitation: SquadStreamInvitation
+}
+
+"""
+The information about all of a user's connected accounts.
+"""
+type AccountConnectionSet {
+  """
+  Connection information about a user's Blizzard account.
+  """
+  blizzard: UserBlizzardConnectionLink
+
+  """
+  Connection infromation about a user's Facebook account.
+  """
+  facebook: UserFacebookConnectionLink
+
+  """
+  Whether or not the user has a linked amazon account.
+  """
+  hasConnectedAmazon: Boolean
+
+  """
+  Connection information about a user's Riot account.
+  """
+  riot: UserRiotConnectionLink
+
+  """
+  Connection information about a user's Steam account.
+  """
+  steam: UserSteamConnectionLink
+
+  """
+  Connection information about a user's Twitter account.
+  """
+  twitter: UserTwitterConnectionLink
+
+  """
+  Connection information about a user's Youtube account.
+  """
+  youtube: UserYoutubeConnectionLink
+}
+
+"""
+An error returned from the acknowledgePredictionResult mutation.
+"""
+type AcknowledgePredictionResultError {
+  """
+  Code describing the error.
+  """
+  code: AcknowledgePredictionResultErrorCode!
+}
+
+"""
+Payload for acknowledging the results of a Prediction.
+"""
+type AcknowledgePredictionResultPayload {
+  """
+  If present, there was an error with the request.
+  """
+  error: AcknowledgePredictionResultError
+
+  """
+  The acknowledgged Prediction.
+  """
+  prediction: Prediction
+}
+
+"""
+AcknowledgeSubscriptionStatePayload returns the state of the subscription.
+"""
+type AcknowledgeSubscriptionStatePayload {
+  """
+  The current state of the subscription. One of "active", "will_not_renew", or "canceled".
+  """
+  state: UnacknowledgedSubscriptionEventState
+}
+
+"""
+Result of acknowledging an unban request.
+"""
+type AcknowledgeUnbanRequestPayload {
+  """
+  Used for errors arising from acknowledging the unban request.
+  """
+  error: UnbanRequestError
+
+  """
+  The acknowledged unban request.
+  """
+  unbanRequest: UnbanRequest
+}
+
+"""
+The result of an activateExtension mutation.
+"""
+type ActivateExtensionPayload {
+  """
+  The resulting list of installed extensions after the activation.
+  """
+  installedExtensions: [ExtensionInstallation!]!
+}
+
+"""
+Amazon Digital Ad Service Properties.
+"""
+type ADASProperties {
+  """
+  The media partner that should be used for the ad break.
+  """
+  partner: String @deprecated(reason: "No longer needed.")
+
+  """
+  The id for selecting the amazon ad campaign or program.
+  """
+  programID: ID @deprecated(reason: "No longer needed.")
+}
+
+"""
+The context returned for the current ad request.
+"""
+type AdContext {
+  """
+  The decline status for this ad request.
+  """
+  declineState: AdContextDeclineState!
+
+  """
+  The id of the ad session this context applies to.
+  """
+  id: ID!
+
+  """
+  The RAd service token used to validate subsequent ad event mutations.
+  """
+  radToken: String!
+}
+
+"""
+The decline state for the context.
+"""
+type AdContextDeclineState {
+  """
+  The reason the ad request was declined if it was declined.
+  """
+  reason: String
+
+  """
+  Whether or not the client will request an ad.
+  """
+  shouldDecline: Boolean!
+}
+
+"""
+Advertising creative.
+"""
+type AdCreative {
+  """
+  The AdCreative's unique identifier.
+  """
+  id: ID!
+
+  """
+  Integrated loudness value for this AdCreative.
+  """
+  integratedLoudness: Float
+}
+
+"""
+AddAutohostChannelsPayload returns the user whose autohostChannels field had been updated.
+"""
+type AddAutohostChannelsPayload {
+  """
+  User whose autohostChannels field had been updated.
+  """
+  user: User
+}
+
+type AddBrowserPushSubscriptionPayload {
+  """
+  The opaque ID of the push subscription. The entire push subscription is not returned because
+  there is no product use for it. Also, there is no existing query or mutation that can use this ID,
+  but it could be used for future functionality.
+  """
+  browserPushSubscriptionID: ID
+}
+
+"""
+The returned data from the mutation.
+"""
+type AddChannelBlockedTermPayload {
+  """
+  The time term was added.
+  """
+  addedAt: Time
+
+  """
+  Mutation error caused by the user input.
+  """
+  error: AddChannelBlockedTermError
+
+  """
+  The phrases that were added.
+  """
+  phrases: [String!]!
+}
+
+"""
+The returned payload from the mutation.
+"""
+type AddChannelPermittedTermPayload {
+  """
+  The time term was added.
+  """
+  addedAt: Time
+
+  """
+  Mutation error caused by the user input.
+  """
+  error: AddChannelPermittedTermError
+
+  """
+  The phrases that were added.
+  """
+  phrases: [String!]!
+}
+
+"""
+The response from adding an item to a collection.
+"""
+type AddCollectionItemPayload {
+  """
+  The newly updated collection.
+  """
+  collection: Collection
+}
+
+"""
+Data that was mutated after the Phase was created.
+"""
+type AddCompetitionPhasePayload {
+  """
+  The competition is returned with any side effects adding a phase has caused.
+  """
+  competition: Competition
+
+  """
+  Used for competition mutation errors.
+  """
+  error: CompetitionError
+}
+
+"""
+Data that was mutated after the player was created.
+"""
+type AddCompetitionPlayerPayload {
+  """
+  The new state of competition after adding a competition player to the competition.
+  """
+  competition: Competition
+
+  """
+  Used for competition mutation errors.
+  """
+  error: CompetitionError
+}
+
+"""
+AddCompetitionTeamPayload is the success response adding a competition team to the competition.
+"""
+type AddCompetitionTeamPayload {
+  """
+  The new state of competition after adding a competition team to the competition.
+  """
+  competition: Competition
+
+  """
+  Used for competition mutation errors.
+  """
+  error: CompetitionError
+}
+
+"""
+The response from adding a push notification token to a user.
+"""
+type AddDeviceTokenPayload {
+  """
+  The ID of the new token.
+  """
+  deviceToken: ID!
+}
+
+"""
+AddDropToCampaignPayload returns the result of the creation.
+"""
+type AddDropToCampaignPayload {
+  """
+  Returns the newly created drop.
+  """
+  drop: DropType
+
+  """
+  A mapped error returned by the drops management service.
+  """
+  error: DropsError
+}
+
+"""
+AddEditorError contains details about a client error that occurred.
+"""
+type AddEditorError {
+  """
+  The type of error that occurred when adding an editor.
+  """
+  code: AddEditorErrorCode!
+}
+
+"""
+AddEditorPayload is the response after attemping to add an editor.
+"""
+type AddEditorPayload {
+  """
+  The channel for which the target user will become an editor.
+  """
+  channel: User
+
+  """
+  The client error that has occurred.
+  Null if the operation is successful.
+  """
+  error: AddEditorError
+
+  """
+  The user who became an editor.
+  """
+  targetUser: User
+}
+
+"""
+Error from a failed recent play mutation.
+"""
+type AddRadioRecentlyPlayedError {
+  """
+  Mutation error code.
+  """
+  code: AddRadioRecentlyPlayedErrorCode!
+}
+
+"""
+Response from registering a recent play.
+"""
+type AddRadioRecentlyPlayedPayload {
+  """
+  Error code.
+  """
+  error: AddRadioRecentlyPlayedError
+
+  """
+  The added/updated recently played item.
+  """
+  recent: RadioRecentlyPlayed
+}
+
+type AddReactionPayload {
+  content: ReactableContent!
+}
+
+"""
+Returns the created feedback item back to the client.
+"""
+type AddRecommendationFeedbackPayload {
+  """
+  Feedback item.
+  """
+  recommendationFeedback: RecommendationFeedback
+}
+
+"""
+Error that may be returned by the AddStreamAuthorizedUser mutation.
+"""
+type AddStreamAuthorizedUserError {
+  """
+  Type of mutation error.
+  """
+  code: AddStreamAuthorizedUserErrorCode!
+}
+
+"""
+AddStreamAuthorizedUserPayload contains the VideoStreamSettings with updated authorized users.
+"""
+type AddStreamAuthorizedUserPayload {
+  """
+  The updated channel of broadcaster.
+  """
+  channel: Channel
+
+  """
+  Error code.
+  """
+  error: AddStreamAuthorizedUserError
+}
+
+"""
+A vote an ad poll and associated information.
+"""
+type AdPollVote {
+  """
+  Id of the choice that was voted for.
+  """
+  choiceID: ID!
+
+  """
+  id of the vote in the poll.
+  """
+  id: ID!
+
+  """
+  Id of the poll this voter voted in.
+  """
+  pollID: ID!
+
+  """
+  Id of the voter in the poll.
+  """
+  userID: ID!
+}
+
+"""
+Ad Properties is an object that defines ad properties for a channel.
+"""
+type AdProperties {
+  """
+  Deprecated.
+  """
+  adServer: String @deprecated(reason: "Should use adServerDefault instead")
+
+  """
+  Which adserver to send requests to.
+  """
+  adServerDefault: String
+
+  """
+  Amazon Digital Ad Service (ADAS) specific Properties for this channel.
+  Properties should only be nested if it is ADAS specific.
+  """
+  adasProperties: ADASProperties
+
+  """
+  Which ids are costreamers for this channel.
+  """
+  costreamers: [User]
+
+  """
+  Contains ad density information for channel ads management.
+  """
+  density: Density
+
+  """
+  Contains properties used by channel's disable prerolls feature.
+  """
+  disablePrerollsAbility: DisablePrerollsAbility
+
+  """
+  Get the ad experiment treatment group for a specified experiment bucket.
+  """
+  experimentTreatment(bucket: String!): String
+
+  """
+  How often ad breaks can be run on this channel.
+  """
+  frequency: Int
+
+  """
+  If postrolls are disabled on this channel.
+  """
+  hasPostrollsDisabled: Boolean
+
+  """
+  If prerolls are disabled on this channel.
+  """
+  hasPrerollsDisabled: Boolean
+
+  """
+  If Turbo benefit is disabled on this channel.
+  """
+  hasTurboDisabled: Boolean
+
+  """
+  If vod ads are enabled on this channel.
+  """
+  hasVodAdsEnabled: Boolean
+
+  """
+  If multiplayer ads are enabled for subscribers on this channel.
+  """
+  isMultiplayerAdsForSubsEnabled: Boolean
+
+  """
+  A bool that represents a streamer's eligibility to run a picture by picture ad.
+  """
+  isPictureByPictureAdEligible: Boolean
+
+  """
+  Maximum length for an ad break on this channel.
+  """
+  maxAdBreakLength: Int
+
+  """
+  Current multiplayer ad offers on the channel.
+  """
+  multiplayerAdOffers: [MultiplayerAdOffer!]
+
+  """
+  The stream has the required age gate enabled if greater than 0.
+  """
+  requiredAge: Int
+
+  """
+  Tracking pixels that channel pages should fire at certain intervals.
+  """
+  trackingPixels(consent: GDPRConsent): [TrackingPixel!]
+
+  """
+  Setting for vod archive midrolls on this channel. Can be 'broadcaster', 'inserted', or 'off'.
+  """
+  vodArchiveMidrolls: String
+
+  """
+  Ad break length for VOD archive midrolls on this channel.
+  """
+  vodArchiveMidrollsBreakLength: Int
+
+  """
+  Frequency for VOD archive midrolls on this channel.
+  """
+  vodArchiveMidrollsFrequency: Int
+}
+
+"""
+AdSession is the response object from an Ad Request.
+"""
+type AdSession {
+  """
+  id is the id of the ad.
+  """
+  id: ID!
+
+  """
+  lengthSeconds is the length of the ad being requested in seconds.
+  """
+  lengthSeconds: Int!
+
+  """
+  retryAfterSeconds is the amount of time in seconds remaining for a user to run another ad.
+  """
+  retryAfterSeconds: Int!
+}
+
+"""
+Defines ads management attributes for channel.
+"""
+type AdSlot {
+  """
+  Duration of Ads that will run.
+  """
+  durationSeconds: Int!
+
+  """
+  Time when Ad will run.
+  """
+  runAtTime: Time!
+}
+
+"""
+Grouping of referral sources with name and count -- e.g. ("UK", 1437).
+"""
+type AggregatedReferrals {
+  """
+  Count of the referrals from the named source (1437).
+  """
+  count: Int!
+
+  """
+  Name of the referral source ("UK").
+  """
+  name: String!
+}
+
+"""
+Error from the mutation.
+"""
+type AllocateKeysForBountyError {
+  """
+  Error code from the mutation.
+  """
+  code: AllocateKeysForBountyErrorCode!
+}
+
+"""
+Payload from the mutation.
+"""
+type AllocateKeysForBountyPayload {
+  """
+  The bounty with allocated keys.
+  """
+  bounty: Bounty
+
+  """
+  The possible error returned from the service.
+  """
+  error: AllocateKeysForBountyError
+}
+
+type AllowRejectedChatMessagePayload {
+  message: RejectedChatMessage
+}
+
+"""
+Payload from the allowRejectedCheer mutation.
+"""
+type AllowRejectedCheerPayload {
+  """
+  Client-generated unique ID used to prevent a cheer from being re-sent (thus spending double bits).
+  The server will reject any request with an ID that has already been used.
+  """
+  id: ID!
+}
+
+"""
+An animated image asset.
+"""
+type AnimatedImageAsset {
+  """
+  Image ID generated by Mako for image.
+  """
+  id: ID!
+
+  """
+  Size of the image.
+  """
+  size: EmoteImageSize!
+}
+
+"""
+A list of all installed extensions on the channel after an applyExtensionActivations mutation.
+"""
+type ApplyExtensionActivationsPayload {
+  """
+  The list of all installed extensions on the channel after an applyExtensionActivations mutation
+  with their new activation state.
+  """
+  installedExtensions: [ExtensionInstallation!]!
+}
+
+"""
+Result of approving an unban request.
+"""
+type ApproveUnbanRequestPayload {
+  """
+  Used for errors arising from resolving unban request.
+  """
+  error: UnbanRequestError
+
+  """
+  The resolved unban request.
+  """
+  unbanRequest: UnbanRequest
+}
+
+"""
+ArchiveChanletPayload returns the Chanlet that was archived.
+"""
+type ArchiveChanletPayload {
+  """
+  The chanlet archived.
+  """
+  chanlet: Channel!
+}
+
+"""
+Archive community goal error.
+"""
+type ArchiveCommunityPointsCommunityGoalError {
+  """
+  The error code.
+  """
+  code: ArchiveCommunityPointsCommunityGoalErrorCode!
+}
+
+"""
+Archive community goal payload.
+"""
+type ArchiveCommunityPointsCommunityGoalPayload {
+  """
+  The error, if any.
+  """
+  error: ArchiveCommunityPointsCommunityGoalError
+
+  """
+  The community goal that was archived.
+  """
+  goal: CommunityPointsCommunityGoal
+}
+
+"""
+Outputs from the archive poll mutation.
+"""
+type ArchivePollInChannelPayload {
+  """
+  The archived poll.
+  """
+  poll: Poll
+}
+
+"""
+Outputs from the create poll mutation.
+"""
+type ArchivePollPayload {
+  """
+  The created poll.
+  """
+  poll: Poll
+}
+
+"""
+Error returned after attempting to assign an emote to a bits tier.
+"""
+type AssignEmoteToBitsTierError {
+  """
+  The error code associated with this error.
+  """
+  code: AssignEmoteToBitsTierErrorCode!
+}
+
+"""
+Result of assign emote to bits tier.
+"""
+type AssignEmoteToBitsTierPayload {
+  """
+  The updated emote if successful.
+  """
+  emote: Emote
+
+  """
+  Error returned after attempting to assign an emote to a bits tier.
+  """
+  error: AssignEmoteToBitsTierError
+}
+
+"""
+Error returned after attempting to assign an emote to a subscription product.
+"""
+type AssignEmoteToSubscriptionProductError {
+  """
+  The error code associated with this error.
+  """
+  code: AssignEmoteToSubscriptionProductErrorCode!
+}
+
+"""
+Result of assign emote to subscription product.
+"""
+type AssignEmoteToSubscriptionProductPayload {
+  """
+  The updated emote if successful.
+  """
+  emote: Emote
+
+  """
+  Error returned after attempting to assign an emote to a subscription product.
+  """
+  error: AssignEmoteToSubscriptionProductError
+}
+
+"""
+AssignExtensionBillingManagerError is the error associated with AssignExtensionBillingManager.
+"""
+type AssignExtensionBillingManagerError {
+  """
+  The associated error code.
+  """
+  code: AssignExtensionBillingManagerErrorCode!
+}
+
+"""
+Payload retuned from the mutation.
+"""
+type AssignExtensionBillingManagerPayload {
+  """
+  The possible error returned from the service.
+  """
+  error: AssignExtensionBillingManagerError
+
+  """
+  The updated extension.
+  """
+  extensionClient: ExtensionClient
+}
+
+"""
+Information regarding an Amazon Associates store.
+"""
+type AssociatesStore {
+  ID: ID!
+
+  """
+  Whether the owner of this store is enabled to recieve payments.
+  """
+  isPayoutEnabled: Boolean
+
+  """
+  The store ID tag.
+  """
+  storeID: String
+}
+
+"""
+Authenticated Twitch session.
+"""
+type AuthenticatedSession {
+  """
+  ID of the client the user authenticated from.
+  """
+  clientID: ID!
+
+  """
+  Creation date of the session.
+  """
+  createdAt: Time
+
+  """
+  Date of invalidation of the session.
+  Can be null if the session hasn't been deleted.
+  """
+  deletedAt: Time
+
+  """
+  Geolocation during authentication, determined by IP.
+  """
+  location: String
+
+  """
+  User agent used during authentication.
+  """
+  userAgent: String
+
+  """
+  Twitch User ID.
+  """
+  userID: ID!
+}
+
+"""
+A list of configured autohost channels
+
+A relay connection type that does not yet support pagination.
+"""
+type AutohostChannelConnection {
+  """
+  The channels.
+  """
+  nodes: [User!]
+}
+
+"""
+A list of channels that are autohosting the channel
+
+A relay connection type that does not yet support pagination.
+"""
+type AutohostedByChannelConnection {
+  """
+  The channels.
+  """
+  nodes: [User!]
+}
+
+"""
+A user's autohosting settings.
+"""
+type AutohostSettings {
+  """
+  True if this channels prefers autohost over vodcast.
+  """
+  deprioritizeVodcast: Boolean!
+
+  """
+  True if this channel has the autohost feature turned on.
+  """
+  enabled: Boolean!
+
+  """
+  Determines what other channels can raid this channel.
+  """
+  incomingRaidsPolicy: AutohostSettingsIncomingRaidsPolicy!
+    @deprecated(reason: "Use User.raidSettings.incomingRaidsPolicy instead.")
+
+  """
+  The strategy to use when choosing channels to autohost.
+  """
+  strategy: AutohostSettingsStrategy!
+
+  """
+  True if this user autohosts their team members.
+  """
+  teamHost: Boolean!
+}
+
+"""
+An automod fragment type, which is text that is flagged by AutoModeration.
+It contains a list of topics which contain reasons why AutoModeration flagged the text.
+"""
+type AutoMod {
+  """
+  The topics that were flagged by AutoModeration.
+  """
+  topics: [AutoModTopic!]!
+}
+
+"""
+A message rejected by automod.
+"""
+type AutoModCaughtMessage {
+  """
+  Reason why the message was flagged and/or rejected.
+  """
+  category: AutoModCaughtMessageCategory!
+
+  """
+  id contains the UUID of the AutoModCaughtMessage.
+  """
+  id: ID!
+
+  """
+  The contents of the message itself, including its content, sender, sentAt timestamp, etc.
+  """
+  modLogsMessage: ModLogsMessage!
+
+  """
+  Time when a moderator allowed or denied a flagged message.
+  """
+  resolvedAt: Time
+
+  """
+  The user (mod) who approve/denied the flagged message.
+  """
+  resolver: User
+
+  """
+  The approval status of the caught message.
+  """
+  status: AutoModCaughtMessageStatus!
+}
+
+"""
+Defines all AutoMod level settings for a channel, either may be not be set.
+"""
+type AutoModConfiguration {
+  """
+  This field represents the detailed AutoMod category settings.
+  """
+  detailedLevels: DetailedAutoModConfiguration
+
+  """
+  This field will be a value between 0 and 4, inclusive.
+  """
+  overallLevel: Int
+}
+
+"""
+AutomodContent is the automod response for the text evaulated.
+"""
+type AutoModContent {
+  """
+  failureReasons are pieces of the reasons why the text is inappropriate analyzed by automod.
+  """
+  failureReasons: [AutoModFailureReason!]
+
+  """
+  text is the original raw string evaluated by automod.
+  """
+  text: String!
+
+  """
+  canPass is the result whether the text passed automod enforcement.
+  """
+  canPass: Boolean!
+
+  """
+  id is the ID generated for the test message (used for tracking).
+  """
+  id: ID!
+
+  """
+  error is the error when querying automod content.
+  """
+  error: AutoModContentError
+}
+
+"""
+Error associated with query AutoModContent.
+"""
+type AutoModContentError {
+  """
+  Error code.
+  """
+  code: AutoModContentErrorCode!
+}
+
+"""
+AutoModFailureReason is the failure reason from AutoMod.
+"""
+type AutoModFailureReason {
+  """
+  normalizedText is the normalized text processed by automod, if you need to get
+  the violation words, use startPosition and endPosition to get the substring from raw text.
+  """
+  normalizedText: String!
+
+  """
+  startPosition is the start position of the inappropriate substring.
+  """
+  startPosition: Int!
+
+  """
+  endPosition is the end position of the inappropriate substring.
+  """
+  endPosition: Int!
+
+  """
+  topics is the topic and its level of the inappropriate substring.
+  """
+  topics: DetailedAutoModConfiguration!
+}
+
+type AutoModProperties {
+  """
+  These are integers between 0 and 6, inclusive.
+  """
+  aggressiveLevel: Int!
+  identityLevel: Int!
+  profanityLevel: Int!
+  sexualLevel: Int!
+}
+
+"""
+An auto moderation topic with value.
+"""
+type AutoModTopic {
+  """
+  The topic type, defined by Zuma.
+  """
+  type: String!
+
+  """
+  The weight assigned to the topic.
+  """
+  weight: Int!
+}
+
+"""
+Contains all auto refill profiles, will have auto refill metadata in the future.
+"""
+type AutoRefill {
+  """
+  Lists actions to execute during an auto refill setup session.
+  """
+  actions(paymentProvider: PaymentProvider!): [CheckoutAction!]!
+
+  """
+  The list of auto refill profiles.
+  """
+  profiles: [AutoRefillProfile!]!
+
+  """
+  A list of active xsolla payment methods that a user has available. This field
+  is intended to be replaced by the User.PaymentMethods query.
+  """
+  xsollaPaymentMethods: [PaymentMethod!]
+}
+
+"""
+Auto Refill profile information.
+"""
+type AutoRefillProfile {
+  """
+  The charge instrument information for starting a purchase.
+  """
+  chargeInstrument: ChargeInstrument
+
+  """
+  Unique ID assigned to this profile.
+  """
+  id: ID!
+
+  """
+  Indicates if this profile is active.
+  """
+  isEnabled: Boolean!
+
+  """
+  The offerID that maps to the ability to purchase the intended product.
+  """
+  offerID: ID
+
+  """
+  The threshold amount a balance must go below to trigger a reload.
+  """
+  threshold: Int!
+}

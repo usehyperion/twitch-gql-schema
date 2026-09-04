@@ -1,0 +1,4192 @@
+"""
+SaveExtensionManifestPayload returns the update Extension manifest.
+"""
+type SaveExtensionManifestPayload {
+  """
+  The error when the mutation fails to update an extension.
+  """
+  error: SaveExtensionManifestError
+
+  """
+  The updated extension manifest.
+  """
+  manifest: ExtensionManifest
+}
+
+"""
+Sony Computer Entertainment (SCE) title properties.
+Used as part of stream metadata for PlayStation.
+"""
+type SCETitle {
+  ageRating: Int
+  attribute: String
+  genre: String
+  id: ID
+  isPreset: Boolean
+  language: String
+  metadata: String
+  name: String
+  presetText: [String]
+  presetTextDescription: String
+  productID: String
+  sessionID: String
+  shortName: String
+  storeURL: String
+}
+
+"""
+Sony Computer Entertainment (SCE) user properties.
+Used as part of stream metadata for PlayStation.
+"""
+type SCEUser {
+  country: String
+  npID: ID
+  onlineID: ID
+}
+
+"""
+The channel schedule.
+"""
+type Schedule {
+  """
+  The ID of the schedule.
+  """
+  id: ID!
+
+  """
+  A period during which scheduled events temporarily cease.
+  """
+  interruption: ScheduleInterruption
+
+  """
+  The next uncancelled segment of the schedule.
+  """
+  nextSegment: ScheduleSegment
+
+  """
+  The segments after a specific date ordered by start time. This field can be
+  paginated and return segments across week boundaries.
+  """
+  segmentList(
+    first: Int = 10
+    after: Cursor
+    options: ScheduleSegmentListInput
+  ): ScheduleSegmentListConnection
+
+  """
+  All segments for the specified week. If relativeDate isn't provided, the current week is used.
+  """
+  segments(
+    utcOffsetMinutes: Int
+    startingWeekday: String
+    relativeDate: Time
+    includeFutureSegments: Boolean
+  ): [ScheduleSegment!]
+}
+
+"""
+The interruption of a schedule.
+"""
+type ScheduleInterruption {
+  """
+  The end time when the schedule will no longer be disabled.
+  """
+  endAt: Time!
+
+  """
+  The reason the schedule is disabled.
+  """
+  reason: ScheduleInterruptionReason!
+
+  """
+  The start time when the schedule will be disabled.
+  """
+  startAt: Time!
+}
+
+"""
+The segment of a schedule.
+"""
+type ScheduleSegment {
+  """
+  The UTC date when the segment is no longer cancelled.
+  """
+  cancelledUntil: Time
+
+  """
+  The game categories tied to this segment.
+  """
+  categories: [Game!]
+
+  """
+  The end time of the segment.
+  """
+  endAt: Time
+
+  """
+  The start date and time of the first occurrence of the segment.
+  """
+  firstOccurrenceDate: Time
+
+  """
+  Whether or not the current user has a reminder set for the segment.
+  """
+  hasReminder: Boolean!
+
+  """
+  The ID of the segment.
+  """
+  id: ID!
+
+  """
+  If this segment is cancelled or not.
+  """
+  isCancelled: Boolean!
+
+  """
+  A count of users who have a reminder set, available only to the schedule owner.
+  """
+  reminderCount: Int
+
+  """
+  The number of times the segment should repeat. If 1, this is a single segment.
+  """
+  repeatEndsAfterCount: Int
+
+  """
+  The start time of the segment.
+  """
+  startAt: Time!
+
+  """
+  The title of the segment.
+  """
+  title: String!
+}
+
+"""
+Paginated list of segments using the Relay cursor specification.
+"""
+type ScheduleSegmentListConnection {
+  """
+  The list of schedule segments.
+  """
+  edges: [ScheduleSegmentListEdge!]
+
+  """
+  Pagination information for this connection.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+Element in a list of endorsed channels.
+"""
+type ScheduleSegmentListEdge {
+  """
+  Cursor identifying the position of this edge for future queries.
+  """
+  cursor: Cursor!
+
+  """
+  The information about the endorsed channel.
+  """
+  node: ScheduleSegment!
+}
+
+"""
+Contains categories search results.
+"""
+type SearchCategoriesConnection {
+  """
+  List of matching game results.
+  """
+  edges: [SearchCategoriesEdge!]
+
+  """
+  Information about this page of categories.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Total number of results.
+  """
+  totalCount: Int!
+}
+
+"""
+An element in the categories result, and its metadata.
+"""
+type SearchCategoriesEdge {
+  """
+  Cursor represents the position of the current edge/node.
+  """
+  cursor: Cursor!
+
+  """
+  Node represents the extension for the current edge.
+  """
+  node: Game!
+}
+
+"""
+Contains results for a searchFor query.
+"""
+type SearchFor {
+  """
+  Contains results for channels.
+  """
+  channels: SearchForResultUsers
+
+  """
+  Contains results for games.
+  """
+  games: SearchForResultGames
+
+  """
+  Contains results for live channels.
+  """
+  liveChannels: SearchForResultUsers
+
+  """
+  Contains results for related live channels.
+  """
+  relatedLiveChannels: SearchForResultRelatedLiveChannels
+
+  """
+  Contains results for users.
+  """
+  users: SearchForResultUsers
+
+  """
+  Contains results for videos.
+  """
+  videos: SearchForResultVideos
+}
+
+"""
+Contains a single result item and a tracking ID.
+"""
+type SearchForEdge {
+  """
+  List of matching items.
+  """
+  item: SearchForItem!
+
+  """
+  An id used for search metrics.
+  """
+  trackingID: ID!
+}
+
+"""
+Contains a single result item and a tracking ID.
+"""
+type SearchForEdgeRelatedLiveChannels {
+  """
+  List of matching items.
+  """
+  item: User!
+
+  """
+  An id used for search metrics.
+  """
+  trackingID: ID!
+}
+
+"""
+Contains game search results.
+"""
+type SearchForResultGames {
+  """
+  Cursor for fetching the next page of results.
+  """
+  cursor: String
+
+  """
+  List of edges containing game results and trackingIDs.
+  """
+  edges: [SearchForEdge!]!
+
+  """
+  List of matching game results.
+  """
+  items: [Game!]
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Order in which the result should be displayed.
+  """
+  score: Int!
+
+  """
+  Total number of results.
+  """
+  totalMatches: Int!
+}
+
+"""
+Contains results for related live channels.
+"""
+type SearchForResultRelatedLiveChannels {
+  """
+  List of edges containing user results and trackingIDs.
+  """
+  edges: [SearchForEdgeRelatedLiveChannels!]!
+
+  """
+  List of matching user results.
+  """
+  items: [User!]
+
+  """
+  Optional score associated with the related live section.
+  """
+  score: Int
+}
+
+"""
+Contains user search results.
+"""
+type SearchForResultUsers {
+  """
+  Cursor for fetching the next page of results.
+  """
+  cursor: String
+
+  """
+  List of edges containing user results and trackingIDs.
+  """
+  edges: [SearchForEdge!]!
+
+  """
+  List of matching user results.
+  """
+  items: [User!]
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Order in which the result should be displayed.
+  """
+  score: Int!
+
+  """
+  Total number of results.
+  """
+  totalMatches: Int!
+}
+
+"""
+Contains video search results.
+"""
+type SearchForResultVideos {
+  """
+  Cursor for fetching the next page of results.
+  """
+  cursor: String
+
+  """
+  List of edges containing video results and trackingIDs.
+  """
+  edges: [SearchForEdge!]!
+
+  """
+  List of matching video results.
+  """
+  items: [Video!]
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Order in which the result should be displayed.
+  """
+  score: Int!
+
+  """
+  Total number of results.
+  """
+  totalMatches: Int!
+}
+
+"""
+Contains the result returned by the search engine for a particular query.
+"""
+type SearchResult {
+  """
+  JSON encoded as a string.
+  """
+  result: String!
+}
+
+"""
+List of users.
+"""
+type SearchStreamConnection {
+  """
+  List of matching channels results.
+  """
+  edges: [SearchStreamEdge!]
+
+  """
+  Information about this page of videos.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of items in the collection.
+  """
+  totalCount: Int!
+}
+
+"""
+An element in a paginated list of videos, and its metadata.
+"""
+type SearchStreamEdge {
+  """
+  The cursor of the channel record list. This is same for one page.
+  """
+  cursor: Cursor!
+
+  """
+  The channel result returned.
+  """
+  node: Stream!
+}
+
+"""
+A search suggestion.
+"""
+type SearchSuggestion {
+  """
+  Extra data for category or channel type of search suggestion.
+  """
+  content: SearchSuggestionContent
+
+  """
+  The part of the suggestion that matches the search query.
+  """
+  highlight: SearchSuggestionHighlight! @deprecated(reason: "Use 'matchingCharacters' instead.")
+
+  """
+  The search suggestion's unique identifier.
+  """
+  id: ID!
+
+  """
+  The part of the suggestion that matches the search query.
+  """
+  matchingCharacters: SearchSuggestionHighlight
+
+  """
+  The search suggestion string.
+  """
+  text: String!
+}
+
+"""
+A category search suggestion.
+"""
+type SearchSuggestionCategory {
+  """
+  The boxart URL for the category, provided by the endpoint.
+  Use this field for lower latency.
+
+  The image dimensions are specifiable via the `height` and `width` parameters.
+  If `height` or `width` are not specified, the URL will contain
+  the template strings `{height}` and/or `{width}` in their respective places.
+  """
+  boxArtURL(width: Int, height: Int): String!
+
+  """
+  The category.
+  """
+  game: Game
+
+  """
+  The category's unique identifier.
+  """
+  id: ID!
+}
+
+"""
+A channel search suggestion.
+"""
+type SearchSuggestionChannel {
+  """
+  The channel's unique identifier.
+  """
+  id: ID!
+
+  """
+  Whether or not the channel is live, provided by the endpoint.
+  Use this field for lower latency.
+  """
+  isLive: Boolean!
+
+  """
+  Whether or not the channel is verified, provided by the endpoint.
+  Use this field for lower latency.
+  """
+  isVerified: Boolean!
+
+  """
+  The login of the channel, provided by the endpoint.
+  Use this field for lower latency.
+  """
+  login: String!
+
+  """
+  The profile image URL for the channel, provided by the endpoint.
+  Use this field for lower latency.
+
+  Valid widths are 28, 50, 70, 150, 300, and 600.
+  The image height will be the same as the given width.
+  """
+  profileImageURL(width: Int!): String
+
+  """
+  The user of the channel.
+  """
+  user: User
+}
+
+"""
+A list of search suggestions and related tracking data.
+"""
+type SearchSuggestionConnection {
+  """
+  The list of search suggestions.
+  """
+  edges: [SearchSuggestionEdge!]
+
+  """
+  As pagination is currently not supported by the backend, this will always be the zero value.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Tracking data for the search suggestions.
+  """
+  tracking: SearchSuggestionTracking
+}
+
+"""
+Edge containing the search suggestion.
+"""
+type SearchSuggestionEdge {
+  """
+  As pagination is currently not supported by the backend, this will always be the zero value.
+  """
+  cursor: Cursor!
+
+  """
+  The search suggestion.
+  """
+  node: SearchSuggestion!
+}
+
+"""
+A range that matches the search query.
+"""
+type SearchSuggestionHighlight {
+  """
+  The end of the match.
+  """
+  end: Int!
+
+  """
+  The start of the match.
+  """
+  start: Int!
+}
+
+"""
+An object containing tracking data for a search suggestion.
+"""
+type SearchSuggestionTracking {
+  """
+  The unique identifier of the model instance.
+  """
+  modelTrackingID: ID!
+
+  """
+  The unique identifier generated for every response.
+  """
+  responseID: ID!
+}
+
+"""
+A list of user returned from forage by user query.
+"""
+type SearchUserConnection {
+  """
+  List of matching user results.
+  """
+  edges: [SearchUserEdge!]
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Total number of results.
+  """
+  totalCount: Int!
+}
+
+"""
+Element in a list of users returned from forage.
+"""
+type SearchUserEdge {
+  """
+  Cursor for fetching the next page of results(only on last edge of current connection).
+  """
+  cursor: Cursor!
+
+  """
+  The information about user.
+  """
+  node: User!
+}
+
+"""
+Season metadata.
+"""
+type SeasonDetails {
+  """
+  Number of episodes.
+  """
+  episodeCount: Int
+
+  """
+  The season number.
+  """
+  season: Int
+}
+
+"""
+SeedCompetitionParticipantPayload is the success response for seeding a competition player or competition team.
+"""
+type SeedCompetitionParticipantPayload {
+  """
+  The new state of competition after seeding a competition player or competition team.
+  """
+  competition: Competition
+
+  """
+  Used for competition mutation errors.
+  """
+  error: CompetitionError
+}
+
+"""
+The output for the select channel badge mutation.
+"""
+type SelectChannelBadgePayload {
+  """
+  Indicates if selecting the badge was successful.
+  """
+  isSuccessful: Boolean
+
+  """
+  The channel (user object of channel) this badge is selected on.
+  """
+  user: User
+}
+
+"""
+The output for the select global badge mutation.
+"""
+type SelectGlobalBadgePayload {
+  """
+  Indicates if selecting the badge was successful.
+  """
+  isSuccessful: Boolean
+
+  """
+  The user of the selected badge.
+  """
+  user: User
+}
+
+"""
+The response from redeeming the skip subs only chat message reward.
+"""
+type SendChatMessageThroughSubscriberModePayload {
+  """
+  The user's new Channel Points balance.
+  """
+  balance: Int
+
+  """
+  The error that occurred during redemption, if any.
+  """
+  error: SendCopoMessageError
+
+  """
+  Whether the message was flagged by Automod and held for review.
+  """
+  isHeldByAutomod: Boolean
+}
+
+type SendCheerPayload {
+  """
+  currentUser is the authenticated user object which includes the updated
+  `Wallet` info after the message bits have been spent.
+  """
+  currentUser: User
+
+  """
+  id is the client-generated value passed in as part of the request.
+  """
+  id: ID!
+
+  """
+  If any validation errors occur, this will not be nil.
+  """
+  validationError: SendCheerValidationError
+}
+
+"""
+Resolver for validation errors that occur on send cheer.
+"""
+type SendCheerValidationError {
+  """
+  Error code that describes the validation error.
+  """
+  code: SendCheerValidationErrorCode!
+
+  """
+  Error message that is returned from the backend service.
+  """
+  message: String!
+
+  """
+  Optional rejected message for when the error requires frontend message changes, like AutoMod'd messages.
+  """
+  messageContent: RoomMessageContent
+}
+
+"""
+An error from redeeming a chat message Channel Points reward.
+"""
+type SendCopoMessageError {
+  """
+  The error code.
+  """
+  code: SendCopoMessageErrorCode
+}
+
+"""
+Error type.
+"""
+type SendExtensionMessageError {
+  """
+  Error code.
+  """
+  code: SendExtensionMessageErrorCode!
+}
+
+"""
+Payload returned from the sendExtensionMessage mutation.
+"""
+type SendExtensionMessagePayload {
+  """
+  error, if any.
+  """
+  error: SendExtensionMessageError
+
+  """
+  Information about what rate limits, if any, were applied to this send.
+  """
+  rateLimitsApplied: [SendExtensionMessageThrottleData!]
+}
+
+"""
+Information about a rate limit throttle.
+"""
+type SendExtensionMessageThrottleData {
+  """
+  Was the rate limit exceeded.
+  """
+  isLimitExceeded: Boolean!
+
+  """
+  The limit itself.
+  """
+  limit: String!
+
+  """
+  Name of the rate limiter applied.
+  """
+  rateLimiterName: String!
+
+  """
+  How much quota remains.
+  """
+  remainingQuota: Int!
+
+  """
+  Time when this rate limit will reset.
+  """
+  resetsAt: Time
+}
+
+"""
+The response from redeeming the highlighted chat message reward.
+"""
+type SendHighlightedChatMessagePayload {
+  """
+  The user's new Channel Points balance.
+  """
+  balance: Int
+
+  """
+  The error that occurred during redemption, if any.
+  """
+  error: SendCopoMessageError
+
+  """
+  Whether the message was flagged by Automod and held for review.
+  """
+  isHeldByAutomod: Boolean
+}
+
+type SendRoomMessageError {
+  code: SendRoomMessageErrorCode!
+
+  """
+  On SLOW_MODE_ENFORCEMENT_FAILED, USER_CHAT_TIMED_OUT: the number of remaining
+  seconds user must wait before sending another message.
+  """
+  remainingDurationSeconds: Int
+
+  """
+  On SLOW_MODE_ENFORCEMENT_FAILED: the number of seconds users must wait in between sending messages.
+  """
+  slowModeDurationSeconds: Int
+}
+
+type SendRoomMessagePayload {
+  error: SendRoomMessageError
+  message: RoomMessage
+}
+
+"""
+Error code for when a mutation fails.
+"""
+type SendWhisperError {
+  """
+  Error code for the failed whisper send.
+  """
+  code: SendWhisperErrorCode!
+}
+
+type SendWhisperPayload {
+  """
+  If an error occurred, the error code. Otherwise null.
+  """
+  error: SendWhisperError
+
+  """
+  The message that was sent, or null if there was an error.
+  """
+  message: WhisperMessage
+}
+
+"""
+The SEO metatag of a twitch webpage.
+"""
+type SEOMetatag {
+  """
+  The attributes of the tag.
+  """
+  attributes: [SEOMetatagAttribute!]!
+
+  """
+  The name of the tag.
+  """
+  name: String!
+}
+
+"""
+An attribute of a metatag.
+"""
+type SEOMetatagAttribute {
+  """
+  The key of the attribute.
+  """
+  key: String!
+
+  """
+  The value of the attribute.
+  """
+  value: String!
+}
+
+"""
+Series metadata.
+"""
+type SeriesDetails {
+  """
+  Number of seasons.
+  """
+  seasonCount: Int
+}
+
+"""
+Shows the newly updated values for autoad settings.
+"""
+type SetAutoAdDensityPayload {
+  """
+  The user whose channels ad density was set.
+  """
+  autoAdLengthSeconds: Int
+
+  """
+  Auto ad period minutes.
+  """
+  autoAdPeriodMinutes: Int
+
+  """
+  Input for target ID of channel.
+  """
+  targetChannelID: ID
+}
+
+"""
+SetAutohostChannelsPayload returns the user whose autohostChannels field had been updated.
+"""
+type SetAutohostChannelsPayload {
+  """
+  User whose autohostChannels field had been updated.
+  """
+  user: User
+}
+
+"""
+The payload for the set auto refill settings mutation.
+"""
+type SetAutoRefillSettingsPayload {
+  """
+  The changed auto refill profile.
+  """
+  autoRefillProfile: AutoRefillProfile
+}
+
+"""
+Payload for set bits user settings mutation.
+"""
+type SetBitsUserSettingsPayload {
+  """
+  currentUser is the authenticated user object which includes the updated
+  `Wallet` info after the message bits have been spent.
+  """
+  currentUser: User
+}
+
+type SetChannelFeedEnabledPayload {
+  """
+  The user whose channel feed setting was toggled.
+  """
+  user: User!
+}
+
+type SetChannelNotificationSettingPayload {
+  settingState: String!
+}
+
+"""
+Output of the setChannelTrailer mutation.
+"""
+type SetChannelTrailerPayload {
+  """
+  The channel whose trailer vod was modified.
+  """
+  channel: Channel
+
+  """
+  The error if the mutation failed in an expected way, or null if the mutation was successful.
+  """
+  error: SetChannelTrailerErrorCode
+}
+
+"""
+Result of a setChatPauseSetting mutation.
+"""
+type SetChatPauseSettingPayload {
+  """
+  The newly saved chat pause setting.
+  """
+  chatPauseSetting: ChatPauseSetting
+}
+
+"""
+Result of mutation is the contentID.
+"""
+type SetContentTagsPayload {
+  """
+  Content which tags have been updated.
+  """
+  content: TaggedContent
+}
+
+type SetCreatorBadgeFlairPayload {
+  """
+  Channel whose badge flair setting was updated.
+  """
+  channel: Channel
+}
+
+"""
+SetDashboardAlertQueueActivityStatusError is the error associated with SetDashboardAlertQueueActivityStatus.
+"""
+type SetDashboardAlertQueueActivityStatusError {
+  """
+  The associated error code.
+  """
+  code: SetDashboardAlertQueueActivityStatusErrorCode!
+}
+
+"""
+Outputs from the SetDashboardAlertQueueActivityStatus mutation.
+"""
+type SetDashboardAlertQueueActivityStatusPayload {
+  """
+  The updated activity.
+  """
+  activity: DashboardActivityFeedActivity
+
+  """
+  The possible error returned from the service.
+  """
+  error: SetDashboardAlertQueueActivityStatusError
+}
+
+"""
+SetDashboardAlertQueuePreferenceError is the error associated with SetDashboardAlertQueuePreference.
+"""
+type SetDashboardAlertQueuePreferenceError {
+  """
+  The associated error code.
+  """
+  code: SetDashboardAlertQueuePreferenceErrorCode!
+}
+
+"""
+Outputs from the SetDashboardAlertQueuePreference mutation.
+"""
+type SetDashboardAlertQueuePreferencePayload {
+  """
+  The possible error returned from the service.
+  """
+  error: SetDashboardAlertQueuePreferenceError
+
+  """
+  The updated preferences for dashboard alert queue.
+  """
+  preferences: DashboardAlertQueuePreferences
+}
+
+"""
+The result of the setDefaultPaymentMethod mutation.
+"""
+type SetDefaultPaymentMethodPayload {
+  """
+  Code to describe error that occurred while setting the default payment method.
+  """
+  errorCode: SetDefaultPaymentMethodErrorCode
+
+  """
+  User who had their payment method updated.
+  """
+  user: User
+}
+
+"""
+Result of a setDeletedMessageDisplaySetting mutation.
+"""
+type SetDeletedMessageDisplaySettingPayload {
+  """
+  The newly saved deleted message display setting.
+  """
+  deletedMessageDisplaySetting: DeletedMessageDisplaySetting
+}
+
+"""
+SetDropBenefitsOnDropPayload returns the result of the creation/update.
+"""
+type SetDropBenefitsOnDropPayload {
+  """
+  Returns the updated Campaign.
+  """
+  dropCampaign: DropCampaign
+
+  """
+  A mapped error returned by the drops management service.
+  """
+  error: DropsError
+}
+
+"""
+SetDropCampaignAccessPayload returns the result of the update.
+"""
+type SetDropCampaignAccessPayload {
+  """
+  Returns the updated Campaign.
+  """
+  dropCampaign: DropCampaign
+
+  """
+  A mapped error returned by the drops management service.
+  """
+  error: DropsError
+}
+
+"""
+SetDropCampaignStatusPayload returns the result of the creation/update.
+"""
+type SetDropCampaignStatusPayload {
+  """
+  Returns the updated Campaign.
+  """
+  dropCampaign: DropCampaign
+
+  """
+  A mapped error returned by the drops management service.
+  """
+  error: DropsError
+}
+
+"""
+SetDropCampaignSummaryPayload returns the result of the creation/update.
+"""
+type SetDropCampaignSummaryPayload {
+  """
+  Returns the created/updated Campaign.
+  """
+  dropCampaign: DropCampaign
+
+  """
+  A mapped error returned by the drops management service.
+  """
+  error: DropsError
+}
+
+"""
+SetDropRulePayload returns the result of the rule creation.
+"""
+type SetDropEventRulePayload {
+  """
+  Returns the updated Campaign.
+  """
+  dropCampaign: DropCampaign
+
+  """
+  A mapped error returned by the drops management service.
+  """
+  error: DropsError
+}
+
+"""
+SetDropManualTriggerRulePayload returns the result of the rule creation.
+"""
+type SetDropManualTriggerRulePayload {
+  """
+  Returns the updated Campaign.
+  """
+  dropCampaign: DropCampaign
+
+  """
+  A mapped error returned by the drops management service.
+  """
+  error: DropsError
+}
+
+"""
+SetDrop2BenefitPayload returns the result of the creation/update.
+"""
+type SetDropSummaryPayload {
+  """
+  Returns the created/updated Campaign.
+  """
+  dropCampaign: DropCampaign
+
+  """
+  A mapped error returned by the drops management service.
+  """
+  error: DropsError
+}
+
+"""
+SetDropTimeBasedRulePayload returns the result of the rule update.
+"""
+type SetDropTimeBasedRulePayload {
+  """
+  Returns the updated Campaign.
+  """
+  dropCampaign: DropCampaign
+
+  """
+  A mapped error returned by the drops management service.
+  """
+  error: DropsError
+}
+
+"""
+Result of a setEmoteAnimationsEnabled mutation.
+"""
+type SetEmoteAnimationsEnabledPayload {
+  """
+  Whether emote animations are enabled for the current user.
+  """
+  isEmoteAnimationsEnabled: Boolean
+}
+
+"""
+Result of a setEmoteAnimationsSettingCalloutDismissed mutation.
+"""
+type SetEmoteAnimationsSettingCalloutDismissedPayload {
+  """
+  Whether the emote animations setting callout is dismissed by the user.
+  """
+  isEmoteAnimationsSettingCalloutDismissed: Boolean
+}
+
+"""
+Possible errors from this mutation.
+"""
+type SetEmoteModifierGroupsError {
+  """
+  Error code from the mutation.
+  """
+  code: SetEmoteModifierGroupsErrorCode!
+}
+
+"""
+The result of setting emote modifier groups for a user.
+"""
+type SetEmoteModifierGroupsPayload {
+  """
+  Error from the mutation if it exists.
+  """
+  error: SetEmoteModifierGroupsError
+
+  """
+  The modified emote groups that were set.
+  """
+  groups: [EmoteModifierGroupPayload!]
+}
+
+"""
+SetExtensionConfigurationError returns an error code for the frontend to handle.
+"""
+type SetExtensionConfigurationError {
+  """
+  The standardized code used by the frontend.
+  """
+  code: SetExtensionConfigurationErrorCode!
+}
+
+"""
+SetExtensionConfiguration returns the Input as the extensions configuration endpoint returns a 204.
+"""
+type SetExtensionConfigurationPayload {
+  """
+  The channel to which this configuration applies to.
+  """
+  channelID: ID
+
+  """
+  The version of the configuration.
+  """
+  configVersion: String
+
+  """
+  The configuration string to post.
+  """
+  content: String
+
+  """
+  Error code for the frontend to handle.
+  """
+  error: SetExtensionConfigurationError
+
+  """
+  The extension ID.
+  """
+  extensionID: ID
+}
+
+"""
+SetExtensionFeatureFlagsError is wrapper for error associated with the setExtensionFeatureFlags mutation.
+"""
+type SetExtensionFeatureFlagsError {
+  """
+  Error code.
+  """
+  code: SetExtensionFeatureFlagsErrorCode!
+
+  """
+  The missing installation id if got EXTENSION_NOT_INSTALLED error.
+  """
+  missingInstallationID: ID
+}
+
+"""
+The result of setting feature flags on an installation.
+"""
+type SetExtensionFeatureFlagsPayload {
+  """
+  The error when the mutation fails to set feature flags.
+  """
+  error: SetExtensionFeatureFlagsError
+
+  """
+  The new state of the installation after the setExtensionFeatureFlags mutation.
+  """
+  installedExtension: ExtensionInstallation
+}
+
+"""
+The resulting installedExtension state after setting OAuth.
+"""
+type SetExtensionInstallationOAuthPayload {
+  """
+  The new state of the installation after the setExtensionInstallationOAuth mutation.
+  """
+  installedExtension: ExtensionInstallation
+}
+
+"""
+SetGameDropAccountLinkClientPayload returns the result of the update.
+"""
+type SetGameDropAccountLinkClientPayload {
+  """
+  A mapped error returned by the drops management service.
+  """
+  error: DropsError
+
+  """
+  The updated game record.
+  """
+  game: Game
+}
+
+"""
+SetHeroAsAvatarError contains details about an error that occured when copying the hero to an avatar.
+"""
+type SetHeroAsAvatarError {
+  """
+  The type of error that occured when copying the hero to the avatar.
+  """
+  code: SetHeroAsAvatarErrorCode!
+}
+
+"""
+SetHeroAsAvatarPayload is the response after setting the avatar.
+"""
+type SetHeroAsAvatarPayload {
+  """
+  The error that occured.
+  Null if the operation was successful.
+  """
+  error: SetHeroAsAvatarError
+
+  """
+  The user object post mutation - null if error.
+  """
+  user: User
+}
+
+"""
+Result of a setModLogsAccess mutation.
+"""
+type SetModLogsAccessPayload {
+  """
+  The access level of the role set.
+  """
+  modLogsAccess: ModLogsAccess
+}
+
+"""
+Result of a setModViewSettings mutation.
+"""
+type SetModViewSettingsPayload {
+  """
+  The newly resolved modviewsettings resolver.
+  """
+  modViewSettings: ModViewSettings
+}
+
+type SetNotificationSettingPayload {
+  settingState: String!
+}
+
+"""
+SetOverwatchLeagueTeamPreferencePayload is the success response for setting an Overwatch League Team preference, and
+the corresponding updated OverwatchLeagueTeamPreference struct.
+"""
+type SetOverwatchLeagueTeamPreferencePayload {
+  """
+  A possible error returned from the service.
+  """
+  error: SetOverwatchTeamPreferenceError
+
+  """
+  The updated OverwatchLeagueTeamPreference struct.
+  """
+  overwatchLeagueTeamPreference: OverwatchLeagueTeamPreference
+}
+
+"""
+Error code for an error that occurs while claiming the bounty.
+"""
+type SetOverwatchTeamPreferenceError {
+  """
+  Error code for error that occurred while claiming the bounty.
+  """
+  code: SetOverwatchTeamPreferenceErrorCode!
+}
+
+"""
+The result of a setPreferredLanguageTag mutation.
+"""
+type SetPreferredLanguageTagPayload {
+  """
+  The user whose preferred language tag was changed.
+  """
+  user: User
+}
+
+"""
+Error from a failed currently playing track mutation.
+"""
+type SetRadioCurrentlyPlayingError {
+  """
+  Mutation error code.
+  """
+  code: SetRadioCurrentlyPlayingErrorCode
+}
+
+"""
+Result of a setRadioCurrentlyPlaying mutation.
+"""
+type SetRadioCurrentlyPlayingPayload {
+  """
+  The currently playing radio track addition result.
+  """
+  currentTrack: RadioCurrentTrackResponse
+
+  """
+  Error code.
+  """
+  error: SetRadioCurrentlyPlayingError
+}
+
+"""
+Result of a setReadableChatColorsEnabled mutation.
+"""
+type SetReadableChatColorsEnabledPayload {
+  """
+  Whether readable chat colors are enabled for the current user.
+  """
+  isReadableChatColorsEnabled: Boolean!
+}
+
+"""
+SetResourceRestrictionPayload returns the updated restriction for a channel.
+"""
+type SetResourceRestrictionPayload {
+  """
+  The channel if a live resource restriction was updated.
+  """
+  channel: Channel
+
+  """
+  The stream if a live resource restriction was updated.
+  """
+  stream: Stream
+
+  """
+  The video if a video resource restriction was updated.
+  """
+  video: Video
+}
+
+"""
+An error that has been mapped from a Reminder service twirp error. Can sometimes include messages.
+"""
+type SetScheduleReminderError {
+  """
+  The error code.
+  """
+  code: SetScheduleReminderErrorCode!
+
+  """
+  The error message string.
+  """
+  message: String
+}
+
+"""
+SetScheduleReminderPayload returns the result of the creation/update.
+"""
+type SetScheduleReminderPayload {
+  """
+  A mapped error returned by the Reminder service.
+  """
+  error: SetScheduleReminderError
+
+  """
+  The new reminder state, if operation completed with no error.
+  """
+  isEnabled: Boolean
+}
+
+type SetSessionStatusPayload {
+  """
+  The number of seconds your application should wait before sending another setSessionStatus. If your application does
+  not call setSessionStatus again within roughly this duration, it will be assumed to have terminated unexpectedly and
+  its session status for this user will expire.
+  """
+  setAgainInSeconds: Int!
+
+  """
+  The modified user.
+  """
+  user: User
+}
+
+"""
+Outputs to the setSquadStreamPrimaryPlayer mutation.
+"""
+type SetSquadStreamPrimaryPlayerPayload {
+  """
+  The current primary player of the squad stream.
+  """
+  primaryPlayer: User
+}
+
+"""
+Error from set unban requests settings mutation.
+"""
+type SetUnbanRequestsSettingsError {
+  """
+  Error code from the set unban requests settings mutation.
+  """
+  code: SetUnbanRequestsSettingsErrorCode!
+}
+
+"""
+Result of setting a channel's unban requests settings.
+"""
+type SetUnbanRequestsSettingsPayload {
+  """
+  Error from attempting to set unban requests settings.
+  """
+  error: SetUnbanRequestsSettingsError
+
+  """
+  The updated settings on the channel.
+  """
+  settings: UnbanRequestsSettings
+}
+
+"""
+SetUserResidencePayload is the response from the SetUserResidence mutation.
+"""
+type SetUserResidencePayload {
+  """
+  User whose residence was set for.
+  """
+  user: User
+}
+
+type Share {
+  """
+  The user that created this share.
+  """
+  author: User
+
+  """
+  Time the share was created by the user.
+  """
+  createdAt: Time
+
+  """
+  Share ID.
+  """
+  id: ID!
+
+  """
+  The item that was shared.
+  """
+  target: ShareTarget
+}
+
+"""
+An ordered list of content to render with metadata on the content.
+"""
+type Shelf {
+  """
+  The ordered content for the shelf.
+  """
+  content: ShelfContentConnection!
+
+  """
+  How to present the content in the shelf.
+  """
+  displayType: String!
+
+  """
+  A unique identifier for the shelf for use in tracking and pagination.
+  """
+  id: ID!
+
+  """
+  The title for the shelf.
+  """
+  title: ShelfTitle!
+
+  """
+  Information used for recommendation tracking.
+  """
+  trackingInfo: TrackingInfo!
+}
+
+"""
+Paginated list of Shelves. (pagination not yet implemented)
+Implements the Relay cursor connections specification.
+See: https://facebook.github.io/relay/graphql/connections.htm.
+"""
+type ShelfConnection {
+  """
+  The list of shelves to display.
+  """
+  edges: [ShelfEdge!]
+
+  """
+  As pagination is currently not supported by the backend, this will always be the zero value.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+The list of content to render in a shelf.
+"""
+type ShelfContentConnection {
+  """
+  The list of content to display.
+  """
+  edges: [ShelfContentEdge!]
+
+  """
+  As pagination is currently not supported by the backend, this will always be the zero value.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+The content to render in a shelf.
+"""
+type ShelfContentEdge {
+  """
+  As pagination is currently not supported by the backend, this will always be the zero value.
+  """
+  cursor: Cursor!
+
+  """
+  The metadata to show for each content edge.
+  """
+  metadata: ShelfContentMetadata
+
+  """
+  The underlying content to render.
+  """
+  node: ShelfContent
+
+  """
+  Used to associate promotions for tracking.
+  """
+  promotionsCampaignID: ID!
+
+  """
+  Used to determine what the source of the shelf content is from.
+  """
+  sourceType: SourceType!
+
+  """
+  Used in client tracking.
+  """
+  trackingID: ID!
+}
+
+"""
+The metadata for content to render in a shelf.
+"""
+type ShelfContentMetadata {
+  """
+  Whether the content has a live event.
+  """
+  hasLive: Boolean!
+
+  """
+  The localized subtitle for a content item in a shelf.
+  """
+  subtitle: ShelfTitle
+
+  """
+  The localized title for a content item in a shelf.
+  """
+  title: ShelfTitle!
+}
+
+"""
+Contains information about a Shelf's relationship to a given page (connection),
+and the Shelf itself.
+"""
+type ShelfEdge {
+  """
+  As pagination is currently not supported by the backend, this will always be the zero value.
+  """
+  cursor: Cursor!
+
+  """
+  The shelf.
+  """
+  node: Shelf!
+}
+
+"""
+The title for the shelf.
+"""
+type ShelfTitle {
+  """
+  A resource to interpolate into the title string.
+  """
+  context: ShelfTitleContext
+
+  """
+  The fallback localized title, only to be used if client fails to parse the localizedTitleTokens.
+  """
+  fallbackLocalizedTitle: String!
+
+  """
+  The name of the shelf being presented, used for backwards compatibility. Allows for localization and interpolation.
+  """
+  key: String!
+
+  """
+  The localized shelf title in the form of a list of tokens.
+  """
+  localizedTitleTokens: [TitleTokenEdge]!
+}
+
+"""
+A short video from a ShortVideoFeed and its relevant metadata.
+"""
+type ShortVideo {
+  """
+  The actual short form video content to display.
+  """
+  content: ShortVideoContent
+
+  """
+  The ID of the short form video.
+  """
+  id: ID!
+
+  """
+  All of the reactions on this short form video.
+  """
+  reactions: [ShortVideoReaction!]!
+}
+
+"""
+A paginated list of short videos.
+"""
+type ShortVideoFeedConnection {
+  """
+  The list edges contain ShortVideoFeedEdges with pagination information.
+  """
+  edges: [ShortVideoFeedEdge!]!
+
+  """
+  Information about pagination in this connection.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An element in a paginated list of short videos.
+"""
+type ShortVideoFeedEdge {
+  """
+  Uniquely identifies this item's position in a connection.
+  """
+  cursor: Cursor!
+
+  """
+  The short video.
+  """
+  node: ShortVideo
+}
+
+"""
+An aggregated counter for the contained emote to display how many reactions to a ShortVideo there have been.
+"""
+type ShortVideoReaction {
+  """
+  The number of times this emote has been used to react to this video.
+  """
+  count: Int!
+
+  """
+  The emote that was used to react.
+  """
+  emote: Emote
+
+  """
+  The ID is the same as emote.ID.
+  """
+  id: ID!
+}
+
+"""
+The type representing Community Points Smart Costs Acknowledgements.
+"""
+type SmartCostsAcknowledgement {
+  """
+  The last acknowledged cost.
+  """
+  lastAcknowledgedCost: Int!
+
+  """
+  The type of automatic reward the smart costs acknowledgement is for.
+  """
+  rewardType: CommunityPointsAutomaticRewardType!
+}
+
+"""
+Wrapper around the standard emoticon groups for Prime Emoticons.
+"""
+type SmiliesSet {
+  """
+  The list of emotes which belong to this set.
+  """
+  emotes: [Emote!]
+
+  """
+  ID for the current smilies set.
+  """
+  id: ID
+}
+
+"""
+A social media item that is an attribute of Channel.
+"""
+type SocialMedia {
+  """
+  The social media's unique identifier.
+  """
+  id: ID!
+
+  """
+  The name of the domain which will be used to determine which favicon to render.
+  """
+  name: String
+
+  """
+  The label displayed to the client.
+  """
+  title: String!
+
+  """
+  The web address to a social media website.
+  """
+  url: String!
+}
+
+type SocialStream implements RecommendedStream {
+  """
+  The friend who generated the recommendation.
+  """
+  friend: User
+
+  """
+  The recommended stream.
+  """
+  stream: Stream
+
+  """
+  The type of recommendation. Different types contain different metadata about why the recommendation was made.
+  """
+  type: StreamRecommendationType
+}
+
+"""
+Error returned when attempting to spend subscription credit.
+"""
+type SpendSubscriptionCreditError {
+  """
+  Error code for error that occured while attempting to spend subscription credit.
+  """
+  code: SpendSubscriptionCreditErrorCode!
+}
+
+"""
+Mutated data after spending the subscription credit.
+"""
+type SpendSubscriptionCreditPayload {
+  """
+  Possible error returned from the service.
+  """
+  error: SpendSubscriptionCreditError
+
+  """
+  The modified subscription benefit data.
+  """
+  subscriptionBenefit: SubscriptionBenefit
+
+  """
+  Twitch user ID.
+  """
+  userID: ID!
+}
+
+"""
+The connection of sponsored cheermote channel settings to user.
+"""
+type SponsoredCheermoteChannelSettingsConnection {
+  """
+  The list of key pool edges associated with the user.
+  """
+  edges: [SponsoredCheermoteChannelSettingsEdge!]!
+
+  """
+  The metadata about having more key pools to fetch, or if there is a previous page of key pools.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of key pools for the given user.
+  """
+  totalCount: Int!
+}
+
+"""
+The sponsored cheermote channel settings edge which contains our cursor and node.
+"""
+type SponsoredCheermoteChannelSettingsEdge {
+  """
+  The cursor of the edge, which is also the key pool ID.
+  """
+  cursor: Cursor!
+
+  """
+  The node of the edge, which contains all information about the key pool.
+  """
+  node: SponsoredCheermoteChannelSettingsNode
+}
+
+"""
+The information associated with a given sponsored cheermote channel setting.
+"""
+type SponsoredCheermoteChannelSettingsNode {
+  """
+  Brand's image to display, in the form of a URL.
+  """
+  brandImageURL: String!
+
+  """
+  Brand name to display.
+  """
+  brandName: String!
+
+  """
+  Time the campaign ends.
+  """
+  endTime: Time!
+
+  """
+  The campaign ID, which is unique.
+  """
+  id: ID!
+
+  """
+  The opt in status of the campaign.
+  """
+  isOptedIn: Boolean!
+
+  """
+  Time the campaign starts.
+  """
+  startTime: Time!
+
+  """
+  Thresholds for matching on sponsored cheering.
+  """
+  thresholds: [CheermoteCampaignThreshold!]!
+}
+
+"""
+A squad stream represents a group of broadcasters that are streaming together.  When a squad
+stream is live, viewers can opt to watch the streams of all its members together from a
+single view.
+
+Squad streams are created by a broadcaster who invites other broadcasters to participate.
+Each broadcaster who accepts an invitation becomes a member of the squad stream and can also
+invite other broadcasters to participate.  At the moment, a squad stream can have up to
+four members and a broadcaster can only belong to a single squad stream.
+
+A squad stream ends when all its members leave or stop streaming.
+"""
+type SquadStream {
+  """
+  The ID of the squad stream.
+  """
+  id: ID!
+
+  """
+  The invitations with the given status that have been sent by members to other users to join to squad stream.
+  """
+  invitations(status: SquadStreamInvitationStatus!): [SquadStreamInvitation!]
+
+  """
+  Broadcasters who are currently participating in the squad stream.
+  """
+  members: [User!]
+
+  """
+  The owner can remove members from the squad stream.
+  """
+  owner: User
+
+  """
+  The current status of the squad stream.
+  """
+  status: SquadStreamStatus!
+}
+
+"""
+SquadStreamInvitation represents an invitation sent by a member of a squad stream to another user to
+join the squad stream.
+"""
+type SquadStreamInvitation {
+  """
+  When the invitation was created.
+  """
+  createdAt: Time!
+
+  """
+  ID of the invitation.
+  """
+  id: ID!
+
+  """
+  Network type of the invitation. This field is only non nil when the invitation
+  is fetched for User.IncomingSquadStreamInvitations.
+  """
+  networkType: SquadStreamInvitationNetworkType
+
+  """
+  If the invitation's status is rejected, the reason for the rejection.
+  """
+  reasonRejected: SquadStreamInvitationRejectedReason
+
+  """
+  The user that the invitation is sent to.
+  """
+  recipient: User
+
+  """
+  The user that sent the invitation.
+  """
+  sender: User
+
+  """
+  The squad stream that the recipient is invited to join.
+  """
+  squadStream: SquadStream
+
+  """
+  The status of the invitation.
+  """
+  status: SquadStreamInvitationStatus!
+}
+
+"""
+List of Squad Stream invitations.
+"""
+type SquadStreamInvitationConnection {
+  """
+  The elements of the list.
+  """
+  nodes: [SquadStreamInvitation!]
+
+  """
+  The total count of invitations.
+  """
+  totalCount: Int
+}
+
+"""
+A user's squad stream settings.
+"""
+type SquadStreamSettings {
+  """
+  Denotes whether or not a user can access squad management features like
+  accepting/receiving invites and viewing the Squad Stream dashboard widget.
+  """
+  canAccessSquads: Boolean!
+
+  """
+  Determines who can send the user invitations to join a squad stream.
+  Resolves for anyone who can access the user's dashboard (editors, staff, etc.).
+  """
+  incomingInvitePolicy: SquadStreamIncomingInvitePolicy
+}
+
+"""
+A link between a single sign-on (SSO) app and a Twitch account.
+SSO apps are the Twitch apps on console and smart TV.
+"""
+type SSOLink {
+  """
+  The name of the SSO app that is linked to the authenticated user's Twitch account.
+  """
+  app: String
+
+  """
+  The identifier of the device or user account on XboxLive, PSN, etc.
+  that is linked to the authenticated user's Twitch account.
+  """
+  ssoID: String
+}
+
+"""
+StartAdError ...
+"""
+type StartAdError {
+  """
+  code is the code for the error that occurs while trying to run an ad break.
+  """
+  code: StartAdErrorCode!
+
+  """
+  retryAfterSeconds is the amount of time in seconds remaining before user can run another ad.
+  """
+  retryAfterSeconds: Int
+}
+
+"""
+StartAdPayload ...
+"""
+type StartAdPayload {
+  """
+  adSession is the response object from an ad request.
+  """
+  adSession: AdSession
+
+  """
+  error is the StartAdError object from a failed request.
+  """
+  error: StartAdError
+}
+
+"""
+Error code for an error that occurs while starting the bounty.
+"""
+type StartBountyError {
+  """
+  Error code for error that occurred while starting the bounty.
+  """
+  code: StartBountyErrorCode!
+}
+
+"""
+Data that was mutated after starting the bounty.
+"""
+type StartBountyPayload {
+  """
+  The possible error returned from the service.
+  """
+  error: StartBountyError
+
+  """
+  The started bounty with the updated status.
+  """
+  startedBounty: Bounty
+
+  """
+  The user that now has the started bounty.
+  """
+  user: User
+}
+
+"""
+Error associated with a failed attempt to start a cloud broadcast.
+"""
+type StartCloudBroadcastError {
+  """
+  The cause of the error.
+  """
+  cause: StartCloudBroadcastErrorCause!
+
+  """
+  An optional error message associated with the error.
+  """
+  message: String
+}
+
+"""
+Response to start a cloud broadcast.
+"""
+type StartCloudBroadcastPayload {
+  """
+  If the broadcast was successfully started, properties of that broadcast.
+  """
+  broadcast: CloudBroadcast
+
+  """
+  An optional error if the mutation failed, contaning actionable errors.
+  """
+  error: StartCloudBroadcastError
+}
+
+"""
+StartPayoutOnboardingWorkflowPayload returns a new workflow when starting payout onboarding.
+"""
+type StartPayoutOnboardingWorkflowPayload {
+  """
+  A new workflow status.
+  """
+  workflow: PayoutOnboardingWorkflow
+}
+
+"""
+Returns the new Watch Party and all decoration/details.
+"""
+type StartWatchPartyPayload {
+  """
+  Error if the user's token expired.
+  """
+  error: WatchPartyError
+
+  """
+  The watch party that was started.
+  """
+  watchParty: WatchParty
+}
+
+"""
+Error code for an error that occurs while stopping the bounty.
+"""
+type StopBountyError {
+  """
+  Error code for error that occurred while stopping the bounty.
+  """
+  code: StopBountyErrorCode!
+}
+
+"""
+Data that was mutated after stopping the bounty.
+"""
+type StopBountyPayload {
+  """
+  The possible error returned from the service.
+  """
+  error: StopBountyError
+
+  """
+  The stopped bounty with the updated status.
+  """
+  stoppedBounty: Bounty
+
+  """
+  The user that now has the stopped bounty.
+  """
+  user: User
+}
+
+"""
+An error associated with a failed call to stopCloudBroadcast.
+"""
+type StopCloudBroadcastError {
+  """
+  The cause of the error.
+  """
+  cause: StopCloudBroadcastErrorCause!
+
+  """
+  Optional message associated with an error.
+  """
+  message: String
+}
+
+"""
+Response to stop a Cloud broadcast.
+"""
+type StopCloudBroadcastPayload {
+  """
+  If the broadcast was successfully stopped, properties of that broadcast.
+  """
+  broadcast: CloudBroadcast
+
+  """
+  Optional error associated with a failed attempt to stop a cloud broadcast.
+  """
+  error: StopCloudBroadcastError
+}
+
+"""
+Returns LWA authentication errors.
+"""
+type StopWatchPartyPayload {
+  """
+  Error if the user's token expired.
+  """
+  error: WatchPartyError
+
+  """
+  The watch party that was stopped.
+  """
+  watchParty: WatchParty
+}
+
+"""
+A live stream.
+"""
+type Stream {
+  """
+  The associated archive of the stream.
+  """
+  archiveVideo: Video
+  averageFPS: Float
+  bitrate: Float
+
+  """
+  The language the stream is being broadcasted in.
+  """
+  broadcastLanguage: Language
+
+  """
+  The user who is broadcasting the live stream.
+  """
+  broadcaster: User
+
+  """
+  Software being used for the broadcast.
+  """
+  broadcasterSoftware: String
+
+  """
+  channel is deprecated.
+  """
+  channel: Channel
+    @deprecated(
+      reason: "Channel fields have been merged into User. Use stream.broadcaster instead."
+    )
+
+  """
+  Number of clips created since stream start.
+  """
+  clipCount: Int
+  codec: String
+
+  """
+  The time streaming started.
+  """
+  createdAt: Time
+
+  """
+  The stream delay in seconds.
+  """
+  delayLengthSeconds: Int @deprecated(reason: "Not a supported feature anymore.")
+
+  """
+  Information about what directories the stream is categorized in.
+  """
+  directories: [Directory]!
+    @deprecated(
+      reason: "This was made for Communities, but the feature is officially dead. Use 'game' instead"
+    )
+
+  """
+  Information about the game being streamed.
+  """
+  game: Game
+
+  """
+  The height of the stream's video, in pixels.
+  """
+  height: Int
+
+  """
+  The stream's unique identifier.
+  """
+  id: ID!
+
+  """
+  Whether the stream is hidden from its directory.
+  """
+  isDirectoryHidden: Boolean
+
+  """
+  Information about whether the channel is encrypted.
+  """
+  isEncrypted: Boolean
+
+  """
+  Whether the broadcaster has indicated the stream is intended for mature audiences only.
+  """
+  isMature: Boolean @deprecated(reason: "Use broadcaster.broadcastSettings.isMature instead")
+
+  """
+  Whether the broadcaster is partnered with Twitch.
+  """
+  isPartner: Boolean
+
+  """
+  Whether or not viewers of this stream can receive drops.
+  Note: Actually earning drops additionally requires that the game have an
+  active drops campaign and is done at the discretion of the developer.
+  """
+  isStreamDropsEnabled: Boolean
+
+  """
+  The lanugage setting of the streaming user.
+  """
+  language: Language
+
+  """
+  When the stream was last updated.
+  """
+  lastUpdatedAt: Time
+
+  """
+  The maximum height of the stream's video, in pixels.
+  """
+  maxHeight: Int @deprecated(reason: "Not a supported feature anymore")
+
+  """
+  Platform-specific (e.g. Xbox, PlayStation) metadata.
+  """
+  platform: Platform
+
+  """
+  The playback access token that determines whether the user can watch the stream.
+  Fetched for both authed and unauthed users.
+  """
+  playbackAccessToken(params: PlaybackAccessTokenParams!): PlaybackAccessToken
+
+  """
+  A URL to a dynamically sized image.
+  If either `height` or `width` are not given, a templated value will be present instead.
+  """
+  previewImageURL(height: Int, width: Int): String
+
+  """
+  The restriction that is currently active on the channel for restricting a user's access to it.
+  """
+  restriction: ResourceRestriction
+    @deprecated(
+      reason: "Use Channel.restriction for full restriction data or Stream.restrictionType for stream's restriction type"
+    )
+
+  """
+  The list of restriction options that were applied in addition to the restriction type for this stream.
+  """
+  restrictionOptions: [ResourceRestrictionOption!]!
+
+  """
+  The type of restriction this stream currently has.
+  """
+  restrictionType: String
+
+  """
+  self contains information on the relationship between the current user (anonymous or authenticated) and this stream.
+  """
+  self: StreamSelfConnection
+
+  """
+  Tags are used as a discovery and search mechanism for tags and tagged content.
+  The tag data may not be updated immediately after streamers update their tags.
+  Please use User.tags instead if you want real time data from Graffiti.
+  For example, you should use Stream.tags for the channel page and the browse page, but use User.tags for the dashboard.
+  """
+  tags: [Tag!]
+
+  """
+  A user-defined title describing the stream.
+  """
+  title: String
+
+  """
+  What type of stream this is (e.g. live, playlist, watch_party).
+  """
+  type: String
+
+  """
+  The number of viewers currently watching the stream.
+  """
+  viewersCount: Int
+
+  """
+  The width of the stream's video, in pixels.
+  """
+  width: Int
+}
+
+"""
+StreamBitrate represents the bitrate of stream session by time.
+"""
+type StreamBitrate {
+  """
+  Time of recorded bitrate.
+  """
+  recordedAt: Time!
+
+  """
+  Bitrate of video stream in Kbps.
+  """
+  valueKbps: Float!
+}
+
+"""
+Paginated list of Streams.
+"""
+type StreamConnection {
+  edges: [StreamEdge]
+
+  """
+  Used for tracking.
+  """
+  generationID: ID
+  pageInfo: PageInfo
+
+  """
+  Used for tracking.
+  """
+  responseID: ID
+}
+
+"""
+Contains information about a Streams's relationship to a given page (connection),
+and the Stream itself.
+"""
+type StreamEdge {
+  cursor: Cursor
+  node: Stream
+
+  """
+  Unique id per stream response item, used by clients to attribute displays/clicks to items.
+  """
+  trackingID: ID
+}
+
+"""
+StreamFramerate represents the framerate of strem session by time.
+"""
+type StreamFramerate {
+  """
+  Time of recorded bitrate.
+  """
+  recordedAt: Time!
+
+  """
+  Framerate of video stream in Frame Per Second.
+  """
+  valueFPS: Float!
+}
+
+type Streaming implements Activity {
+  """
+  The stream being broadcasted.
+  """
+  stream: Stream
+
+  """
+  This activity's type, i.e. "STREAMING".
+  """
+  type: ActivityType
+}
+
+"""
+StreamKey represents a RTMP stream key with its expiration date.
+"""
+type StreamKey {
+  """
+  Stream key expiration date.
+  """
+  expiresAt: Time
+
+  """
+  RTMP stream key value.
+  """
+  value: String!
+}
+
+"""
+StreamKeyError represents the error code and its translated error message
+response that explains why the broadcaster can't start a stream.
+"""
+type StreamKeyError {
+  """
+  code is the error code for why the broadcaster is not allow to broadcast.
+  """
+  code: String!
+
+  """
+  Link is the url link that is associated from the translated message.
+  """
+  links: [String!]!
+
+  """
+  message is the translated message for why the broadcaster is not allow to broadcast.
+  """
+  message: String!
+}
+
+"""
+Mosaic layouts for Dashboard Stream Manager.
+"""
+type StreamManagerMosaicLayout implements ChannelDashboardLayout {
+  """
+  The actual Mosaic layout data to be stored or fetched.
+  """
+  data: MosaicData!
+
+  """
+  A unique identifier to uniquely reference this layout.
+  """
+  id: ID!
+
+  """
+  The display name for the layout shown to the user.
+  """
+  name: String!
+
+  """
+  A version to identify how the MosaicData was generated,
+  such as for deprecation purposes.
+  """
+  version: String!
+
+  """
+  When the layout was last updated
+  """
+  lastUpdated: Time
+}
+
+"""
+The content to render in a live recommendation item.
+"""
+type StreamRecommendationEdge {
+  """
+  As pagination is currently not supported by the backend, this will always be the zero value.
+  """
+  cursor: Cursor!
+
+  """
+  The underlying stream content to render.
+  """
+  node: Stream
+
+  """
+  Unique id per stream used in client tracking.
+  """
+  trackingID: ID!
+}
+
+"""
+The relationship between the authenticated user and a stream.
+"""
+type StreamSelfConnection {
+  """
+  Whether or not the requesting user is authorized to view the channel's stream.
+  """
+  canWatch: Boolean!
+
+  """
+  Whether the stream is restricted.
+  """
+  isRestricted: Boolean!
+
+  """
+  If the stream is restricted, the type indicates how the stream is restricted.
+  """
+  restrictionType: String
+}
+
+"""
+The start and end time of a stream session for a user.
+"""
+type StreamSession {
+  """
+  The associated archive of the stream.
+  """
+  archiveVideo: Video
+
+  """
+  The end time for the stream session.
+  """
+  endedAt: Time!
+
+  """
+  The start time for the stream session.
+  """
+  startedAt: Time!
+}
+
+"""
+Analytics information for a streaming session.
+"""
+type StreamSummary {
+  """
+  The associated archives of the stream.
+  """
+  archiveVideos: [Video!]
+
+  """
+  Average viewers for the time period.
+  """
+  averageViewers: Float!
+
+  """
+  The ID for the streaming channel.
+  """
+  channelID: ID!
+
+  """
+  Unique chatters for the time period.
+  """
+  chatters: Int!
+
+  """
+  The number of clips created during the stream summary.
+  """
+  clipsCreated: Int!
+
+  """
+  The time that the stream session ended.
+  """
+  endedAt: Time!
+
+  """
+  Number of follows for the time period.
+  """
+  follows: Int!
+
+  """
+  Notification information for a given stream session.
+  """
+  goLiveNotification: GoLiveNotification
+
+  """
+  Live views for the time period.
+  """
+  liveViews: Int!
+
+  """
+  Max viewers for the time period.
+  """
+  maxViewers: Int!
+
+  """
+  New subscriptions for the time period.
+  """
+  newSubscriptions: Int!
+
+  """
+  The time that the stream session started.
+  """
+  startedAt: Time!
+
+  """
+  Unique chatters for the time period.
+  """
+  uniqueChatters: Int! @deprecated(reason: "Use chatters instead")
+
+  """
+  Unique viewers for the time period.
+  """
+  uniqueViewers: Int!
+}
+
+"""
+A stucco (wide emote) represents an image that can be used for user interaction in specific cases.
+"""
+type Stucco {
+  """
+  The description is used to describe the stucco (e.g. for screenreaders).
+  """
+  description: String!
+
+  """
+  The unique ID of this stucco.
+  """
+  id: ID!
+
+  """
+  The set of URLS to images related to this stucco, contains URLS for 1x, 2x and 4x images.
+  """
+  imageSet: StuccoImageSet!
+
+  """
+  Indicates if this stucco does not belong to a single channel (available to all channels).
+  """
+  isGlobal: Boolean!
+
+  """
+  The owner of this stucco, usually the channel this has been uploaded to.
+  """
+  ownerID: ID!
+
+  """
+  The state of the stucco.
+  """
+  state: StuccoState!
+
+  """
+  The textCode used to represent and identify this stucco, consists of channel prefix + stucco prefix + code.
+  """
+  textCode: String!
+}
+
+"""
+Image set of different sizes of the stucco.
+"""
+type StuccoImageSet {
+  """
+  Image url of the 92x28px stucco ("1x") image asset.
+  """
+  image1xURL: String!
+
+  """
+  Image url of the 182x56px stucco ("2x") image asset.
+  """
+  image2xURL: String!
+
+  """
+  Image url of the 368x112px stucco ("4x") image asset.
+  """
+  image4xURL: String!
+}
+
+"""
+A Stucco pack is a collection of stuccos, the pack can be activated to be used by viewers of that channel.
+"""
+type StuccoPack {
+  """
+  The ID of the stucco pack.
+  """
+  id: ID!
+
+  """
+  User id of the owner of this pack (usually a channel).
+  """
+  ownerID: ID!
+
+  """
+  The stuccos contained in this pack, represented as slots, containing the slot index and the stucco.
+  """
+  slots: [StuccoPackSlot!]
+}
+
+"""
+A stucco pack slot represents a single ordered slot in a pack of stuccos.
+"""
+type StuccoPackSlot {
+  """
+  The index of this slot (used for ordering).
+  """
+  index: Int!
+
+  """
+  The stucco in this slot.
+  """
+  stucco: Stucco!
+}
+
+"""
+Sub Count Series shows a user's sub counts broken down by type, tier, and date.
+"""
+type SubCountSeries {
+  """
+  The duration each datapoint spans (ex: Day).
+  """
+  period: TimeSeriesPeriod!
+
+  """
+  The datapoints in the timeseries, ordered ascending order by timestamp.
+  """
+  subCountSeriesDataPoints: [SubCountSeriesDataPoint!]!
+
+  """
+  The total number of subscriptions for the given time period (ex: 957).
+  """
+  totalCount: Int!
+}
+
+"""
+A single data point in the time series.
+"""
+type SubCountSeriesDataPoint {
+  """
+  The breakdown of which tiers contributed how much to the total gift sub count.
+  """
+  giftSubTierBreakdown: [SubCountTierDataPoint!]!
+
+  """
+  The breakdown of which tiers contributed how much to the total multi month sub count.
+  """
+  multiMonthSubTierBreakdown: [SubCountTierDataPoint!]!
+
+  """
+  The breakdown of which tiers contributed how much to the total paid sub count.
+  """
+  paidSubTierBreakdown: [SubCountTierDataPoint!]!
+
+  """
+  The timestamp associated with this data point.
+  """
+  timeStamp: Time!
+
+  """
+  The total number of gifted subscriptions captured during this period.
+  """
+  totalGiftSubCount: Int!
+
+  """
+  The total number of multi month subscriptions captured during this period.
+  """
+  totalMultiMonthSubCount: Int!
+
+  """
+  The number of paid subscriptions captured during this period.
+  """
+  totalPaidSubCount: Int!
+
+  """
+  The number of Prime subscriptions captured during this period.
+  """
+  totalPrimeSubCount: Int!
+}
+
+"""
+SubCountTierDataPoint shows the breakdown of subcount by tier.
+"""
+type SubCountTierDataPoint {
+  """
+  How many of this type of subscription were captured in this time period.
+  """
+  count: Int!
+
+  """
+  The type of subscription, i.e. Tier 1, Tier 2, Tier 3.
+  """
+  tier: String!
+}
+
+"""
+Wrapper for errors associated with submitCSATFeedback mutation.
+"""
+type SubmitCSATFeedbackError {
+  """
+  The code associated with the error from submitCSATFeedback mutation.
+  """
+  code: SubmitCSATFeedbackErrorCode!
+}
+
+"""
+The result of a submitCSATFeedback mutation.
+"""
+type SubmitCSATFeedbackPayload {
+  """
+  The error from a failed submitCSATFeedback mutation.
+  """
+  error: SubmitCSATFeedbackError
+
+  """
+  The response of the mutation.
+  """
+  response: SubmitCSATFeedbackResponse
+}
+
+"""
+The response of a successful submitCSATFeedback mutation.
+"""
+type SubmitCSATFeedbackResponse {
+  """
+  Unique identifier returned in the response.
+  """
+  guid: ID!
+}
+
+"""
+SubmitEmotePrefixPayload returns a status code indicating whether the update was successful or not.
+"""
+type SubmitEmotePrefixPayload {
+  """
+  A code indicating why the prefix submit failed, if it did.
+  """
+  errorCode: SubmitEmotePrefixResponseCode
+
+  """
+  The newly submitted prefix.
+  """
+  prefix: EmoticonPrefix
+}
+
+"""
+SubmitEmoticonPrefixPayload returns the updated emoticon prefix.
+"""
+type SubmitEmoticonPrefixPayload {
+  """
+  The response doesn't return the real state of the prefix. Querying the emoticon
+  prefix is required to get the most accurate state.
+  """
+  response: EmoticonPrefix!
+}
+
+"""
+The result of a submitExtensionFeedback mutation.
+"""
+type SubmitExtensionFeedbackPayload {
+  """
+  The ExtensionRating record that the feedback was attached to.
+  """
+  comment: ExtensionComment
+
+  """
+  The error when the mutation fails to submit the extension feedback.
+  """
+  error: SubmitExtensionFeedbackError
+}
+
+"""
+A list of channels subscribed to by a user.
+"""
+type SubscribedChannelConnection {
+  """
+  The subscribed channels.
+  """
+  edges: [SubscribedChannelEdge!]
+
+  """
+  Pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of subscribed channels.
+  """
+  totalCount: Int
+}
+
+"""
+A broadcaster user with cursor.
+"""
+type SubscribedChannelEdge {
+  """
+  Cursor represents the position of the current edge/node.
+  """
+  cursor: Cursor!
+
+  """
+  Node represents the user for the current edge.
+  """
+  node: User
+}
+
+"""
+SubscriberBadgeProgress contains progress information for subscription badges based on a user's tenure.
+"""
+type SubscriberBadgeProgress {
+  """
+  The ID is a composite of channel_id (owner of badge) / user_id (viewer requesting badge) / version
+  """
+  id: ID!
+
+  """
+  URL of 18x18 asset.
+  """
+  image1xURL: String!
+
+  """
+  URL of 36x36 asset.
+  """
+  image2xURL: String!
+
+  """
+  URL of 72x72 asset.
+  """
+  image4xURL: String!
+
+  """
+  The percentage of tenure already earned towards this badge.
+  """
+  percentCompleted: Float!
+
+  """
+  The total tenure in months required to earn this badge.
+  """
+  requiredTenureMonths: Int!
+
+  """
+  Metadata about how a subscriber badge is stored & fetched.
+  """
+  version: String!
+}
+
+"""
+Breakdown of number of subscriptions by tier.
+"""
+type SubscriberCountBreakdown {
+  """
+  The number of subscriptions to the product.
+  """
+  count: Int!
+
+  """
+  The tier of the product.
+  """
+  tier: String!
+}
+
+"""
+Information pertaining to user's subscriber score.
+Contains subscription count, sub points, emote limits, and information about the next subscriber level.
+"""
+type SubscriberScore {
+  """
+  Breakdown of subscriber score by product tier.
+  """
+  breakdown: [SubscriberScoreBreakdown!]
+
+  """
+  Current subscriber count.
+  """
+  count: Int!
+
+  """
+  Breakdown of total subs by product tier.
+  """
+  countBreakdown: [SubscriberCountBreakdown!]
+
+  """
+  Current subscriber score.
+  """
+  current: Int!
+
+  """
+  Current number of emotes unlocked.
+  """
+  currentEmoteLimit: Int!
+
+  """
+  Next goal to unlock more emotes.
+  Will be null if max score already reached.
+  """
+  next: Int
+
+  """
+  Emote limit after reaching nextScoreGoal.
+  Will be null if max emote limit reached.
+  """
+  nextEmoteLimit: Int
+}
+
+"""
+Breakdown of score by tier.
+"""
+type SubscriberScoreBreakdown {
+  """
+  The score of the product.
+  """
+  score: Int!
+
+  """
+  The tier of the product.
+  """
+  tier: String!
+}
+
+"""
+Data about a user's subscription to a broadcaster.
+"""
+type SubscriptionBenefit {
+  """
+  The date that the subscription benefit ends.
+  """
+  endsAt: Time
+
+  """
+  gift resolves gift info about a SubscriptionBenefit.
+  """
+  gift: SubscriptionGift
+
+  """
+  The unique identifier.
+  """
+  id: ID!
+
+  """
+  For a recurring subscription, the price is charged at every interval i months.
+  """
+  intervalNumber: Int!
+
+  """
+  Whether the sub is set to "do not renew".
+  """
+  isDNRd: Boolean!
+
+  """
+  Whether this subscription has been extended. This means that a non-recurring
+  subscription has been extended with additional months.
+  """
+  isExtended: Boolean!
+
+  """
+  Whether the subscription is in the grace period to be cancelled and refunded.
+  """
+  isRefundable: Boolean!
+
+  """
+  The id of where the subscription originated from. Used when DNRing a recurring subscription.
+  """
+  originID: String
+
+  """
+  If the subscriptionBenefit has a future dated paid upgrade. (ie. a user has
+  upgraded a 1-month gift to a recurring subscription).
+  """
+  paidUpgrade: PaidUpgrade
+    @deprecated(reason: "gift to paid upgrades will now be in the pendingSubscription schema")
+
+  """
+  If the subscriptionBenefit has a pending future dated paid subscription.
+  """
+  pendingSubscription: PendingSubscription
+
+  """
+  The platform the subscription was purchased on.
+  """
+  platform: SubscriptionPlatform!
+
+  """
+  Resolves the product that the subscription benefit is to.
+  """
+  product: SubscriptionProduct
+
+  """
+  Whether this benefit was achieved using a Twitch Prime subscription.
+  """
+  purchasedWithPrime: Boolean!
+
+  """
+  The date that the subscription benefit will renew. Will be nil if the subscription benefit
+  is not going to renew.
+  """
+  renewsAt: Time
+
+  """
+  The states this benefit has transitioned through. Captures both user-initiated states
+  such as initiating a DNR request, as well as system-initiated states such as completing a DNR request.
+  """
+  states: [SubscriptionBenefitStateHistory!]
+
+  """
+  Exposes the third party SKU for managing third party subscriptions from the client.
+  Will be nil if there is not a thirdPartySKU associated with this subscription benefit.
+  """
+  thirdPartySKU: String
+
+  """
+  The subscription tier.
+  """
+  tier: String!
+
+  """
+  The user who is subscribed to.
+  """
+  user: User
+}
+
+"""
+A paginated list of subscription benefits.
+"""
+type SubscriptionBenefitConnection {
+  """
+  The list of subscription benefits on this page.
+  """
+  edges: [SubscriptionBenefitEdge!]
+
+  """
+  Information about this page of payment transactions.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An element in a paginated list of subscription benefits.
+"""
+type SubscriptionBenefitEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  The element node.
+  """
+  node: SubscriptionBenefit
+}
+
+"""
+Data about the states a Subscription Benefit has transitioned through. Captures both user-initiated states
+such as initiating a DNR request, as well as system-initiated states such as completing a DNR request.
+"""
+type SubscriptionBenefitStateHistory {
+  """
+  When the benefit transitioned to this state.
+  """
+  createdAt: Time
+
+  """
+  The logical state the benefit occupied.
+  """
+  state: SubscriptionBenefitState!
+}
+
+"""
+Configs that help initiate the subscription checkout flow.
+"""
+type SubscriptionCheckoutConfigs {
+  """
+  Lists any additional actions for a subscription checkout session.
+  """
+  actions: [CheckoutAction!]!
+
+  """
+  Whether the initiated checkout flow can complete/succeed and gift the recipient the product.
+  """
+  canGift: Boolean!
+
+  """
+  Whether the initiated checkout flow can proceed with a purchase.
+  """
+  canPurchase: Boolean!
+
+  """
+  Whether the purchaser is eligible for a one-time promotion in the subscription purchase checkout flow.
+  """
+  isOneMonthFreeEligible: Boolean!
+
+  """
+  Holds configuration necessary for initializing payment provider client libraries and facilitate checkout flow.
+  """
+  paymentProviderConfigs: PaymentProviderConfigs!
+
+  """
+  Purchase Ineligibility reason details.
+  """
+  purchaseIneligibilityReason: PurchaseIneligibilityReason!
+}
+
+"""
+An Offer for purchasing community gift subscriptions with associated metadata about the Offer.
+Composes the "model" (Offer) with the "view" metadata about the offer.
+"""
+type SubscriptionCommunityGifting {
+  """
+  The image assets for this offer.
+  """
+  assets: SubscriptionCommunityGiftingAssets!
+
+  """
+  The Offer document for this Community Gift offer.
+  """
+  offer: Offer
+
+  """
+  The default number of subscriptions that this offer is offering.
+  """
+  quantity: Int!
+
+  """
+  The type of this community gifting offer.
+  """
+  type: SubscriptionCommunityGiftingType!
+}
+
+"""
+Groups image assets related to the community gifting Offer.
+"""
+type SubscriptionCommunityGiftingAssets {
+  """
+  The link to the 1x pixel density image asset for this community gifting offer.
+  """
+  imageURL1x: String!
+
+  """
+  The link to the 2x pixel density image asset for this community gifting offer.
+  """
+  imageURL2x: String!
+
+  """
+  The link to the 3x pixel density image asset for this community gifting offer.
+  """
+  imageURL3x: String!
+
+  """
+  The link to the 4x pixel density image asset for this community gifting offer.
+  """
+  imageURL4x: String!
+}
+
+"""
+Gift information for a subscription benefit.
+"""
+type SubscriptionGift {
+  """
+  giftDate is the date that the gift was given.
+  """
+  giftDate: Time
+
+  """
+  Gifter is the user who sent the gift. Will be nil if isGift is false or is the gift is anonymous.
+  """
+  gifter: User
+
+  """
+  isGift says whether the subscription benefit is a gift or not.
+  """
+  isGift: Boolean!
+}
+
+"""
+A parent field for grouping the different types of gift subscriptions.
+"""
+type SubscriptionGifting {
+  """
+  Offers and associated metadata for purchasing community gift subscriptions.
+  """
+  community: [SubscriptionCommunityGifting!]
+
+  """
+  Offers for purchasing a gift subscription to the given user.
+  This will prefer the ID if both login and ID are provided.
+  If neither are provided, this will return null.
+  """
+  standard(recipientID: ID, recipientLogin: String): [SubscriptionStandardGifting!]
+}
+
+"""
+A gift offer that is available on a particular subscription based
+on gift type and platform.
+"""
+type SubscriptionGiftOffer {
+  """
+  Unique identifier of a subscription gift offer.
+  """
+  id: ID!
+
+  """
+  The subscription gift offer price info which contains information about currency, cost and tax information.
+  """
+  priceInfo(taxCountry: String): PriceInfo!
+
+  """
+  The available promotions on this gift offer.
+  """
+  promotion: SubscriptionGiftPromotion
+
+  """
+  The amount of gifts in this offer.
+  """
+  quantity: Int!
+
+  """
+  thirdPartySKU represents the purchasable third party SKU of the gift the user will purchase.
+  Will return an nil if the user has no purchasable skus.
+  Will return nil if not on a platform with an external subscription gift offer or if the country is not supported.
+  """
+  thirdPartySKU: String
+
+  """
+  The type of gift this offer is for.
+  """
+  type: SubscriptionGiftType!
+}
+
+"""
+The promotion offer on a subscription gift offer.
+"""
+type SubscriptionGiftPromotion {
+  """
+  The subscription gift's discount type for this promotion(e.g. "PERCENT_OFF").
+  """
+  discountType: SubscriptionPromotionDiscountType!
+
+  """
+  The discount value of the subscription gift product (e.g. "50").
+  """
+  discountValue: String!
+
+  """
+  Unique identifier of a subscription gift promotion.
+  """
+  id: ID!
+
+  """
+  The subscription gift offer price info which contains information about currency, cost and tax information.
+  """
+  priceInfo(taxCountry: String): PriceInfo!
+
+  """
+  The quantity of gifts this promotion is for(ex: 11 gifts for a promotion on 10 gifts).
+  """
+  quantity: Int!
+
+  """
+  Promotion consumable SKU used by third party that the user will purchase.
+  """
+  thirdPartySKU: String
+}
+
+"""
+Represents the interval of a subscription product.
+"""
+type SubscriptionInterval {
+  """
+  The unit-less amount of time a subscription lasts for.
+  """
+  duration: Int!
+
+  """
+  Denotes the unit of the interval.
+  """
+  unit: SubscriptionIntervalUnit!
+}
+
+"""
+Subscription pricing information.
+"""
+type SubscriptionOffer {
+  """
+  Currency the offer is for.
+  """
+  currency: String!
+
+  """
+  Exponent to use when shifting the currency.
+  """
+  exponent: Int!
+
+  """
+  Id for offer on subscription product.
+  """
+  id: ID!
+
+  """
+  Price for the offer.
+  """
+  price: Int!
+
+  """
+  Promotion description.
+  """
+  promoDescription: String
+}
+
+"""
+A subscription that is purchasable by users.
+Once purchased, the subscription entitles the user to use special emote sets on Twitch.
+"""
+type SubscriptionProduct {
+  """
+  The subscription product's display name.
+  """
+  displayName: String
+
+  """
+  The maximum number of Emotes that can be associated with this product.
+  """
+  emoteLimit: Int
+
+  """
+  The maximum number of animated Emotes that can be associated with this product.
+  """
+  animatedEmoteLimit: Int
+
+  """
+  The emote modifiers associated with the product.
+  """
+  emoteModifiers: [EmoteModifier!]
+
+  """
+  The identifier of the static EmoteSet that a user gains access to use on Twitch,
+  when they purchase this product.
+  """
+  emoteSetID: ID
+    @deprecated(reason: "Products can have more than one emote set now so use emoteGroups instead.")
+
+  """
+  The emote groups that the user gains access to use on Twitch when they purchase this product.
+  When using the ALL filter the data is uncached and should only be used on the creator dashboard.
+  """
+  emoteGroups(state: EmoteStateFilter = ACTIVE): [EmoteSet!]
+
+  """
+  A list of Emotes the user gains access to use on Twitch when they purchase
+  this product.
+  """
+  emotes(state: EmoteStateFilter = ACTIVE): [Emote]
+
+  """
+  A list of GiftOffers that are available on this subscription product
+  depending on which platform and gift type is given
+  Used by clients to display different gift prices, quantities and gift promotion information.
+  """
+  giftOffers(
+    platform: SubscriptionGiftOfferPlatform
+    type: SubscriptionGiftType!
+  ): [SubscriptionGiftOffer!]
+
+  """
+  The subscription product's promotion if it is active.
+  """
+  giftPromotion: SubscriptionPromotion
+
+  """
+  The different types of gift subscriptions ("Community" vs "Standard").
+  """
+  gifting: SubscriptionGifting!
+
+  """
+  Whether the subscription hides ads for the channel.
+  """
+  hasAdFree: Boolean!
+
+  """
+  Whether the subscribers of this product are affected by slow chat mode.
+  """
+  hasFastChat: Boolean
+
+  """
+  Whether the channel has sub only chatroom restriction.
+  """
+  hasSubOnlyChat: Boolean
+
+  """
+  Whether the subscribers of this product are able to see the subs-only video archive.
+  """
+  hasSubonlyVideoArchive: Boolean
+
+  """
+  The subscription product's identifier.
+  """
+  id: ID!
+
+  """
+  The interval that the product lasts for. Includes unit + duration.
+  """
+  interval: SubscriptionInterval!
+
+  """
+  The subscription product's name.
+  """
+  name: String!
+
+  """
+  Available offers for a subscription product.
+  """
+  offers: [Offer!]
+
+  """
+  The Twitch user that is the owner of the channel associated with this subscription product.
+  This is null for SubscriptionProducts like 'turbo' that are not associated with any user.
+  """
+  owner: User
+
+  """
+  The subscription's USD-formatted price, e.g. "$9.99".
+  """
+  price: String!
+    @deprecated(reason: "Transitioning to priceInfo instead to support multi region pricing")
+
+  """
+  PriceInfo holds the products pricing information such as currency, cost, and tax information.
+  """
+  priceInfo(taxCountry: String): PriceInfo!
+
+  """
+  The subscription product's promotion if it is active.
+  """
+  promotion: SubscriptionPromotion
+
+  """
+  The currently active revenue configuration record for the subscription product.
+  """
+  revenueConfig: RevenueConfig
+
+  """
+  The connection for user to the subscription product.
+  """
+  self: SubscriptionProductSelfConnection
+
+  """
+  The avaliability state of the product. e.g. "active" or "inactive".
+  """
+  state: SubscriptionState!
+
+  """
+  ThirdPartytemplateSKU is used by the frontend to retrieve third party product information such
+  as price. templateSKU is exposed separately from purchaseSKU since retrieving purchaseSKU is a
+  more expensive operation. A user may not be able to purchase the templateSKU. Use purchaseSKU
+  when the user has indiciated they want to purchase.
+  Uses Client-ID to determine platform information and IP address to determine location.
+  """
+  thirdPartyTemplateSKU(platform: String): String
+
+  """
+  The tier of the product.
+  """
+  tier: String!
+
+  """
+  The type of subscription, e.g. "chansub" or "teamsub".
+  """
+  type: SubscriptionProductType!
+
+  """
+  The URL for this subscription's purchase page.
+  """
+  url: String!
+}
+
+"""
+A set of subscription products.
+"""
+type SubscriptionProductsConnection {
+  """
+  The resolved subscription products.
+  """
+  nodes: [SubscriptionProduct!]!
+}
+
+"""
+The connection between the user and subscription product.
+"""
+type SubscriptionProductSelfConnection {
+  """
+  This user's subscription benefit information for the subscription product.
+  """
+  benefit: SubscriptionBenefit
+
+  """
+  True if the user in this connection is allowed to gift the product in this connection.
+  """
+  canGiftInChannel: Boolean!
+
+  """
+  True if the user in this connection can gift the product in this connection to the user with the supplied user ID.
+  """
+  canGiftTo(recipientID: ID!): Boolean!
+
+  """
+  True if the user in this connection can gift the product in this connection to the user with the supplied login.
+  Since this requires an additonal lookup to get the user ID from the login, this is less preferable than canGift.
+  """
+  canGiftToLogin(recipientLogin: String!): Boolean!
+
+  """
+  Holds configuration necessary to start subscription purchase checkout flow for this product for current user.
+  """
+  checkoutConfiguration(config: CheckoutConfigurationInput!): SubscriptionCheckoutConfigs
+
+  """
+  The subscription's discount type (e.g. "percent_off").
+  """
+  discountType: DiscountType! @deprecated(reason: "Transitioning to promotion field instead")
+
+  """
+  The discount value of the subscription product (e.g. "50").
+  """
+  discountValue: String! @deprecated(reason: "Transitioning to promotion field instead")
+
+  """
+  A list of GiftOffers that are available on this subscription product
+  depending on which platform, giftType and user that is authenticated.
+  Exposed on the self connection as well since user based promotions can be given in the future
+  Used by clients to display different gift prices, quantities and user based gift promotion information.
+  """
+  giftOffers(
+    platform: SubscriptionGiftOfferPlatform
+    type: SubscriptionGiftType!
+  ): [SubscriptionGiftOffer!]
+
+  """
+  If the product is eligible for a discount.
+  """
+  isEligibleForDiscount: Boolean! @deprecated(reason: "Transitioning to promotion field instead")
+
+  """
+  The subscription's USD-formatted price after discount (e.g. "$2.49").
+  """
+  newPrice: String! @deprecated(reason: "Transitioning to promotion field instead")
+
+  """
+  The subscription's USD-formatted price before discount (e.g. "$4.99").
+  """
+  oldPrice: String! @deprecated(reason: "Transitioning to promotion field instead")
+
+  """
+  If the subscription product is eligible for a paid upgrade promotion.
+  """
+  paidUpgradePromotion: SubscriptionPromotion
+
+  """
+  Contains information on the final checkout price of this subscription product.
+  """
+  productPurchase(quantity: Int!, paymentProvider: PaymentProvider!): ProductPurchase
+
+  """
+  The subscription product's promotion for user if eligible.
+  """
+  promotion: SubscriptionPromotion
+
+  """
+  This user's subscription purchase details for the subscription product. If this user is not
+  subscribed to the product, then the result's state is 'inactive'. If a compatible purchase exists,
+  then the result's "compatiblePurchase" field is present.
+  """
+  purchase: SubscriptionPurchase
+
+  """
+  Subscription tenure data for the user to this subscription product.
+  """
+  subscriptionTenure(tenureMethod: SubscriptionTenureMethod!): SubscriptionTenure
+
+  """
+  ThirdPartyPurchaseSKU is different from templateSKU since it represents the SKU of the exact item the
+  user will purchase. It is more expensive to retrieve purchaseSKU than templateSKU, so only
+  use purchaseSKU when the user has indicated they want to checkout. Use templateSKU on channel
+  page load to retrieve product information.
+
+  Will return an error if the user has no purchasable skus. Will return nil if not on a platform
+  with an external subscription product or if the country is not supported.
+  Uses Client-ID to determine platform information and IP address to determine location.
+  """
+  thirdPartyPurchaseSKU(platform: String): String
+}
+
+"""
+A subscription products error.
+"""
+type SubscriptionProductsError {
+  """
+  A code representing the error state.
+  """
+  code: SubscriptionProductsErrorCode!
+}
+
+"""
+The promotion offer on subscription product.
+"""
+type SubscriptionPromotion {
+  """
+  Contains information on the final checkout price for this promotion.
+  """
+  checkoutPrice(quantity: Int!, paymentProvider: PaymentProvider!): ProductPurchase
+
+  """
+  The subscription's discount type (e.g. "PERCENT_OFF").
+  """
+  discountType: SubscriptionPromotionDiscountType! @deprecated(reason: "No longer supported.")
+
+  """
+  The discount value of the subscription product (e.g. "50").
+  """
+  discountValue: String! @deprecated(reason: "No longer supported.")
+
+  """
+  The subscription's USD-formatted price after discount (e.g. "$2.49").
+  """
+  newPrice: String! @deprecated(reason: "Use SubscriptionPromotion.previewPrice instead.")
+
+  """
+  The subscription's USD-formatted price before discount (e.g. "$4.99").
+  """
+  oldPrice: String! @deprecated(reason: "Use SubscriptionProduct.priceInfo instead.")
+
+  """
+  The price for the promotion.
+  """
+  previewPrice: PriceInfo!
+}
+
+"""
+A user's subscription purchase details, part of the Subscription Checkout workflow.
+"""
+type SubscriptionPurchase {
+  """
+  A compatible purchase exists if this user bought a subscription product of a different tier for the
+  channel in question.
+
+  i.e. this user doesn't have this subscription purchase for the $4.99 sub but they do have a
+       compatible purchase for the $9.99 subscription.
+  """
+  compatiblePurchases: [SubscriptionPurchaseDetails!]
+
+  """
+  The purchase details for a Twitch purchaser - Subscription product combination.
+  """
+  details: SubscriptionPurchaseDetails
+}
+
+"""
+The receipt details for a subscription purchase.
+"""
+type SubscriptionPurchaseDetails {
+  """
+  Date the purchase was cancelled at, if applicable, else null.
+  """
+  cancelledAt: Time
+
+  """
+  Currency for the price, e.g. "USD".
+  """
+  currency: String!
+
+  """
+  Divisor for the price based on the currency. e.g. Divisor for USD is 100.
+  """
+  divisor: Int!
+
+  """
+  Purchase's payment provider.
+  """
+  paymentProvider: PaymentProvider!
+
+  """
+  Price in smallest subunit of currency, e.g. "499" cents.
+  """
+  price: Int!
+
+  """
+  The tier of the subscription purchase product.
+  """
+  productTier: String
+
+  """
+  The type of subscription purchase.
+  """
+  productType: SubscriptionProductType!
+
+  """
+  Purchase state.
+  """
+  state: SubscriptionPurchaseState!
+}
+
+"""
+An Offer for purchasing a Standard (AKA "single" or "targetted") gift subscription for a specific user.
+This type exists as a futureproofing measure as gifting will evolve over time.
+"""
+type SubscriptionStandardGifting {
+  """
+  The Offer document for this Standard Gift offer.
+  """
+  offer: Offer
+}
+
+"""
+Simple summary of subscription product.
+"""
+type SubscriptionSummary {
+  """
+  Emotes included with subscription.
+  """
+  emotes: [Emote]
+
+  """
+  Subscription product id, for now is the same as the ticket product id.
+  """
+  id: ID!
+
+  """
+  Emote modifiers available at this tier.
+  """
+  modifiers: [EmoteModifier!]
+
+  """
+  Channel's custom name for their subscription.
+  """
+  name: String!
+
+  """
+  Pricing information about subscription, filtered to what is available for user.
+  """
+  offers: [SubscriptionOffer!]
+
+  """
+  Info specific to the user.
+  """
+  self: SubscriptionSummarySelf!
+
+  """
+  Tier of subscription, either 1, 2, or 3.
+  """
+  tier: SubscriptionSummaryTier!
+
+  """
+  URL for checkout page.
+  """
+  url: String!
+}
+
+"""
+Most of the user specific fields for SubscriptionSummary.
+"""
+type SubscriptionSummarySelf {
+  """
+  What is the cumulative tenure for this user.
+  """
+  cumulativeTenure: Int!
+
+  """
+  The tier the user is subbed to (if they have a sub).
+  """
+  subscribedTier: SubscriptionSummaryTier
+}
+
+"""
+Tenure to a subscription product.
+"""
+type SubscriptionTenure {
+  """
+  The days remaining in a user's current tenure period.
+  """
+  daysRemaining: Int!
+
+  """
+  The days elapsed in a user's current tenure period.
+  """
+  elapsedDays: Int!
+
+  """
+  The ending date of a user's tenure.
+  """
+  end: Time
+
+  """
+  The method used to calculate the user's tenure.
+  """
+  method: SubscriptionTenureMethod!
+
+  """
+  The total duration of a user's tenure.
+  """
+  months: Int!
+
+  """
+  The starting date of a user's tenure.
+  """
+  start: Time
+}
+
+"""
+Token that a User uses for redeeming Subscriptions.
+"""
+type SubscriptionToken {
+  """
+  Current token balance of user.
+  """
+  balance: Int
+}
+
+"""
+A SubscriptionTokenBundleProduct can contain multiple Offers.
+ex) A Bundle of size 3 tokens, can have 3 other offers such as:
+  - Normal offer: "Pay $16.99 for the bundle
+  - Discounted, one-time buy offer: "Pay $14.99 for the bundle, but a one-time purchase only"
+  - Bits: Use X amount of Bits to purchase this Bundle.
+"""
+type SubscriptionTokenBundleProduct {
+  """
+  Assets assocaited with a certain Token Bundle Product.
+  """
+  assets: [TokenBundleAsset!]
+
+  """
+  Subscription token bundle product's identifier.
+  """
+  id: ID!
+
+  """
+  List of available offers for this bundle product.
+  Displays the cheapest offer to the user, if there are promotions to be applied.
+  """
+  offers: [Offer!]
+
+  """
+  Quantity of tokens the bundle.
+  """
+  quantity: Int!
+}
+
+"""
+Describes configurable values for the token product line.
+"""
+type SubscriptionTokenProductConfig {
+  """
+  Max token balance a user can have.
+  """
+  maxBalance: Int
+}
+
+"""
+SwapCompetitionLobbyParticipantsPayload is the success response for swapping lobby participants.
+"""
+type SwapCompetitionLobbyParticipantsPayload {
+  """
+  The new state of competition after swapping participants.
+  """
+  competition: Competition
+
+  """
+  Used for competition mutation errors.
+  """
+  error: CompetitionError
+}
+
+"""
+SyncGameOnDropCampaignPayload returns the result of the sync.
+"""
+type SyncGameOnDropCampaignPayload {
+  """
+  The campaign after the sync.
+  """
+  dropCampaign: DropCampaign
+
+  """
+  A mapped error returned by the drops management service.
+  """
+  error: DropsError
+}

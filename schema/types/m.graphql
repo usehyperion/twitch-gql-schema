@@ -1,0 +1,933 @@
+"""
+The results of creating a key batch download.
+"""
+type MakeKeyBatchDownloadURLPayload {
+  """
+  The decryption key to decrypt the batch of keys.
+  """
+  decryptionKey: String!
+
+  """
+  The URL created for downloading the batch of keys.
+  """
+  url: String!
+}
+
+"""
+An error returned from the makePrediction mutation.
+"""
+type MakePredictionError {
+  """
+  Code describing the error.
+  """
+  code: MakePredictionErrorCode!
+
+  """
+  If the error code is MAX_POINTS_PER_EVENT, this will specify how many total points the user is allowed to spend.
+  """
+  maxPointsPerEvent: Int
+
+  """
+  If the error code is MAX_POINTS_PER_EVENT, this will specify how many points the user has already spent.
+  """
+  userPointsSpent: Int
+}
+
+"""
+Payload for making a prediction.
+"""
+type MakePredictionPayload {
+  """
+  If present, there was an error with the request.
+  """
+  error: MakePredictionError
+
+  """
+  The created or updated Prediction.
+  """
+  prediction: Prediction
+}
+
+"""
+A custom challenge created by the broadcaster.
+"""
+type ManualChannelChallenge implements ChannelChallenge {
+  """
+  Total bits amount contributed.
+  """
+  bitsAmount: Int!
+
+  """
+  Time when challenge was created.
+  """
+  createdAt: Time!
+
+  """
+  User that created the challenge.
+  """
+  createdBy: User
+
+  """
+  Amount of seconds from when the challenge starts to when it ends.
+  """
+  durationSeconds: Int!
+
+  """
+  ID of challenge.
+  """
+  id: ID!
+
+  """
+  User who owns this challenge. The challenge will appear on their channel.
+  """
+  ownedBy: User
+
+  """
+  Amount of milliseconds before the challenge times out.
+  0 when the challenge has timed out.
+  """
+  remainingDurationMilliseconds: Int!
+
+  """
+  The authenticated user's relationship with this challenge.
+  Main use case is to connect the user to a challenge to allow bit contributions.
+  Null if un-authenticated user is making this query.
+  """
+  self: ChannelChallengeSelfEdge
+
+  """
+  The status of the challenge.
+  """
+  status: ChannelChallengeStatus!
+
+  """
+  Title of the challenge.
+  """
+  title: String!
+
+  """
+  Time when challenge was updated.
+  """
+  updatedAt: Time!
+}
+
+"""
+ManuallyTriggerDropPayload returns the result of the creation/update.
+"""
+type ManuallyTriggerDropPayload {
+  """
+  A mapped error returned by the drops management service.
+  """
+  error: DropsError
+
+  """
+  Returns a list of channels the drop was tried to be triggered on and the trigger restult.
+  """
+  triggerResults: [TriggerResult!]
+}
+
+"""
+Drop manually triggered.
+"""
+type ManualTriggerBasedDrop implements DropType {
+  """
+  The rewards for this drop and how often those rewards can be awarded.
+  """
+  benefitEdges: [DropBenefitEdge!]
+
+  """
+  The campaign this drop belongs to.
+  """
+  campaign: DropCampaign!
+
+  """
+  Amount of time the viewer has to claim the drop after the rule is completed.
+  """
+  claimDurationSeconds: Int!
+
+  """
+  The time this drop becomes unavailable.
+  """
+  endAt: Time!
+
+  """
+  A unique identifier.
+  """
+  id: ID!
+
+  """
+  The name of this drop.
+  """
+  name: String!
+
+  """
+  The time this drop becomes available.
+  """
+  startAt: Time!
+}
+
+"""
+The result of a readAllCreatorNotifications mutation.
+"""
+type MarkAllCreatorNotificationsAsReadPayload {
+  """
+  Whether the mutation succeeded.
+  """
+  hasSucceeded: Boolean
+}
+
+"""
+The result of a readAllViewerNotifications mutation.
+"""
+type MarkAllViewerNotificationsAsReadPayload {
+  """
+  Whether the mutation succeeded.
+  """
+  hasSucceeded: Boolean
+}
+
+"""
+A message from a user.
+"""
+type Message {
+  """
+  The text and emoticon content of a message.
+  """
+  content: MessageContent!
+
+  """
+  Time the message was deleted or purged. Null if the message is not deleted.
+  """
+  deletedAt: Time
+
+  """
+  UUID of the message.
+  """
+  id: ID!
+
+  """
+  The message of the parent if this message is a reply.
+  """
+  parentMessage: Message
+
+  """
+  Replies to this message.
+  """
+  replies: MessageReplyConnection
+
+  """
+  The user that sent the message.
+  """
+  sender: User
+
+  """
+  Time the message was sent.
+  """
+  sentAt: Time!
+}
+
+"""
+MessageBody is a way of encoding emote annotated text.  The original text is included as content and the
+parsed emotes are included which indicate the start and end indexes they should replace.
+"""
+type MessageBody {
+  """
+  The text content of the body.
+  """
+  content: String
+
+  """
+  Collection of rune indexed emotes to be replaced clientside.
+  """
+  emotes: [EmbeddedEmote]
+}
+
+"""
+The content of a user's message to a channel's chat.
+"""
+type MessageContent {
+  """
+  Parsed list of fragments in the message, include emotes, mentions, and plaintext.
+  """
+  fragments: [MessageFragment!]!
+
+  """
+  String representation of the user message.
+  """
+  text: String!
+}
+
+"""
+One parsed part of a message, which may be an emote, mention, or plaintext.
+"""
+type MessageFragment {
+  """
+  Contains an emote or a mentioned user depending on the text of the fragment.
+  """
+  content: FragmentContent
+
+  """
+  Plaintext representation of the fragment.
+  """
+  text: String!
+}
+
+"""
+A list of messages.
+"""
+type MessageReplyConnection {
+  """
+  Nodes is the list of replies to a message.
+  """
+  nodes: [Message!]!
+
+  """
+  The total number of replies to a message.
+  """
+  totalCount: Int!
+}
+
+"""
+Milestone is a construct is used within a tournament. For a given threshold, when the user
+cheers at or past this amount, they are able to claim a reward for cheering at this level.
+Rewards can be fulfilled by different platforms.
+Types of milestones:
+- **Global milestone**: for a given threshold, this milestone is reached when cheers from all
+  users on the channel is greater than or equal to the threshold.
+  This unlocks a reward for all users who have cheered.
+- **Individual milestone**: for a given threshold, this milestone is reached when an individual
+  user's total cheers in the channel is greater than or equal to the threshold.
+  This unlocks a reward for the individual user who cheered.
+- **Team milestone**: for a given threshold, this milestone is reached when an individual cheers
+  for a specific team in total is greater than or equal to the threshold.
+  This unlocks a reward for the individual user who cheered.
+
+NOTE: Should have been named CheeringTournamentMilestone.
+"""
+type Milestone {
+  """
+  End date for when a milestone is no longer active.
+  """
+  endDate: String! @deprecated
+
+  """
+  GraphQL ID of the milestone.
+  """
+  id: ID! @deprecated
+
+  """
+  Whether the milestone is for prime users only.
+  """
+  isPrimeOnly: Boolean! @deprecated
+
+  """
+  The type of milestone this is for. e.g INDIVIDUAL or GLOBAL.
+  """
+  objectiveTag: String! @deprecated
+
+  """
+  Threshold that needs to be cheered by an individual to claim reward.
+  """
+  participationThreshold: Int! @deprecated
+
+  """
+  The subs that this milestone’s completion requires.
+  """
+  requiredSubscriptions: [SubscriptionProduct!] @deprecated
+
+  """
+  The rewards associated with milestones.
+  """
+  rewards: [TournamentReward!]! @deprecated
+
+  """
+  Start date for when a milestone is active.
+  """
+  startDate: String! @deprecated
+
+  """
+  Threshold that needs to be cheered to claim reward.
+  """
+  threshold: Int! @deprecated
+}
+
+"""
+MobileView holds the view configuration of an extension if mobile is supported.
+"""
+type MobileView implements ExtensionView {
+  """
+  Relative path of the HTML file to load for this view, used by devsite to specify the layout of assets.
+  """
+  viewerPath: String!
+
+  """
+  The URL which should be loaded in for the extension.
+  """
+  viewerURL: String!
+}
+
+"""
+Paginated list of moderators of a channel.
+"""
+type ModConnection {
+  """
+  The elements of the list.
+  """
+  edges: [ModEdge!]!
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+Element in a list of moderators of a channel.
+"""
+type ModEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  Timestamp of when the moderator status was granted.
+  """
+  grantedAt: Time!
+
+  """
+  Whether the moderator is connected to the channel's chat.
+  """
+  isActive: Boolean
+
+  """
+  The user that is a moderator.
+  """
+  node: User!
+}
+
+type ModeratedChannelConnection {
+  edges: [ModeratedChannelEdge!]
+  pageInfo: PageInfo!
+}
+
+type ModeratedChannelEdge {
+  cursor: Cursor!
+  node: User!
+}
+
+"""
+An interface to query subsets of the moderation logs information for a given channel.
+"""
+type ModerationLogs {
+  """
+  The moderation actions that have been take in the given channel.
+  """
+  actions(
+    first: Int = 100
+    after: Cursor
+    order: SortOrder = DESC
+  ): ChannelModerationActionConnection
+}
+
+"""
+An interface to query subsets of the moderation logs information for a given channel.
+"""
+type ModLogs {
+  """
+  The comments left by moderators on a specified user on the given channel.
+  """
+  comments(
+    targetID: ID!
+    after: Cursor
+    first: Int = 100
+    order: SortOrder = DESC
+  ): ModLogsCommentConnection
+
+  """
+  The chat history for an specified user on a given channel.
+  """
+  messagesBySender(
+    senderID: ID!
+    first: Int = 100
+    after: Cursor
+    order: SortOrder = DESC
+    includeMessageCount: Boolean = true
+    includeTargetedActions: Boolean = true
+    includeAutoModCaughtMessages: Boolean = false
+  ): ModLogsMessageConnection
+
+  """
+  The chat moderation history on a specified user on the given channel.
+  """
+  targetedModActions(targetID: ID!, actionType: ModLogsAction!): ModLogsTargetedModActionsConnection
+}
+
+"""
+ModLogsAccess defines the access level of a channel role to the channel's moderator logs.
+"""
+type ModLogsAccess {
+  """
+  The access level to moderator logs.
+  """
+  accessLevel: ModLogsAccessLevel!
+
+  """
+  The user role.
+  """
+  channelRole: ChannelUserRole!
+}
+
+"""
+ModLogsCommentsEntry defines an entry of a user's moderation history on a channel.
+"""
+type ModLogsComment {
+  """
+  Author is the moderator that created the comment.
+  """
+  author: User
+
+  """
+  Channel is where the moderator comment was created.
+  """
+  channel: User
+
+  """
+  Details about the moderator comment.
+  """
+  details: ModLogsCommentDetails
+
+  """
+  UUID of the moderator comment.
+  """
+  id: ID!
+
+  """
+  Target is the target user of the moderator comment.
+  """
+  target: User
+
+  """
+  Timestamp when comment was created.
+  """
+  timestamp: Time!
+}
+
+"""
+Paginated list of moderator comments on a user in a channel.
+"""
+type ModLogsCommentConnection {
+  """
+  The elements of the list.
+  """
+  edges: [ModLogsCommentEdge!]
+
+  """
+  Information about this page of mod logs.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+ModLogsCommentDetails contains the details of a moderator comment.
+"""
+type ModLogsCommentDetails {
+  """
+  Body of the comment.
+  """
+  text: String
+}
+
+"""
+Element in a list of moderator comments on a user in a channel.
+"""
+type ModLogsCommentEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  A moderator comment on a user in a channel.
+  """
+  node: ModLogsComment
+}
+
+"""
+A message sent from a user to a room.
+"""
+type ModLogsMessage {
+  """
+  The text and emoticon content of a message.
+  """
+  content: ModLogsMessageContent!
+
+  """
+  UUID of the message.
+  """
+  id: ID!
+
+  """
+  The user that sent the message.
+  """
+  sender: User
+
+  """
+  Time the message was sent.
+  """
+  sentAt: Time!
+}
+
+"""
+Paginated list of messages from a single sender in a channel.
+"""
+type ModLogsMessageConnection {
+  """
+  The elements of the list.
+  """
+  edges: [ModLogsMessageEdge!]!
+
+  """
+  The partial count of messages (up to 1000).
+  Empty if includeMessageCount was not set when the query was requested.
+  """
+  messageCount: Int
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+The content of a user's message to a room.
+"""
+type ModLogsMessageContent {
+  """
+  Parsed list of fragments in the message, include emotes, mentions, and plaintext.
+  """
+  fragments: [ModLogsMessageFragment!]!
+
+  """
+  String representation of the user message.
+  """
+  text: String!
+}
+
+"""
+Element in a list of messages.
+"""
+type ModLogsMessageEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  The message or targeted moderation action.
+  """
+  node: ModLogsMessageResult
+}
+
+"""
+One parsed part of a message, which may be an emote, mention, or plaintext.
+"""
+type ModLogsMessageFragment {
+  """
+  Contains an emote or a mentioned user depending on the text of the fragment.
+  """
+  content: FragmentContent
+
+  """
+  Plaintext representation of the fragment.
+  """
+  text: String!
+}
+
+"""
+Paginated list of mod logs of a user on a channel.
+"""
+type ModLogsTargetedModActionsConnection {
+  """
+  The partial count of targeted mod actions (bans or timeouts), up to 100.
+  Does not count undo actions (unbans or untimeouts).
+  """
+  actionCount: Int!
+
+  """
+  The elements of the list.
+  """
+  edges: [ModLogsTargetedModActionsEdge!]
+
+  """
+  Information about this page of mod logs.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+Element in a list of mod logs of a user on a channel.
+"""
+type ModLogsTargetedModActionsEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  A mod log of the user.
+  """
+  node: ModLogsTargetedModActionsEntry
+}
+
+"""
+ModLogsTargetedModActionsEntry defines an entry of a user's moderation history on a channel.
+"""
+type ModLogsTargetedModActionsEntry {
+  """
+  Action is the mod action of the entry.
+  """
+  action: ModLogsAction!
+
+  """
+  Channel is where the mod action was taken.
+  """
+  channel: User
+
+  """
+  Details about the mod action.
+  """
+  details: TargetedModActionDetails
+
+  """
+  The UUID of the entry.
+  """
+  id: ID!
+
+  """
+  Target is the target user of the mod action.
+  """
+  target: User
+
+  """
+  Timestamp when entry was created.
+  """
+  timestamp: Time!
+
+  """
+  User is the mod that created the action.
+  """
+  user: User
+}
+
+"""
+ModUserError contains details about a client error that occurred.
+"""
+type ModUserError {
+  """
+  The enum indicating what error has occurred.
+  """
+  code: ModUserErrorCode!
+}
+
+"""
+ModUserPayload is the response when adding a user as a moderator.
+"""
+type ModUserPayload {
+  """
+  The channel that the user is added as a moderator to.
+  """
+  channel: User
+
+  """
+  The client error that has occurred.
+  Null if the operation is successful.
+  """
+  error: ModUserError
+
+  """
+  The user that is added as a moderator.
+  """
+  target: User
+}
+
+"""
+ModViewNewsfeedEntry is an entry that displays content for the Mod View page's "What's New" feed.
+"""
+type ModViewNewsfeedEntry {
+  """
+  content is localized text content for the changelog entry.
+  """
+  content: String!
+
+  """
+  iconURL is the url for the entry's icon image.
+  """
+  iconURL: String
+
+  """
+  id is a unique human readable slug for the entry e.g. "squad-stream".
+  """
+  id: ID!
+
+  """
+  linkText is the text that the linkURL should display.
+  """
+  linkText: String
+
+  """
+  linkURL is an optional link for more content for this changelog entry.
+  """
+  linkURL: String
+
+  """
+  position is where entry should be located within changelog entries of the same date.
+  """
+  position: Int!
+
+  """
+  publishedAt is the timestamp that the changelog entry was published.
+  """
+  publishedAt: Time
+
+  """
+  title is the localized title of the changelog entry.
+  """
+  title: String!
+}
+
+"""
+Settings for Mod View Page.
+"""
+type ModViewSettings {
+  """
+  Date that tuorial was SEEN (nullable when tutorial is dismissed or unseen).
+  """
+  tutorialSeenAt: Time
+
+  """
+  Setting to store whether the user has completed the mod view tutorial.
+  """
+  tutorialState: TutorialState
+}
+
+"""
+Movie metadata.
+"""
+type MovieDetails {
+  """
+  Total length of the content.
+  """
+  durationSeconds: Int
+}
+
+"""
+A multiplayer ad offer is an ad offer.
+"""
+type MultiplayerAdOffer {
+  """
+  The duration of the ad in seconds.
+  """
+  adDurationSeconds: Int!
+
+  """
+  The name of the brand associated with the ad.
+  """
+  brandName: String
+
+  """
+  The message to be display to the broadcaster.
+  """
+  broadcasterMessage: String
+
+  """
+  How much preroll free time will be credited to the creator for running this ad offer.
+  """
+  creditDurationSeconds: Int
+
+  """
+  When the offer expires.
+  """
+  expiresAt: Time!
+
+  """
+  The offer's unique identifier.
+  """
+  id: ID!
+
+  """
+  If offer has reward, the max rate for reward. (e.g. vote per bits for polling).
+  """
+  rewardsMaxRate: Float
+
+  """
+  If offer has reward, the min rate for reward. (e.g. vote per bits for polling).
+  """
+  rewardsMinRate: Float
+}
+
+"""
+Multi-view content attribute(s) are used to augment the multi-view experience.
+they are used for filterings and groupings of chanlets to help viewers find content that they are interested in.
+"""
+type MultiviewContentAttribute {
+  """
+  childIDs is an optional list of child content attribute ids.
+  """
+  childIDs: [ID!]
+
+  """
+  Time when this content attribute is created.
+  """
+  createdAt: Time
+
+  """
+  id is a unique identifier generated on the server side.
+  """
+  id: ID!
+
+  """
+  URL to the image (icon) of the content attribute.
+  """
+  imageURL: String
+
+  """
+  key is a grouping identifier for content attributes of the same type.
+  """
+  key: String!
+
+  """
+  name is a human-readable string of the content attribute type.
+  """
+  name: String!
+
+  """
+  ownerChannel is the channel that this content attribute is created under.
+  """
+  ownerChannel: Channel
+
+  """
+  parentID is an optional pointer to specify the parent attribute.
+  """
+  parentID: ID
+
+  """
+  parentKey is an optional pointer to specifiy the key of the parent attribute.
+  """
+  parentKey: String
+
+  """
+  Time when this content attribute is last modified.
+  """
+  updatedAt: Time
+
+  """
+  value is the human-readble value of the attribute value.
+  """
+  value: String!
+
+  """
+  valueShortName is an optional abbreviation of value.
+  """
+  valueShortName: String
+}

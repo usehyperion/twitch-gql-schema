@@ -1,0 +1,207 @@
+"""
+Details of the effect.
+"""
+union ChallengeEffectDetails = ChallengeUseBitsEffectDetails
+
+"""
+Details of the effect settings.
+"""
+union ChallengeEffectSettingsDetails = ChallengeUseBitsEffectSettingsDetails
+
+"""
+The types of objects that can be contained in a collection.
+"""
+union CollectionItem = Video
+
+"""
+A CompetitionParticipant is either a CompetitionPlayer who is playing solo or a CompetitionTeam who plays as a team.
+"""
+union CompetitionParticipant = CompetitionPlayer | CompetitionTeam
+
+union FeaturedItemContent = Stream | User | Video
+
+"""
+FeedEmbed describes the types of items contained in a Feed.
+"""
+union FeedEmbed = Clip | LinkOEmbed | PhotoOEmbed | RichOEmbed | Video | VideoOEmbed
+
+"""
+FeedItemContent is the supported content types that may appear in a feed.
+"""
+union FeedItemContent = Clip | Post | Share | Stream | Video
+
+"""
+The details of different formats. Currently there is only 1 detail type.
+"""
+union FormatTypeDetails = LeaderboardDetails
+
+"""
+FragmentContent contains the parse content of a fragment, and can be an emote or a mention.
+NOTE: should have been called RoomMessageFragmentContent.
+"""
+union FragmentContent = AutoMod | CheermoteToken | Emote | RoomMessageGroupMention | User
+
+"""
+The friend-type relationship between the authenticated user and another user.
+
+If this field is a FriendEdge, the authenticated user and the other user are Friends.
+
+If it is an IncomingFriendRequestEdge, the other user has an open friend request with authenticated user.
+
+If it is an OutgoingFriendRequestEdge, the authenticated user has an open friend request with the other user.
+"""
+union FriendRelationship = FriendEdge | IncomingFriendRequestEdge | OutgoingFriendRequestEdge
+
+"""
+GDPR cookie vendors either support TCF Strings or dont, hence two types of GDPR Vendors.
+"""
+union GDPRCookieVendor = NonTCFCookieVendor | TCFCookieVendor
+
+"""
+ModLogsMessageResult defines the types of entries that appear as mod log
+messages: Mod Logs (Chat) Messages and Targeted Mod Actions.
+"""
+union ModLogsMessageResult = AutoModCaughtMessage | ModLogsMessage | ModLogsTargetedModActionsEntry
+
+"""
+Extra onsite notification content.
+"""
+union OnsiteNotificationContent =
+  | Clip
+  | Game
+  | OnsiteNotificationExternalLink
+  | User
+  | Video
+  | VideoComment
+
+"""
+Content metadata for either live stream or list of vod.
+"""
+union PersonalSectionChannelContent = Stream | VideoConnection
+
+"""
+The types of content(channel, category ...) that can be contained in a PersonalSectionItem.
+"""
+union PersonalSectionItem = PersonalSectionChannel
+
+"""
+The content of a personal section title token.
+"""
+union PersonalSectionTitleToken = PersonalSectionTextToken | User
+
+"""
+Stream Platform.
+"""
+union Platform = PlayStation
+
+"""
+TODO: Add events.
+"""
+union PostEmbed = Clip | LinkOEmbed | PhotoOEmbed | RichOEmbed | Video | VideoOEmbed
+
+"""
+Someone or something that is capable of performing actions on a Prediction Event.
+"""
+union PredictionEventActor = ExtensionClient | User
+
+"""
+DEPRECATED.
+The types of objects that can be contained in a premiere.
+"""
+union PremiereItem = Video
+
+"""
+The types of radio content that can be requested (e.g., playlists, stations, tracks, etc).
+"""
+union RadioContentItem = RadioPlaylist | RadioRecentlyPlayed
+
+union ReactableContent = Clip | Post | Stream | Video
+
+"""
+Feedback target.
+"""
+union RecommendationFeedbackContent = Channel | Game | Video
+
+union RoomMessageItem = RoomMessage
+
+"""
+A result item may be a User, Game, or Video.
+"""
+union SearchForItem = Game | User | Video
+
+"""
+The types with additional content in a search suggestion.
+"""
+union SearchSuggestionContent = SearchSuggestionCategory | SearchSuggestionChannel
+
+union ShareTarget = Clip | Post | Stream | Video
+
+"""
+The content to render in a shelf.
+"""
+union ShelfContent = Clip | Game | Stream | Tag | Video
+
+"""
+Metadata used to render the shelf title.
+"""
+union ShelfTitleContext = Game
+
+"""
+All of the different content types that make up "short form video".
+"""
+union ShortVideoContent = Clip
+
+"""
+StreamKeyResult represents StreamKey or StreamKeyError.
+"""
+union StreamKeyResult = StreamKey | StreamKeyError
+
+"""
+The set of results that can occur when resolving a subscription product.
+"""
+union SubscriptionProductsResult = SubscriptionProductsConnection | SubscriptionProductsError
+
+"""
+The content that are possibly return for tagging mutation payload.
+"""
+union TaggedContent = Clip | Game | Stream | User | Video
+
+"""
+The content of a shelf title token.
+"""
+union TitleTokenNode = DateToken | Game | IntegerToken | Tag | TextToken | User
+
+"""
+The set of results that can occur when resolving a user query.
+"""
+union UserResult = User | UserDoesNotExist | UserError
+
+"""
+Vendor consent is a union of different vendors supported based on privacy law.
+"""
+union VendorConsent = CCPAVendorConsent | GDPRVendorConsent | ROWVendorConsent
+
+"""
+IDs used to determine the context(s) by which content was determined for a given VerticalSubDirectory.
+"""
+union VerticalContentContext = Game | Tag
+
+"""
+A union of the fields that are specific to individual moments, such as Game Mode
+inside Hearthstone VCA data.
+"""
+union VideoMomentDetails =
+  | GameChangeMomentDetails
+  | HearthstoneMomentDetails
+  | OverwatchMomentDetails
+  | PUBGMomentDetails
+
+"""
+The item to render in a video shelf.
+"""
+union VideoShelfItem = Clip | Video
+
+"""
+Additional information about content.
+"""
+union WatchPartyItemDetails = EpisodeDetails | MovieDetails | SeasonDetails | SeriesDetails

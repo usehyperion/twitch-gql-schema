@@ -1,0 +1,39 @@
+"""
+An enumeration of key batch statuses.
+"""
+enum KeyBatchStatus {
+  """
+  The key batch is active and keys generated from it can be claimed.
+  """
+  ACTIVE
+
+  """
+  The key batch is inactive and keys generated from it cannot be claimed.
+  """
+  INACTIVE
+
+  """
+  The key batch is invalid and keys generated from it are invalidated.
+  """
+  INVALIDATED
+}
+
+"""
+An enumeration of key pool statuses.
+"""
+enum KeyPoolStatus {
+  """
+  The key pool is active and can generate more key batches.
+  """
+  ACTIVE
+
+  """
+  The key pool is inactive and all batches are invalid.
+  """
+  INACTIVE
+
+  """
+  The key pool is invalid and new batches cannot be made.
+  """
+  INVALIDATED
+}

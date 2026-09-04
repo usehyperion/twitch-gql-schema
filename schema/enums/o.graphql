@@ -1,0 +1,444 @@
+"""
+Possible categories of developer apps.
+"""
+enum OAuthAppCategory {
+  """
+  Game integration category.
+  """
+  GAME_INTEGRATION
+
+  """
+  Website integration category.
+  """
+  WEBSITE_INTEGRATION
+
+  """
+  Application integration category.
+  """
+  APPLICATION_INTEGRATION
+
+  """
+  Browser extension category.
+  """
+  BROWSER_EXTENSION
+
+  """
+  Broadcaster suite category.
+  """
+  BROADCASTER_SUITE
+
+  """
+  Chat bot category.
+  """
+  CHAT_BOT
+
+  """
+  Giveaway loyalty tool category.
+  """
+  GIVEAWAY_LOYALTY_TOOL
+
+  """
+  Analytics tool category.
+  """
+  ANALYTICS_TOOL
+
+  """
+  Category for when the other categories do not describe.
+  """
+  OTHER
+}
+
+"""
+Deliver method type for Prime Offers entitlements.
+"""
+enum OfferDeliveryMethod {
+  """
+  The entitlement will be delivered as a claim code, which can be used to get the entitlement.
+  """
+  CLAIM_CODE
+
+  """
+  The entitlement will be directly delivered.
+  """
+  DIRECT_ENTITLEMENT
+
+  """
+  The entitlement will be directly delivered and a Twitch account is not needed for the offer.
+  """
+  SES_ENTITLEMENT
+
+  """
+  Misspelling of EXTERNAL_OFFER.
+  """
+  EXTERNAL @deprecated(reason: "Use EXTERNAL_OFFER instead")
+
+  """
+  The entitlement will be delivered via external means.
+  """
+  EXTERNAL_OFFER
+}
+
+"""
+OfferIneligibilityReasonCode indicates why a user isn't eligible.
+"""
+enum OfferIneligibilityReasonCode {
+  """
+  Not eligible because the user has already purchased this offer.
+  """
+  ALREADY_PURCHASED
+
+  """
+  Not eligible because something about the transaction could not be verified.
+  """
+  COULD_NOT_VERIFY
+
+  """
+  Offer would exceed user's max token balance.
+  """
+  MAX_TOKEN_BALANCE
+
+  """
+  No ineligibility reason was given.
+  """
+  NONE
+
+  """
+  The reason for ineligibility could not be resolved.
+  """
+  OTHER
+}
+
+"""
+The platform on which the Offer is valid.
+"""
+enum OfferPlatform {
+  """
+  The web site.
+  """
+  WEB
+
+  """
+  The iOS app.
+  """
+  IOS
+
+  """
+  The Android app.
+  """
+  ANDROID
+
+  """
+  The desktop app.
+  """
+  DESKTOP
+}
+
+"""
+OfferPUrchaseType provides extra contextual details for the type of purchase.
+"""
+enum OfferPurchaseType {
+  """
+  This offer is a default, standard purchase.
+  """
+  DEFAULT_PURCHASE
+
+  """
+  This offer being purchased will be a tier upgrade from their current active tier.
+  """
+  UPGRADE_RECURRING_SUB_TIER
+
+  """
+  This offer being purchased will be a tier downgrade from their current active tier.
+  """
+  DOWNGRADE_RECURRING_SUB_TIER
+
+  """
+  This offer being purchased is future-dated.
+  """
+  FUTURE_PURCHASE
+}
+
+"""
+Enum indicating the current live state of a given Prime Gaming content offer.
+"""
+enum OfferState {
+  """
+  The offer is no longer live and has expired.
+  """
+  EXPIRED
+
+  """
+  The offer is currently live.
+  """
+  LIVE
+
+  """
+  The offer will be live in the future.
+  """
+  FUTURE
+}
+
+"""
+Enum indicating the visual status of the offer to the user.
+"""
+enum OfferStatus {
+  """
+  The user has not seen this offer card on the Crown.
+  """
+  UNSEEN
+
+  """
+  The user has seen this offer card on the Crown.
+  """
+  SEEN
+
+  """
+  The user has claimed this offer.
+  """
+  CLAIMED
+
+  """
+  The user has dismissed this offer card from the Crown and can no longer see it.
+  """
+  DISMISSED
+
+  """
+  A previous SEEN or DISMISSED status has been overridden to allow the offer card to be visible on the Crown.
+  """
+  OVERRIDDEN
+
+  """
+  The user's offer status is in a errored state.
+  """
+  ERROR
+}
+
+"""
+Determines where the notification will be displayed at front end.
+"""
+enum OnsiteNotificationDisplayType {
+  """
+  Notifications that will be displayed in the "My Twitch" tab.
+  """
+  VIEWER
+
+  """
+  Notifications that will be displayed in the "My Channel" tab.
+  """
+  CREATOR
+}
+
+"""
+Used to determine how to render the onsite notification.
+"""
+enum OnsiteNotificationRenderStyle {
+  """
+  The default render style with no buttons and a single click CTA.
+  """
+  DEFAULT
+
+  """
+  Rendered with two CTA buttons.
+  """
+  TWO_BUTTONS
+}
+
+"""
+Capabilities that a mobile client has for displaying onsite notifications.
+"""
+enum OnsiteNotificationsCapability {
+  """
+  Mobile destination type Homepage.
+  """
+  HOMEPAGE
+
+  """
+  Mobile destination type ChannelPage.
+  """
+  CHANNEL_PAGE
+
+  """
+  Mobile destination type NotificationSettingsPage.
+  """
+  NOTIFICATION_SETTINGS_PAGE
+
+  """
+  Mobile destination type BroadcasterDashboard.
+  """
+  BROADCASTER_DASHBOARD
+
+  """
+  Mobile destination type BrowseGame.
+  """
+  BROWSE_GAME
+
+  """
+  Mobile destination type ExternalLink.
+  """
+  EXTERNAL_LINK
+
+  """
+  Mobile destination type WebOnly.
+  """
+  WEB_ONLY
+
+  """
+  Mobile destination type WhisperThread.
+  """
+  WHISPER_THREAD
+
+  """
+  Mobile destination type FriendRequest.
+  """
+  FRIEND_REQUEST
+
+  """
+  Pushy notification type hotclip.
+  """
+  HOT_CLIP
+
+  """
+  Pushy notification type hotclipfollower.
+  """
+  HOT_CLIP_FOLLOWER
+
+  """
+  Pushy notification type vodupload.
+  """
+  VOD_UPLOAD
+
+  """
+  Pushy notification type vodcomment.
+  """
+  VOD_COMMENT
+
+  """
+  Pushy notification type vodcommentmod.
+  """
+  VOD_COMMENT_MOD
+
+  """
+  Pushy notification type vodcommentreply.
+  """
+  VOD_COMMENT_REPLY
+
+  """
+  Pushy notification type subgiftreceived.
+  """
+  SUB_GIFT_RECEIVED
+
+  """
+  Pushy notification type dropsavailable.
+  """
+  DROPS_AVAILABLE
+
+  """
+  Pushy notification type communityguidelineschange.
+  """
+  COMMUNITY_GUIDELINES_CHANGE
+
+  """
+  Pushy notification type smartannouncement.
+  """
+  SMART_ANNOUNCEMENT
+
+  """
+  Pushy notification type affiliateinvite.
+  """
+  AFFILIATE_INVITE
+}
+
+"""
+Status of company applications.
+"""
+enum OrganizationAppilcationStatus {
+  """
+  Application is pending.
+  """
+  PENDING
+
+  """
+  Application has been rejected.
+  """
+  REJECTED
+
+  """
+  Application has been approved.
+  """
+  APPROVED
+
+  """
+  Application has been deleted.
+  """
+  DELETED
+}
+
+"""
+Role for an organization member.
+"""
+enum OrganizationMemberRole {
+  """
+  Adiministrator role.
+  """
+  ADMINISTRATOR
+
+  """
+  Developer role.
+  """
+  DEVELOPER
+
+  """
+  Manager role.
+  """
+  MANAGER
+
+  """
+  Marketer role.
+  """
+  MARKETER
+
+  """
+  Owner Role.
+  """
+  OWNER
+
+  """
+  Billing Manager Role.
+  """
+  BILLING_MANAGER
+
+  """
+  Shadow Account Role.
+  """
+  SHADOW_ACCOUNT
+}
+
+"""
+Type of work an organization does.
+"""
+enum OrganizationType {
+  """
+  Organization that developes games.
+  """
+  GAME_DEVELOPER
+
+  """
+  Organization that publishes games.
+  """
+  GAME_PUBLISHER
+
+  """
+  Organization that does other work.
+  """
+  OTHER
+
+  """
+  Organization that works in brands/advertsing.
+  """
+  BRANDS_ADVERTISING
+
+  """
+  Organization that works with broadcaster tools.
+  """
+  BROADCASTER_TOOLS
+}

@@ -1,0 +1,400 @@
+"""
+The required configuration to activate a panel extension.
+"""
+input PanelActivationInput {
+  """
+  The slot name of where the component extension should be displayed.
+  """
+  slot: String!
+}
+
+"""
+PanelViewInput holds the view configuration of an extension if the panel anchor is supported.
+"""
+input PanelViewInput {
+  """
+  The extension developer configured height of the panel extension.
+  """
+  height: Int!
+
+  """
+  Relative path of the HTML file to load for this view.
+  """
+  viewerPath: String!
+}
+
+"""
+Inputs for PaymentSession.
+"""
+input PaymentSession {
+  """
+  Payment's Tracking Checkout ID.
+  """
+  checkoutSessionID: ID
+
+  """
+  User's device ID.
+  """
+  deviceID: ID
+
+  """
+  Twilight's storage device ID.
+  """
+  localStorageDeviceID: ID
+
+  """
+  Offer Session ID.
+  """
+  offerSessionID: ID
+
+  """
+  Twilight's Page Session ID.
+  """
+  pageSessionID: ID
+
+  """
+  Twilight's Tab Session ID.
+  """
+  tabSessionID: ID
+}
+
+"""
+Filter and sorting options for querying all transactions for a Twitch purchaser.
+"""
+input PaymentTransactionConnectionCriteriaInput {
+  """
+  Only show transactions purchased after this date.
+  """
+  purchasedAfter: Time
+
+  """
+  Only show transactions purchased before this date.
+  """
+  purchasedBefore: Time
+
+  """
+  Sort transactions by... defaults to date desc.
+  """
+  sortBy: PaymentTransactionSort = PURCHASE_DATE_DESC
+
+  """
+  Only show transactions that purchased products of a certain type, defaults to ALL.
+  """
+  type: PaymentTransactionTypeFilter = ALL
+
+  """
+  Purchaser ID.
+  """
+  userID: ID!
+}
+
+"""
+Input to personal section query.
+"""
+input PersonalSectionInput {
+  """
+  Name of the channel the user is watching. Used to present similar channels.
+  """
+  contextChannelName: String
+
+  """
+  Provides additional context used to influence recommendations.
+  """
+  recommendationContext: RecommendationsContext
+
+  """
+  Requested sections eg: follows, recommendation, popular.
+  """
+  sectionInputs: [PersonalSectionType!]!
+}
+
+"""
+Optional parameters to pass in when fetching a playback access token.
+"""
+input PlaybackAccessTokenParams {
+  """
+  If the video should not be loaded over HTTPS.
+  """
+  disableHTTPS: Boolean
+
+  """
+  If the user has adblock enabled.
+  """
+  hasAdblock: Boolean
+
+  """
+  The platform the user is watching the video on.
+  """
+  platform: String!
+
+  """
+  The player backend being used to serve video.
+  """
+  playerBackend: String
+
+  """
+  The type of player the user is watching from.
+  """
+  playerType: String!
+}
+
+"""
+The tokens that are used on a vote.
+"""
+input PollVoteTokensInput {
+  """
+  The amount of bits used for this vote.
+  """
+  bits: Int!
+
+  """
+  The amount of channel points used for this vote.
+  """
+  channelPoints: Int!
+}
+
+"""
+Input for presignDevInsightsReportURL mutation.
+"""
+input PresignDevInsightsReportURLInput {
+  """
+  Domain of report, for a GAME or EXTENSION or DROP.
+  """
+  domain: PresignDevInsightsReportURLDomain!
+
+  """
+  Game ID or Extension ID or Drops Campaign ID/Reward ID.
+  """
+  id: ID!
+
+  """
+  Type of report, default is OVERVIEW_V2.
+  """
+  type: PresignDevInsightsReportURLReportType
+}
+
+"""
+ProcessAndroidPaymentInput contains the necessary fields to process an Android payment.
+"""
+input ProcessAndroidPaymentInput {
+  """
+  User IDs of the gift purchase recipients (if the Offer is a gift).
+  """
+  giftRecipientUserIDs: [ID!]
+
+  """
+  The ID of the Offer.
+  """
+  offerID: ID!
+
+  """
+  The ID of the user making the purchase.
+  """
+  purchasingUserID: ID!
+
+  """
+  The number of units purchased.
+  """
+  quantity: Int!
+
+  """
+  The receipt data required to process Android purchases.
+  """
+  receiptData: AndroidReceiptDataInput!
+
+  """
+  The static and dynamic bindings of the attributes on an Offer.
+  """
+  tagBindings: [OfferTagBindingInput!]!
+
+  """
+  The purchase tracking data.
+  """
+  trackingData: AndroidPaymentTrackingDataInput
+}
+
+"""
+ProcessIOSPaymentInput contains the necessary fields to process a payment from the iOS platform.
+"""
+input ProcessIOSPaymentInput {
+  """
+  The ID of the user making the purchase.
+  """
+  purchasingUserID: ID!
+
+  """
+  The ID of the Offer that was used for the purchase.
+  """
+  offerID: ID!
+
+  """
+  The static and dynamic bindings of the attributes on an Offer.
+  """
+  tagBindings: [OfferTagBindingInput!]!
+
+  """
+  The receipt data required to process iOS purchases.
+  """
+  receiptData: IOSReceiptDataInput!
+
+  """
+  The purchase tracking data.
+  """
+  trackingData: IOSPaymentTrackingDataInput
+
+  """
+  User IDs of the gift purchase recipients (if the Offer is a gift).
+  """
+  giftRecipientUserIDs: [ID!]
+
+  """
+  The number of units purchased.
+  """
+  quantity: Int!
+}
+
+"""
+PublishClipInput edits the clip with the provided slug via segments.
+"""
+input PublishClipInput {
+  """
+  The number of seconds into the clip's raw media the preview image is set to.
+  """
+  previewOffsetSeconds: Float
+
+  """
+  The segments describing the desired changes to apply to the newly edited clip.
+  """
+  segments: [ClipSegmentInput!]!
+
+  """
+  The slug uniquely identifying the clip to edit.
+  """
+  slug: ID!
+
+  """
+  The new title this clip will be updated to.
+  """
+  title: String
+}
+
+"""
+Publish a Competition.
+"""
+input PublishCompetitionInput {
+  """
+  ID of the Competition we want to update.
+  """
+  id: ID!
+}
+
+"""
+The data needed to finalize the creation of a Subscription Emote.
+"""
+input PublishSubscriptionEmoteInput {
+  """
+  The type of image asset for the emote.
+  """
+  assetType: EmoteAssetType
+
+  """
+  The custom suffix of the emote code. When appended to the channel's emote prefix this will form the full emote code.
+  """
+  codeSuffix: String!
+
+  """
+  A list containing the image IDs for all assets needed for the emote.
+  """
+  imageAssets: [EmoteImageAssetInput!]
+
+  """
+  DEPRECATED: Use imageAssets instead. The ID of the 28x28px emote ("1x") image file previously uploaded to upload service.
+  """
+  imageID1x: ID
+
+  """
+  DEPRECATED: Use imageAssets instead. The ID of the 56x56px emote ("2x") image file previously uploaded to upload service.
+  """
+  imageID2x: ID
+
+  """
+  DEPRECATED: Use imageAssets instead. The ID of the 112x112px emote ("4x")
+  image file previously uploaded to upload service.
+  """
+  imageID4x: ID
+
+  """
+  The ProductID of the subscription product which this emote will be associated with.
+  """
+  productID: ID!
+}
+
+"""
+Parameters to get details about a purchasable offer for the current logged in user.
+"""
+input PurchasableOfferParams {
+  """
+  List of gift recipient IDs if the offer is giftable.
+  """
+  giftRecipientIDs: [ID!]
+
+  """
+  The ID of the Offer.
+  """
+  offerID: ID!
+
+  """
+  The ID of the Promotion attached to a Purchasable Offer (optional).
+  """
+  promotionID: ID
+
+  """
+  The static and dynamic bindings of the attributes on an Offer.
+  """
+  tagBindings: [OfferTagBindingInput!]
+}
+
+"""
+PurchaseOfferInput contains the necessary fields to purchase an offer.
+"""
+input PurchaseOfferInput {
+  """
+  Data to facilitate the Fraud analysis.
+  """
+  billingAuthInfo: BillingAuthInfo
+
+  """
+  User IDs of the gift purchase recipients (if the Offer is a gift).
+  """
+  giftRecipientUserIDs: [ID!]
+
+  """
+  The ID of the Offer.
+  """
+  offerID: ID!
+
+  """
+  Payments' session tracking.
+  """
+  paymentSession: PaymentSession!
+
+  """
+  The ID of the user making the purchase.
+  """
+  purchasingUserID: ID!
+
+  """
+  The number of units purchased.
+  """
+  quantity: Int!
+
+  """
+  The static and dynamic bindings of the attributes on an Offer.
+  """
+  tagBindings: [OfferTagBindingInput!]!
+
+  """
+  Tenant-specific tracking params.
+  """
+  tenantTracking: String
+}

@@ -1,0 +1,2421 @@
+"""
+The required input for a cancelActiveBoostOrdersInput mutation.
+"""
+input CancelActiveBoostOrdersInput {
+  """
+  The Id of the channel for which we want to cancel boosts.
+  """
+  channelID: ID!
+}
+
+"""
+CancelBountyInput includes the bounty a user is trying to cancel.
+"""
+input CancelBountyInput {
+  """
+  Unique Identifier for the bounty.
+  """
+  bountyID: ID!
+
+  """
+  Reason that the user canceled the bounty.
+  """
+  reason: String
+
+  """
+  UserID of the user that will cancel the bounty.
+  """
+  userID: ID!
+}
+
+input CancelFriendRequestInput {
+  """
+  The authenticated user will cancel the friend request sent to the user with an ID equal to targetID.
+  """
+  targetID: ID!
+}
+
+"""
+CancelPayoutOnboardingWorkflowInput returns the required input when starting a new workflow for payout onboarding.
+"""
+input CancelPayoutOnboardingWorkflowInput {
+  """
+  TargetUserID is the ID of the user whose workflow will be started.
+  """
+  targetUserID: ID!
+}
+
+"""
+Input for canceling a Prediction Event (and refunding all users who have contributed).
+"""
+input CancelPredictionEventInput {
+  """
+  The unique identifier of the Prediction Event to cancel.
+  """
+  id: ID!
+}
+
+"""
+Inputs to the cancelRaid mutation.
+"""
+input CancelRaidInput {
+  """
+  Source ID.
+  """
+  sourceID: ID!
+}
+
+"""
+Inputs for the mutation. Gift to be canceled by productID and originID.
+"""
+input CancelSubscriptionGiftInput {
+  """
+  originID is the origin id created during the gift purchase.
+  """
+  originID: ID!
+
+  """
+  productID is the ticket product id for this gift.
+  """
+  productID: ID!
+}
+
+"""
+Required input to cancel an unban request.
+"""
+input CancelUnbanRequestInput {
+  """
+  ID of the unban request to be canceled.
+  """
+  id: ID!
+}
+
+"""
+Configuration settings to change for a celebration product.
+"""
+input CelebrationProductConfigInput {
+  """
+  The intensity of the celebration product.
+  """
+  intensity: CelebrationIntensity!
+
+  """
+  If the celebration product is enabled for purchase in the channel.
+  """
+  isEnabled: Boolean
+
+  """
+  ID of the offer (i.e. price) through which the celebration can be purchased in the channel.
+  """
+  offerID: ID
+}
+
+"""
+Input for a change username.
+"""
+input ChangeUsernameInput {
+  """
+  The new login for the user.
+  """
+  login: String!
+
+  """
+  User id of the user being updated.
+  """
+  userID: ID!
+}
+
+"""
+ChannelClipsCreationAuthRestrictionOptionsInput are the additional options for the auth restrictions.
+"""
+input ChannelClipsCreationAuthRestrictionOptionsInput {
+  """
+  The time requirement in minutes, of how long a follower needs to be following to create clips.
+  """
+  followingLengthMinutes: Int
+}
+
+"""
+ChannelClipsCreationRestrictedToInput contains the roles that are allowed to create Clips on a channel
+that has isClipsEnabled set to true.
+"""
+input ChannelClipsCreationRestrictedToInput {
+  """
+  Allow channel followers to create Clips.
+  """
+  followers: Boolean!
+
+  """
+  Allow channel subscribers to create Clips.
+  """
+  subscribers: Boolean!
+}
+
+"""
+Input charge instrument information.
+"""
+input ChargeInstrumentInput {
+  """
+  A charge instrument Id.
+  """
+  id: ID!
+}
+
+"""
+Inputs for checkoutConfiguration.
+"""
+input CheckoutConfigurationInput {
+  """
+  Whether the gift is anonymous.
+  """
+  isAnonymous: Boolean
+
+  """
+  Whether the purchase is a gift.
+  """
+  isGift: Boolean!
+
+  """
+  Whether the user is reactivating their subscription with a recurring or non-recurring payment plan.
+  """
+  isReactivateRecurring: Boolean
+
+  """
+  The number of gifts being purchased.
+  """
+  mysteryGiftCount: Int
+
+  """
+  Payment's session tracking.
+  """
+  paymentSession: PaymentSession
+
+  """
+  The ID of the gift recipient.
+  """
+  recipientID: ID
+
+  """
+  The country code for tax purposes.
+  """
+  taxCountryCode: String
+}
+
+"""
+ClaimBountyInput includes the bounty a user is trying to claim.
+"""
+input ClaimBountyInput {
+  """
+  Unique Identifier for the bounty campaign.
+  """
+  bountyCampaignID: ID!
+
+  """
+  Unique Identifier for the bounty.
+  """
+  bountyID: ID!
+
+  """
+  Platform selected by the user to play this bounty's game on.
+  """
+  platform: String
+
+  """
+  Region selected by the user for the game key.
+  """
+  region: String
+
+  """
+  UserID of the user that will claim the bounty.
+  """
+  userID: ID!
+}
+
+"""
+Input for claiming community points.
+"""
+input ClaimCommunityPointsInput {
+  """
+  The channel ID the claim is in.
+  """
+  channelID: ID!
+
+  """
+  The claim ID.
+  """
+  claimID: ID!
+}
+
+"""
+ClaimDropRewardsInput has fields required to claim a drop.
+"""
+input ClaimDropRewardsInput {
+  """
+  dropInstanceID is the unique drop instance to claim.
+  """
+  dropInstanceID: ID!
+}
+
+input ClaimPrimeOfferInput {
+  """
+  Unique Identifier for an offer.
+  """
+  offerID: ID!
+}
+
+"""
+ClipSegmentInput represents a single segment of a clip.
+"""
+input ClipSegmentInput {
+  """
+  The number of seconds this clip segment encompasses.
+  """
+  durationSeconds: Float!
+
+  """
+  The offset into the clip's 90 second raw media.
+  """
+  offsetSeconds: Float!
+
+  """
+  Valid input speeds are 0.25, 0.5, 1.0, 1.5, and 2.0.
+  The segment speed will be set to 1 by default if unspecified.
+  """
+  speed: Float = 1
+}
+
+"""
+CloneExtensionDiscoveryData copies a given version's discovery data to another version.
+"""
+input CloneExtensionDiscoveryDataInput {
+  """
+  The extension ID of the extension to clone.
+  """
+  id: ID!
+
+  """
+  The version to clone to.
+  """
+  newVersion: String!
+
+  """
+  The extension version to clone from.
+  """
+  version: String!
+}
+
+"""
+CloneExtensionManifest copies the data in a given extension version to a new version.
+"""
+input CloneExtensionManifestInput {
+  """
+  The extension ID of the extension to clone.
+  """
+  id: ID!
+
+  """
+  The version of the clone.
+  """
+  newVersion: String!
+
+  """
+  The extension version to clone.
+  """
+  version: String!
+}
+
+"""
+A Collection input to set options to include all items in a collection.
+"""
+input CollectionOptions {
+  """
+  Include all playlist items including private and deleted items.
+  """
+  includeAllItems: Boolean = false
+}
+
+"""
+Options for filtering collections.
+"""
+input CollectionsOptions {
+  """
+  Option to include empty collections.
+  """
+  includeEmpty: Boolean = false
+
+  """
+  Only return collections that include the given video ID.
+  """
+  withVideoID: ID
+}
+
+"""
+Input for creating and updating a Community Points custom reward's max per stream settings.
+"""
+input CommunityPointsCustomRewardGlobalCooldownSettingInput {
+  """
+  The most rewards of this type that can be redeemed per global cooldown.
+  """
+  globalCooldownSeconds: Int!
+
+  """
+  Whether the cooldown is being enforced.
+  """
+  isEnabled: Boolean!
+}
+
+"""
+Input for creating and updating a Community Points custom reward's max per stream settings.
+"""
+input CommunityPointsCustomRewardMaxPerStreamSettingInput {
+  """
+  Whether the maximum is being enforced.
+  """
+  isEnabled: Boolean!
+
+  """
+  The most rewards of this type that can be redeemed per stream.
+  """
+  maxPerStream: Int!
+}
+
+"""
+Input for creating and updating a Community Points custom reward's max per stream settings.
+"""
+input CommunityPointsCustomRewardMaxPerUserPerStreamSettingInput {
+  """
+  Whether the maximum is being enforced.
+  """
+  isEnabled: Boolean!
+
+  """
+  The most rewards of this type that can be redeemed per user per stream.
+  """
+  maxPerUserPerStream: Int!
+}
+
+"""
+Optional filters that can be applied to a redemption queue query.
+"""
+input CommunityPointsRedemptionQueueOptions {
+  """
+  The order of the results, either oldest first or newest first.
+  """
+  order: CommunityPointsCustomRewardRedemptionQueueSortOrder = OLDEST
+
+  """
+  Filter results to only redemptions of this reward.
+  """
+  rewardID: ID
+
+  """
+  Filter results to only redemptions of this status.
+  """
+  status: CommunityPointsCustomRewardRedemptionStatus
+}
+
+"""
+The required configuration to activate a component extension.
+"""
+input ComponentActivationInput {
+  """
+  The slot name of where the component extension should be displayed.
+  """
+  slot: String!
+
+  """
+  The horizontal positioning of the left side of the component extension from the left side
+  of the visible video space as a fixed-point percentage (ie: 5742 would represent 57.42 percent).
+  """
+  x: Int
+
+  """
+  The vertical positioning of the top side of the component extension from the top side
+  of the visible video space as a fixed-point percentage (ie: 5742 would represent 57.42 percent).
+  """
+  y: Int
+}
+
+"""
+The view configuration of an extension if the component anchor is supported.
+"""
+input ComponentViewInput {
+  """
+  The developer configured height of the extension as a ratio relative to it's width.
+  """
+  aspectHeight: Int!
+
+  """
+  The developer configured width of the extension as a ratio relative to it's height.
+  """
+  aspectWidth: Int!
+
+  """
+  Specifies whether CSS zooming should be applied to the CE container, creating a consistent
+  size of 1024 pixels along the long edge of the component. Default: true.
+  """
+  hasZoom: Boolean!
+
+  """
+  Size of the long edge of the Component Extension, relative to the length of the corresponding
+  interactable dimension of the video.
+  """
+  size: Float!
+
+  """
+  Relative path of the HTML file to load for this view.
+  """
+  viewerPath: String!
+
+  """
+  If hasZoom is set to true, specify the effective CSS zoom to apply to the long edge of the CE.
+  Default: 1024.
+  """
+  zoomPixels: Int
+}
+
+"""
+ConfigViewInput holds the view configuration of an extension if the config page is supported.
+"""
+input ConfigViewInput {
+  """
+  Relative path of the HTML file to load for this view.
+  """
+  viewerPath: String!
+}
+
+"""
+ConnectAdIdentityInput accepts a deviceID and other parameters to generate an ad identity for that user.
+"""
+input ConnectAdIdentityInput {
+  """
+  mobile is an optional field that provides mobile device data.
+  """
+  mobile: MobileAdIdentityInput
+
+  """
+  targetDeviceID is the acting device ID.
+  """
+  targetDeviceID: ID!
+}
+
+"""
+Contribute community goal input.
+"""
+input ContributeCommunityPointsCommunityGoalInput {
+  """
+  The redemption amount.
+  """
+  amount: Int!
+
+  """
+  The channel.
+  """
+  channelID: ID!
+
+  """
+  The id of the community goal.
+  """
+  goalID: ID!
+
+  """
+  The id of this transaction.
+  """
+  transactionID: ID!
+}
+
+"""
+Inputs for contributing to a challenge.
+"""
+input ContributeToChallengeInput {
+  """
+  The amount of bits being contributed for this challenge.
+  """
+  bits: Int!
+
+  """
+  The id of the challenge that is being contributed to.
+  """
+  challengeID: ID!
+
+  """
+  The user id of the contributer.
+  """
+  userID: ID!
+}
+
+"""
+The data needed to finalize the creation of a non-active (aka archived) Emote.
+"""
+input CreateArchivedEmoteInput {
+  """
+  The type of image asset for the emote.
+  """
+  assetType: EmoteAssetType
+
+  """
+  The channel's emote prefix and the codeSuffix of the emote put together. This is how the emote is invoked in chat.
+  """
+  code: String!
+
+  """
+  The custom suffix of the emote code. When appended to the channel's emote prefix this will form the full emote code.
+  """
+  codeSuffix: String!
+
+  """
+  A list containing the image IDs for all assets needed for the emote.
+  """
+  imageAssets: [EmoteImageAssetInput!]!
+}
+
+"""
+Input to the CreateBadgeFlair mutation
+"""
+input CreateBadgeFlairInput {
+  """
+  ID of the creator/channel which owns this custom badge flair.
+  """
+  channelID: ID!
+
+  """
+  The S3 ID of the 1x sized badge, provided to clients by Upload Service. (See the createLoyaltyBadgeUploadConfig mutation).
+  """
+  image1xID: ID!
+
+  """
+  The S3 ID of the 2x sized badge provided to clients by Upload Service. (See the createLoyaltyBadgeUploadConfig mutation).
+  """
+  image2xID: ID!
+
+  """
+  The S3 ID of the 4x sized badge provided to clients by Upload Service. (See the createLoyaltyBadgeUploadConfig mutation).
+  """
+  image4xID: ID!
+
+  """
+  Sub tier which receives access to this flair.
+  """
+  tier: CreatorBadgeFlairTier!
+}
+
+"""
+CreateBitsChallengeConditionForExtensionInput creates a Bits condition on behalf of a user by an extension.
+"""
+input CreateBitsChallengeConditionForExtensionInput {
+  """
+  A list of the different bits recipients and their weighted share of the total bits pool once the condition is satisfied.
+  If this is not defined during condition creation, it must be defined when the condition is satisfied.
+  """
+  bitsRecipientWeightedShares: [BitsChallengeConditionPoolRecipientWeightedShare!]
+
+  """
+  Description of the condition.
+  """
+  description: String
+
+  """
+  Whether to disable the condition once it has been satisfied or keep it active.
+  """
+  disableWhenSatisfied: Boolean!
+
+  """
+  ID of the extension creating the conditional.
+  """
+  extensionID: ID!
+
+  """
+  ID of the channel where the extension is installed.
+  TODO: change to required once the extension coordinator starts sending this param.
+  """
+  extensionInstallationChannelID: ID
+
+  """
+  Name of the condition.
+  """
+  name: String!
+
+  """
+  Time when the condition should time out.
+  """
+  timeoutAt: Time
+}
+
+"""
+CreateBitsChallengeConditionParticipantForExtensionInput creates a Bits
+condition participant on behalf of a user by an extension.
+"""
+input CreateBitsChallengeConditionParticipantForExtensionInput {
+  """
+  Bits quantity to be held pending condition satisfaction.
+  """
+  bitsAmount: Int!
+
+  """
+  ID of the associated condition.
+  """
+  conditionID: ID!
+
+  """
+  TUID of condition owner.
+  """
+  conditionOwnerID: ID!
+
+  """
+  ID of the extension creating the conditionParticipant.
+  """
+  extensionID: ID!
+
+  """
+  Time in seconds, after which the conditionParticipant is expired and the Bits are released (range: 1-43_200).
+  """
+  ttlSeconds: Int!
+}
+
+"""
+CreateBountyCampaignInput includes the campaign that is being created.
+"""
+input CreateBountyCampaignInput {
+  """
+  The platforms that the campaign applies to.
+  """
+  availablePlatforms: [String!]
+
+  """
+  The list of broadcaster IDs to blacklist (if any) for the campaign.
+  """
+  blacklistedBroadcasters: [ID!]
+
+  """
+  Optional box art URL for the campaign.
+  """
+  boxArtURL: String
+
+  """
+  The message that will be shown to the broadcaster when they view the campaign.
+  """
+  broadcasterMessage: String
+
+  """
+  The multiplier for the broadcaster payout rate.
+  """
+  broadcasterMultiplier: Float!
+
+  """
+  The budget for the campaign in cents.
+  """
+  budgetCents: Int!
+
+  """
+  The chat Calls to Action for the campaign.
+  """
+  chatCTAs: [BountyCampaignChatCTAInput!]
+
+  """
+  The ID of the content that the campaign is related to.
+  """
+  contentID: ID
+
+  """
+  Optional cover URL for the campaign.
+  """
+  coverURL: String
+
+  """
+  Optional display for the campaign.
+  """
+  displayName: String
+
+  """
+  When the campaign will end.
+  """
+  endAt: Time!
+
+  """
+  If the campaing is a promotional campaign.
+  """
+  isPromotionEligible: Boolean
+
+  """
+  The ID of the organization that the campaign is related to.
+  """
+  organizationID: ID!
+
+  """
+  If the campaign should allow any game to be played.
+  """
+  shouldAllowAllGames: Boolean
+
+  """
+  The optional name of the sponsor of the campaign.
+  """
+  sponsor: String
+
+  """
+  When the campaign will start.
+  """
+  startAt: Time!
+
+  """
+  Deprecated. How long the broadcaster needs to stream the sponsored content to complete the bounty (in minutes).
+  """
+  streamLengthMinutes: Int
+
+  """
+  How long the broadcaster needs to stream the sponsored content to complete the bounty (in seconds).
+  """
+  streamLengthSeconds: Int
+
+  """
+  Flag to target all broadcaters for the campaign.
+  """
+  targetAllBroadcasters: Boolean
+
+  """
+  Flag to target all countries for the campaign.
+  """
+  targetAllCountries: Boolean
+
+  """
+  Flag to target all games for the campaign.
+  """
+  targetAllGames: Boolean
+
+  """
+  The click target of the campaign if it is a promotional campaign.
+  """
+  targetPromotionalVideoClicks: Int
+
+  """
+  Flag to target variety broadcaters for the campaign.
+  """
+  targetVarietyBroadcasters: Boolean
+
+  """
+  Targeted countries for the campaign (represented by ISO 3166-1 alpha-2).
+  """
+  targetedCountries: [String!]
+
+  """
+  Targeted Games (game titles) for the campaign.
+  """
+  targetedGames: [String!]
+
+  """
+  The title of the campaign.
+  """
+  title: String!
+
+  """
+  The tracking URLs for this campaign.
+  """
+  trackingPixels: [TrackingPixelInput!]
+
+  """
+  The type of the campaign.
+  """
+  type: BountyCampaignType
+
+  """
+  Deprecated, use videos instead. The URL of the video for this campaign.
+  """
+  videoURL: String
+
+  """
+  The video URLS for the campaign.
+  """
+  videos: [BountyCampaignVideoInput!]
+}
+
+"""
+CreateBountyCampaignUploadConfigInput is the input for create bounty campaign upload configuration.
+"""
+input CreateBountyCampaignUploadConfigInput {
+  """
+  The ID of the organization that the campaign is related to.
+  """
+  organizationID: ID!
+
+  """
+  The image type to be uploaded.
+  """
+  uploadType: BountyCampaignUploadType!
+}
+
+"""
+Inputs for creating a new celebration.
+"""
+input CreateCelebrationInput {
+  """
+  Where on the channel page the celebration will show.
+  """
+  area: CelebrationArea!
+
+  """
+  Channel id to create the celebration on.
+  """
+  channelID: ID!
+
+  """
+  Length the celebration will play.
+  """
+  durationMilliseconds: Int!
+
+  """
+  Effect which will show when the celebration triggers (ex Fireworks).
+  """
+  effect: CelebrationEffect!
+
+  """
+  Threshold which will trigger the celebration (ex: Cheering 100 Bits).
+  """
+  eventThreshold: Int!
+
+  """
+  Event type which will trigger the celebration (ex: Cheering Bits).
+  """
+  eventType: CelebrationEventType!
+
+  """
+  Intensity of the celebration.
+  Should be bounded (TBA) value which will determine the spectacle of the celebration.
+  """
+  intensity: Int!
+
+  """
+  If true, the celebration is enabled.
+  """
+  isEnabled: Boolean!
+}
+
+"""
+CreateChanletInput creates a chanlet under the given channelID.
+"""
+input CreateChanletInput {
+  """
+  The ID of the channel the chanlet should belong to.
+  """
+  channelID: ID!
+}
+
+"""
+CreateClipInput creates a clip either from a broadcast or video. If both broadcastID
+and videoID are set, the broadcastID will be preferred.
+"""
+input CreateClipInput {
+  """
+  The ID of the broadcast to create a clip from.
+  """
+  broadcastID: ID
+
+  """
+  The ID of the broadcaster that the broadcast or video belongs to.
+  """
+  broadcasterID: ID!
+
+  """
+  The number of seconds into the broadcast or video to create the clip from.
+  """
+  offsetSeconds: Float!
+
+  """
+  The ID of the video to create a clip from.
+  """
+  videoID: ID
+}
+
+"""
+Inputs for creating a new collection.
+"""
+input CreateCollectionInput {
+  """
+  A description of the collection being created.
+  """
+  description: String
+
+  """
+  The id of the user who will own the collection.
+  """
+  ownerID: ID!
+
+  """
+  The title of the collection being created.
+  """
+  title: String!
+}
+
+"""
+Create community goal input.
+"""
+input CreateCommunityPointsCommunityGoalInput {
+  """
+  The amount of community points that this goal needs to succeed.
+  """
+  amountNeeded: Int!
+
+  """
+  The background color of this goal.
+  """
+  backgroundColor: String!
+
+  """
+  The channel.
+  """
+  channelID: ID!
+
+  """
+  The description of this goal.
+  """
+  description: String
+
+  """
+  The *initial* duration the streamer set for the goal.
+  Only really used during the UNSTARTED state; once the goal is started
+  the endedAt timestamp is populated (and updated for extended deadlines).
+  """
+  durationDays: Int!
+
+  """
+  The title of this goal.
+  """
+  title: String!
+}
+
+"""
+Input for creating a custom Community Points reward in a channel.
+"""
+input CreateCommunityPointsCustomRewardInput {
+  """
+  The optional custom background color for this reward.
+  Should be a hex color string, for example "FF0000".
+  """
+  backgroundColor: String
+
+  """
+  The channel ID that the reward is being created in.
+  """
+  channelID: ID!
+
+  """
+  The point cost of this reward.
+  """
+  cost: Int!
+
+  """
+  The length of the global cooldown applied to rewards redeemed of this type.
+  """
+  globalCooldownSetting: CommunityPointsCustomRewardGlobalCooldownSettingInput
+
+  """
+  Whether only subscribers are allowed to redeem this reward in this channel.
+  """
+  isSubOnly: Boolean!
+
+  """
+  Whether this reward requires users to enter text input.
+  """
+  isUserInputRequired: Boolean!
+
+  """
+  The most rewards of this type that can be redeemed per stream.
+  """
+  maxPerStreamSetting: CommunityPointsCustomRewardMaxPerStreamSettingInput
+
+  """
+  The most rewards of this type that can be redeemed per user per stream.
+  """
+  maxPerUserPerStreamSetting: CommunityPointsCustomRewardMaxPerUserPerStreamSettingInput
+
+  """
+  The optional user-facing prompt for this reward.
+  """
+  prompt: String
+
+  """
+  Optional boolean for whether redemptions for this reward should skip the broadcaster's
+  request queue and get automatically fulfilled. Defaults to false.
+  """
+  shouldRedemptionsSkipRequestQueue: Boolean = false
+
+  """
+  The id for the CustomRewardTemplate this reward is being created from. Null if a template wasn't used.
+  """
+  templateID: ID
+
+  """
+  The short title displayed for this reward.
+  """
+  title: String!
+}
+
+"""
+Input for generating upload info (urls and upload IDs) for uploading Community Points images.
+Channel ID is required. Only one of the other three fields should be set, to indicate what the image is being uploaded for.
+"""
+input CreateCommunityPointsImageUploadInfoInput {
+  """
+  If set, this request is for uploading new images for the given automatic reward.
+  """
+  automaticRewardType: CommunityPointsAutomaticRewardType
+
+  """
+  The channel ID to upload images for.
+  """
+  channelID: ID!
+
+  """
+  If set, this request is for uploading new images for the given custom reward.
+  """
+  customRewardID: ID
+
+  """
+  If set, this request is for uploading new images for the given community goal.
+  """
+  goalID: ID
+
+  """
+  If set, this request is for uploading new images for the channel Community Points icon.
+  """
+  icon: Boolean
+}
+
+"""
+The competition contact info for creates.
+"""
+input CreateCompetitionContactInfoInput {
+  """
+  Link to Discord server for competition contact purposes.
+  """
+  discordURL: String
+
+  """
+  Email address point of contact for the competition.
+  """
+  email: String
+}
+
+"""
+Create a Competition.
+"""
+input CreateCompetitionInput {
+  """
+  Banner image for the competition event page.
+  """
+  bannerImageURL: String
+
+  """
+  This is the amount of time (in minutes) available for participants to check-in once competition startAt has passed.
+  """
+  checkInDurationMinutes: Int!
+
+  """
+  Long form description of the competition.
+  """
+  description: String
+
+  """
+  The time the competition is scheduled to end.
+  """
+  endAt: Time!
+
+  """
+  The competition format type (i.e. enum values of LEADERBOARD, ROUND_ROBIN, SINGLE_ELIM etc.).
+  """
+  formatType: FormatType!
+
+  """
+  The game_id of the game being played in the competition.
+  """
+  gameID: ID!
+
+  """
+  Primary artwork for the competition.
+  """
+  imageURL: String
+
+  """
+  The required inputs for leaderboard format.
+  """
+  leaderboardDetails: CreateCompetitionLeaderboardDetailsInput
+
+  """
+  The name of the competition.
+  """
+  name: String!
+
+  """
+  Owner of the Competition, or filled in as user making the request.
+  """
+  ownerID: ID
+
+  """
+  The participant-facing points of contact for the competition that only registered players can see.
+  """
+  participantOnlyContactInfo: CreateCompetitionContactInfoInput
+
+  """
+  The type of participant for the competition. e.g. SOLO, TEAM, ...
+  """
+  participantType: CompetitionParticipantType!
+
+  """
+  Long form text block description that explains the prizing for the competition
+  and will be converted to Markdown client-side.
+  """
+  prizeDescription: String
+
+  """
+  The public points of contact for the competition that anyone can see.
+  """
+  publicContactInfo: CreateCompetitionContactInfoInput
+
+  """
+  The time the competition is scheduled to end registration.
+  """
+  registrationEndAt: Time!
+
+  """
+  The maximum number of players in a REGISTERED state. A default value will be set if none is provided.
+  """
+  registrationLimit: Int = 100
+
+  """
+  The type of a registration for the competition. e.g. OPEN, INVITATIONAL, ...
+  """
+  registrationType: RegistrationType!
+
+  """
+  Long form text block description that explains the rules for the competition
+  and will be converted to Markdown client-side.
+  """
+  rulesDescription: String
+
+  """
+  The time the competition is scheduled to start.
+  """
+  startAt: Time!
+
+  """
+  The state the Competition. Defaults to the UPCOMING state if not specified.
+  """
+  state: CompetitionState
+
+  """
+  The number of players within a single team entity. Must be 1 for solo-type competitions.
+  """
+  teamSize: Int!
+
+  """
+  Link URL to any additional terms and conditions.
+  """
+  termsURL: String
+}
+
+"""
+The required inputs for leaderboard format.
+"""
+input CreateCompetitionLeaderboardDetailsInput {
+  """
+  The max participant count for a lobby in phase. Valid values are 1-100.
+  """
+  lobbyMaxSize: Int!
+
+  """
+  The number of phases to be created for the competition. Valid values are 1-20.
+  """
+  phaseCount: Int!
+
+  """
+  A label for additional points to resolve a tie.
+  """
+  tiebreakerLabel: TiebreakerLabel
+}
+
+"""
+Create new tags associated with CLIP, STREAM, or VOD with contentID.
+"""
+input CreateContentTagsInput {
+  """
+  ID of the channel owning the content.
+  """
+  authorID: ID!
+
+  """
+  ID of content: Channel ID for Streams, Slugs for Clips, and VOD ids for VODs.
+  """
+  contentID: ID!
+
+  """
+  Type of content being returned. Can only be of values CLIP, STREAM, or VOD.
+  """
+  contentType: ContentType!
+
+  """
+  List of tag IDs to be added to the content.
+  """
+  tagIDs: [ID!]!
+}
+
+"""
+Input parameters for creating a new custom mosaic layout,
+such as for Stream Manager, Twitch Studio, etc.
+Requires at least the type and id to be specified.
+"""
+input CreateDashboardViewMosaicLayoutInput {
+  """
+  The channel for which to create a new Mosaic layout.
+  """
+  channelID: ID!
+
+  """
+  The Mosaic data blob (in string form) representing the new Mosaic layout.
+  """
+  data: MosaicData!
+
+  """
+  The display name of the new Mosaic layout.
+  """
+  name: String!
+
+  """
+  The type of Mosaic layout being modified, such as for Twitch Studio,
+  Stream Manager, etc.
+  """
+  type: ChannelDashboardViewType!
+
+  """
+  The version tag for a Mosaic layout, which can be used for deprecation.
+  """
+  version: String!
+}
+
+"""
+CreateDropBenefitInput has fields required to create a drop benefit.
+"""
+input CreateDropBenefitInput {
+  """
+  The redirect URL where a user can link their account.
+  """
+  accountLinkURL: String!
+
+  """
+  The ID of this benefit object.
+  """
+  benefitID: ID!
+
+  """
+  The display name of this benefit object.
+  """
+  benefitName: String!
+
+  """
+  The global limit of how often this benefit can be entitled to a user.
+  """
+  entitlementLimit: Int!
+
+  """
+  The game that awarded the Drop.
+  """
+  gameID: ID!
+
+  """
+  Specifies if this reward is considered for a game that is available on iOS.
+  """
+  isIosAvailable: Boolean
+
+  """
+  The RBAC organization ID of the owner.
+  """
+  ownerID: ID!
+}
+
+"""
+CreateDropCampaignInput has the fields necessary to create a campaign for an RBAC organization.
+"""
+input CreateDropCampaignInput {
+  """
+  The redirect URL where a user can link their account.
+  """
+  accountLinkURL: String!
+
+  """
+  The type of a campaign defines what type of drops are allowed to be added to the campaign.
+  """
+  campaignType: CampaignType
+
+  """
+  The description of this campaign.
+  """
+  description: String!
+
+  """
+  The URL that links to the details / marketing page for this drop.
+  """
+  detailsURL: String!
+
+  """
+  The date at which this campaign ends and all contained drops end at the latest.
+  """
+  endAt: Time!
+
+  """
+  The game associated with this campaign.
+  """
+  gameID: ID!
+
+  """
+  The name of the campaign.
+  """
+  name: String!
+
+  """
+  This is the Organization ID (RBAC) to determine access / ownership of the campaign and attached drops.
+  """
+  ownerID: ID!
+
+  """
+  The date at which this campaign starts and all contained drops start the earliest.
+  """
+  startAt: Time!
+}
+
+"""
+Information needed to generate a URL to upload a drop image to.
+"""
+input CreateDropImageUploadURLInput {
+  """
+  The campaign this image is for if it's of type LINK_NOTIFICATION.
+  """
+  campaignID: ID
+
+  """
+  The type of image this is.
+  """
+  imageType: DropImageType!
+
+  """
+  The item ID this image is for if it's of type ITEM.
+  """
+  itemID: ID
+
+  """
+  The drop service this image will be created for.
+  """
+  serviceID: ID!
+
+  """
+  The JWT used to verify the request.
+  """
+  token: String!
+}
+
+"""
+CreateExtensionClientInput creates an extension with a given name.
+"""
+input CreateExtensionClientInput {
+  """
+  name is the name of the extension client ID.
+  """
+  name: String!
+
+  """
+  organizationID is the organization ID that the extension will be binded with in RBAC.
+  """
+  organizationID: ID
+
+  """
+  redirectURI is the URI that can be used for OAuth login using the extension's client ID.
+  """
+  redirectURI: String!
+}
+
+"""
+Information needed to generate a URL and UploadId to upload extension images to.
+"""
+input CreateExtensionImageUploadInfoInput {
+  """
+  Whether to upload new discovery image.
+  """
+  discovery: Boolean
+
+  """
+  The extension:version the images are for.
+  """
+  extensionID: ID!
+
+  """
+  Whether to upload new logo image.
+  """
+  logo: Boolean
+
+  """
+  Amount of new screenshot image to be uploaded.
+  """
+  screenshots: Int
+
+  """
+  Whether to upload new taskbar image.
+  """
+  taskbar: Boolean
+}
+
+"""
+Information needed to generate a URL and UploadId to upload extension zip file to.
+"""
+input CreateExtensionZipUploadInfoInput {
+  """
+  The extension:version the zip file is for.
+  """
+  extensionID: ID!
+
+  """
+  The file name of the zip file.
+  """
+  filename: String
+}
+
+input CreateFriendRequestInput {
+  """
+  The authenticated user will send a friend request to the user with an ID equal to targetID.
+  """
+  targetID: ID!
+}
+
+"""
+Input to the CreateGameApplication mutation.
+"""
+input CreateGameApplicationInput {
+  """
+  Company ID.
+  """
+  companyID: ID!
+
+  """
+  Game ID.
+  """
+  gameID: ID!
+}
+
+"""
+GameID that needs to upload a box art image.
+"""
+input CreateGameBoxArtUploadURLInput {
+  """
+  Game identifier.
+  """
+  gameID: ID!
+}
+
+"""
+CreateLoyaltyBadge creates a new badge with these settings.
+"""
+input CreateLoyaltyBadgeInput {
+  """
+  The channel ID where the badge will be uploaded.
+  """
+  channelID: ID!
+
+  """
+  The S3 ID of the 1x sized badge.
+  """
+  image1xID: ID!
+
+  """
+  The S3 ID of the 2x sized badge.
+  """
+  image2xID: ID!
+
+  """
+  The S3 ID of the 4x sized badge.
+  """
+  image4xID: ID!
+
+  """
+  The number of months of the badge.
+  """
+  requiredTenureMonths: Int!
+}
+
+"""
+CreateLoyaltyBadgeUploadConfig creates a config with URL to upload the badge image to.
+"""
+input CreateLoyaltyBadgeUploadConfigInput {
+  """
+  The channel ID where the badge will be uploaded.
+  """
+  channelID: ID!
+
+  """
+  The size of the badge.
+  """
+  size: Int!
+}
+
+"""
+The required input to create a moderator comment on a channel.
+"""
+input CreateModeratorCommentInput {
+  """
+  The channel where the moderator comment was created.
+  """
+  channelID: ID!
+
+  """
+  The target of the moderator comment.
+  """
+  targetID: ID!
+
+  """
+  The body of the comment.
+  """
+  text: String!
+}
+
+"""
+Input for creating a new highlight with multi-segment support.
+"""
+input CreateMultiVideoHighlightInput {
+  """
+  Metadata used to create the highlight.
+  """
+  metadata: CreateMultiVideoHighlightMetadata!
+}
+
+"""
+Metadata to describe the requested highlight to be created.
+"""
+input CreateMultiVideoHighlightMetadata {
+  """
+  The ID of the user who created this highlight.
+  """
+  creatorID: ID!
+
+  """
+  The long form description of the Highlight content.
+  """
+  description: String!
+
+  """
+  The primary game featured in the highlight, if any.
+  """
+  game: ID
+
+  """
+  List of ordered time ranges from the source VOD used to create the highlight.
+  """
+  highlightRanges: [HighlightRange!]!
+
+  """
+  The language the highlight content is in.
+  """
+  language: String!
+
+  """
+  Discovery tags to associate with the Highlight.
+  """
+  tags: [String!]!
+
+  """
+  The title of the the highlight.
+  """
+  title: String!
+}
+
+"""
+Contains the channel ID to create new image upload URL for.
+"""
+input CreateMultiviewContentAttributeImageUploadConfigInput {
+  """
+  The channel for which the content attribute belongs to.
+  """
+  channelID: ID!
+}
+
+"""
+Contains a list of new content attributes to be created.
+"""
+input CreateMultiviewContentAttributesInput {
+  """
+  params is a list of multi-view content attribute params for creating new records.
+  """
+  params: [MultiviewContentAttributeParams!]!
+}
+
+"""
+Input to the CreateOrganizationApplication mutation.
+"""
+input CreateOrganizationApplicationInput {
+  """
+  City the applying Organization is located in. e.g. San Fransico.
+  """
+  city: String
+
+  """
+  Email of the person creating the application.
+  Deprecated as we are no longer collecting contact email. Using TwitchID and Dart to send notifications instead.
+  """
+  contactEmail: String
+
+  """
+  First Name of person creating the application.
+  """
+  contactFirstName: String!
+
+  """
+  Last Name of the person creating the application.
+  """
+  contactLastName: String!
+
+  """
+  Title of the person creating the application. e.g. Director of Sales.
+  """
+  contactTitle: String!
+
+  """
+  Country the applying organization is located in. e.g. US.
+  """
+  country: String!
+
+  """
+  List of game IDs that belong to the applying organization.
+  """
+  gameIDs: [ID!]
+
+  """
+  Industry the applying organization is operating in e.g. e-sports, gaming, health care, energy.
+  """
+  industry: String!
+
+  """
+  Reason for wanting to add the organization.
+  """
+  joinReason: String
+
+  """
+  The name of applying organization.
+  """
+  organizationName: String!
+
+  """
+  Indicate which Twitch products the organization wants to manage; e.g. creating
+  Drops, managing game box art, accessing game Insights.
+  """
+  productInterest: String
+
+  """
+  Estimated size of the applying organization. e.g. 1-5, 6-20, 21-50, 51-100, 101-1000, and 1000+.
+  """
+  size: String!
+
+  """
+  State the applying organization is located in. e.g. CA.
+  """
+  state: String
+
+  """
+  The type of work the applying organization does.
+  """
+  type: OrganizationType!
+
+  """
+  The Twitch ID for the user submitting the applicaton.
+  Deprecated as the userID now comes off the authenticated user.
+  """
+  userID: ID
+
+  """
+  The website address for the applying organization.
+  """
+  website: String!
+}
+
+"""
+Inputs to the CreateOrganizationInvite mutation.
+"""
+input CreateOrganizationInviteInput {
+  """
+  The Twitch ID of user being invited to join the organization.
+  """
+  inviteeTwitchID: ID!
+
+  """
+  The Twitch ID of user being doing the inviting and is already a member of the organization.
+  """
+  inviterTwitchID: ID!
+
+  """
+  The ID of the organization.
+  """
+  organizationID: ID!
+
+  """
+  The Role a Invite has in an organization.
+  """
+  role: OrganizationMemberRole!
+}
+
+"""
+Inputs to the CreateOrganizationJWT mutation.
+"""
+input CreateOrganizationJWTInput {
+  """
+  Operation to be used in drops to get a jwt for.
+  """
+  operation: String!
+
+  """
+  Organization id for which to generate the jwt.
+  """
+  organizationID: ID!
+}
+
+"""
+Inputs to the CreateOrganizationMember mutation.
+"""
+input CreateOrganizationMemberInput {
+  """
+  Users email.
+  """
+  email: String!
+
+  """
+  Users first name.
+  """
+  firstName: String!
+
+  """
+  Users last name.
+  """
+  lastName: String!
+
+  """
+  The ID of the organization.
+  """
+  organizationID: ID!
+
+  """
+  The Role a member has in an organization.
+  """
+  role: OrganizationMemberRole!
+
+  """
+  Users title.
+  """
+  title: String!
+
+  """
+  The user's Twitch ID.
+  """
+  userID: ID!
+}
+
+"""
+Information required to generate a URL to upload a panel image to.
+"""
+input CreatePanelImageUploadInfoInput {
+  """
+  The channel the panel belongs to.
+  """
+  channelID: ID!
+
+  """
+  The cropped height of the image.
+  """
+  height: Int!
+
+  """
+  The left edge of the cropped image.
+  """
+  left: Int!
+
+  """
+  The top edge of the cropped image.
+  """
+  top: Int!
+
+  """
+  The cropped width of the image.
+  """
+  width: Int!
+}
+
+"""
+CreatePanelInput contains a panel with created data
+The schema here has arguments for both extension panels and default panels
+each panel needs a PanelType, and channelID it corresponds to,
+but each panel does not need the other arguments
+extension panels can have a slotID
+default panels can have a title, image, link, and/or description.
+"""
+input CreatePanelInput {
+  channelID: ID!
+  description: String
+  imageURL: String
+  linkURL: String
+  slotID: String
+  title: String
+  type: PanelType!
+}
+
+"""
+CreatePartnershipApplication accepts a userID and other parameters to create the partnership application of a given user.
+The required input for a createPartnershipApplicationInput mutation.
+"""
+input CreatePartnershipApplicationInput {
+  """
+  Broadcast category (selected by the applicant).
+  eg: gaming, creative.
+  """
+  category: String!
+
+  """
+  Country from where the applicant belongs (selected by the applicant).
+  eg: US, NZ, UK.
+  """
+  country: String!
+
+  """
+  Description why the applicant wants to be a partner.
+  """
+  description: String!
+
+  """
+  First and last name of the applicant.
+  """
+  fullName: String!
+
+  """
+  Broadcast language (selected by the applicant).
+  """
+  language: String!
+}
+
+"""
+Inputs for creating a choice.
+"""
+input CreatePollChoiceInput {
+  """
+  Title of the choice.
+  """
+  title: String!
+}
+
+"""
+Inputs for creating a new poll.
+"""
+input CreatePollInput {
+  """
+  The cost in bits for casting a vote.
+  """
+  bitsCost: Int = 0
+
+  """
+  Denotes if votes can be cast with bits.
+  """
+  bitsVoting: Boolean = false
+
+  """
+  Choices that can be voted for in the poll.
+  """
+  choices: [CreatePollChoiceInput!]!
+
+  """
+  The cost in Community Points for casting a vote.
+  """
+  communityPointsCost: Int = 0
+
+  """
+  Duration of the poll in seconds.
+  """
+  durationSeconds: Int!
+
+  """
+  Denotes if votes can be cast with Community Points.
+  """
+  isCommunityPointsVotingEnabled: Boolean = false
+
+  """
+  Denotes if the poll allows voting for multiple options.
+  """
+  multichoiceEnabled: Boolean = true
+
+  """
+  Id of the channel this poll is owned by.
+  """
+  ownedBy: ID!
+
+  """
+  Denotes if subscribers receives bonus votes.
+  Deprecated: Subscriber multipliers are no longer supported.
+  """
+  subscriberMultiplier: Boolean = false
+
+  """
+  Denotes if the poll is only open to subscribers.
+  Deprecated: Subscriber-only polls are no longer supported.
+  """
+  subscriberOnly: Boolean = false
+
+  """
+  Title of the poll.
+  """
+  title: String!
+}
+
+input CreatePostInput {
+  body: String!
+  channelID: ID!
+  embedURLs: [String!]
+  postToTwitter: Boolean
+}
+
+"""
+Input for creating a Prediction Event.
+"""
+input CreatePredictionEventInput {
+  """
+  The channel to create the Prediction Event on.
+  """
+  channelID: ID!
+
+  """
+  Outcomes that can be chosen in the Prediction Event.
+  """
+  outcomes: [CreatePredictionOutcomeInput!]!
+
+  """
+  The duration of the Prediction Window, in seconds.
+  """
+  predictionWindowSeconds: Int!
+
+  """
+  The intended title of the Prediction Event.
+  """
+  title: String!
+}
+
+"""
+Input for creating a Prediction Outcome.
+"""
+input CreatePredictionOutcomeInput {
+  """
+  Color of the Outcome.
+  """
+  color: PredictionOutcomeColor!
+
+  """
+  Title of the Outcome.
+  """
+  title: String!
+}
+
+"""
+Inputs to the createRaid mutation.
+"""
+input CreateRaidInput {
+  """
+  Caller is expected to be a channel owner, editor, or staff.
+  User ID of the source channel hosting the raid.
+  """
+  sourceID: ID!
+
+  """
+  User ID of the target channel.
+  """
+  targetID: ID!
+}
+
+"""
+Inputs to the createRewardedVideo mutation.
+"""
+input CreateRewardedVideoTokenInput {
+  """
+  userID requesting the rewarded video token.
+  """
+  userID: ID!
+}
+
+input CreateRoomInput {
+  """
+  Deprecated. Use minimumReadMessagesRole instead.
+  """
+  isPreviewable: Boolean
+
+  """
+  Deprecated. Use minimumReadMessagesRole and minimumSendMessagesRole instead.
+  """
+  minimumAllowedRole: RoomRole
+
+  """
+  Minimum role required to read messages in the room.
+  """
+  minimumReadMessagesRole: RoomRole
+
+  """
+  Minimum role required to send messages in the room.
+  """
+  minimumSendMessagesRole: RoomRole
+
+  """
+  The name of the room.
+  """
+  name: String!
+
+  """
+  The topic for the room.
+  """
+  topic: String!
+}
+
+"""
+The input to create a schedule.
+"""
+input CreateScheduleInput {
+  """
+  The channel ID the schedule belongs to.
+  """
+  channelID: ID!
+}
+
+"""
+The input to create a new schedule segment.
+"""
+input CreateScheduleSegmentInput {
+  """
+  The categories of the new segment.
+  """
+  categories: [ID!]!
+
+  """
+  The duration of the segment in minutes.
+  """
+  durationMinutes: Int
+
+  """
+  The start date and time of the first occurrence of the segment.
+  """
+  firstOccurrenceDate: Time
+
+  """
+  The number of times the segment should repeat. If 1, this is a single segment.
+  """
+  repeatEndsAfterCount: Int
+
+  """
+  The ID of the schedule.
+  """
+  scheduleID: ID!
+
+  """
+  The start time of the new segment. Ignored for single segments.
+  """
+  start: SegmentStartTimeInput
+
+  """
+  The geographic timezone of the new segment defined by IANA; i.e. "America/Los_Angeles".
+  """
+  timezone: String!
+
+  """
+  The title of the new segment.
+  """
+  title: String
+}
+
+"""
+CreateSocialMediaInput creates social media under the given channelID.
+"""
+input CreateSocialMediaInput {
+  """
+  The ID of the channel the social media should belong to.
+  """
+  channelID: ID!
+
+  """
+  The visible text of the social media item.
+  """
+  title: String!
+
+  """
+  The web address of the social media item.
+  """
+  url: String!
+}
+
+"""
+Inputs to the createSquadStreamInvitation mutation.
+"""
+input CreateSquadStreamInvitationInput {
+  """
+  The user ID of the broadcaster that should be invited to join the squad stream.
+  """
+  recipientUserID: ID!
+
+  """
+  The user ID of the broadcaster that is sending the invitation to join the squad stream.
+  """
+  senderUserID: ID!
+}
+
+"""
+Inputs to creating a stucco.
+"""
+input CreateStuccoInput {
+  """
+  ID of the channel this stucco belongs to.
+  """
+  channelID: ID!
+
+  """
+  Description representing the stucco, should be the words contained in the stucco, used by screen readers.
+  """
+  description: String!
+
+  """
+  Base64 encoded binary data of the 92x28px stucco ("1x") image asset.
+  """
+  imageData1x: String!
+
+  """
+  Base64 encoded binary data of the 182x56px stucco ("2x") image asset.
+  """
+  imageData2x: String!
+
+  """
+  Base64 encoded binary data of the 368x112px stucco ("4x") image asset.
+  """
+  imageData4x: String!
+
+  """
+  Text code representing the stucco without any prefixes (prefixes are added in the backend).
+  """
+  suffix: String!
+}
+
+"""
+Inputs for creating a new stucco pack.
+"""
+input CreateStuccoPackInput {
+  """
+  Id of the channel this pack is part of.
+  """
+  channelID: ID!
+
+  """
+  Updated list of stuccos for this pack.
+  """
+  stuccos: [CreateStuccoPackItemInput!]
+}
+
+"""
+Single item in a stuccopack, as part of the create stucco pack call, representing one stucco to be used in a certain slot.
+"""
+input CreateStuccoPackItemInput {
+  """
+  Slot index in the pack (used for ordering).
+  """
+  slotIndex: Int!
+
+  """
+  Id of the stucco.
+  """
+  stuccoID: ID!
+}
+
+"""
+Required input to create an unban request on a channel.
+"""
+input CreateUnbanRequestInput {
+  """
+  Channel on which requester is requesting an unban.
+  """
+  channelID: ID!
+
+  """
+  Custom message from unban requester to attach to unban request.
+  """
+  requesterMessage: String!
+}
+
+"""
+CreateVideoAppealInput details needed to create a video appeal.
+"""
+input CreateVideoAppealInput {
+  """
+  city is the appeal city.
+  """
+  city: String!
+
+  """
+  country is the appeal country.
+  """
+  country: String!
+
+  """
+  fullName is the appeal full name.
+  """
+  fullName: String!
+
+  """
+  state is the appeal state.
+  """
+  state: String!
+
+  """
+  streetAddress1 is the appeal street address 1.
+  """
+  streetAddress1: String!
+
+  """
+  streetAddress2 is the appeal street address 2.
+  """
+  streetAddress2: String
+
+  """
+  trackAppeals is list of tracks that are being appealed.
+  """
+  trackAppeals: [TrackAppealRequestInput!]!
+
+  """
+  videoID is the id of the vod that this appeal is for.
+  """
+  videoID: ID!
+
+  """
+  zipcode is the appeal zipcode.
+  """
+  zipcode: String!
+}
+
+"""
+Input for creating a new bookmark.
+"""
+input CreateVideoBookmarkInput {
+  """
+  ID of the broadcast the bookmark is made for.
+  """
+  broadcastID: ID
+
+  """
+  Channel ID of the channel the bookmark is made for.
+  """
+  channelID: ID
+
+  """
+  A description for the bookmark.
+  """
+  description: String
+
+  """
+  The medium where the request came from.
+  e.g. "popout_chat", "chat", "live_dashboard_button", "live_dashboard_hotkey", "live_dashboard_chat".
+  """
+  medium: String!
+
+  """
+  The platform where the request came from.
+  e.g."web", "android", "ios".
+  """
+  platform: String!
+}
+
+input CreateVideoCommentInput {
+  """
+  The id of the parent video comment when you reply.
+  """
+  commentID: ID
+
+  """
+  Position of the video where this comment will be added.
+  """
+  contentOffsetSeconds: Int!
+
+  """
+  The message of the comment.
+  """
+  message: String!
+
+  """
+  The id of the video this comment belongs to.
+  """
+  videoID: ID!
+}
+
+input CreateVideoHighlightInput {
+  """
+  The time in the source Archive type video that the Highlight will end at.
+  """
+  endOffsetSeconds: Int!
+
+  """
+  Metadata to set for the highlight.
+  """
+  metadata: CreateVideoHighlightMetadata!
+
+  """
+  The id of the Archive type video to create the Highlight from.
+  """
+  sourceVideoID: ID!
+
+  """
+  The time in the source Archive type video that the Highlight will begin at.
+  """
+  startOffsetSeconds: Int!
+}
+
+input CreateVideoHighlightMetadata {
+  """
+  The long form description of the Highlight content.
+  """
+  description: String!
+
+  """
+  The primary game featured in the highlight, if any.
+  """
+  game: ID
+
+  """
+  The language the highlight content is in.
+  """
+  language: String!
+
+  """
+  Discovery tags to associate with the Highlight.
+  """
+  tags: [String!]!
+
+  """
+  The title of the the highlight.
+  """
+  title: String!
+}
+
+"""
+Input to CreateVideoThumbnailUploadRequest mutation.
+"""
+input CreateVideoThumbnailUploadRequestInput {
+  """
+  Crop height of the thumbnail.
+  """
+  cropH: Int!
+
+  """
+  Crop width of the thumbnail.
+  """
+  cropW: Int!
+
+  """
+  Crop X of the thumbnail.
+  """
+  cropX: Int!
+
+  """
+  Crop Y of the thumbnail.
+  """
+  cropY: Int!
+
+  """
+  ID of the video being updated.
+  """
+  videoID: ID!
+}

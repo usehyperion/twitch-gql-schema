@@ -1,0 +1,349 @@
+type Image {
+  """
+  The original height of the image in pixels.
+  """
+  height: Int!
+
+  """
+  The URL source of the image.
+  """
+  imageURL: String! @deprecated(reason: "Use the 'url' query instead.")
+
+  """
+  The URL source of the image.
+  """
+  url(width: Int, height: Int): String!
+
+  """
+  The original width of the image in pixels.
+  """
+  width: Int!
+}
+
+"""
+Friend requests sent from other users to this user.
+"""
+type IncomingFriendRequestConnection {
+  """
+  The friend request elements of this list.
+  """
+  edges: [IncomingFriendRequestEdge!]!
+
+  """
+  The most recent incoming friend request received by this user, if any exist. This field is provided as a
+  convenience, as edges is not strictly time-ordered. The incoming friend request's presence in this field does not
+  prevent it from also occurring in edges.
+  """
+  newestEdge: IncomingFriendRequestEdge
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of incoming friend requests.
+  """
+  totalCount: Int!
+
+  """
+  The total number of unseen incoming friend requests. Use the ClearUnreadFriendRequests mutation to set this to 0.
+  """
+  totalUnreadCount: Int!
+}
+
+"""
+A friend request sent from another user to this user.
+"""
+type IncomingFriendRequestEdge {
+  """
+  The time at which the friend request was sent.
+  """
+  createdAt: Time!
+
+  """
+  An opaque cursor identifying the edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  The user who sent the friend request.
+  """
+  node: User
+}
+
+"""
+IngestFrameDrop represent an event where a video frame is dropped while ingesting a video stream.
+"""
+type IngestFrameDrop {
+  """
+  Duration of events in seconds.
+  """
+  durationSeconds: Float!
+
+  """
+  Start time of the event.
+  """
+  startedAt: Time!
+}
+
+"""
+IngestSession is a set of stream metadata related to ingest events.
+"""
+type IngestSession {
+  """
+  Type of live stream.
+  """
+  broadcastFormat: BroadcastFormat!
+
+  """
+  Staff-only field. Hostname for the session where ingest stream was received.
+  """
+  ingestHost: String
+
+  """
+  Name of Ingest Server PoP that received the broadcast. Ex) IAD or PDX.
+  """
+  ingestProxy: String!
+
+  """
+  How many seconds were intentionally delayed in stream as requested by the broadcaster.
+  """
+  streamDelaySeconds: Int!
+
+  """
+  The time when the stream was ended.
+  """
+  streamDownAt: Time
+
+  """
+  The time when the stream was started.
+  """
+  streamUpAt: Time
+}
+
+"""
+IngestStarvationEvent represent an event where an expected video frame from broadcaster does not arrive.
+"""
+type IngestStarvationEvent {
+  """
+  Duration of events in seconds.
+  """
+  durationSeconds: Float!
+
+  """
+  Starr time of the event.
+  """
+  startedAt: Time!
+}
+
+"""
+Set of codes to warn the broadcaster about what is wrong with the stream.
+"""
+type IngestStreamHealth {
+  """
+  Reasons why the stream is unstable.
+  """
+  reasons: [IngestStreamHealthReason!]
+
+  """
+  Indicate whether the stream is at okay, warning or unstable status.
+  """
+  status: IngestStreamHealthStatus!
+}
+
+"""
+InstallExtensionError is wrapper for error associated with the installExtension mutation.
+"""
+type InstallExtensionError {
+  """
+  Error code.
+  """
+  code: InstallExtensionErrorCode!
+
+  """
+  The installation id if got EXTENSION_ALREADY_INSTALLED error.
+  """
+  installationID: ID
+}
+
+"""
+The result of an installExtension mutation.
+"""
+type InstallExtensionPayload {
+  """
+  The error when the mutation fails to install extension.
+  """
+  error: InstallExtensionError
+
+  """
+  The resulting extension installation record from the install.
+  """
+  installedExtension: ExtensionInstallation
+}
+
+"""
+A shelf title token type that contains a number with various formatters.
+"""
+type IntegerToken {
+  """
+  The numerical value to display for this token.
+  """
+  value: Int!
+}
+
+"""
+InternalChargeModel defines a 1P price identifier for the offer.
+"""
+type InternalChargeModel {
+  """
+  The charge model plan. It will be omitted for consumable purchases (e.g. Bits).
+  """
+  plan: ChargeModelPlan
+
+  """
+  Preview of the price.
+  """
+  previewPrice: PriceInfo
+
+  """
+  The price identifier.
+  """
+  priceID: ID!
+
+  """
+  The authenticated user's relationship with the internal charge model.
+  """
+  self: InternalChargeModelSelfEdge
+}
+
+"""
+The authenticated user's relationship with the internal charge model.
+"""
+type InternalChargeModelSelfEdge {
+  """
+  Contains information on the final checkout price of this offer.
+  """
+  checkoutPrice(quantity: Int!, paymentProvider: PaymentProvider!): ProductPurchase
+}
+
+"""
+InterruptScheduleBoundsError represents errors that are due to input being out of bounds.
+"""
+type InterruptScheduleBoundsError implements InterruptScheduleError {
+  """
+  Error code.
+  """
+  code: InterruptScheduleErrorCode!
+
+  """
+  If the error is related to an input out of service-defined bounds, provide the maximum allowed value.
+  """
+  maximum: Int
+
+  """
+  If the error is related to an input out of service-defined bounds, provide the miniimum allowed value.
+  """
+  minimum: Int
+}
+
+"""
+The payload returned when interrupting a schedule.
+"""
+type InterruptSchedulePayload {
+  """
+  The possible error.
+  """
+  error: InterruptScheduleError
+
+  """
+  The updated stream schedule.
+  """
+  schedule: Schedule
+}
+
+"""
+InterruptScheduleStandardError represents general errors that are not related to bound errors.
+"""
+type InterruptScheduleStandardError implements InterruptScheduleError {
+  """
+  Error code.
+  """
+  code: InterruptScheduleErrorCode!
+}
+
+"""
+Payload after invalidating sessions.
+"""
+type InvalidateAuthenticatedSessionsPayload {
+  """
+  Twitch User.
+  """
+  user: User
+}
+
+"""
+InvalidateEmailAssociationPayload is the response payload.
+"""
+type InvalidateEmailAssociationPayload {
+  """
+  HasSucceeded indicates whether or not the request has succeeded.
+  """
+  hasSucceeded: Boolean!
+}
+
+"""
+Contains the inventory for a particular user, which consists of drops.
+"""
+type Inventory {
+  """
+  The campaigns which have drops that the user is eligible for and has banked
+  (or is currently earning) minutes-watched progress for.
+  """
+  dropCampaignsInProgress: [DropCampaign!]
+
+  """
+  The drops awarded to this user via Drops 1.0 and triggered by game publishers according to minutes watched data.
+  """
+  drops: UserDropAwardConnection
+
+  """
+  The drops awarded to this user via Drops 2.0 and triggered by broadcaster's game events.
+  """
+  gameEventDrops: [UserDropReward]
+}
+
+"""
+Associated metrics for the "It Begins" quest.
+"""
+type ItBegins {
+  """
+  Image URL for the quest's badge.
+  """
+  badgeURL: String
+
+  """
+  Time that this quest was completed.
+  """
+  completedAt: Time
+
+  """
+  Whether or not the user has streamed before.
+  """
+  hasStreamed: Boolean
+
+  """
+  Whether or not the user has updated their category before.
+  """
+  hasUpdatedCategory: Boolean
+
+  """
+  Whether or not the user has updated their stream title before.
+  """
+  hasUpdatedStreamTitle: Boolean
+
+  """
+  Whether or not the user has visited their stream manager.
+  """
+  hasVisitedDashboard: Boolean
+}

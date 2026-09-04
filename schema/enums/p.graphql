@@ -1,0 +1,1281 @@
+"""
+PanelType is the kind of panel.
+"""
+enum PanelType {
+  """
+  DEFAULT panels contain one or more of the content values in `Panel` to display.
+  """
+  DEFAULT
+
+  """
+  EXTENSION panels are placeholders for extension content.
+  """
+  EXTENSION
+}
+
+"""
+PasswordStatus determines the current state of the users password.
+"""
+enum PasswordStatus {
+  """
+  The users password has never been evaluated.
+  """
+  NOT_EVALUATED
+
+  """
+  The users password meets requirements.
+  """
+  VALID
+
+  """
+  The users password does not meet requirements.
+  """
+  INVALID
+
+  """
+  Unknown password status.
+  """
+  UNKNOWN
+}
+
+"""
+Types of credit cards supported.
+"""
+enum PaymentCardType {
+  """
+  Visa.
+  """
+  VISA
+
+  """
+  Mastercard.
+  """
+  MASTERCARD
+
+  """
+  American Express.
+  """
+  AMERICAN_EXPRESS
+
+  """
+  Discover.
+  """
+  DISCOVER
+}
+
+"""
+Payment instrument used through the payment provider.
+"""
+enum PaymentInstrumentType {
+  """
+  Credit or debit card.
+  """
+  CREDIT_CARD
+
+  """
+  Pay with Amazon.
+  """
+  AMAZON
+
+  """
+  Pay with Paypal.
+  """
+  PAYPAL
+
+  """
+  Pay with Google In-App Billing.
+  """
+  GOOGLE_IAB
+
+  """
+  Pay with Apple In-App Purchase.
+  """
+  APPLE_IAP
+
+  """
+  Xsolla only.
+  """
+  SKRILL
+
+  """
+  Xsolla only.
+  """
+  YANDEX
+
+  """
+  Xsolla only.
+  """
+  WEBMONEY
+
+  """
+  Xsolla default.
+  """
+  UNKNOWN
+
+  """
+  Pay with Wallet.
+  """
+  WALLET
+
+  """
+  Pay with bank account.
+  """
+  DIRECT_DEBIT
+}
+
+"""
+The list of availability statuses for a payment method.
+"""
+enum PaymentMethodAvailabilityStatus {
+  """
+  Available status.
+  """
+  AVAILABLE
+
+  """
+  Degraded status.
+  """
+  DEGRADED
+
+  """
+  Full outage status.
+  """
+  FULL_OUTAGE
+}
+
+"""
+Type of payment providers.
+"""
+enum PaymentProvider {
+  """
+  Unknown payment provider.
+  """
+  UNKNOWN
+
+  """
+  (Deprecated) Paypal payment provider now a payment method provided by Recurly.
+  """
+  PAYPAL
+
+  """
+  (Deprecated) Paypal payment provider.
+  """
+  PAYPAL_RT
+
+  """
+  Recurly payment provider, allows payments with credit card, amazon, paypal.
+  """
+  RECURLY
+
+  """
+  Xsolla payment provider, usually provides Iframe for users to go through checkout process.
+  """
+  XSOLLA
+
+  """
+  (Deprecated) Xsolla payment provider, usually provides Iframe for users to go through checkout process.
+  """
+  XSOLLA_V3
+
+  """
+  Zuora payment provider, supports credit card payments.
+  """
+  ZUORA
+
+  """
+  Twitch Prime used to buy product on Twitch.
+  """
+  PRIME
+
+  """
+  Google In-App Billing, for Android transactions.
+  """
+  GOOGLE_IAB
+
+  """
+  Apple In-App Purchases for iOS transactions.
+  """
+  APPLE_IAP
+
+  """
+  Sub tokens, which can be redeemed for channel subscriptions.
+  """
+  SUB_TOKEN
+}
+
+"""
+The payment scheme supported.
+"""
+enum PaymentScheme {
+  """
+  SEPA.
+  """
+  SEPA
+
+  """
+  BACS.
+  """
+  BACS
+}
+
+"""
+Possible sort orders for lists of payment transactions.
+"""
+enum PaymentTransactionSort {
+  """
+  Sort the payment transactions descending by price.
+  """
+  PRICE_DESC
+
+  """
+  Sort the payment transactions ascending by price.
+  """
+  PRICE_ASC
+
+  """
+  Sort by purchase date descending.
+  """
+  PURCHASE_DATE_DESC
+
+  """
+  Sort by purchase date ascending.
+  """
+  PURCHASE_DATE_ASC
+}
+
+"""
+Payment transaction type.
+"""
+enum PaymentTransactionType {
+  """
+  Transaction for a subscription type.
+  """
+  SUBSCRIPTION
+
+  """
+  Transaction for a bits type.
+  """
+  BITS
+
+  """
+  Transaction for a sub token.
+  """
+  SUB_TOKEN
+
+  """
+  Transaction for gift cards.
+  """
+  GIFT_CARD
+
+  """
+  Transaction for celebration.
+  """
+  CELEBRATION
+
+  """
+  Transaction for an unknown type.
+  """
+  UNKNOWN
+}
+
+"""
+Select the kind of transactions.
+"""
+enum PaymentTransactionTypeFilter {
+  """
+  Only return payment transactions that associated with subscription products.
+  """
+  SUBSCRIPTIONS
+
+  """
+  Only return payment transactions that are associated with subtoken purchases and redemptions.
+  """
+  SUB_TOKEN
+
+  """
+  The default filter (no filter).
+  """
+  ALL
+}
+
+"""
+Enumerates valid payout categories.
+"""
+enum PayoutCategory {
+  """
+  Assigned if the user has a payout plan for the affiliate program.
+  """
+  AFFILIATE
+
+  """
+  Assigned if the user has a payout plan for the extensions developer program.
+  """
+  EXTENSIONS_DEVELOPER
+
+  """
+  Assigned if the user has a payout plan for the partner program.
+  """
+  PARTNER
+}
+
+"""
+PayoutOnboardingCategory enumerates valid categories for payout onboarding.
+"""
+enum PayoutOnboardingCategory {
+  """
+  Assigned for payout onboarding flows to enroll a user into the affiliate program.
+  """
+  AFFILIATE
+
+  """
+  Assigned for payout onboarding flows to enroll a user into the partner program with the "standard" payout plan.
+  """
+  STANDARD_PARTNER
+
+  """
+  Assigned for payout onboarding flows to enroll a user into the partner program with the "premium" payout plan.
+  """
+  PREMIUM_PARTNER
+
+  """
+  Assigned for payout onboarding flows to enroll a user into the partner program with a "custom" payout plan.
+  """
+  CUSTOM_PARTNER
+
+  """
+  Assigned for payout onboarding flows to enroll a user into the extensions developer program.
+  """
+  EXTENSIONS_DEVELOPER
+
+  """
+  Assigned for payout onboarding flows to enroll a user into an unpaid partner program.
+  """
+  UNPAID_PARTNER
+}
+
+"""
+PayoutOnboardingStep enumerates valid payout onboarding steps.
+"""
+enum PayoutOnboardingStep {
+  """
+  User needs to complete their registration step.
+  """
+  REGISTRATION_NOT_STARTED
+
+  """
+  User needs to agree to their payout agreement.
+  """
+  AGREEMENT_NOT_STARTED
+
+  """
+  User needs to submit their royalty tax interview.
+  """
+  ROYALTY_TAX_INTERVIEW_NOT_STARTED
+
+  """
+  User submitted their royalty tax interview and is waiting for it to be accepted.
+  """
+  ROYALTY_TAX_INTERVIEW_PENDING
+
+  """
+  User submitted their royalty tax interview but additional action by the user is required before completion.
+  """
+  ROYALTY_TAX_INTERVIEW_ACTION_REQUIRED
+
+  """
+  User submitted their royalty tax interview and received mismatch errors.
+  """
+  ROYALTY_TAX_INTERVIEW_MISMATCH
+
+  """
+  User submitted their royalty tax interview and received errors while it was processed.
+  """
+  ROYALTY_TAX_INTERVIEW_FAILED
+
+  """
+  User has completed their royalty tax interview and needs to complete their service tax interview.
+  """
+  SERVICE_TAX_INTERVIEW_NOT_STARTED
+
+  """
+  User submitted their service tax interview and is waiting for it to be accepted.
+  """
+  SERVICE_TAX_INTERVIEW_PENDING
+
+  """
+  User submitted their service tax interview but additional action by the user is required before completion.
+  """
+  SERVICE_TAX_INTERVIEW_ACTION_REQUIRED
+
+  """
+  User submitted their service tax interview and received mismatch errors.
+  """
+  SERVICE_TAX_INTERVIEW_MISMATCH
+
+  """
+  User submitted their service tax interview and received errors while it was processed.
+  """
+  SERVICE_TAX_INTERVIEW_FAILED
+
+  """
+  User neeeds to setup how they want to get paid out.
+  """
+  PAYOUT_METHOD_NOT_STARTED
+
+  """
+  User submitted their payout method and is waiting for it to be accepted.
+  """
+  PAYOUT_METHOD_PENDING
+
+  """
+  User is waiting for a final approval from the payout onboarding reviewers.
+  """
+  REVIEW_PENDING
+
+  """
+  User has completed their payout onboarding.
+  """
+  COMPLETED
+
+  """
+  User has canceled their payout onboarding workflow.
+  """
+  CANCELED
+
+  """
+  User has a pending upgrade to their payout agreement.
+  """
+  AGREEMENT_PENDING_UPGRADE
+}
+
+"""
+Enumerates valid payout plan tags.
+"""
+enum PayoutPlanTag {
+  """
+  Assigned if the user has the "standard" payout plan.
+  """
+  STANDARD
+
+  """
+  Assigned if the user has the "premium" payout plan.
+  """
+  PREMIUM
+
+  """
+  Assigned if the user has the "custom" payout plan.
+  """
+  CUSTOM
+
+  """
+  Assigned if the user has a payout plan created through the legacy onboarding flow.
+  """
+  LEGACY
+
+  """
+  Assigned if user has an esports payout plan. Twitch pays them lump sum when
+  they get rewarded from competing in a Twtich sponsored event.
+  """
+  ESPORTS
+}
+
+"""
+Denotes the type of pending subscription.
+"""
+enum PendingSubType {
+  """
+  This pending subscription was a conversion from a gift sub to a paid sub.
+  """
+  GIFT_TO_PAID
+
+  """
+  This pending subscription was a conversion from a DNRd sub to a renewing sub.
+  """
+  DNR_TO_RESUB_RECURRING
+
+  """
+  This pending subscription was a conversion from a DNRd sub to a one month sub.
+  """
+  DNR_TO_RESUB_NONRECURRING
+
+  """
+  This pending subscription was a conversion from a prime sub to a paid sub.
+  """
+  PRIME_TO_PAID
+}
+
+"""
+The permanent emote modifiers available to set.
+"""
+enum PermanentEmoteModifier {
+  """
+  Unknown emote modifier.
+  """
+  UNKNOWN
+
+  """
+  BlackWhite emote modifier.
+  """
+  BLACK_WHITE
+
+  """
+  HorizontalFlip emote modifier.
+  """
+  HORIZONTAL_FLIP
+
+  """
+  Sunglasses emote modifier.
+  """
+  SUNGLASSES
+
+  """
+  Thinking emote modifier.
+  """
+  THINKING
+
+  """
+  Squished emote modifier.
+  """
+  SQUISHED
+}
+
+"""
+Describes how to label channels in combined sections. This enum is closely related
+to - but separate from - the PersonalSectionType enum. Some sections may not have labels
+and some labels may not have sections.
+"""
+enum PersonalSectionChannelLabel {
+  """
+  Use no label.
+  """
+  NONE
+
+  """
+  Use label for recommended channel.
+  """
+  RECOMMENDED
+
+  """
+  Use label for similar channel.
+  """
+  SIMILAR
+
+  """
+  Use label for followed channel.
+  """
+  FOLLOWED
+
+  """
+  Use label for popular channel.
+  """
+  POPULAR
+}
+
+"""
+Describes the type in personal sections.
+"""
+enum PersonalSectionType {
+  """
+  Returns the list of followed channels if the user is authenticated.
+  """
+  FOLLOWED_SECTION
+
+  """
+  Returns the list of recommended channels.
+  """
+  RECOMMENDED_SECTION
+
+  """
+  Returns the list of popular channels.
+  """
+  POPULAR_SECTION
+
+  """
+  Returns the list of similar channels.
+  """
+  SIMILAR_SECTION
+}
+
+"""
+The phase state signifies the progress of the phase in the competition.
+"""
+enum PhaseState {
+  """
+  No lobbies are currently actively playing in the phase.
+  """
+  UNSTARTED
+
+  """
+  Some or all the lobbies in the phase are actively playing.
+  """
+  PLAYING
+
+  """
+  All lobbies in the phase are done playing.
+  """
+  FINISHED
+
+  """
+  Lobby state is unknown.
+  """
+  UNKNOWN
+}
+
+"""
+Stream platform type.
+"""
+enum PlatformType {
+  all
+  ps4
+  xbox
+}
+
+"""
+Possible sort orders for lists of polls.
+"""
+enum PollSort {
+  """
+  Sort the polls by time.
+  """
+  START_TIME
+}
+
+"""
+The status of the poll.
+"""
+enum PollStatus {
+  """
+  Encountered some poll status that we do not know how to handle BibleThump.
+  """
+  UNKNOWN
+
+  """
+  Poll is running. Users can vote. Results are publicly visible.
+  """
+  ACTIVE
+
+  """
+  Poll ran its entire duration and "naturally" completed. Users cannot vote. Results are publicly visible.
+  """
+  COMPLETED
+
+  """
+  Poll was manually ended ("terminated") by a user. Users cannot vote. Results are publicly visible.
+  """
+  TERMINATED
+
+  """
+  Poll has ended and is no longer publicly visible. Users cannot vote. Results are not publicly visible.
+  """
+  ARCHIVED
+
+  """
+  Poll has been moderated by Twitch and is no longer viewable, even to the poll
+  owner. Users cannot vote. Results are not visible to any user.
+  """
+  MODERATED
+}
+
+"""
+Possible sort orders for lists of voters.
+"""
+enum PollVoterConnectionSort {
+  """
+  Sort the voters by # of votes.
+  """
+  VOTES
+
+  """
+  Sort the voters by time of creation.
+  """
+  CREATED_DATE
+
+  """
+  Sort the voters by amount of Bits on vote.
+  """
+  BITS
+
+  """
+  Sort the voters by amount of channel points.
+  """
+  CHANNEL_POINTS
+}
+
+"""
+Possible sort directions for lists of voters.
+"""
+enum PollVoterConnectionSortDirection {
+  """
+  Sort in descending order.
+  """
+  DESC
+
+  """
+  Sort in ascending order.
+  """
+  ASC
+}
+
+"""
+Possible statuses for a Prediction Event.
+"""
+enum PredictionEventStatus {
+  """
+  Event is actively accepting new predictions.
+  """
+  ACTIVE
+
+  """
+  Event is no longer accepting new predictions, and is awaiting resolution.
+  """
+  LOCKED
+
+  """
+  Event has been resolved, and is in the process of paying out winners.
+  """
+  RESOLVE_PENDING
+
+  """
+  Event has been resolved, the winning Option has been determined, and winners have received their Channel Points.
+  """
+  RESOLVED
+
+  """
+  Event has been canceled, and is in the process of refunding participants.
+  """
+  CANCEL_PENDING
+
+  """
+  Event has been canceled and all users have been refunded.
+  """
+  CANCELED
+}
+
+"""
+The possible colors for a Prediction Outcome.
+"""
+enum PredictionOutcomeColor {
+  """
+  Blue.
+  """
+  BLUE
+
+  """
+  Pink.
+  """
+  PINK
+
+  """
+  Green.
+  """
+  GREEN
+
+  """
+  Orange.
+  """
+  ORANGE
+
+  """
+  Grey.
+  """
+  GREY
+
+  """
+  Purple.
+  """
+  PURPLE
+}
+
+"""
+Possible result types for a Prediction.
+"""
+enum PredictionResult {
+  """
+  The Prediction was incorrect.
+  """
+  LOSE
+
+  """
+  The Prediction was canceled and refunded.
+  """
+  REFUND
+
+  """
+  The Prediction was correct.
+  """
+  WIN
+}
+
+"""
+DEPRECATED.
+"""
+enum PremiereStatus {
+  """
+  An unscheduled premiere.
+  """
+  UNSCHEDULED @deprecated(reason: "Premieres as a product has been deprecated")
+
+  """
+  A scheduled premiere.
+  """
+  SCHEDULED @deprecated(reason: "Premieres as a product has been deprecated")
+
+  """
+  A cancelled premiere.
+  """
+  CANCELLED @deprecated(reason: "Premieres as a product has been deprecated")
+
+  """
+  A premiere that has been started.
+  """
+  STARTED @deprecated(reason: "Premieres as a product has been deprecated")
+
+  """
+  A successfully completed premiere.
+  """
+  SUCCESS @deprecated(reason: "Premieres as a product has been deprecated")
+
+  """
+  A failed premiere. Examples of failed premieres are premieres that attempt to run
+  prior to the video being processed (or failed processing,) or the event failing
+  in the middle due to technical difficulties.
+  """
+  FAILED @deprecated(reason: "Premieres as a product has been deprecated")
+
+  """
+  An unknown status to ensure we are able to return something.
+  """
+  UNKNOWN @deprecated(reason: "Premieres as a product has been deprecated")
+}
+
+"""
+Domain of dev insights report.
+"""
+enum PresignDevInsightsReportURLDomain {
+  """
+  Report for a game.
+  """
+  GAME
+
+  """
+  Report for an extension.
+  """
+  EXTENSION
+
+  """
+  Report for a drop.
+  """
+  DROP
+}
+
+"""
+Type of dev insights report.
+"""
+enum PresignDevInsightsReportURLReportType {
+  """
+  Default report type, used for games and extensions.
+  """
+  OVERVIEW_V2
+
+  """
+  Drops report that returns top 10 streamers for campaigns.
+  """
+  DROPS_CAMPAIGNS_TOP_STREAMERS
+
+  """
+  Drops report that returns overview of campaigns.
+  """
+  DROPS_CAMPAIGNS_OVERVIEW
+
+  """
+  Drops report that returns overview of drops.
+  """
+  DROPS_CAMPAIGNS_DROPS_OVERVIEW
+}
+
+"""
+The Names for the smilies Emoticon sets supported by Prime.
+"""
+enum PrimeEmoticonsSetName {
+  """
+  Emotes that are granted to all users with Robot faces. Group id is #0 and emoticons start at id #1.
+  """
+  ROBOTS
+
+  """
+  Emotes that are granted via Prime with Turbo faces.
+  """
+  PURPLE
+
+  """
+  Emotes that are granted via Prime with Monkey faces.
+  """
+  MONKEYS
+}
+
+"""
+PrivacyLawName is the privacy law.
+"""
+enum PrivacyLawName {
+  """
+  Privacy law CCPA.
+  """
+  CCPA
+
+  """
+  Privacy GDPR.
+  """
+  GDPR
+
+  """
+  Rest of World.
+  """
+  ROW
+}
+
+"""
+The enumerated error reasons when processing payment made for the purchase of an offer.
+"""
+enum ProcessAndroidPaymentErrorCode {
+  """
+  User is ineligible to purchase.
+  """
+  INELIGIBLE
+
+  """
+  Unable to process payment due to an invalid argument.
+  """
+  INVALID_ARGUMENT
+
+  """
+  An unexpected internal server error occurred.
+  """
+  INTERNAL_SERVER_ERROR
+
+  """
+  Must have auth credentials to purchase an offer.
+  """
+  UNAUTHENTICATED
+
+  """
+  Transaction had already been processed.
+  """
+  ALREADY_HANDLED
+}
+
+"""
+The enumerated error reasons when processing payment made for the purchase of an offer.
+"""
+enum ProcessIOSPaymentErrorCode {
+  """
+  User is ineligible to purchase.
+  """
+  INELIGIBLE
+
+  """
+  Unable to process payment due to an invalid argument.
+  """
+  INVALID_ARGUMENT
+
+  """
+  An unexpected internal server error occurred.
+  """
+  INTERNAL_SERVER_ERROR
+
+  """
+  Must have auth credentials to purchase an offer.
+  """
+  UNAUTHENTICATED
+
+  """
+  Transaction had already been processed.
+  """
+  ALREADY_HANDLED
+}
+
+"""
+Possible errors when retrieving product purchase info.
+"""
+enum ProductPurchaseErrorCode {
+  """
+  The user is unauthorized to retrieve the purchase info.
+  """
+  USER_UNAUTHORIZED
+
+  """
+  PricingID not found.
+  """
+  PRICING_ID_NOT_FOUND
+
+  """
+  Cannot determine the user residence.
+  """
+  UNKNOWN_USER_RESIDENCE
+
+  """
+  Billing info not found for the user.
+  """
+  BILLING_INFO_NOT_FOUND
+
+  """
+  User ineligible to make corresponding purchase.
+  """
+  PURCHASE_INELIGIBLE
+
+  """
+  Unexpected error occurred.
+  """
+  UNKNOWN
+}
+
+"""
+Types that can only be displayed for an Offer Promotion.
+"""
+enum PromoDiscountType {
+  """
+  No Discount type to be shown.
+  """
+  DISCOUNT_TYPE_NONE
+
+  """
+  Percent Discount type to be shown.
+  """
+  DISCOUNT_TYPE_PERCENT
+}
+
+"""
+Possible error codes returned for publishing subscription emotes.
+"""
+enum PublishSubscriptionEmoteErrorCode {
+  """
+  The product has no available empty emote slots.
+  """
+  EMOTE_LIMIT_REACHED
+
+  """
+  Only the product owner is allowed to upload emotes.
+  """
+  INVALID_OWNER
+
+  """
+  The emote code submitted collides with an existing emote code.
+  """
+  EMOTE_CODE_ALREADY_EXISTS
+
+  """
+  The emote code submitted is unacceptable (contains offensive, banned, or "bad" words, which violates guidelines).
+  """
+  EMOTE_CODE_UNACCEPTABLE
+
+  """
+  Data for least one of the image sizes is not provided or invalid.
+  """
+  INCOMPLETE_EMOTE_IMAGE_DATA
+
+  """
+  The emote code suffix submitted contains invalid characters.
+  """
+  INVALID_CODE_SUFFIX
+
+  """
+  The upload emote image could not be parsed.
+  """
+  INVALID_IMAGE_UPLOAD
+
+  """
+  The uploaded emote image could not be found.
+  """
+  EMOTE_IMAGE_NOT_FOUND
+
+  """
+  There were not enough image assets supplied for the selected asset type.
+  """
+  NOT_ENOUGH_EMOTE_IMAGE_ASSETS
+
+  """
+  There were more image assets supplied than required for the selected asset type.
+  """
+  TOO_MANY_EMOTE_IMAGE_ASSETS
+
+  """
+  The selected emote asset type was invalid.
+  """
+  INVALID_EMOTE_ASSET_TYPE
+
+  """
+  A static image asset was not supplied, but is required for the selected asset type.
+  """
+  EMOTE_MISSING_STATIC_ASSET
+
+  """
+  An animated image asset was not supplied, but is required for the selected asset type.
+  """
+  EMOTE_MISSING_ANIMATED_ASSET
+
+  """
+  Other errors returned from the service.
+  """
+  UNKNOWN_ERROR
+}
+
+"""
+Category of product that can be purchased.
+"""
+enum PurchaseableProductType {
+  """
+  Subscription product.
+  """
+  SUBSCRIPTION
+
+  """
+  Bits product.
+  """
+  BITS
+}
+
+"""
+Set of purchase Ineligibility reasons.
+"""
+enum PurchaseIneligibilityReason {
+  """
+  User already has an active subscription to this product.
+  """
+  HAS_ACTIVE_SUBSCRIPTION
+
+  """
+  Not applicable as user is eligible to make a purchase.
+  """
+  NOT_APPLICABLE
+}
+
+"""
+The enumerated error reasons when purchasing an offer.
+"""
+enum PurchaseOfferErrorCode {
+  """
+  User is ineligible to purchase.
+  """
+  INELIGIBLE
+
+  """
+  An unexpected internal server error occurred.
+  """
+  INTERNAL_SERVER_ERROR
+
+  """
+  User's payment method is invalid.
+  """
+  INVALID_PAYMENT_METHOD
+
+  """
+  Must have auth credentials to purchase an offer.
+  """
+  UNAUTHENTICATED
+}
+
+"""
+The enumerated failure reasons for a purchase order failure.
+"""
+enum PurchaseOrderFailureReason {
+  """
+  Bank declined the charge.
+  """
+  BANK_DECLINED
+
+  """
+  Failed to entitle the benefit. User was refunded if a charge occurred.
+  """
+  ENTITLEMENT_FAILED
+
+  """
+  User is ineligible to purchase.
+  """
+  INELIGIBLE
+
+  """
+  User's payment method is invalid.
+  """
+  INVALID_PAYMENT_METHOD
+
+  """
+  System error.
+  """
+  SYSTEM_ERROR
+
+  """
+  Unknown failure reason.
+  """
+  UNKNOWN
+}
+
+"""
+PurchaseOrderState is the current state of the Purchase Order.
+"""
+enum PurchaseOrderState {
+  """
+  The Purchase Order is in an unknown state.
+  """
+  UNKNOWN
+
+  """
+  The Purchase Order flow has been initiated and is at its starting state.
+  """
+  INITIATED
+
+  """
+  The Purchase Order has a scheduled future-dated payment to complete the purchase.
+  """
+  PAYMENT_PENDING
+
+  """
+  The Purchase Order has been paid and fulfillment has been kicked off.
+  """
+  FULFILLMENT_INITIATED
+
+  """
+  The Purchase Order has been successfully fulfilled.
+  """
+  SUCCESS
+
+  """
+  The Purchase Order failed and requires 3DS2 verification.
+  """
+  THREE_D_SECURE_CHALLENGE_REQUIRED
+
+  """
+  The Purchase Order failed.
+  """
+  FAILED
+
+  """
+  The Purchase Order's benefit cancellation has been kicked off.
+  """
+  CANCEL_BENEFITS_INITIATED
+
+  """
+  The Purchase Order's benefits have been fully cancelled.
+  """
+  BENEFITS_CANCELLED
+
+  """
+  A refund has been kicked off for the Purchase Order.
+  """
+  REFUND_INITIATED
+
+  """
+  A refund has been successfully applied to the Purchase Order.
+  """
+  REFUND_APPLIED
+
+  """
+  A refund has failed to the Purchase Order.
+  """
+  REFUND_FAILED
+}
+
+enum PurchaseProfileState {
+  ACTIVE
+  CANCELLED
+  INACTIVE
+  MIGRATED
+}
