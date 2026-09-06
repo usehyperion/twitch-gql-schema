@@ -722,7 +722,7 @@ type SelectGlobalBadgePayload {
 }
 
 type SendAnnouncementMessagePayload {
-
+  _placeholder: Boolean
 }
 
 """
