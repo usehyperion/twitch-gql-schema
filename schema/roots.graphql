@@ -1470,6 +1470,8 @@ type Mutation {
   """
   selectGlobalBadge(input: SelectGlobalBadgeInput!): SelectGlobalBadgePayload
 
+  sendAnnouncementMessage(input: SendAnnouncementMessageInput!): SendAnnouncementMessagePayload
+
   """
   Send a chat message through subscribers-only mode with Channel Points.
   """

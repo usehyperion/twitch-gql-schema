@@ -721,6 +721,10 @@ type SelectGlobalBadgePayload {
   user: User
 }
 
+type SendAnnouncementMessagePayload {
+
+}
+
 """
 The response from redeeming the skip subs only chat message reward.
 """

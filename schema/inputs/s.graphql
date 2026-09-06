@@ -545,6 +545,12 @@ input SelectGlobalBadgeInput {
   badgeSetVersion: String
 }
 
+input SendAnnouncementMessageInput {
+  channelID: ID!
+  message: String!
+  color: AnnouncementMessageColor!
+}
+
 """
 Input for sending a chat message through subscriber-only mode with Channel Points.
 """

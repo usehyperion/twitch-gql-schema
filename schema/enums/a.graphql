@@ -394,6 +394,14 @@ enum AnimatedEmotePreset {
   SLIDE_OUT
 }
 
+enum AnnouncementMessageColor {
+  PRIMARY
+  BLUE
+  GREEN
+  ORANGE
+  PURPLE
+}
+
 """
 Archive community goal error code.
 """
