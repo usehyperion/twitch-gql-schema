@@ -2378,6 +2378,14 @@ type ChatUISettings {
   isEmoteAnimationsSettingCalloutDismissed: Boolean
 }
 
+type ChatWarningDetails {
+  id: String!
+  chatRulesCited: [String!]
+  createdAt: Time!
+  reason: String!
+  warnedBy: User!
+}
+
 """
 Configs that help initiate the bits checkout flow.
 """

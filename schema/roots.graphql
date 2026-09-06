@@ -2582,6 +2582,8 @@ type Mutation {
   Casts a vote for a specific choice in a poll, by index and channelID.
   """
   voteInPollByChoiceIndex(input: VoteInPollByChoiceIndexInput!): VoteInPollByChoiceIndexPayload
+
+  warnUserInChatRoom(input: WarnUserInChatRoomInput!): WarnUserInChatRoomPayload
 }
 
 """

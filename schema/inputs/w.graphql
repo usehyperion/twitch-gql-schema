@@ -1,3 +1,10 @@
+input WarnUserInChatRoomInput {
+  channelID: ID!
+  targetUserID: ID!
+  reason: String!
+  chatRulesCited: [String!]!
+}
+
 """
 Options for querying for catalog items. These fields are mutually exclusive
 and parentID will take precedent if both are specified.
