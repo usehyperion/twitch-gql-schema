@@ -1391,6 +1391,10 @@ type UpdatePhoneNumberPayload {
   error: UpdatePhoneNumberError
 }
 
+type UpdatePinnedChatMessagePayload {
+  updatedChatMessage: PinnedChatMessage
+}
+
 """
 Error code for an error that occurs while updating prime offer status.
 """

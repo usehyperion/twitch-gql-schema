@@ -2342,6 +2342,8 @@ type Mutation {
     input: UpdatePhoneNumberConfirmationInput!
   ): UpdatePhoneNumberConfirmationPayload
 
+  updatePinnedChatMessage(input: UpdatePinnedChatMessageInput!): UpdatePinnedChatMessagePayload
+
   """
   updatePrimeOfferStatus allows a user to update their status in respect to an offer. (e.g. UNSEEN, SEEN, CLAIMED).
   """

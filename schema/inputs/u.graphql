@@ -2076,6 +2076,11 @@ input UpdatePhoneNumberInput {
   userID: ID!
 }
 
+input UpdatePinnedChatMessageInput {
+  id: ID!
+  durationSeconds: Int
+}
+
 """
 The offer id you wish to update as well as the status for the update.
 """
