@@ -555,6 +555,7 @@ input SendChatMessageInput {
   channelID: ID!
   message: String!
   nonce: String!
+  replyParentMessageID: ID
 }
 
 """
