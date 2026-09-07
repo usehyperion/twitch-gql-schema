@@ -725,6 +725,11 @@ type SendAnnouncementMessagePayload {
   _placeholder: Boolean
 }
 
+type SendChatMessagePayload {
+  dropReason: String
+  message: ChatMessage
+}
+
 """
 The response from redeeming the skip subs only chat message reward.
 """
@@ -846,6 +851,11 @@ type SendExtensionMessageThrottleData {
   Time when this rate limit will reset.
   """
   resetsAt: Time
+}
+
+type SendGifMessagePayload {
+  message: GifMessage
+  secondsUntilCanSend: Int
 }
 
 """

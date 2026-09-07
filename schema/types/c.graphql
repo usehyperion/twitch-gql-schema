@@ -2185,6 +2185,10 @@ type ChargeModelPlanInterval {
   unit: ChargeModelPlanIntervalUnit!
 }
 
+type ChatMessage {
+  id: ID!
+}
+
 type ChatRoomBanStatus {
   """
   The user being banned of this chat.

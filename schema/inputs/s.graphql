@@ -551,6 +551,12 @@ input SendAnnouncementMessageInput {
   color: AnnouncementMessageColor!
 }
 
+input SendChatMessageInput {
+  channelID: ID!
+  message: String!
+  nonce: String!
+}
+
 """
 Input for sending a chat message through subscriber-only mode with Channel Points.
 """
@@ -653,6 +659,11 @@ input SendExtensionMessageInput {
   The set of target message receievers to send to, e.g. "broadcast".
   """
   targets: [String!]!
+}
+
+input SendGifMessageInput {
+  channelID: ID!
+  gifID: String!
 }
 
 """

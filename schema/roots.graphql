@@ -1473,6 +1473,7 @@ type Mutation {
   selectGlobalBadge(input: SelectGlobalBadgeInput!): SelectGlobalBadgePayload
 
   sendAnnouncementMessage(input: SendAnnouncementMessageInput!): SendAnnouncementMessagePayload
+  sendChatMessage(input: SendChatMessageInput!): SendChatMessagePayload
 
   """
   Send a chat message through subscribers-only mode with Channel Points.
@@ -1493,6 +1494,8 @@ type Mutation {
   Sends a pubsub message on behalf of an Extension.
   """
   sendExtensionMessage(input: SendExtensionMessageInput!): SendExtensionMessagePayload
+
+  sendGifMessage(input: SendGifMessageInput!): SendGifMessagePayload
 
   """
   Send a highlighted chat message with Channel Points.

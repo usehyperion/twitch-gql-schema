@@ -428,6 +428,10 @@ type GetEmoteUploadConfigPayload {
   uploadConfigs: [UploadConfig!]
 }
 
+type GifMessage {
+  id: ID!
+}
+
 """
 GiftCardCode that can be claimed to add a monetary balance to a user's account.
 """
