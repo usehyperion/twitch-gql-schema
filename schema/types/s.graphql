@@ -878,6 +878,10 @@ type SendHighlightedChatMessagePayload {
   isHeldByAutomod: Boolean
 }
 
+type SendPinnedChatMessagePayload {
+  pinnedChatMessage: PinnedChatMessage
+}
+
 type SendRoomMessageError {
   code: SendRoomMessageErrorCode!
 

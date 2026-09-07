@@ -1504,6 +1504,8 @@ type Mutation {
     input: SendHighlightedChatMessageInput!
   ): SendHighlightedChatMessagePayload
 
+  sendPinnedChatMessage(input: SendPinnedChatMessageInput!): SendPinnedChatMessagePayload
+
   """
   Sends a message to a chatroom.
   """

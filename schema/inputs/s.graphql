@@ -692,6 +692,11 @@ input SendHighlightedChatMessageInput {
   transactionID: ID!
 }
 
+input SendPinnedChatMessageInput {
+  channelID: ID!
+  messageText: String!
+}
+
 input SendRoomMessageInput {
   message: String!
 
