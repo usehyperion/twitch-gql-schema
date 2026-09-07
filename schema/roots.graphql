@@ -619,6 +619,8 @@ type Mutation {
   """
   createScheduleSegment(input: CreateScheduleSegmentInput!): CreateScheduleSegmentPayload
 
+  createShoutout(input: CreateShoutoutInput!): CreateShoutoutPayload
+
   """
   createSocialMedia creates new social media items for a Channel.
   """

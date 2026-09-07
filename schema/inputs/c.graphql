@@ -2122,6 +2122,12 @@ input CreateScheduleSegmentInput {
   title: String
 }
 
+input CreateShoutoutInput {
+  channelLogin: String!
+  callerLogin: String!
+  targetLogin: String!
+}
+
 """
 CreateSocialMediaInput creates social media under the given channelID.
 """

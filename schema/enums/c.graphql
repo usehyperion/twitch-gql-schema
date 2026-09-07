@@ -2880,6 +2880,10 @@ enum CreateScheduleSegmentErrorCode {
   FIRST_OCCURRENCE_DATE_IN_PAST
 }
 
+enum CreateShoutoutError {
+  OFFLINE_BROADCASTER
+}
+
 """
 CreateSocialMediaError is a user error while creating a social media.
 """
