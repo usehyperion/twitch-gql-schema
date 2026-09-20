@@ -3776,7 +3776,6 @@ type UserRelationship {
   Subscription tenure data for the user to the target user.
   """
   subscriptionTenure(tenureMethod: SubscriptionTenureMethod!): SubscriptionTenure
-  statusHidden: Boolean
 }
 
 """

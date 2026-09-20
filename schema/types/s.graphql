@@ -3346,7 +3346,6 @@ type SubscriptionBenefit {
   The subscription tier.
   """
   tier: String!
-  type: String!
 
   """
   The user who is subscribed to.
