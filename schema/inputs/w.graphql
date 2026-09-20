@@ -1,6 +1,6 @@
 input WarnUserInChatRoomInput {
   channelID: ID!
-  targetUserLogin: ID!
+  targetUserLogin: String!
   reason: String!
   chatRulesCited: [String!]!
 }
