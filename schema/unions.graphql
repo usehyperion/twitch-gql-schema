@@ -202,6 +202,11 @@ The item to render in a video shelf.
 union VideoShelfItem = Clip | Video
 
 """
+The set of results that can occur when resolving viewer card mod logs messages.
+"""
+union ViewerCardModLogsMessagesResult = ViewerCardModLogsMessagesConnection | ViewerCardModLogsMessagesError
+
+"""
 Additional information about content.
 """
 union WatchPartyItemDetails = EpisodeDetails | MovieDetails | SeasonDetails | SeriesDetails

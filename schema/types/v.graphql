@@ -1270,6 +1270,131 @@ type ViewedVideosEdge {
 }
 
 """
+The moderation logs shown on a viewer card for a user in a channel.
+"""
+type ViewerCardModLogs {
+  """
+  The chat history of the target user in the channel.
+  """
+  messages(first: Int, after: Cursor): ViewerCardModLogsMessagesResult
+}
+
+"""
+A chat message sent by the target user, as shown in viewer card mod logs.
+"""
+type ViewerCardModLogsChatMessage {
+  """
+  The text and emoticon content of the message.
+  """
+  content: ViewerCardModLogsMessageContent!
+
+  """
+  UUID of the message.
+  """
+  id: ID!
+
+  """
+  Whether the message has been deleted.
+  """
+  isDeleted: Boolean!
+
+  """
+  The user that last updated the message, if any.
+  """
+  lastUpdatedBy: User
+
+  """
+  The channel the message was originally sent in, if it was sent from another channel (e.g. shared chat).
+  """
+  originatorChannel: User
+
+  """
+  The user that sent the message.
+  """
+  sender: User
+
+  """
+  The badges the sender had when the message was sent.
+  """
+  senderBadges: [Badge!]
+
+  """
+  Time the message was sent.
+  """
+  sentAt: Time!
+}
+
+"""
+The content of a message in viewer card mod logs.
+"""
+type ViewerCardModLogsMessageContent {
+  """
+  Parsed list of fragments in the message, include emotes, mentions, and plaintext.
+  """
+  fragments: [ViewerCardModLogsMessageFragment!]!
+
+  """
+  String representation of the message.
+  """
+  text: String!
+}
+
+"""
+One parsed part of a message, which may be an emote, mention, or plaintext.
+"""
+type ViewerCardModLogsMessageFragment {
+  """
+  Contains an emote or a mentioned user depending on the text of the fragment.
+  """
+  content: FragmentContent
+
+  """
+  Plaintext representation of the fragment.
+  """
+  text: String!
+}
+
+"""
+Paginated list of messages in viewer card mod logs.
+"""
+type ViewerCardModLogsMessagesConnection {
+  """
+  The elements of the list.
+  """
+  edges: [ViewerCardModLogsMessagesEdge!]!
+
+  """
+  Information about this page.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+Element in a list of viewer card mod logs messages.
+"""
+type ViewerCardModLogsMessagesEdge {
+  """
+  Opaque cursor describing this edge's position in the paginated list.
+  """
+  cursor: Cursor!
+
+  """
+  The message.
+  """
+  node: ViewerCardModLogsChatMessage
+}
+
+"""
+An error that occurred while resolving viewer card mod logs messages.
+"""
+type ViewerCardModLogsMessagesError {
+  """
+  A code representing the error state.
+  """
+  code: String!
+}
+
+"""
 Paginated list of VIP users of a channel.
 """
 type VIPConnection {

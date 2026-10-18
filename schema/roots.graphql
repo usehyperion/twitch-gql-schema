@@ -3401,6 +3401,11 @@ type Query {
   ): VideoConnection
 
   """
+  The moderation logs shown on a viewer card for the target user in the given channel.
+  """
+  viewerCardModLogs(channelID: ID!, targetID: ID!): ViewerCardModLogs
+
+  """
   Get a list of Prime Video items for Watch Parties.
   """
   watchPartyItems(
