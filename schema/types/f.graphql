@@ -493,6 +493,11 @@ type Founder {
   user: User
 }
 
+type FreeformTag {
+  id: String
+  name: String
+}
+
 """
 A list of a user's friend relationships.
 """

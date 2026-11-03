@@ -2451,6 +2451,8 @@ type Stream {
       reason: "This was made for Communities, but the feature is officially dead. Use 'game' instead"
     )
 
+  freeformTags: [FreeformTag!]
+
   """
   Information about the game being streamed.
   """
