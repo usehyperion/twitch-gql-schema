@@ -166,6 +166,8 @@ type Game implements Directory {
   """
   self: GameSelfConnection
 
+  slug: String!
+
   """
   Get a page of live streams broadcasting this game.
   The languages param can be used to filter the streams. Otherwise all languages will be returned.
