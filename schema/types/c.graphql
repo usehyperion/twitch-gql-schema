@@ -2327,6 +2327,11 @@ type ChattersInfo {
   broadcasters: [Chatter!]!
 
   """
+  List of active chatbots.
+  """
+  chatbots: [Chatter!]!
+
+  """
   Number of active chatters.
   """
   count: Int!
